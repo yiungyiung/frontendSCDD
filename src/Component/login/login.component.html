@@ -1,0 +1,24 @@
+<div>
+    hi
+    <h2>Login</h2>
+    <label>Email: <input [(ngModel)]="email" type="text"></label>
+    <label>Password: <input [(ngModel)]="password" type="password"></label>
+    <button (click)="login()">Login</button>
+</div>
+
+<div *ngIf="token">
+    <h3>Token</h3>
+    <pre>{{ token }}</pre>
+
+    <button (click)="getProtectedData()">Get Protected Data</button>
+    <div *ngIf="protectedData">
+        <h3>Protected Data</h3>
+        <pre>{{ protectedData | json }}</pre>
+    </div>
+
+    <button (click)="getAdminData()">Get Admin Data</button>
+    <div *ngIf="adminData">
+        <h3>Admin Data</h3>
+        <pre>{{ adminData | json }}</pre>
+    </div>
+</div>
