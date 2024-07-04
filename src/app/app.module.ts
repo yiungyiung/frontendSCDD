@@ -7,11 +7,14 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { LoginComponent } from '../Component/login/login.component';
 import { TestComponent } from '../Component/test/test.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminDashboardComponent } from '../Component/admin-dashboard/admin-dashboard.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    TestComponent
+    TestComponent,
+    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,

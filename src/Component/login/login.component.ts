@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { AuthService } from '../../services/AuthService/auth.service';
 import { FormsModule } from '@angular/forms';
 import { NgIf, JsonPipe } from '@angular/common';
+import { Role } from '../../model/role';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   email = '';
@@ -14,12 +17,30 @@ export class LoginComponent {
   protectedData = '';
   adminData = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router,  private cdr: ChangeDetectorRef) { }
 
   login() {
     this.authService.login(this.email, this.password).subscribe(response => {
       this.token = response.token;
       console.log('Logged in successfully:', response);
+      this.authService.setToken(this.token);
+      
+      // Manually trigger change detection
+      this.cdr.detectChanges();
+  
+      const role = this.authService.getRoleFromToken(response.token);
+      console.log(role+"seerole")
+      if (role === Role.Admin) {
+        this.router.navigate(['/admin-dashboard']);
+      } else if (role === Role.Manager) {
+        this.router.navigate(['/manager-dashboard']);
+      } else if (role === Role.Analyst) {
+        this.router.navigate(['/analyst-dashboard']);
+      } else if (role === Role.Vendor) {
+        this.router.navigate(['/vendor-dashboard']);
+      } else {
+        this.router.navigate(['/']); 
+      }
     }, error => {
       console.error('Login failed:', error);
     });
