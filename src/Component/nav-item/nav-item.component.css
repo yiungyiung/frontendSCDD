@@ -1,0 +1,69 @@
+/* Base styles */
+.nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; /* Use rem for spacing */
+    cursor: pointer;
+    text-decoration: none; 
+    color: #E7F4F9; 
+    transition: color 0.3s; 
+  }
+  
+  .nav-icon {
+    width: 1.5rem; /* Use rem for icon size */
+    height: 1.5rem;
+    fill: #E7F4F9;
+    transition: fill 0.3s; 
+  }
+  
+  .nav-text {
+    font-size: 1.5rem; /* Use rem for text size */
+    transition: color 0.1s; 
+  }
+  
+  /* Hover effects */
+  .nav-item:hover .nav-icon {
+    fill: #F9A634; 
+  }
+  
+  .nav-item:hover .nav-text {
+    color: #F9A634;
+  }
+  
+  .nav-item:hover {
+    color: #F9A634; 
+  }
+  
+  /* Responsive styles for smaller screens */
+  @media (max-width: 992px) {
+    .nav-item {
+      gap: 0.25rem; /* Reduce gap using rem */
+    }
+  
+    .nav-icon {
+      width: 1.25rem; /* Reduce icon size using rem */
+      height: 1.25rem;
+    }
+  
+    .nav-text {
+      font-size: 1.25rem; /* Reduce text size using rem */
+    }
+  }
+  
+  /* Further reduce sizes if screensize is <= 992px width and 576px height (16:9) */
+  @media (max-width: 992px) and (max-height: 576px) {
+    .nav-item {
+      gap: 0.1rem; /* Further reduce gap */
+    }
+  
+    .nav-icon {
+      width: 1rem; /* Further reduce icon size */
+      height: 1rem;
+    }
+  
+    .nav-text {
+      font-size: 1rem; /* Further reduce text size */
+    }
+  }
+  

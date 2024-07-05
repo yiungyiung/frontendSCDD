@@ -1,0 +1,58 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 6rem;
+    background-color: #12789E;
+    color: #E7F4F9;
+    padding:0 30px;
+    border-radius: 8px;
+  }
+  
+  .nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    text-decoration: none; /* Ensure no underline on links */
+    color: #E7F4F9; /* Default text color */
+    transition: color 0.1s; 
+  }
+  
+  .nav-icon {
+    width: 24px;
+    height: 24px;
+    fill: #E7F4F9; /* Default fill color */
+    transition: fill 0.1s; /* Add transition for smooth color change */
+    color: #E7F4F9;
+  }
+  
+  .nav-text {
+    font-size: 16px;
+    transition: color 0.1s;
+  }
+  
+  .nav-item:hover .nav-icon {
+    fill: #F9A634; /* Change fill color on hover */
+  }
+  
+  .nav-item:hover .nav-text {
+    color: #F9A634; /* Change text color on hover */
+  }
+  
+  .new-icon {
+    color: white;
+    transition: color 0.1s;
+  }
+    
+  .new-icon:hover {
+    color: #F9A634;
+  }
+
+  @media (max-width: 992px) {
+    .navbar {
+      height: 4rem;
+    }
+  }
+  
