@@ -3,7 +3,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem; /* Use rem for spacing */
     cursor: pointer;
     text-decoration: none; 
     color: #E7F4F9; 
@@ -11,8 +10,8 @@
   }
   
   .nav-icon {
-    width: 1.5rem; /* Use rem for icon size */
-    height: 1.5rem;
+    width: 1.5rem; 
+    height: auto;
     fill: #E7F4F9;
     transition: fill 0.3s; 
   }
@@ -42,8 +41,8 @@
     }
   
     .nav-icon {
-      width: 1.25rem; /* Reduce icon size using rem */
-      height: 1.25rem;
+      width: 1.5rem; /* Reduce icon size using rem */
+      height: 1.5rem;
     }
   
     .nav-text {
