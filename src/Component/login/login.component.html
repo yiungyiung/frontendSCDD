@@ -1,58 +1,55 @@
 <div class="b">
     <div class="custom-margin">
-  
-      <nav class="navbar bg-body-tertiary custom-navbar">
-        <div class="container-fluid d-flex justify-content-between">
-          <a class="navbar-brand">
-            <img src="logo1.png" alt="Logo 1" width="auto" height="60" class="d-inline-block align-text-top">
-          </a>
-        </div>
-        <form class="d-flex" role="search">
-          <div class="navbar-brand">
-            <img src="logo2.png" alt="Logo 2" width="auto" height="60" class="d-inline-block align-text-top">
-          </div>
-        </form>
-      </nav>
-      <br>
-      <div class="body-center">
-        <div class="card p-4">
-          <h2>Login</h2>
-  
-          <div class="input-container">
-            <div class="icon-container">
-              <i class="bi bi-person-fill"></i>
+
+        <nav class=" bg-body-tertiary custom-navbar">
+            <div class="container-fluid d-flex justify-content-between">
+                <a class="navbar-brand">
+                    <img src="logo1.png" alt="Logo 1" width="auto" height="60" class="d-inline-block align-text-top">
+                </a>
             </div>
-            <input [(ngModel)]="email" type="text" class="form-control" placeholder="Email">
-          </div>
-          
-          <div class="input-container">
-            <div class="icon-container">
-              <i class="bi bi-lock-fill"></i>
+            <div class="navbar-brand">
+                <img src="logo2.png" alt="Logo 2" width="auto" height="60" class="d-inline-block align-text-top">
             </div>
-            <input [(ngModel)]="password" type="password" class="form-control" placeholder="Password">
-          </div>
-          
-          <button class="btn btn-primary mt-3" (click)="login()">Login</button>
+        </nav>
+        <br>
+        <div class="body-center">
+            <div class="card p-4">
+                <h2>Login</h2>
+
+                <div class="input-container">
+                    <div class="icon-container">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                    <input [(ngModel)]="email" type="text" class="form-control" placeholder="Email">
+                </div>
+
+                <div class="input-container">
+                    <div class="icon-container">
+                        <i class="bi bi-lock-fill"></i>
+                    </div>
+                    <input [(ngModel)]="password" type="password" class="form-control" placeholder="Password">
+                </div>
+
+                <button class="btn btn-primary mt-3" (click)="login()">Login</button>
+            </div>
+
+            <div class="card mt-4" *ngIf="token">
+                <h3>Token</h3>
+                <pre>{{ token }}</pre>
+
+                <button class="btn btn-secondary" (click)="getProtectedData()">Get Protected Data</button>
+                <div *ngIf="protectedData">
+                    <h3>Protected Data</h3>
+                    <pre>{{ protectedData | json }}</pre>
+                </div>
+
+                <button class="btn btn-secondary" (click)="getAdminData()">Get Admin Data</button>
+                <div *ngIf="adminData">
+                    <h3>Admin Data</h3>
+                    <pre>{{ adminData | json }}</pre>
+                </div>
+            </div>
         </div>
-  
-        <div class="card mt-4" *ngIf="token">
-          <h3>Token</h3>
-          <pre>{{ token }}</pre>
-        
-          <button class="btn btn-secondary" (click)="getProtectedData()">Get Protected Data</button>
-          <div *ngIf="protectedData">
-            <h3>Protected Data</h3>
-            <pre>{{ protectedData | json }}</pre>
-          </div>
-        
-          <button class="btn btn-secondary" (click)="getAdminData()">Get Admin Data</button>
-          <div *ngIf="adminData">
-            <h3>Admin Data</h3>
-            <pre>{{ adminData | json }}</pre>
-          </div>
-        </div>
-      </div>
-  
+
     </div>
-  </div>
-  
+</div>

@@ -4,17 +4,11 @@
 }
 
 .custom-navbar {
-    height: 44px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0;
-}
-
-.custom-margin {
-    margin-left: 71px;
-    margin-right: 71px;
-    padding-top: 20px;
 }
 
 .body-center {
@@ -22,7 +16,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 84px); /* Subtracting navbar height and padding */
+    min-height: calc(100vh - 84px);
+    /* Subtracting navbar height and padding */
 }
 
 .cards-container {
@@ -57,9 +52,8 @@
     width: calc(100% - 20px);
     padding: 8px;
     margin-top: 5px;
-    border:0;
-    margin-left:10px ;
-
+    border: 0;
+    margin-left: 10px;
 }
 
 .card input[type="text"]:focus,
@@ -101,14 +95,14 @@
     text-decoration: underline;
 }
 
-
 .input-container {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    overflow: hidden; /* Ensure the border-radius applies to the whole container */
+    overflow: hidden;
+    /* Ensure the border-radius applies to the whole container */
 }
 
 .icon-container {
@@ -121,18 +115,20 @@
 
 .icon-container i {
     font-size: 1.2em;
-    color: #555; /* Icon color */
+    color: #555;
+    /* Icon color */
 }
 
 .input-container .form-control {
     flex: 1;
     border: none;
     padding: 10px;
-    border-radius: 0; /* Remove border-radius from individual inputs */
-    margin-left: -1px; 
+    border-radius: 0;
+    /* Remove border-radius from individual inputs */
+    margin-left: -1px;
 }
 
 .input-container .form-control:focus {
     outline: none;
-    box-shadow: none; 
+    box-shadow: none;
 }
