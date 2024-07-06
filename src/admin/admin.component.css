@@ -1,0 +1,21 @@
+.custom-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 6rem;
+    background-color: #12789E;
+    color: #E7F4F9;
+    padding: 0 30px;
+    border-radius: 8px;
+}
+
+.custom-padded-content {
+    padding-left: 71px;
+    padding-right: 71px;
+}
+
+@media (max-width: 992px) {
+    .custom-navbar {
+        height: 4rem;
+    }
+}

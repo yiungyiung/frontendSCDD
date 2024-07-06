@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../services/DataService/data.service';
 import { AuthService } from '../../services/AuthService/auth.service';
+import { DataService } from '../../services/DataService/data.service';
 
 @Component({
-  selector: 'app-admin-dashboard',
-  templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./admin-dashboard.component.css']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
-export class AdminDashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit {
   users: any[] = [];
 
   constructor(private dataService: DataService, private authService: AuthService) { }
 
-  ngOnInit(): void {
-    this.fetchUsers();
+  ngOnInit() {
   }
 
   fetchUsers(): void {

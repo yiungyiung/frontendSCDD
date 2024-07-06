@@ -5,17 +5,16 @@ import { environment } from '../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Role } from '../../model/role';
 import { User } from '../../model/user';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private apiUrl = environment.apiUrl;
+  private tokenKey = 'auth-token';
+  public jwtHelper = new JwtHelperService();
 
   constructor(private http: HttpClient) { }
-
-  private tokenKey = 'auth-token';
-  private jwtHelper = new JwtHelperService();
-
 
   getToken(): string {
     return localStorage.getItem(this.tokenKey) || '';
@@ -27,17 +26,13 @@ export class AuthService {
 
   login(email: string, password: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    
     return this.http.post(`${this.apiUrl}/auth/login`, { email, password }, { headers });
-  
   }
 
- getRoleFromToken(token: string): Role {
+  getRoleFromToken(token: string): Role {
     const decodedToken = this.jwtHelper.decodeToken(token);
     return decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] as Role;
-
   }
-
 
   getProtectedData(token: string): Observable<any> {
     const headers = new HttpHeaders({ 
@@ -57,14 +52,20 @@ export class AuthService {
 
   getCurrentUser(): User | null {
     const token = this.getToken();
-    if (token) {
+    if (token && !this.jwtHelper.isTokenExpired(token)) {
       const decodedToken = this.jwtHelper.decodeToken(token);
       return {
-        email: decodedToken.email,
-        role: decodedToken.role as Role
+        email: decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
+        name: decodedToken['name'],
+        isActive: decodedToken['is_active'] === 'true',
+        contact_Number: decodedToken['contact_number'],
+        role: decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] as Role
       };
     }
     return null;
   }
 
+  logout(): void {
+    localStorage.removeItem(this.tokenKey);
+  }
 }

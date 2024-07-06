@@ -7,23 +7,14 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { LoginComponent } from '../Component/login/login.component';
 import { TestComponent } from '../Component/test/test.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AdminDashboardComponent } from '../Component/admin-dashboard/admin-dashboard.component';
 import { MatIconModule } from '@angular/material/icon';
-import { NavItemComponent } from '../Component/nav-item/nav-item.component';
-import { MenubarComponent } from '../Component/menubar/menubar.component';
-import { TopBarComponent } from '../Component/TopBar/TopBar.component';
+import { MatIcon } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     TestComponent,
-    AdminDashboardComponent,
-    NavItemComponent,
-    MenubarComponent,
-    TopBarComponent,
-
-
   ],
   imports: [
     BrowserModule,

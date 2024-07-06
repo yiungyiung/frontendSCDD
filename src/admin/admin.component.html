@@ -1,0 +1,22 @@
+<!-- admin.component.html -->
+<div class="custom-padded-content">
+    <app-TopBar></app-TopBar>
+    <nav class="custom-navbar">
+        <app-nav-item svgIcon="dashboard" text="Dashboard" href="/admin/dashboard">
+        </app-nav-item>
+        <app-nav-item svgIcon="framework" text="Framework">
+            <a routerLink="framework"></a>
+        </app-nav-item>
+        <app-nav-item svgIcon="vendors" text="Manage Vendors">
+            <a routerLink="vendors"></a>
+        </app-nav-item>
+        <app-nav-item svgIcon="ques" text="Questionnaire">
+            <a routerLink="questionnaire"></a>
+        </app-nav-item>
+        <app-nav-item svgIcon="users" text="Users" href="/admin/user-management">
+        </app-nav-item>
+        <app-nav-item svgIcon="reports" text="Reports">
+        </app-nav-item>
+    </nav>
+    <router-outlet></router-outlet>
+</div>

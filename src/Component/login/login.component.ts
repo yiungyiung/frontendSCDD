@@ -31,13 +31,13 @@ export class LoginComponent {
       const role = this.authService.getRoleFromToken(response.token);
       console.log(role+"seerole")
       if (role === Role.Admin) {
-        this.router.navigate(['/admin-dashboard']);
+        this.router.navigate(['/admin']);
       } else if (role === Role.Manager) {
-        this.router.navigate(['/manager-dashboard']);
+        this.router.navigate(['/manager']);
       } else if (role === Role.Analyst) {
-        this.router.navigate(['/analyst-dashboard']);
+        this.router.navigate(['/analyst']);
       } else if (role === Role.Vendor) {
-        this.router.navigate(['/vendor-dashboard']);
+        this.router.navigate(['/vendor']);
       } else {
         this.router.navigate(['/']); 
       }

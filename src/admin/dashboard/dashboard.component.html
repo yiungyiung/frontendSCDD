@@ -1,9 +1,10 @@
-<div class="custom-padded-content">
-    <app-TopBar></app-TopBar><app-menubar></app-menubar>
+<p>
+    dashboard works!
+</p>
 <div>
     <h1>Admin Dashboard</h1>
     <button (click)="fetchUsers()">Show Users</button>
     <ul>
         <li *ngFor="let user of users">{{ user.email }}</li>
     </ul>
-</div></div>
+</div>
