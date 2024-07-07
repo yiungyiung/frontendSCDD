@@ -27,4 +27,12 @@ export class AdminService {
     });
     return this.http.post<User>(`${this.apiUrl}/admin/users`, user, { headers });
   }
+
+  updateUser(user: User, token: string): Observable<User> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.put<User>(`${this.apiUrl}/admin/users/${user.userId}`, user, { headers });
+  }
 }

@@ -57,6 +57,7 @@ export class AuthService {
       return {
         email: decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
         name: decodedToken['name'],
+        userId:decodedToken['user_id'],
         isActive: decodedToken['is_active'] === 'true',
         contact_Number: decodedToken['contact_number'],
         role: decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] as Role

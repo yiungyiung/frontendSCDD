@@ -18,8 +18,8 @@
                 <div class="form-group">
                     <label for="role">Role</label>
                     <select id="role" class="form-control" [(ngModel)]="newUser.role" name="role" required>
-                        <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
-                    </select>
+              <option *ngFor="let role of roles" [ngValue]="role">{{ role }}</option>
+            </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Add User</button>
             </form>
@@ -29,13 +29,14 @@
             <div class="card mb-3" *ngFor="let user of users">
                 <div class="card-body">
                     <h5 class="card-title">{{ user.email }}</h5>
+                    <p class="card-text">User ID: {{ user.userId }}</p>
                     <p class="card-text">Name: {{ user.name }}</p>
                     <p class="card-text">Number: {{ user.contact_Number }}</p>
                     <p class="card-text">Role: {{ user.role }}</p>
                     <p class="card-text">Status: {{ user.isActive ? 'Active' : 'Inactive' }}</p>
                     <button class="btn btn-sm" [ngClass]="{'btn-success': user.isActive, 'btn-danger': !user.isActive}" (click)="toggleUserStatus(user)">
-                        {{ user.isActive ? 'Deactivate' : 'Activate' }}
-                    </button>
+              {{ user.isActive ? 'Deactivate' : 'Activate' }}
+            </button>
                 </div>
             </div>
         </div>
