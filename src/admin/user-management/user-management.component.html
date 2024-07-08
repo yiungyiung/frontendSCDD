@@ -1,44 +1,71 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
-            <h3>Add New User</h3>
+      <div class="col-md-6">
+        <div class="card mb-3">
+          <h5 class="card-header">Add New User</h5>
+          <div class="card-body">
             <form (ngSubmit)="addUser()">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" class="form-control" [(ngModel)]="newUser.email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" class="form-control" [(ngModel)]="newUser.name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="contact_Number">Contact Number</label>
-                    <input type="text" id="contact_Number" class="form-control" [(ngModel)]="newUser.contact_Number" name="contact_Number" required>
-                </div>
-                <div class="form-group">
-                    <label for="role">Role</label>
-                    <select id="role" class="form-control" [(ngModel)]="newUser.role" name="role" required>
-              <option *ngFor="let role of roles" [ngValue]="role">{{ role }}</option>
-            </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Add User</button>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" class="form-control" [(ngModel)]="newUser.email" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" class="form-control" [(ngModel)]="newUser.name" name="name" required>
+              </div>
+              <div class="form-group">
+                <label for="contact_Number">Contact Number</label>
+                <input type="text" id="contact_Number" class="form-control" [(ngModel)]="newUser.contact_Number" name="contact_Number" required>
+              </div>
+              <div class="form-group">
+                <label for="role">Role</label>
+                <select id="role" class="form-control" [(ngModel)]="newUser.role" name="role" required>
+                  <option *ngFor="let role of roles" [ngValue]="role">{{ role }}</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Add User</button>
             </form>
+          </div>
         </div>
-        <div class="col-md-6">
-            <h3>All Users</h3>
-            <div class="card mb-3" *ngFor="let user of users">
-                <div class="card-body">
-                    <h5 class="card-title">{{ user.email }}</h5>
-                    <p class="card-text">User ID: {{ user.userId }}</p>
-                    <p class="card-text">Name: {{ user.name }}</p>
-                    <p class="card-text">Number: {{ user.contact_Number }}</p>
-                    <p class="card-text">Role: {{ user.role }}</p>
-                    <p class="card-text">Status: {{ user.isActive ? 'Active' : 'Inactive' }}</p>
-                    <button class="btn btn-sm" [ngClass]="{'btn-success': user.isActive, 'btn-danger': !user.isActive}" (click)="toggleUserStatus(user)">
-              {{ user.isActive ? 'Deactivate' : 'Activate' }}
-            </button>
-                </div>
+      </div>
+      <div class="col-md-6">
+        <h3>All Users</h3>
+        <div class="custcard mb-3" *ngFor="let user of users">
+          <div class="card-body">
+            <div class="user-status" [ngClass]="{'active': user.isActive, 'inactive': !user.isActive}">
+              {{ user.isActive ? 'Active' : 'Inactive' }}
             </div>
+            <div class="user-details">
+              <div class="detail">
+                <small>User ID</small>
+                <div>{{ user.userId }}</div>
+              </div>
+              <div class="detail">
+                <small>Name</small>
+                <div>{{ user.name }}</div>
+              </div>
+              <div class="detail">
+                <small>Number</small>
+                <div>{{ user.contact_Number }}</div>
+              </div>
+              <div class="detail">
+                <small>Email ID</small>
+                <div>{{ user.email }}</div>
+              </div>
+              <div class="detail">
+                <small>Role</small>
+                <div>{{ user.role }}</div>
+              </div>
+              <div class="detail">
+                <button class="btn btn-sm" [ngClass]="{'btn-success': user.isActive, 'btn-danger': !user.isActive}" (click)="toggleUserStatus(user)">
+                  {{ user.isActive ? 'Deactivate' : 'Activate' }}
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+      
     </div>
-</div>
+  </div>
+  
