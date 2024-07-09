@@ -11,43 +11,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class AdminComponent implements OnInit {
 
   constructor(private dataService: DataService, private authService: AuthService,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
-  ) {
-    this.matIconRegistry.addSvgIcon(
-      'dashboard',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('Dashboard.svg')
-    )
-    this.matIconRegistry.addSvgIcon(
-      'framework',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('Framework.svg')
-    )
-    this.matIconRegistry.addSvgIcon(
-      'vendors',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('vendors.svg')
-    )
-
-    this.matIconRegistry.addSvgIcon(
-      'ques',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('questionnaire.svg')
-    )
-
-    this.matIconRegistry.addSvgIcon(
-      'users',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('users.svg')
-    )
-
-    this.matIconRegistry.addSvgIcon(
-      'reports',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('reports.svg')
-    )
-
-    this.matIconRegistry.addSvgIcon(
-      'modify',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('modify.svg')
-    )
-  }
-
+  ){}
   ngOnInit(): void {
   }
 }

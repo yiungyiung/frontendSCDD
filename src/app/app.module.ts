@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -9,6 +9,10 @@ import { TestComponent } from '../Component/test/test.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { MatIcon } from '@angular/material/icon';
+import { IconService } from '../services/IconService/Icon.service';
+export function initializeApp(iconService: IconService) {
+  return () => iconService.registerIcons();
+}
 
 @NgModule({
   declarations: [
@@ -24,7 +28,13 @@ import { MatIcon } from '@angular/material/icon';
     MatIconModule
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [IconService],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -12,10 +12,9 @@ import { AuthService } from '../../services/AuthService/auth.service';
 export class UserManagementComponent implements OnInit {
   users: User[] = [];
   newUser: User = { email: '', role: Role.Admin, name: '', contact_Number: '', isActive: true };
-
   roles = Object.values(Role).filter(role => role !== Role.Vendor);
 
-  constructor(private adminService: AdminService, private authService: AuthService) { }
+  constructor(private adminService: AdminService, private authService: AuthService) {}
 
   ngOnInit() {
     this.loadUsers();
@@ -24,10 +23,13 @@ export class UserManagementComponent implements OnInit {
 
   loadUsers() {
     const token = this.authService.getToken();
-    this.adminService.getAllUsers(token).subscribe(serverUsers => {
-      this.users = serverUsers.map(this.mapServerUserToUser);
-      console.log('Loaded users:', this.users);
-    });
+    this.adminService.getAllUsers(token).subscribe(
+      serverUsers => {
+        this.users = serverUsers.map(user => this.mapServerUserToUser(user));
+        console.log('Loaded users:', this.users);
+      },
+      error => console.error('Error loading users:', error)
+    );
   }
 
   addUser() {
@@ -39,7 +41,7 @@ export class UserManagementComponent implements OnInit {
     const token = this.authService.getToken();
     const userToAdd = { 
       ...this.newUser, 
-      roleId: this.getRoleId(this.newUser.role),  // Add this line
+      roleId: this.getRoleId(this.newUser.role),
       isActive: true 
     };
     this.adminService.addUser(userToAdd, token).subscribe(
@@ -54,21 +56,31 @@ export class UserManagementComponent implements OnInit {
     );
   }
   
-  // Add this method
   private getRoleId(role: Role): number {
     switch(role) {
       case Role.Admin: return 1;
       case Role.Manager: return 2;
       case Role.Analyst: return 3;
-      // Add other roles as needed
+      case Role.Vendor: return 4;
       default: throw new Error('Invalid role');
     }
   }
+
+  private getRoleFromRoleId(roleId: number): Role {
+    switch(roleId) {
+      case 1: return Role.Admin;
+      case 2: return Role.Manager;
+      case 3: return Role.Analyst;
+      case 4: return Role.Vendor;
+      default: throw new Error('Invalid role ID');
+    }
+  }
+
   private mapServerUserToUser(serverUser: any): User {
     return {
       userId: serverUser.userId,
       email: serverUser.email,
-      role: serverUser.role.roleName as Role,
+      role: this.getRoleFromRoleId(serverUser.roleId),
       name: serverUser.name,
       contact_Number: serverUser.contact_Number,
       isActive: serverUser.isActive
@@ -77,43 +89,25 @@ export class UserManagementComponent implements OnInit {
 
   private resetNewUser() {
     this.newUser = { email: '', role: Role.Admin, name: '', contact_Number: '', isActive: true };
-    console.log('Reset new user:', this.newUser);
   }
 
   toggleUserStatus(user: User) {
     const newStatus = !user.isActive;
-    console.log('Toggling user status:', user.email, 'to', newStatus);
-    
     const token = this.authService.getToken();
-    
-    // Create a new User object with updated properties
-    const updatedUser = {
-      userId: user.userId,
-      email: user.email,
-      name: user.name,
-      role:user.role,
-      contact_Number: user.contact_Number,
-      isActive: newStatus,
-      roleId: this.getRoleId(user.role) , // Convert role to roleId
-      
-    };
-    console.log('Sending update request:', JSON.stringify(updatedUser));
+    const updatedUser = { ...user, isActive: newStatus, roleId: this.getRoleId(user.role) };
+
     this.adminService.updateUser(updatedUser, token).subscribe(
-      (response: User) => {
-        console.log('User updated successfully:', response);
-        // Update the user in the users array
+      response => {
         const index = this.users.findIndex(u => u.userId === response.userId);
         if (index !== -1) {
-          this.users[index] = response;
+          this.users[index] = this.mapServerUserToUser(response);
         }
       },
       error => {
         console.error('Error updating user:', error);
         alert('Failed to update user. Please try again.');
-        // Revert the status change in case of error
         user.isActive = !newStatus;
       }
     );
   }
-
 }

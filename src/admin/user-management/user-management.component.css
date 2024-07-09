@@ -1,3 +1,10 @@
+/* Container and Card Styles */
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
 .card {
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -6,8 +13,9 @@
     margin-top: 3vh;
     height: 70vh;
     width: 25vw;
-    margin-left: -2.3vw;
+    margin-left: -0.9vw;
 }
+
 .card-header {
     background-color: #E7F4F9;
     border-bottom: 1px solid #ddd;
@@ -16,15 +24,21 @@
     font-weight: bold;
     color: #073C5A;
 }
+
 .card-body {
     padding: 15px;
 }
+
+
+/* Form Styles */
+
 .form-group {
     font-size: 2vh;
     font-weight: 600;
     color: #073C5A;
     margin-bottom: 2vh;
 }
+
 .form-control {
     width: 100%;
     padding: 1.5vh;
@@ -45,7 +59,10 @@
     background-color: #0a4357;
     border-color: #0a4357;
 }
-/*add users end*/
+
+
+/* User List Styles */
+
 .btn-success {
     background-color: #dc3545;
     border-color: #dc3545;
@@ -60,16 +77,15 @@
 
 .user-status {
     position: relative;
-    width: 6vw; 
+    width: 6vw;
     top: -4vh;
     left: 10px;
     padding: 5px 10px;
     border-radius: 4px;
     color: white;
     text-align: center;
-    display: inline-block; 
+    display: inline-block;
     font-size: 1.7vh;
-    align-items: center;
 }
 
 .user-status.active {
@@ -87,17 +103,15 @@
     text-align: center;
 }
 
-
 .detail {
     margin-top: -20px;
     text-align: center;
-    font-size: 2vh;  
+    font-size: 2vh;
 }
 
 .detail small {
     display: block;
     font-size: 1.7vh;
-    align-items: center;
     color: gray;
     text-align: center;
 }
@@ -111,23 +125,17 @@
     width: 60vw;
     margin-top: 3vh;
     margin-left: 0.6vw;
-    display: flex;
-    text-wrap: wrap;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
-
-
 .user-id-bg {
-    background-color: #E7F4F9; 
-    padding: 10px; 
+    background-color: #E7F4F9;
+    padding: 10px;
     border-radius: 4px;
 }
 
 .user-ids-bg {
-    background-color: #fff; 
-    padding: 10px; 
+    background-color: #fff;
+    padding: 10px;
     border-radius: 4px;
 }
 
@@ -137,7 +145,7 @@
     white-space: nowrap;
     width: 100%;
     display: block;
-  }
+}
 
 .back-card {
     border: 1px solid #ddd;
@@ -148,8 +156,8 @@
     background-color: #ffffff;
     width: 63vw;
     margin-left: -19vw;
-    
 }
+
 .back-card-header {
     background-color: #E7F4F9;
     border-bottom: 1px solid #ddd;
@@ -157,6 +165,5 @@
     font-size: 18px;
     font-weight: bold;
     color: #073C5A;
-    width: 65vw; 
+    width: 65vw;
 }
-
