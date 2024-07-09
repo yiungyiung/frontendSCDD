@@ -1,15 +1,32 @@
-.topbar {
-    width: 100%;
-    color: white;
-    display: flex;
-    transition: height 0.3s ease;
-  }
-  .topbar {
-    height: 5.375rem;
-  }
-  @media (max-width: 992px) {
-    .topbar {
-      height: 3.5rem;
-    }
-  }
-  
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #E7F4F9;
+  padding: 15px 30px;
+  max-height: 86px;
+  min-height: 44px;
+}
+
+.logo {
+  font-weight: bold;
+  background-color: #E9ECEF;
+  padding: 5px 10px;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  padding: 5px 5px;
+  size: 40px;
+}
+
+.icon, mat-icon {
+  height: auto;
+  margin-right: 20px;
+}
+
+.legatrix-logo {
+  margin-left: 20px;
+  height: 24px;
+}

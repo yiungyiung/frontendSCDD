@@ -40,5 +40,14 @@ export class AppComponent {
       this.domSanitizer.bypassSecurityTrustResourceUrl('reports.svg')
     )
 
+    this.matIconRegistry.addSvgIcon(
+      'userIcon',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('userIcon.svg')
+    )
+    this.matIconRegistry.addSvgIcon(
+      'notification',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('notification.svg')
+    )
+
   }
 }
