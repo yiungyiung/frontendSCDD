@@ -8,9 +8,6 @@
     width: 25vw;
     margin-left: -2.3vw;
 }
-
-
-
 .card-header {
     background-color: #E7F4F9;
     border-bottom: 1px solid #ddd;
@@ -19,18 +16,15 @@
     font-weight: bold;
     color: #073C5A;
 }
-
 .card-body {
     padding: 15px;
 }
-
 .form-group {
     font-size: 2vh;
     font-weight: 600;
     color: #073C5A;
     margin-bottom: 2vh;
 }
-
 .form-control {
     width: 100%;
     padding: 1.5vh;
@@ -38,9 +32,7 @@
     border: 1px solid #073c5a84;
     border-radius: 4px;
 }
-.btn {
-    margin-top: 10px;
-}
+
 .btn-primary {
     margin-top: 6vh;
     background-color: #12789E;
@@ -53,83 +45,118 @@
     background-color: #0a4357;
     border-color: #0a4357;
 }
-
+/*add users end*/
 .btn-success {
-    background-color: #28a745;
-    border-color: #28a745;
-
-    color: white;
-}
-
-.btn-danger {
     background-color: #dc3545;
     border-color: #dc3545;
     color: white;
 }
 
-.btn-success:hover, .btn-danger:hover {
-    opacity: 0.8;
+.btn-danger {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
 }
 
-.card-title {
-    font-size: 24px;
-    font-weight: bold;
-    
-}
-
-.card-text {
-    font-size: 14px;
-    margin-bottom: 10px;
-    
-}
 .user-status {
     position: relative;
-    width: auto; 
-    top: -35px;
+    width: 6vw; 
+    top: -4vh;
     left: 10px;
     padding: 5px 10px;
     border-radius: 4px;
     color: white;
     text-align: center;
     display: inline-block; 
+    font-size: 1.7vh;
+    align-items: center;
 }
 
-  
-  .user-status.active {
-    background-color: green;
-  }
-  
-  .user-status.inactive {
-    background-color: red;
-  }
-  
-  .user-details {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .detail {
-    flex: 1 1 150px; 
-    margin-right: 20px;
-  }
-  
-  .detail small {
+.user-status.active {
+    background-color: #339A2D;
+}
+
+.user-status.inactive {
+    background-color: #EE4A1C;
+}
+
+.user-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(7vw, 1fr));
+    gap: 1vw;
+    text-align: center;
+}
+
+
+.detail {
+    margin-top: -20px;
+    text-align: center;
+    font-size: 2vh;  
+}
+
+.detail small {
     display: block;
-    font-size: 12px;
+    font-size: 1.7vh;
+    align-items: center;
     color: gray;
+    text-align: center;
+}
+
+.custcard {
+    border: 1px solid #ddd;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 6vh;
+    width: 60vw;
+    margin-top: 3vh;
+    margin-left: 0.6vw;
+    display: flex;
+    text-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+
+.user-id-bg {
+    background-color: #E7F4F9; 
+    padding: 10px; 
+    border-radius: 4px;
+}
+
+.user-ids-bg {
+    background-color: #fff; 
+    padding: 10px; 
+    border-radius: 4px;
+}
+
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    display: block;
   }
-  .custcard {
+
+.back-card {
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 4vh;
+    margin-bottom: 2.5vh;
     margin-top: 3vh;
-    width: 60vw;
-    margin-left: -18.3vw;
-   
+    background-color: #ffffff;
+    width: 63vw;
+    margin-left: -19vw;
+    
 }
-  
-
-
-
+.back-card-header {
+    background-color: #E7F4F9;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #073C5A;
+    width: 65vw; 
+}
 

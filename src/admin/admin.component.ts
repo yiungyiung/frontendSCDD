@@ -41,6 +41,11 @@ export class AdminComponent implements OnInit {
       'reports',
       this.domSanitizer.bypassSecurityTrustResourceUrl('reports.svg')
     )
+
+    this.matIconRegistry.addSvgIcon(
+      'modify',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('modify.svg')
+    )
   }
 
   ngOnInit(): void {
