@@ -9,6 +9,7 @@ import { TopBarComponent } from '../Component/TopBar/TopBar.component';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { VendorManagementComponent } from './VendorManagement/VendorManagement.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     FormsModule,
     MatTooltipModule,
   ],
-  declarations: [AdminComponent,DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent]
+  declarations: [AdminComponent,DashboardComponent,VendorManagementComponent,UserManagementComponent,NavItemComponent,TopBarComponent]
 })
 export class AdminModule { }

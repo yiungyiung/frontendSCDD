@@ -25,13 +25,15 @@ export class UserManagementComponent implements OnInit {
     const token = this.authService.getToken();
     this.adminService.getAllUsers(token).subscribe(
       serverUsers => {
-        this.users = serverUsers.map(user => this.mapServerUserToUser(user));
+        // Filter out users with Role.Vendor
+        this.users = serverUsers
+          .filter(user => user.roleId !== this.getRoleId(Role.Vendor))
+          .map(user => this.mapServerUserToUser(user));
         console.log('Loaded users:', this.users);
       },
       error => console.error('Error loading users:', error)
     );
   }
-
   addUser() {
     if (!this.newUser.role) {
       alert('Please select a role for the new user.');

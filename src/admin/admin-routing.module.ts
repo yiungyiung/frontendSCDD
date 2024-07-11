@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { AdminComponent } from './admin.component';
-
+import { VendorManagementComponent } from './VendorManagement/VendorManagement.component';
 const routes: Routes = [
   {
     path: '',
@@ -12,6 +12,7 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'user-management', component: UserManagementComponent },
+      { path: 'vendor-management', component: VendorManagementComponent},
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   }
