@@ -10,6 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { MatIcon } from '@angular/material/icon';
 import { IconService } from '../services/IconService/Icon.service';
+import { MatCardModule } from '@angular/material/card';
+
 export function initializeApp(iconService: IconService) {
   return () => iconService.registerIcons();
 }
@@ -25,7 +27,8 @@ export function initializeApp(iconService: IconService) {
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule
   ],
   providers: [
     provideAnimationsAsync(),

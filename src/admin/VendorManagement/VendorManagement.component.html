@@ -1,20 +1,25 @@
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h2>Vendor List</h2>
-            <ul class="list-group">
-                <li *ngFor="let vendor of vendors" class="list-group-item">
-                    <p><strong>ID:</strong> {{ vendor.vendorID }}</p>
-                    <p><strong>Name:</strong> {{ vendor.vendorName }}</p>
-                    <p><strong>Address:</strong> {{ vendor.vendorAddress }}</p>
-                    <p><strong>Registration Date:</strong> {{ vendor.registrationDate | date }}</p>
-                    <p><strong>Tier:</strong> {{ vendor.tier?.tierName }}</p>
-                    <p><strong>Category:</strong> {{ vendor.category?.categoryName }}</p>
-                    <p><strong>User Name:</strong> {{ vendor.user?.name }}</p>
-                    <p><strong>User Email:</strong> {{ vendor.user?.email }}</p>
-                    <p><strong>User Contact:</strong> {{ vendor.user?.contact_Number }}</p>
-                </li>
-            </ul>
-        </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Vendor List</h2>
+      <ul class="list-group">
+        <li *ngFor="let vendor of vendors" class="list-group-item">
+          <p><strong>ID:</strong> {{ vendor.vendorID }}</p>
+          <p><strong>Name:</strong> {{ vendor.vendorName }}</p>
+          <p><strong>Address:</strong> {{ vendor.vendorAddress }}</p>
+          <p>
+            <strong>Registration Date:</strong>
+            {{ vendor.registrationDate | date }}
+          </p>
+          <p><strong>Tier:</strong> {{ vendor.tier?.tierName }}</p>
+          <p><strong>Category:</strong> {{ vendor.category?.categoryName }}</p>
+          <p><strong>User Name:</strong> {{ vendor.user?.name }}</p>
+          <p><strong>User Email:</strong> {{ vendor.user?.email }}</p>
+          <p>
+            <strong>User Contact:</strong> {{ vendor.user?.contact_Number }}
+          </p>
+        </li>
+      </ul>
     </div>
+  </div>
 </div>

@@ -1,32 +1,127 @@
+.header-container {
+  width: 100%;
+  z-index: 1000;
+  top: 0;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #E7F4F9;
-  padding: 15px 30px;
-  max-height: 86px;
-  min-height: 44px;
+  background-color: #e7f4f9;
+  padding: 2vh 9vw;
+  max-height: 12vh;
+  min-height: 6vh;
 }
 
 .logo {
   font-weight: bold;
-  background-color: #E9ECEF;
-  padding: 5px 10px;
+  background-color: #e9ecef;
+  padding: 0.5vh 0vw;
 }
 
 .icons {
   display: flex;
   align-items: center;
-  padding: 5px 5px;
-  size: 40px;
+  padding: 0.5vh 0;
 }
 
-.icon, mat-icon {
+.icon {
+  margin-right: 1.5vw;
+  fill: #073c5a;
   height: auto;
-  margin-right: 20px;
+}
+
+.icon:hover {
+  fill: #f9a634;
 }
 
 .legatrix-logo {
-  margin-left: 20px;
-  height: 24px;
+  margin-left: 3vw;
+  height: 3.5vh;
+}
+
+.sidenav-container {
+  width: 100%;
+  position: relative;
+  margin-top: 12vh;
+  z-index: 1001;
+}
+
+.sidenav {
+  width: 20vw;
+  background-color: #e7f4f9;
+  color: white;
+  z-index: 1001;
+  position: fixed;
+  top: 0;
+}
+
+.sidenav-content {
+  padding: 0px;
+}
+
+.sidenav-content p {
+  margin: 0;
+  padding: 0 0 20px;
+}
+
+.sidenav-content button {
+  color: white;
+}
+
+.card-header {
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #12789e;
+  color: #ffffff;
+}
+
+.card-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #12789e;
+  border-bottom: none;
+  color: white;
+  padding: 15px 20px;
+}
+
+.card-header-container h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.drawer-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2.5vh;
+  margin-top: 3vh;
+  height: auto;
+  width: 18.5vw;
+  margin-left: 0.5vw;
+}
+
+.drawer-card mat-card-content {
+  background-color: #fff;
+  color: #073c5a;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.drawer-card mat-card-content p {
+  flex: 1;
+  margin: 0;
+  word-wrap: break-word;
+}
+
+.drawer-card mat-card-content mat-icon {
+  margin-left: 10px;
+  flex-shrink: 0;
+  align-self: flex-start;
 }

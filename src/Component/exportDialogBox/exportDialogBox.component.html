@@ -1,0 +1,68 @@
+<!-- exportDialogBox.component.html -->
+<div
+  class="modal fade"
+  id="exportModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exportModalLabel"
+  aria-hidden="true"
+  [ngClass]="{ show: isModalVisible }"
+  [ngStyle]="{ display: isModalVisible ? 'block' : 'none' }"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exportModalLabel">Export Options</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="isModalVisible = false"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <div>
+            <h5>Selected Columns:</h5>
+            <div class="selected-columns">
+              <span class="column-tag" *ngFor="let column of selectedColumns">
+                {{ column }}
+                ><mat-icon
+                  (click)="removeColumn(column)"
+                  svg="closeIcon"
+                ></mat-icon>
+              </span>
+            </div>
+            <div>
+              <h3>Add Columns</h3>
+              <select (change)="onColumnChange($event)">
+                <option *ngFor="let column of allColumns" [value]="column">
+                  {{ column }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+          (click)="isModalVisible = false"
+        >
+          Cancel
+        </button>
+        <button type="button" class="btn btn-primary" (click)="exportData()">
+          Download CSV
+        </button>
+        <button type="button" class="btn btn-primary" (click)="exportDataPDF()">
+          Download PDF
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -23,6 +23,15 @@ export class IconService {
     this.registerIcon('modify', 'modify.svg');
     this.registerIcon('userIcon', 'userIcon.svg');
     this.registerIcon('notification', 'notification.svg');
+    this.registerIcon('quickAction', 'quickAction.svg');
+    this.registerIcon('exportButton', 'exportButton.svg');
+    this.registerIcon('filterIcon', 'filterIcon.svg');
+    this.registerIcon('closeIcon', 'close.svg');
+    this.registerIcon('downArrow', 'downArrow.svg');
+    this.registerIcon('cancelButton', 'cancelButton.svg');
+    this.registerIcon('addButton', 'addButton.svg');
+    this.registerIcon('excelIcon', 'excelIcon.svg');
+    this.registerIcon('pdfIcon', 'pdfIcon.svg');
     // Add any other icons here
   }
 

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/DataService/data.service';
 import { AuthService } from '../services/AuthService/auth.service';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin.component.html',

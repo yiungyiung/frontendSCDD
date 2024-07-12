@@ -1,169 +1,241 @@
-/* Container and Card Styles */
-
 .container {
-    max-width: 100%;
-    margin: 0 auto;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2.5vh;
-    margin-top: 3vh;
-    height: 70vh;
-    width: 25vw;
-    margin-left: -0.9vw;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2.5vh;
+  margin-top: 3vh;
+  height: 70vh;
+  width: 25vw;
+  margin-left: -0.9vw;
 }
 
 .card-header {
-    background-color: #E7F4F9;
-    border-bottom: 1px solid #ddd;
-    padding: 10px 15px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #073C5A;
+  background-color: #e7f4f9;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 15px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #073c5a;
 }
 
 .card-body {
-    padding: 15px;
+  padding: 15px;
 }
-
 
 /* Form Styles */
 
 .form-group {
-    font-size: 2vh;
-    font-weight: 600;
-    color: #073C5A;
-    margin-bottom: 2vh;
+  font-size: 2vh;
+  font-weight: 600;
+  color: #073c5a;
+  margin-bottom: 1vh;
+}
+.custom-select-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.custom-select {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 1px 30px 1px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  font-size: 16px;
+}
+
+.custom-select::-ms-expand {
+  display: none;
+}
+
+.dropdownIcon {
+  position: absolute;
+  right: 5px;
+  pointer-events: none;
+  font-size: 18px;
+  color: #073c5a;
 }
 
 .form-control {
-    width: 100%;
-    padding: 1.5vh;
-    font-size: 2vh;
-    border: 1px solid #073c5a84;
-    border-radius: 4px;
+  width: 100%;
+  padding: 0.5vh;
+  font-size: 2vh;
+  border: 1px solid #073c5a;
+  border-radius: 4px;
 }
 
 .btn-primary {
-    margin-top: 6vh;
-    background-color: #12789E;
-    border-color: #12789E;
-    color: white;
-    width: 100%;
+  margin-top: 6vh;
+  background-color: #12789e;
+  border-color: #12789e;
+  color: white;
+  width: 100%;
 }
 
 .btn-primary:hover {
-    background-color: #0a4357;
-    border-color: #0a4357;
+  background-color: #0a4357;
+  border-color: #0a4357;
 }
 
-
-/* User List Styles */
-
 .btn-success {
-    background-color: #dc3545;
-    border-color: #dc3545;
-    color: white;
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
 }
 
 .btn-danger {
-    background-color: #28a745;
-    border-color: #28a745;
-    color: white;
+  background-color: #28a745;
+  border-color: #28a745;
+  color: white;
 }
 
 .user-status {
-    position: relative;
-    width: 6vw;
-    top: -4vh;
-    left: 10px;
-    padding: 5px 10px;
-    border-radius: 4px;
-    color: white;
-    text-align: center;
-    display: inline-block;
-    font-size: 1.7vh;
+  position: relative;
+  width: 6vw;
+  top: -4vh;
+  left: 10px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 1.7vh;
 }
 
 .user-status.active {
-    background-color: #339A2D;
+  background-color: #339a2d;
 }
 
 .user-status.inactive {
-    background-color: #EE4A1C;
+  background-color: #ee4a1c;
 }
 
 .user-details {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(7vw, 1fr));
-    gap: 1vw;
-    text-align: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7vw, 1fr));
+  gap: 1vw;
+  text-align: center;
 }
 
 .detail {
-    margin-top: -20px;
-    text-align: center;
-    font-size: 2vh;
+  margin-top: -20px;
+  text-align: center;
+  font-size: 2vh;
 }
 
 .detail small {
-    display: block;
-    font-size: 1.7vh;
-    color: gray;
-    text-align: center;
+  display: block;
+  font-size: 1.7vh;
+  color: gray;
+  text-align: center;
 }
 
 .custcard {
-    border: 1px solid #ddd;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 6vh;
-    width: 60vw;
-    margin-top: 3vh;
-    margin-left: 0.6vw;
+  border: 1px solid #ddd;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 6vh;
+  width: 60vw;
+  margin-top: 3vh;
+  margin-left: 0.6vw;
 }
 
 .user-id-bg {
-    background-color: #E7F4F9;
-    padding: 10px;
-    border-radius: 4px;
+  background-color: #e7f4f9;
+  padding: 10px;
+  border-radius: 4px;
 }
 
 .user-ids-bg {
-    background-color: #fff;
-    padding: 10px;
-    border-radius: 4px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 4px;
 }
 
 .truncate {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 100%;
-    display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  display: block;
 }
 
 .back-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2.5vh;
-    margin-top: 3vh;
-    background-color: #ffffff;
-    width: 63vw;
-    margin-left: -19vw;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2.5vh;
+  margin-top: 3vh;
+  background-color: #ffffff;
+  width: 63vw;
+  margin-left: -19vw;
+  height: 70vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 
-.back-card-header {
-    background-color: #E7F4F9;
-    border-bottom: 1px solid #ddd;
-    padding: 10px 15px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #073C5A;
-    width: 65vw;
+.card-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e7f4f9;
+  border-bottom: none;
+  padding: 10px 15px;
+}
+
+.card-header {
+  font-size: 18px;
+  font-weight: bold;
+  color: #073c5a;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+}
+
+.icon-container mat-icon {
+  margin-left: 10px;
+  height: auto;
+  color: #073c5a;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: right;
+  margin-top: 20px;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #073c5a;
+}
+
+.pagination-controls button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #073c5a;
+  cursor: pointer;
+}
+
+.pagination-controls button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-controls span {
+  margin: 0 10px;
 }

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core'; 
 import { User } from '../../model/user';
 import { Role } from '../../model/role';
 import { AdminService } from '../../services/AdminService/Admin.service';
 import { AuthService } from '../../services/AuthService/auth.service';
+import { ExportModalServiceService } from '../../services/ExportModalService/ExportModalService.service';
 
 @Component({
   selector: 'app-user-management',
@@ -13,33 +15,76 @@ export class UserManagementComponent implements OnInit {
   users: User[] = [];
   newUser: User = { email: '', role: Role.Admin, name: '', contact_Number: '', isActive: true };
   roles = Object.values(Role).filter(role => role !== Role.Vendor);
+  itemsPerPageOptions: number[] = [5, 10, 20, 50];
+  pagedUsers: User[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  totalItems: number = 0;
+  totalPages: number = 0;
 
-  constructor(private adminService: AdminService, private authService: AuthService) {}
+  selectedColumns: string[] = ['User ID', 'Email', 'Name', 'Contact Number', 'Role', 'Is Active']; 
+  allColumns: string[] = ['User ID', 'Email', 'Name', 'Contact Number', 'Role', 'Is Active'];
+
+  constructor(private adminService: AdminService, private authService: AuthService, private cdr: ChangeDetectorRef,private modalService: ExportModalServiceService  ) {}
 
   ngOnInit() {
     this.loadUsers();
-    console.log('Available roles:', this.roles);
   }
 
   loadUsers() {
     const token = this.authService.getToken();
     this.adminService.getAllUsers(token).subscribe(
-      serverUsers => {
+      (serverUsers: User[]) => {
         // Filter out users with Role.Vendor
         this.users = serverUsers
           .filter(user => user.roleId !== this.getRoleId(Role.Vendor))
           .map(user => this.mapServerUserToUser(user));
+  
         console.log('Loaded users:', this.users);
+        
+        // Calculate total items and pages
+        this.totalItems = this.users.length;
+        this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+        this.updatePagedUsers();
       },
-      error => console.error('Error loading users:', error)
     );
   }
+  
+
+  updatePagedUsers() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    this.pagedUsers = this.users.slice(start, end);
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePagedUsers();
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePagedUsers();
+    }
+  }
+
+  onItemsPerPageChange(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    this.itemsPerPage = Number(target.value);
+    this.currentPage = 1; 
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+    this.updatePagedUsers();
+  }
+
   addUser() {
     if (!this.newUser.role) {
       alert('Please select a role for the new user.');
       return;
     }
-  
+
     const token = this.authService.getToken();
     const userToAdd = { 
       ...this.newUser, 
@@ -49,6 +94,7 @@ export class UserManagementComponent implements OnInit {
     this.adminService.addUser(userToAdd, token).subscribe(
       serverUser => {
         this.users.push(this.mapServerUserToUser(serverUser));
+        this.loadUsers;
         this.resetNewUser();
       },
       error => {
@@ -57,7 +103,7 @@ export class UserManagementComponent implements OnInit {
       }
     );
   }
-  
+
   private getRoleId(role: Role): number {
     switch(role) {
       case Role.Admin: return 1;
@@ -65,16 +111,6 @@ export class UserManagementComponent implements OnInit {
       case Role.Analyst: return 3;
       case Role.Vendor: return 4;
       default: throw new Error('Invalid role');
-    }
-  }
-
-  private getRoleFromRoleId(roleId: number): Role {
-    switch(roleId) {
-      case 1: return Role.Admin;
-      case 2: return Role.Manager;
-      case 3: return Role.Analyst;
-      case 4: return Role.Vendor;
-      default: throw new Error('Invalid role ID');
     }
   }
 
@@ -87,6 +123,16 @@ export class UserManagementComponent implements OnInit {
       contact_Number: serverUser.contact_Number,
       isActive: serverUser.isActive
     };
+  }
+
+  private getRoleFromRoleId(roleId: number): Role {
+    switch(roleId) {
+      case 1: return Role.Admin;
+      case 2: return Role.Manager;
+      case 3: return Role.Analyst;
+      case 4: return Role.Vendor;
+      default: throw new Error('Invalid role ID');
+    }
   }
 
   private resetNewUser() {
@@ -103,13 +149,38 @@ export class UserManagementComponent implements OnInit {
         const index = this.users.findIndex(u => u.userId === response.userId);
         if (index !== -1) {
           this.users[index] = this.mapServerUserToUser(response);
+          this.updatePagedUsers();
+          this.cdr.detectChanges();  
         }
       },
       error => {
         console.error('Error updating user:', error);
         alert('Failed to update user. Please try again.');
         user.isActive = !newStatus;
+        this.cdr.detectChanges(); 
       }
     );
   }
+
+  paginationText(): string {
+    const start = (this.currentPage - 1) * this.itemsPerPage + 1;
+    const end = Math.min(this.currentPage * this.itemsPerPage, this.totalItems);
+    return `${start} - ${end} of ${this.totalItems}`;
+  }
+
+openExportModal() {
+  const data = this.users.map(user => ({
+    'User ID': user.userId,
+    'Email': user.email,
+    'Name': user.name,
+    'Contact Number': user.contact_Number,
+    'Role': user.role,
+    'Is Active': user.isActive
+  }));
+  
+  this.modalService.setDataAndColumns(data, this.selectedColumns);
+  this.modalService.showExportModal();
+}
+
+  
 }

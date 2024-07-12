@@ -11,6 +11,11 @@ import { FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { VendorManagementComponent } from './VendorManagement/VendorManagement.component';
 
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatCardModule } from '@angular/material/card';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { DisclaimerFooterComponent } from '../Component/disclaimerFooter/disclaimerFooter.component';
+import { ExportDialogBoxComponent } from '../Component/exportDialogBox/exportDialogBox.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,7 +23,11 @@ import { VendorManagementComponent } from './VendorManagement/VendorManagement.c
     MatIconModule,
     FormsModule,
     MatTooltipModule,
+    MatSidenavModule,
+    MatCardModule,
+    NgxPaginationModule
+
   ],
-  declarations: [AdminComponent,DashboardComponent,VendorManagementComponent,UserManagementComponent,NavItemComponent,TopBarComponent]
+  declarations: [AdminComponent,DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,DisclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent]
 })
 export class AdminModule { }
