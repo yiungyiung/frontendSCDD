@@ -1,0 +1,136 @@
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.add-vendor-card,
+.back-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 3vh 0;
+  background-color: #ffffff;
+  padding: 20px;
+}
+
+.add-vendor-card h4,
+.back-card h4 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #073c5a;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 1.5vh;
+}
+
+.form-control,
+.custom-select {
+  width: 100%;
+  padding: 0.5vh;
+  font-size: 1vh;
+  border: 1px solid #073c5a;
+  border-radius: 4px;
+}
+
+.btn-primary {
+  margin-top: 2vh;
+  background-color: #12789e;
+  border-color: #12789e;
+  color: white;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background-color: #0a4357;
+  border-color: #0a4357;
+}
+
+.back-card {
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.card-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e7f4f9;
+  padding: 10px 15px;
+}
+
+.icon-container mat-icon {
+  color: #073c5a;
+}
+
+.custcard {
+  border: 1px solid #ddd;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 3vh 0 6vh 0.6vw;
+  width: 60vw;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.vendor-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7vw, 1fr));
+  gap: 1vw;
+  text-align: center;
+}
+
+.detail {
+  margin-top: -20px;
+  text-align: center;
+  font-size: 2vh;
+}
+
+.detail small {
+  display: block;
+  font-size: 1.7vh;
+  text-align: center;
+}
+
+.vendor-id-bg,
+.vendor-info-bg {
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.vendor-id-bg {
+  background-color: #e7f4f9;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  display: block;
+}
+.user-status {
+  position: relative;
+  width: 6vw;
+  height: auto;
+  top: -4vh;
+  left: 10px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 1.7vh;
+}
+
+.user-status.active {
+  background-color: #339a2d;
+}
+
+.user-status.inactive {
+  background-color: #ee4a1c;
+}

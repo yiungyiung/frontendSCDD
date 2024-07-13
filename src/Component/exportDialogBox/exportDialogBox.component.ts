@@ -1,6 +1,4 @@
-// ExportDialogBoxComponent
-
-import { Component, Input, input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { ExportModalServiceService } from '../../services/ExportModalService/ExportModalService.service';
 import { jsPDF } from 'jspdf';
@@ -16,6 +14,7 @@ export class ExportDialogBoxComponent implements OnInit {
   @Input() selectedColumns: string[] = [];
   @Input() data: any[] = [];
   isModalVisible = false;
+  downloadFormat: string = 'csv';
 
   constructor(private modalService: ExportModalServiceService) {}
 
@@ -33,14 +32,11 @@ export class ExportDialogBoxComponent implements OnInit {
     });
   }
 
-  removeColumn(column: string) {
-    const index = this.selectedColumns.indexOf(column);
-    if (index !== -1) {
-      this.selectedColumns.splice(index, 1);
-    }
+  removeColumn(column: string): void {
+    this.selectedColumns = this.selectedColumns.filter(col => col !== column);
   }
 
-  addColumn(column: string) {
+  addColumn(column: string): void {
     if (!this.selectedColumns.includes(column)) {
       this.selectedColumns.push(column);
     }
@@ -51,7 +47,19 @@ export class ExportDialogBoxComponent implements OnInit {
     this.addColumn(target.value);
   }
 
-  exportData() {
+  setDownloadFormat(format: string): void {
+    this.downloadFormat = format;
+  }
+
+  exportData(): void {
+    if (this.downloadFormat === 'csv') {
+      this.exportDataCSV();
+    } else if (this.downloadFormat === 'pdf') {
+      this.exportDataPDF();
+    }
+  }
+
+  exportDataCSV() {
     const options = {
       showLabels: true,
       showTitle: true,
@@ -90,5 +98,9 @@ export class ExportDialogBoxComponent implements OnInit {
 
     doc.save('export.pdf');
     this.modalService.hideExportModal();
+  }
+
+  isDownloadable(): boolean {
+    return this.selectedColumns.length > 0;
   }
 }

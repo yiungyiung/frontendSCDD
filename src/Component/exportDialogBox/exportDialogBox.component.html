@@ -1,4 +1,3 @@
-<!-- exportDialogBox.component.html -->
 <div
   class="modal fade"
   id="exportModal"
@@ -11,56 +10,62 @@
 >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exportModalLabel">Export Options</h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-          (click)="isModalVisible = false"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
       <div class="modal-body">
         <div>
-          <div>
-            <h5>Selected Columns:</h5>
-            <div class="selected-columns">
-              <span class="column-tag" *ngFor="let column of selectedColumns">
-                {{ column }}
-                ><mat-icon
-                  (click)="removeColumn(column)"
-                  svg="closeIcon"
-                ></mat-icon>
-              </span>
-            </div>
-            <div>
-              <h3>Add Columns</h3>
-              <select (change)="onColumnChange($event)">
-                <option *ngFor="let column of allColumns" [value]="column">
-                  {{ column }}
-                </option>
-              </select>
-            </div>
+          <h5>Selected Columns:</h5>
+          <div class="selected-columns">
+            <span class="column-tag" *ngFor="let column of selectedColumns">
+              {{ column }}
+              <mat-icon
+                (click)="removeColumn(column)"
+                svgIcon="cancelButton"
+              ></mat-icon>
+            </span>
+          </div>
+          <h5>All Columns:</h5>
+          <div class="add-columns">
+            <span
+              class="column-tag add-column"
+              *ngFor="let column of allColumns"
+              (click)="addColumn(column)"
+              [ngClass]="{ 'added-column': selectedColumns.includes(column) }"
+            >
+              <mat-icon
+                *ngIf="!selectedColumns.includes(column)"
+                svgIcon="addButton"
+              ></mat-icon>
+              {{ column }}
+            </span>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button
+        <div class="download-options">
+          <mat-icon
+            svgIcon="excelIcon"
+            (click)="setDownloadFormat('csv')"
+            [ngClass]="{ 'selected-icon': downloadFormat === 'csv' }"
+          ></mat-icon>
+          <mat-icon
+            svgIcon="pdfIcon"
+            (click)="setDownloadFormat('pdf')"
+            [ngClass]="{ 'selected-icon': downloadFormat === 'pdf' }"
+          ></mat-icon>
+        </div>
+        <a
           type="button"
-          class="btn btn-secondary"
+          class="cancell"
           data-dismiss="modal"
           (click)="isModalVisible = false"
+          >Cancel</a
         >
-          Cancel
-        </button>
-        <button type="button" class="btn btn-primary" (click)="exportData()">
-          Download CSV
-        </button>
-        <button type="button" class="btn btn-primary" (click)="exportDataPDF()">
-          Download PDF
+        <button
+          type="button"
+          class="btn download-btn"
+          [disabled]="!isDownloadable()"
+          (click)="exportData()"
+        >
+          Download
         </button>
       </div>
     </div>

@@ -11,6 +11,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatIcon } from '@angular/material/icon';
 import { IconService } from '../services/IconService/Icon.service';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 export function initializeApp(iconService: IconService) {
   return () => iconService.registerIcons();
@@ -28,7 +30,9 @@ export function initializeApp(iconService: IconService) {
     HttpClientModule,
     FormsModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule,
+    MatButtonModule,
   ],
   providers: [
     provideAnimationsAsync(),

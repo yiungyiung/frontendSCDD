@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, TemplateRef } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-disclaimerFooter',
   templateUrl: './disclaimerFooter.component.html',
   styleUrls: ['./disclaimerFooter.component.css']
 })
-export class DisclaimerFooterComponent implements OnInit {
+export class disclaimerFooterComponent {
+  @ViewChild('disclaimerModal') disclaimerModal?: TemplateRef<any>;
 
-  constructor() { }
+  constructor(private dialog: MatDialog) {}
 
-  ngOnInit() {
+  openDisclaimer() {
+    if (this.disclaimerModal) {
+      this.dialog.open(this.disclaimerModal);
+    }
   }
-
 }

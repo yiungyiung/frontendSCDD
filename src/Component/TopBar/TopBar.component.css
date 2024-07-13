@@ -44,7 +44,7 @@
 .sidenav-container {
   width: 100%;
   position: relative;
-  margin-top: 12vh;
+  margin-top: 12vh; /* Adjust as needed */
   z-index: 1001;
 }
 
@@ -68,60 +68,4 @@
 
 .sidenav-content button {
   color: white;
-}
-
-.card-header {
-  font-size: 18px;
-  font-weight: bold;
-  background-color: #12789e;
-  color: #ffffff;
-}
-
-.card-header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #12789e;
-  border-bottom: none;
-  color: white;
-  padding: 15px 20px;
-}
-
-.card-header-container h4 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.drawer-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2.5vh;
-  margin-top: 3vh;
-  height: auto;
-  width: 18.5vw;
-  margin-left: 0.5vw;
-}
-
-.drawer-card mat-card-content {
-  background-color: #fff;
-  color: #073c5a;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.drawer-card mat-card-content p {
-  flex: 1;
-  margin: 0;
-  word-wrap: break-word;
-}
-
-.drawer-card mat-card-content mat-icon {
-  margin-left: 10px;
-  flex-shrink: 0;
-  align-self: flex-start;
 }

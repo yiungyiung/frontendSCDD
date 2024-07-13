@@ -23,5 +23,6 @@ export class VendorManagementComponent implements OnInit {
     );
   }
 
+ 
 
 }

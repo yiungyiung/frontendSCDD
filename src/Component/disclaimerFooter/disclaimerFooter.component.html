@@ -1,3 +1,28 @@
+<!-- Main Footer -->
 <div class="mainFooter">
-  <p class="disclaimerText">© 2024 Legasis. |DISCLAIMER</p>
+  <p class="disclaimerText">© 2024 Legasis. |</p>
+  <p class="disclaimerText" (click)="openDisclaimer()">DISCLAIMER</p>
 </div>
+
+<!-- Disclaimer Modal Template -->
+<ng-template #disclaimerModal let-dialogRef>
+  <div class="Modal-Title">
+    <h2 class="disclaimerModalTitle" mat-dialog-title>Disclaimer</h2>
+    <mat-icon
+      mat-icon-button
+      mat-dialog-close
+      aria-label="Close"
+      svgIcon="cancelButton"
+    ></mat-icon>
+  </div>
+  <mat-dialog-content>
+    "Legasis is not authorized to practice law in any jurisdiction nor does it
+    promote such unauthorized practice. Unless expressly agreed, It is not
+    liable for any express or implied representations or warranties. Legal
+    contents of legatrix do not constitute any opinion or advice. Legal
+    contents, concept, template, logo, tagline, method and software comprised in
+    and associated with legatrix are proprietary to Legasis and any unauthorized
+    use or disclosure thereof is strictly prohibited, and any such act would
+    constitute an offence punishable under the applicable law."
+  </mat-dialog-content>
+</ng-template>

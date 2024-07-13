@@ -10,11 +10,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { VendorManagementComponent } from './VendorManagement/VendorManagement.component';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { DisclaimerFooterComponent } from '../Component/disclaimerFooter/disclaimerFooter.component';
+import { disclaimerFooterComponent} from '../Component/disclaimerFooter/disclaimerFooter.component';
 import { ExportDialogBoxComponent } from '../Component/exportDialogBox/exportDialogBox.component';
 @NgModule({
   imports: [
@@ -25,9 +26,11 @@ import { ExportDialogBoxComponent } from '../Component/exportDialogBox/exportDia
     MatTooltipModule,
     MatSidenavModule,
     MatCardModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatDialogModule,
+    MatButtonModule
 
   ],
-  declarations: [AdminComponent,DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,DisclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent]
+  declarations: [AdminComponent,DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,disclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent]
 })
 export class AdminModule { }
