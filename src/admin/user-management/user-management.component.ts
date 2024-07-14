@@ -5,6 +5,7 @@ import { Role } from '../../model/role';
 import { AdminService } from '../../services/AdminService/Admin.service';
 import { AuthService } from '../../services/AuthService/auth.service';
 import { ExportModalServiceService } from '../../services/ExportModalService/ExportModalService.service';
+import { PopupService } from '../../services/PopupService/popup.service';
 
 @Component({
   selector: 'app-user-management',
@@ -25,7 +26,7 @@ export class UserManagementComponent implements OnInit {
   selectedColumns: string[] = ['User ID', 'Email', 'Name', 'Contact Number', 'Role', 'Is Active']; 
   allColumns: string[] = ['User ID', 'Email', 'Name', 'Contact Number', 'Role', 'Is Active'];
 
-  constructor(private adminService: AdminService, private authService: AuthService, private cdr: ChangeDetectorRef,private modalService: ExportModalServiceService  ) {}
+  constructor(private adminService: AdminService, private authService: AuthService, private cdr: ChangeDetectorRef,private modalService: ExportModalServiceService, private popupService: PopupService ) {}
 
   ngOnInit() {
     this.loadUsers();
@@ -79,9 +80,9 @@ export class UserManagementComponent implements OnInit {
     this.updatePagedUsers();
   }
 
-  addUser() {
+  addUser(): void {
     if (!this.newUser.role) {
-      alert('Please select a role for the new user.');
+      this.popupService.showPopup('Please select a role for the new user.', '#C10000');
       return;
     }
 
@@ -94,12 +95,13 @@ export class UserManagementComponent implements OnInit {
     this.adminService.addUser(userToAdd, token).subscribe(
       serverUser => {
         this.users.push(this.mapServerUserToUser(serverUser));
-        this.loadUsers;
+        this.loadUsers();
         this.resetNewUser();
+        this.popupService.showPopup('User added successfully', '#0F9D09');
       },
       error => {
         console.error('Error adding user:', error);
-        alert('Failed to add user. Please try again.');
+        this.popupService.showPopup('Failed to add user. Please try again.', '#C10000');
       }
     );
   }

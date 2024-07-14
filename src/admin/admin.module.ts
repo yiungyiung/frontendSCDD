@@ -17,6 +17,7 @@ import { MatCardModule } from '@angular/material/card';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { disclaimerFooterComponent} from '../Component/disclaimerFooter/disclaimerFooter.component';
 import { ExportDialogBoxComponent } from '../Component/exportDialogBox/exportDialogBox.component';
+import { PopupBoxComponent } from '../Component/popup-box/popup-box.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -31,6 +32,6 @@ import { ExportDialogBoxComponent } from '../Component/exportDialogBox/exportDia
     MatButtonModule
 
   ],
-  declarations: [AdminComponent,DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,disclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent]
+  declarations: [AdminComponent,DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,disclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PopupBoxComponent]
 })
 export class AdminModule { }
