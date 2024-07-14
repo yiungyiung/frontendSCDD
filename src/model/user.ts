@@ -3,9 +3,9 @@ import { Role } from './role';
 export interface User {
   userId?: number;
   email: string;
-  role: Role;
+  role?: Role;
   name:string;
   contact_Number:string;
-  isActive: boolean;
+  isActive?: boolean;
   roleId?: number;
 }

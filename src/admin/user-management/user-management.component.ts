@@ -144,7 +144,7 @@ export class UserManagementComponent implements OnInit {
   toggleUserStatus(user: User) {
     const newStatus = !user.isActive;
     const token = this.authService.getToken();
-    const updatedUser = { ...user, isActive: newStatus, roleId: this.getRoleId(user.role) };
+    const updatedUser = { ...user, isActive: newStatus, roleId: this.getRoleId(user.role!) };
 
     this.adminService.updateUser(updatedUser, token).subscribe(
       response => {

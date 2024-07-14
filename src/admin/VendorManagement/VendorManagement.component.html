@@ -1,153 +1,118 @@
 <div class="container">
-  <div class="row">
-    <!-- Add Vendor Form -->
-    <div class="col-md-3">
-      <div class="add-vendor-card">
-        <h4>Add Vendor</h4>
-        <form>
-          <div class="form-group">
-            <label for="vendorName">Vendor Name</label>
-            <input
-              type="text"
-              id="vendorName"
-              class="form-control"
-              placeholder="Enter Vendor Name"
-            />
-          </div>
-          <div class="form-group">
-            <label for="vendorRegNumber">Vendor Registration Number</label>
-            <input
-              type="text"
-              id="vendorRegNumber"
-              class="form-control"
-              placeholder="Enter Vendor Registration Number"
-            />
-          </div>
-          <div class="form-group">
-            <label for="contactPerson">Contact Person</label>
-            <input
-              type="text"
-              id="contactPerson"
-              class="form-control"
-              placeholder="Enter Name of the Person to be Contacted"
-            />
-          </div>
-          <div class="form-group">
-            <label for="emailID">Email ID</label>
-            <input
-              type="email"
-              id="emailID"
-              class="form-control"
-              placeholder="Enter Email ID of the Person Mentioned Above"
-            />
-          </div>
-          <div class="form-group">
-            <label for="category">Category of Industry</label>
-            <select id="category" class="custom-select">
-              <option>Select Category</option>
-              <!-- Add your options here -->
+    <div class="row">
+        <!-- Add Vendor Form -->
+        <div class="col-md-3">
+            <div class="add-vendor-card">
+                <h4>Add Vendor</h4>
+                <form (ngSubmit)="addVendor()">
+                    <div class="form-group">
+                        <label for="vendorName">Vendor Name</label>
+                        <input type="text" id="vendorName" class="form-control" [(ngModel)]="newVendor.vendorName" name="vendorName" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="vendorRegNumber">Vendor Registration Number</label>
+                        <input type="text" id="vendorRegNumber" class="form-control" [(ngModel)]="newVendor.vendorRegistration" name="vendorRegNumber" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="vendorAddress">Vendor Address</label>
+                        <input type="text" id="vendorAddress" class="form-control" [(ngModel)]="newVendor.vendorAddress" name="vendorAddress" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPerson">Contact Person</label>
+                        <input type="text" id="contactPerson" class="form-control" [(ngModel)]="newVendor.user.name" name="contactPerson" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="emailID">Email ID</label>
+                        <input type="email" id="emailID" class="form-control" [(ngModel)]="newVendor.user.email" name="emailID" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="contactNumber">Contact Number</label>
+                        <input type="tel" id="contactNumber" class="form-control" [(ngModel)]="newVendor.user.contact_Number" name="contactNumber" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category of Industry</label>
+                        <select id="category" class="custom-select" [(ngModel)]="newVendor.categoryID" name="category" required>
+              <option value="">Select Category</option>
+              <option *ngFor="let category of categories" [value]="category.categoryID">
+                {{ category.categoryName }}
+              </option>
             </select>
-          </div>
-          <div class="form-group">
-            <label for="tier">Tier</label>
-            <select id="tier" class="custom-select">
-              <option>Select Tier</option>
-              <!-- Add your options here -->
+                    </div>
+                    <div class="form-group">
+                        <label for="tier">Tier</label>
+                        <select id="tier" class="custom-select" [(ngModel)]="newVendor.tierID" name="tier" (change)="onTierChange($event)" required>
+              <option value="">Select Tier</option>
+              <option *ngFor="let tier of tiers" [value]="tier.tierId">
+                {{ tier.tierName }}
+              </option>
             </select>
-          </div>
-          <button type="submit" class="btn btn-primary">Add Vendor</button>
-        </form>
-      </div>
-    </div>
-
-    <!-- Vendors List -->
-    <div class="col-md-9">
-      <div class="back-card mb-3">
-        <div class="card-header-container">
-          <h4>Vendors</h4>
-          <div class="icon-container">
-            <mat-icon svgIcon="filterIcon"></mat-icon>
-          </div>
-        </div>
-        <div class="container">
-          <div class="custcard mb-3" *ngFor="let vendor of vendors">
-            <div class="card-body">
-              <div
-                class="user-status"
-                [ngClass]="{
-                  active: vendor.user?.isActive,
-                  inactive: !vendor.user?.isActive
-                }"
-              >
-                {{ vendor.user?.isActive ? "Active" : "Inactive" }}
-              </div>
-              <div class="vendor-details">
-                <div
-                  class="detail vendor-id-bg"
-                  matTooltip="{{ vendor.vendorID }}"
-                >
-                  <small>Vendor ID</small>
-                  <div class="truncate">{{ vendor.vendorID }}</div>
-                </div>
-                <div
-                  class="detail vendor-info-bg"
-                  matTooltip="{{ vendor.vendorName }}"
-                >
-                  <small>Name</small>
-                  <div class="truncate">{{ vendor.vendorName }}</div>
-                </div>
-                <div
-                  class="detail vendor-info-bg"
-                  matTooltip="{{ vendor.user?.name }}"
-                >
-                  <small>Contact Person</small>
-                  <div class="truncate">{{ vendor.user?.name }}</div>
-                </div>
-                <div
-                  class="detail vendor-info-bg"
-                  matTooltip="{{ vendor.user?.contact_Number }}"
-                >
-                  <small>Contact Number</small>
-                  <div class="truncate">{{ vendor.user?.contact_Number }}</div>
-                </div>
-                <div
-                  class="detail vendor-info-bg"
-                  matTooltip="{{ vendor.user?.email }}"
-                >
-                  <small>Email ID</small>
-                  <div class="truncate">{{ vendor.user?.email }}</div>
-                </div>
-                <div class="detail user-ids-bg">
-                  <small>{{
-                    vendor.user?.isActive ? "Disable" : "Enable"
-                  }}</small>
-                  <button
-                    class="btn btn-sm"
-                    [ngClass]="{
-                      'btn-success': vendor.user?.isActive,
-                      'btn-danger': !vendor.user?.isActive
-                    }"
-                  >
-                    <i
-                      class="fas"
-                      [ngClass]="{
-                        'fa-user-times': vendor.user?.isActive,
-                        'fa-user-check': !vendor.user?.isActive
-                      }"
-                    ></i>
-                  </button>
-                </div>
-                <div class="detail vendor-info-bg">
-                  <small>Modify</small>
-                  <button mat-icon-button>
-                    <mat-icon svgIcon="modify"></mat-icon>
-                  </button>
-                </div>
-              </div>
+                    </div>
+                    <div class="form-group" *ngIf="tier1Vendors.length > 0">
+                        <label for="parentVendors">Parent Vendors</label>
+                        <select id="parentVendors" class="custom-select" multiple [(ngModel)]="newVendor.parentVendorIDs" name="parentVendors">
+              <option *ngFor="let vendor of tier1Vendors" [value]="vendor.vendorID">
+                {{ vendor.vendorName }}
+              </option>
+            </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Vendor</button>
+                </form>
             </div>
-          </div>
         </div>
-      </div>
+
+        <!-- Vendors List -->
+        <div class="col-md-9">
+            <div class="back-card mb-3">
+                <div class="card-header-container">
+                    <h4>Vendors</h4>
+                    <div class="icon-container">
+                        <mat-icon svgIcon="filterIcon"></mat-icon>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="custcard mb-3" *ngFor="let vendor of vendors">
+                        <div class="card-body">
+                            <div class="user-status" [ngClass]="{ active: vendor.user?.isActive, inactive: !vendor.user?.isActive }">
+                                {{ vendor.user?.isActive ? "Active" : "Inactive" }}
+                            </div>
+                            <div class="vendor-details">
+                                <div class="detail vendor-id-bg" matTooltip="{{ vendor.vendorID }}">
+                                    <small>Vendor ID</small>
+                                    <div class="vendor-id">{{ vendor.vendorID }}</div>
+                                </div>
+                                <div class="detail vendor-name-bg" matTooltip="{{ vendor.vendorName }}">
+                                    <small>Vendor Name</small>
+                                    <div class="vendor-name">{{ vendor.vendorName }}</div>
+                                </div>
+                                <div class="detail vendor-address-bg" matTooltip="{{ vendor.vendorAddress }}">
+                                    <small>Vendor Address</small>
+                                    <div class="vendor-address">{{ vendor.vendorAddress }}</div>
+                                </div>
+                                <div class="detail vendor-tier-bg" matTooltip="{{ vendor.tier?.tierName }}">
+                                    <small>Tier</small>
+                                    <div class="vendor-tier">{{ vendor.tier?.tierName }}</div>
+                                </div>
+                                <div class="detail vendor-category-bg" matTooltip="{{ vendor.category?.categoryName }}">
+                                    <small>Category</small>
+                                    <div class="vendor-category">{{ vendor.category?.categoryName }}</div>
+                                </div>
+                                <div class="detail contact-name-bg" matTooltip="{{ vendor.user?.name }}">
+                                    <small>Contact Name</small>
+                                    <div class="contact-name">{{ vendor.user?.name }}</div>
+                                </div>
+                                <div class="detail contact-email-bg" matTooltip="{{ vendor.user?.email }}">
+                                    <small>Contact Email</small>
+                                    <div class="contact-email">{{ vendor.user?.email }}</div>
+                                </div>
+                                <div class="detail contact-number-bg" matTooltip="{{ vendor.user?.contact_Number }}">
+                                    <small>Contact Number</small>
+                                    <div class="contact-number">{{ vendor.user?.contact_Number }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
