@@ -26,15 +26,15 @@
 .card-body {
   padding: 15px;
 }
-
 /* Form Styles */
 
 .form-group {
   font-size: 2vh;
   font-weight: 600;
   color: #073c5a;
-  margin-bottom: 1vh;
+  margin-bottom: 2vh;
 }
+
 .custom-select-wrapper {
   position: relative;
   display: inline-block;
@@ -67,9 +67,9 @@
 
 .form-control {
   width: 100%;
-  padding: 0.5vh;
+  padding: 1.5vh;
   font-size: 2vh;
-  border: 1px solid #073c5a;
+  border: 1px solid #073c5a84;
   border-radius: 4px;
 }
 
@@ -85,7 +85,6 @@
   background-color: #0a4357;
   border-color: #0a4357;
 }
-
 .btn-success {
   background-color: #dc3545;
   border-color: #dc3545;

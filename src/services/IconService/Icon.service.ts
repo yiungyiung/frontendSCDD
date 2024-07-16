@@ -32,6 +32,7 @@ export class IconService {
     this.registerIcon('addButton', 'addButton.svg');
     this.registerIcon('excelIcon', 'excelIcon.svg');
     this.registerIcon('pdfIcon', 'pdfIcon.svg');
+    this.registerIcon('searchIcon', 'searchIcon.svg');
     // Add any other icons here
   }
 

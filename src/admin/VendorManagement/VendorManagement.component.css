@@ -3,6 +3,49 @@
   margin: 0 auto;
 }
 
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2.5vh;
+  margin-top: 3vh;
+  height: 70vh;
+  width: 25vw;
+  margin-left: -0.9vw;
+}
+
+.card-header {
+  background-color: #e7f4f9;
+  border-bottom: 1px solid #ddd;
+  padding: 20px 15px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #073c5a;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.tab-critical {
+  background-color: #da3b00;
+  color: white;
+}
+
+.tab-non-critical {
+  background-color: #fe9300;
+  color: white;
+}
+
+.tab-others {
+  background-color: #ffe400;
+  color: white;
+}
+
+.vendor-title-card {
+  background-color: #12789e;
+}
+
 .add-vendor-card,
 .back-card {
   border: 1px solid #ddd;
@@ -10,7 +53,6 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin: 3vh 0;
   background-color: #ffffff;
-  padding: 20px;
 }
 
 .add-vendor-card h4,
@@ -22,7 +64,12 @@
 }
 
 .form-group {
-  margin-bottom: 1.5vh;
+  font-size: 2vh;
+  font-weight: 600;
+  color: #073c5a;
+  margin-bottom: 2vh;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .form-control,
@@ -34,8 +81,16 @@
   border-radius: 4px;
 }
 
+.form-control {
+  width: 100%;
+  padding: 1.5vh;
+  font-size: 2vh;
+  border: 1px solid #073c5a84;
+  border-radius: 4px;
+}
+
 .btn-primary {
-  margin-top: 2vh;
+  margin-top: 6vh;
   background-color: #12789e;
   border-color: #12789e;
   color: white;
@@ -57,10 +112,12 @@
   justify-content: space-between;
   align-items: center;
   background-color: #e7f4f9;
+  border-bottom: none;
   padding: 10px 15px;
 }
 
 .icon-container mat-icon {
+  height: auto;
   color: #073c5a;
 }
 
@@ -73,21 +130,26 @@
   width: 60vw;
 }
 
-.card-body {
-  padding: 15px;
-}
-
 .vendor-details {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(7vw, 1fr));
+  grid-template-columns: 1fr 7fr; /* Two columns, first column for Vendor ID, second for the rest */
   gap: 1vw;
   text-align: center;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.kaam {
+  display: grid;
+  gap: 1vw;
+  grid-template-columns: repeat(4, 1fr); /* Four columns */
+  width: 100%;
 }
 
 .detail {
-  margin-top: -20px;
   text-align: center;
   font-size: 2vh;
+  background-color: #ffffff; /* Remove background */
 }
 
 .detail small {
@@ -96,14 +158,10 @@
   text-align: center;
 }
 
-.vendor-id-bg,
-.vendor-info-bg {
+.vendor-id-bg {
   padding: 10px;
   border-radius: 4px;
-}
-
-.vendor-id-bg {
-  background-color: #e7f4f9;
+  background-color: blue; /* Set blue background */
 }
 
 .truncate {
@@ -113,6 +171,7 @@
   width: 100%;
   display: block;
 }
+
 .user-status {
   position: relative;
   width: 6vw;
@@ -133,4 +192,110 @@
 
 .user-status.inactive {
   background-color: #ee4a1c;
+}
+
+.task-container {
+  display: grid;
+  grid-template-columns: 1fr 5fr; /* Adjust columns if needed */
+  gap: 1vw;
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.task-header .badge {
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.high-risk {
+  background-color: #ff5e57;
+}
+
+.non-complied {
+  background-color: #f39c12;
+}
+
+.task-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Adjust as per your needs */
+  gap: 1vw;
+  width: 100%;
+}
+
+.detail {
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  text-align: left;
+}
+
+.detail small {
+  display: block;
+  font-size: 1.2vh;
+  color: #555;
+}
+
+.detail div {
+  font-size: 1.5vh;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#parentVendors {
+  max-height: 10px; /* Adjust height as needed */
+  overflow-y: auto;
+}
+
+.vendor-list {
+  max-height: 100px; /* Adjust height as needed */
+  overflow-y: auto;
+}
+
+.example-full-width {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 4px;
+  border-color: #073c5a;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: right;
+  margin-top: 20px;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #073c5a;
+}
+
+.pagination-controls button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #073c5a;
+  cursor: pointer;
+}
+
+.pagination-controls button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-controls span {
+  margin: 0 10px;
 }

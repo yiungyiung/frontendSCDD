@@ -18,6 +18,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { disclaimerFooterComponent} from '../Component/disclaimerFooter/disclaimerFooter.component';
 import { ExportDialogBoxComponent } from '../Component/exportDialogBox/exportDialogBox.component';
 import { PopupBoxComponent } from '../Component/popup-box/popup-box.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -29,8 +32,9 @@ import { PopupBoxComponent } from '../Component/popup-box/popup-box.component';
     MatCardModule,
     NgxPaginationModule,
     MatDialogModule,
-    MatButtonModule
-
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   declarations: [AdminComponent,DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,disclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PopupBoxComponent]
 })

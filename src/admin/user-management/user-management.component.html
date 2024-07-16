@@ -66,22 +66,6 @@
             Users
           </h4>
 
-          <div class="icon-container">
-            <mat-icon
-              svgIcon="exportButton"
-              (click)="openExportModal()"
-            ></mat-icon>
-            <app-exportDialogBox
-              [selectedColumns]="selectedColumns"
-              [allColumns]="allColumns"
-              [data]="users"
-            ></app-exportDialogBox>
-
-            <mat-icon svgIcon="filterIcon"></mat-icon>
-          </div>
-        </div>
-
-        <div class="container">
           <div class="pagination-container">
             <div class="form-group">
               <div class="custom-select-wrapper">
@@ -101,20 +85,37 @@
                 <mat-icon class="dropdownIcon" svgIcon="downArrow"></mat-icon>
               </div>
             </div>
+            <div>
+              <div class="pagination-controls">
+                <button (click)="previousPage()" [disabled]="currentPage === 1">
+                  &#10094;
+                </button>
+                <span>{{ paginationText() }}</span>
+                <button
+                  (click)="nextPage()"
+                  [disabled]="currentPage === totalPages"
+                >
+                  &#10095;
+                </button>
+              </div>
+            </div>
+            <div class="icon-container">
+              <mat-icon
+                svgIcon="exportButton"
+                (click)="openExportModal()"
+              ></mat-icon>
+              <app-exportDialogBox
+                [selectedColumns]="selectedColumns"
+                [allColumns]="allColumns"
+                [data]="users"
+              ></app-exportDialogBox>
 
-            <div class="pagination-controls">
-              <button (click)="previousPage()" [disabled]="currentPage === 1">
-                &#10094;
-              </button>
-              <span>{{ paginationText() }}</span>
-              <button
-                (click)="nextPage()"
-                [disabled]="currentPage === totalPages"
-              >
-                &#10095;
-              </button>
+              <mat-icon svgIcon="filterIcon"></mat-icon>
             </div>
           </div>
+        </div>
+
+        <div class="container">
           <div class="custcard mb-3" *ngFor="let user of pagedUsers">
             <div class="card-body">
               <div
@@ -170,7 +171,7 @@
                 <div class="detail user-ids-bg">
                   <small>Modify</small>
                   <button mat-icon-button class="btn btn-sm">
-                    <mat-icon svgIcon="modify"></mat-icon>
+                    <mat-icon style="height: auto" svgIcon="modify"></mat-icon>
                   </button>
                 </div>
               </div>
