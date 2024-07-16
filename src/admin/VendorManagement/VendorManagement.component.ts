@@ -17,7 +17,14 @@ export class VendorManagementComponent implements OnInit {
   categories: Category[] = [];
   tiers: Tier[] = [];
   tier1Vendors: Vendor[] = [];
-  searchQuery = '';
+  private _searchQuery = '';
+get searchQuery(): string {
+  return this._searchQuery;
+}
+set searchQuery(value: string) {
+  this._searchQuery = value;
+  this.applySearch();
+}
   itemsPerPageOptions: number[] = [5, 10, 20, 50];
   pagedUsers: Vendor[] = [];
   currentPage: number = 1;
@@ -141,20 +148,31 @@ export class VendorManagementComponent implements OnInit {
     );
   }
 
-  onTierChange(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    const tierID = Number(selectElement.value);
-    if (tierID > 1) {
-      const token = this.authService.getToken();
-      this.vendorService.getVendorsByTier(token, tierID - 1).subscribe(
-        vendors => this.tier1Vendors = vendors,
-        error => console.error('Error loading tier 1 vendors:', error)
-      );
-    } else {
-      this.tier1Vendors = [];
-    }
-  }
+  filteredTier1Vendors: Vendor[] = [];
 
+onTierChange(event: Event) {
+  const selectElement = event.target as HTMLSelectElement;
+  const tierID = Number(selectElement.value);
+  if (tierID > 1) {
+    const token = this.authService.getToken();
+    this.vendorService.getVendorsByTier(token, tierID - 1).subscribe(
+      vendors => {
+        this.tier1Vendors = vendors;
+        this.filteredTier1Vendors = vendors; // Initialize filteredTier1Vendors
+        this.applySearch(); // Apply search after populating vendors
+      },
+      error => console.error('Error loading tier 1 vendors:', error)
+    );
+  } else {
+    this.tier1Vendors = [];
+    this.filteredTier1Vendors = [];
+  }
+}
+applySearch() {
+  this.filteredTier1Vendors = this.tier1Vendors.filter(vendor =>
+    vendor.vendorName.toLowerCase().includes(this.searchQuery.toLowerCase())
+  );
+}
   addVendor() {
     const token = this.authService.getToken();
     const vendorPayload: Vendor = {
