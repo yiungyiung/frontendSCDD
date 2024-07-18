@@ -52,32 +52,22 @@ export class UserManagementComponent implements OnInit {
   }
   
 
-  updatePagedUsers() {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    const end = start + this.itemsPerPage;
-    this.pagedUsers = this.users.slice(start, end);
-  }
-
-  previousPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.updatePagedUsers();
-    }
-  }
-
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.updatePagedUsers();
-    }
-  }
-
-  onItemsPerPageChange(event: Event) {
-    const target = event.target as HTMLSelectElement;
-    this.itemsPerPage = Number(target.value);
-    this.currentPage = 1; 
-    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+  onPageChange(page: number) {
+    this.currentPage = page;
     this.updatePagedUsers();
+  }
+
+  onItemsPerPageChange(itemsPerPage: number) {
+    this.itemsPerPage = itemsPerPage;
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+    this.currentPage = 1; 
+    this.updatePagedUsers();
+  }
+
+  updatePagedUsers() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.pagedUsers = this.users.slice(startIndex, endIndex);
   }
 
   addUser(): void {

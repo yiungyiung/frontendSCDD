@@ -9,6 +9,11 @@
   border-radius: 8px;
 }
 
+.custom-navbar .active {
+  background-color: #12789e; /* Change this to the desired active background color */
+  color: #f9a634; /* Change this to the desired active text color */
+}
+
 .custom-padded-content {
   padding-left: 71px;
   padding-right: 71px;

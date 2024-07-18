@@ -20,6 +20,7 @@ import { ExportDialogBoxComponent } from '../Component/exportDialogBox/exportDia
 import { PopupBoxComponent } from '../Component/popup-box/popup-box.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { PaginationComponent } from '../Component/Pagination/pagination/pagination.component';
 
 @NgModule({
   imports: [
@@ -36,6 +37,6 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatInputModule,
   ],
-  declarations: [AdminComponent,DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,disclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PopupBoxComponent]
+  declarations: [AdminComponent,DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,disclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PopupBoxComponent, PaginationComponent]
 })
 export class AdminModule { }

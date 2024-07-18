@@ -1,68 +1,72 @@
 /* Base styles */
 .nav-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    text-decoration: none; 
-    color: #E7F4F9; 
-    transition: color 0.3s; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: #e7f4f9;
+  transition: color 0.3s;
+}
+
+.nav-icon {
+  width: 1.5rem;
+  height: auto;
+  fill: #e7f4f9;
+  transition: fill 0.3s;
+}
+
+.nav-text {
+  font-size: 1.5rem; /* Use rem for text size */
+  transition: color 0.1s;
+}
+
+/* Hover effects */
+.nav-item:hover .nav-icon {
+  fill: #f9a634;
+}
+
+.nav-item:hover .nav-text {
+  color: #f9a634;
+}
+
+.nav-item:hover {
+  color: #f9a634;
+}
+
+.nav-item.active {
+  background-color: #12789e; /* Change this to the desired active background color */
+  color: #f9a634; /* Change this to the desired active text color */
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 992px) {
+  .nav-item {
+    gap: 0.25rem; /* Reduce gap using rem */
   }
-  
+
   .nav-icon {
-    width: 1.5rem; 
-    height: auto;
-    fill: #E7F4F9;
-    transition: fill 0.3s; 
+    width: 1.5rem; /* Reduce icon size using rem */
+    height: 1.5rem;
   }
-  
+
   .nav-text {
-    font-size: 1.5rem; /* Use rem for text size */
-    transition: color 0.1s; 
+    font-size: 1.25rem; /* Reduce text size using rem */
   }
-  
-  /* Hover effects */
-  .nav-item:hover .nav-icon {
-    fill: #F9A634; 
+}
+
+/* Further reduce sizes if screensize is <= 992px width and 576px height (16:9) */
+@media (max-width: 992px) and (max-height: 576px) {
+  .nav-item {
+    gap: 0.1rem; /* Further reduce gap */
   }
-  
-  .nav-item:hover .nav-text {
-    color: #F9A634;
+
+  .nav-icon {
+    width: 1rem; /* Further reduce icon size */
+    height: 1rem;
   }
-  
-  .nav-item:hover {
-    color: #F9A634; 
+
+  .nav-text {
+    font-size: 1rem; /* Further reduce text size */
   }
-  
-  /* Responsive styles for smaller screens */
-  @media (max-width: 992px) {
-    .nav-item {
-      gap: 0.25rem; /* Reduce gap using rem */
-    }
-  
-    .nav-icon {
-      width: 1.5rem; /* Reduce icon size using rem */
-      height: 1.5rem;
-    }
-  
-    .nav-text {
-      font-size: 1.25rem; /* Reduce text size using rem */
-    }
-  }
-  
-  /* Further reduce sizes if screensize is <= 992px width and 576px height (16:9) */
-  @media (max-width: 992px) and (max-height: 576px) {
-    .nav-item {
-      gap: 0.1rem; /* Further reduce gap */
-    }
-  
-    .nav-icon {
-      width: 1rem; /* Further reduce icon size */
-      height: 1rem;
-    }
-  
-    .nav-text {
-      font-size: 1rem; /* Further reduce text size */
-    }
-  }
-  
+}

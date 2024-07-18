@@ -11,7 +11,6 @@
   margin-top: 3vh;
   height: 70vh;
   width: 25vw;
-  margin-left: -0.9vw;
 }
 
 .card-header {
@@ -109,16 +108,27 @@
 
 .card-header-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   background-color: #e7f4f9;
-  border-bottom: none;
+  border-bottom: 1px solid #ddd;
   padding: 10px 15px;
 }
 
+.icon-container {
+  display: flex;
+  align-items: center;
+}
+
 .icon-container mat-icon {
-  height: auto;
+  margin-left: 10px;
+  cursor: pointer;
   color: #073c5a;
+  height: auto;
+}
+
+.ml-auto {
+  margin-left: auto;
 }
 
 .custcard {
@@ -132,7 +142,7 @@
 
 .vendor-details {
   display: grid;
-  grid-template-columns: 1fr 7fr; /* Two columns, first column for Vendor ID, second for the rest */
+  grid-template-columns: 1fr 7fr;
   gap: 1vw;
   text-align: center;
   width: 100%;
@@ -142,14 +152,14 @@
 .kaam {
   display: grid;
   gap: 1vw;
-  grid-template-columns: repeat(4, 1fr); /* Four columns */
+  grid-template-columns: repeat(4, 1fr);
   width: 100%;
 }
 
 .detail {
   text-align: center;
   font-size: 2vh;
-  background-color: #ffffff; /* Remove background */
+  background-color: #ffffff;
 }
 
 .detail small {
@@ -161,7 +171,7 @@
 .vendor-id-bg {
   padding: 10px;
   border-radius: 4px;
-  background-color: blue; /* Set blue background */
+  background-color: #e7f4f9;
 }
 
 .truncate {
@@ -174,16 +184,16 @@
 
 .user-status {
   position: relative;
-  width: 6vw;
+  width: auto;
   height: auto;
   top: -4vh;
   left: 10px;
   padding: 5px 10px;
   border-radius: 4px;
-  color: white;
   text-align: center;
   display: inline-block;
   font-size: 1.7vh;
+  margin-left: 10px;
 }
 
 .user-status.active {
@@ -194,108 +204,27 @@
   background-color: #ee4a1c;
 }
 
-.task-container {
-  display: grid;
-  grid-template-columns: 1fr 5fr; /* Adjust columns if needed */
-  gap: 1vw;
-  width: 100%;
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.task-header {
+.user-actions {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
 }
 
-.task-header .badge {
-  padding: 5px 10px;
-  border-radius: 5px;
+.action {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.action button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: white;
-}
-
-.high-risk {
-  background-color: #ff5e57;
-}
-
-.non-complied {
-  background-color: #f39c12;
-}
-
-.task-details {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Adjust as per your needs */
-  gap: 1vw;
-  width: 100%;
-}
-
-.detail {
-  padding: 10px;
-  background-color: #ffffff;
-  border-radius: 4px;
-  text-align: left;
-}
-
-.detail small {
-  display: block;
-  font-size: 1.2vh;
-  color: #555;
-}
-
-.detail div {
-  font-size: 1.5vh;
-  color: #333;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-#parentVendors {
-  max-height: 10px; /* Adjust height as needed */
-  overflow-y: auto;
-}
-
-.vendor-list {
-  max-height: 100px; /* Adjust height as needed */
-  overflow-y: auto;
-}
-
-.example-full-width {
-  width: 100%;
-  background-color: #ffffff;
-  border-radius: 4px;
-  border-color: #073c5a;
-}
-
-.pagination-container {
-  display: flex;
-  justify-content: right;
-  margin-top: 20px;
-}
-
-.pagination-controls {
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  color: #073c5a;
-}
-
-.pagination-controls button {
-  background: none;
   border: none;
-  font-size: 16px;
-  color: #073c5a;
-  cursor: pointer;
+  border-radius: 4px;
+  padding: 1px 1px;
 }
 
-.pagination-controls button:disabled {
-  color: #ccc;
-  cursor: not-allowed;
-}
-
-.pagination-controls span {
-  margin: 0 10px;
+.action button mat-icon {
+  margin-right: 5px;
+  height: auto;
 }

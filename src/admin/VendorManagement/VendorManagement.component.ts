@@ -6,6 +6,8 @@ import { Category } from '../../model/category';
 import { Tier } from '../../model/tier';
 import { PopupService } from '../../services/PopupService/popup.service';
 import { ExportModalServiceService } from '../../services/ExportModalService/ExportModalService.service';
+import { AdminService } from '../../services/AdminService/Admin.service';
+import { ChangeDetectorRef } from '@angular/core'; 
 
 @Component({
   selector: 'app-VendorManagement',
@@ -18,13 +20,13 @@ export class VendorManagementComponent implements OnInit {
   tiers: Tier[] = [];
   tier1Vendors: Vendor[] = [];
   private _searchQuery = '';
-get searchQuery(): string {
-  return this._searchQuery;
-}
-set searchQuery(value: string) {
-  this._searchQuery = value;
-  this.applySearch();
-}
+  get searchQuery(): string {
+    return this._searchQuery;
+  }
+  set searchQuery(value: string) {
+    this._searchQuery = value;
+    this.applySearch();
+  }
   itemsPerPageOptions: number[] = [5, 10, 20, 50];
   pagedUsers: Vendor[] = [];
   currentPage: number = 1;
@@ -52,7 +54,7 @@ set searchQuery(value: string) {
     registrationDate: new Date()
   };
   showVendorSelection = false; 
-  constructor(private vendorService: VendorService, private authService: AuthService, private popupService: PopupService,private modalService: ExportModalServiceService) {}
+  constructor(private cdr: ChangeDetectorRef, private adminService: AdminService,private vendorService: VendorService, private authService: AuthService, private popupService: PopupService, private modalService: ExportModalServiceService) {}
 
   ngOnInit() {
     this.loadVendors();
@@ -64,8 +66,8 @@ set searchQuery(value: string) {
     this.showVendorSelection = !this.showVendorSelection;
   }
 
-  toggleSelection(vendorID: number, event: Event) {  // Changed vendorID type to number and added event parameter
-    const inputElement = event.target as HTMLInputElement;  // Cast event target to HTMLInputElement
+  toggleSelection(vendorID: number, event: Event) {
+    const inputElement = event.target as HTMLInputElement;
     const isChecked = inputElement.checked;
 
     if (isChecked) {
@@ -89,43 +91,34 @@ set searchQuery(value: string) {
   loadVendors() {
     const token = this.authService.getToken();
     this.vendorService.getAllVendors(token).subscribe(
-      serverVendors => this.vendors = serverVendors,
-      error => console.error('Error loading vendors:', error)
-    );
-    this.totalItems = this.vendors.length;
+      serverVendors => {
+        this.vendors = serverVendors;
+        this.totalItems = this.vendors.length;
         this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
         this.updatePagedUsers();
-  }
-  updatePagedUsers() {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    const end = start + this.itemsPerPage;
-    this.pagedUsers = this.vendors.slice(start, end);
-  }
-  previousPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.updatePagedUsers();
-    }
+      },
+      error => console.error('Error loading vendors:', error)
+    );
   }
 
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.updatePagedUsers();
-    }
-  }
-  onItemsPerPageChange(event: Event) {
-    const target = event.target as HTMLSelectElement;
-    this.itemsPerPage = Number(target.value);
-    this.currentPage = 1; 
-    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+  onPageChange(page: number) {
+    this.currentPage = page;
     this.updatePagedUsers();
   }
-  paginationText(): string {
-    const start = (this.currentPage - 1) * this.itemsPerPage + 1;
-    const end = Math.min(this.currentPage * this.itemsPerPage, this.totalItems);
-    return `${start} - ${end} of ${this.totalItems}`;
+
+  onItemsPerPageChange(itemsPerPage: number) {
+    this.itemsPerPage = itemsPerPage;
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+    this.currentPage = 1; 
+    this.updatePagedUsers();
   }
+
+  updatePagedUsers() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.pagedUsers = this.vendors.slice(startIndex, endIndex);
+  }
+
   loadCategories() {
     const token = this.authService.getToken();
     this.vendorService.getCategories(token).subscribe(
@@ -150,29 +143,31 @@ set searchQuery(value: string) {
 
   filteredTier1Vendors: Vendor[] = [];
 
-onTierChange(event: Event) {
-  const selectElement = event.target as HTMLSelectElement;
-  const tierID = Number(selectElement.value);
-  if (tierID > 1) {
-    const token = this.authService.getToken();
-    this.vendorService.getVendorsByTier(token, tierID - 1).subscribe(
-      vendors => {
-        this.tier1Vendors = vendors;
-        this.filteredTier1Vendors = vendors; // Initialize filteredTier1Vendors
-        this.applySearch(); // Apply search after populating vendors
-      },
-      error => console.error('Error loading tier 1 vendors:', error)
-    );
-  } else {
-    this.tier1Vendors = [];
-    this.filteredTier1Vendors = [];
+  onTierChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const tierID = Number(selectElement.value);
+    if (tierID > 1) {
+      const token = this.authService.getToken();
+      this.vendorService.getVendorsByTier(token, tierID - 1).subscribe(
+        vendors => {
+          this.tier1Vendors = vendors;
+          this.filteredTier1Vendors = vendors;
+          this.applySearch();
+        },
+        error => console.error('Error loading tier 1 vendors:', error)
+      );
+    } else {
+      this.tier1Vendors = [];
+      this.filteredTier1Vendors = [];
+    }
   }
-}
-applySearch() {
-  this.filteredTier1Vendors = this.tier1Vendors.filter(vendor =>
-    vendor.vendorName.toLowerCase().includes(this.searchQuery.toLowerCase())
-  );
-}
+
+  applySearch() {
+    this.filteredTier1Vendors = this.tier1Vendors.filter(vendor =>
+      vendor.vendorName.toLowerCase().includes(this.searchQuery.toLowerCase())
+    );
+  }
+
   addVendor() {
     const token = this.authService.getToken();
     const vendorPayload: Vendor = {
@@ -195,6 +190,9 @@ applySearch() {
     this.vendorService.addVendor(token, vendorPayload).subscribe(
       addedVendor => {
         this.vendors.push(addedVendor);
+        this.totalItems = this.vendors.length;
+        this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+        this.updatePagedUsers();
         this.resetForm();
         this.popupService.showPopup('User added successfully', '#0F9D09');
       },
@@ -222,23 +220,24 @@ applySearch() {
       }
     };
     this.tier1Vendors = [];
+    this.applySearch(); // Re-apply search to update the displayed vendors
   }
- 
   
   openExportModal() {
     const data = this.vendors.map(vendor => ({
       'Vendor ID': vendor.vendorID,
-      'Vendor Name':vendor.vendorName,
-      'Vendor Address':vendor.vendorAddress,
-      'Tier':vendor.tier?.tierName,
-      'Category':vendor.category?.categoryName,
-      'Contact Name':vendor.user?.name,
-      'Contact Email':vendor.user?.email ,
-      'Contact Number':vendor.user?.contact_Number,
+      'Vendor Name': vendor.vendorName,
+      'Vendor Address': vendor.vendorAddress,
+      'Tier': vendor.tier?.tierName,
+      'Category': vendor.category?.categoryName,
+      'Contact Name': vendor.user?.name,
+      'Contact Email': vendor.user?.email,
+      'Contact Number': vendor.user?.contact_Number,
     }));
     
     this.modalService.setDataAndColumns(data, this.selectedColumns);
     this.modalService.showExportModal();
   }
 
+  
 }

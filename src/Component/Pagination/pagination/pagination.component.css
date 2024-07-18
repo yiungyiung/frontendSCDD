@@ -1,0 +1,58 @@
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #073c5a;
+}
+
+.pagination-controls button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #073c5a;
+  cursor: pointer;
+}
+
+.pagination-controls button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-controls span {
+  margin: 0 10px;
+}
+
+.custom-select-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.custom-select {
+  appearance: none;
+  padding: 5px 30px 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  font-size: 16px;
+}
+
+.custom-select::-ms-expand {
+  display: none;
+}
+
+.dropdownIcon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 18px;
+  color: #073c5a;
+}
