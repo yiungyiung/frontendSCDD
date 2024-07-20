@@ -92,67 +92,11 @@
         </div>
 
         <div class="container">
-          <div class="custcard mb-3" *ngFor="let user of pagedUsers">
-            <div class="card-body">
-              <div
-                class="user-status"
-                [ngClass]="{ active: user.isActive, inactive: !user.isActive }"
-              >
-                {{ user.isActive ? "Active" : "Inactive" }}
-              </div>
-              <div class="user-details">
-                <div class="detail user-id-bg" matTooltip="{{ user.userId }}">
-                  <small>User ID</small>
-                  <div class="truncate">{{ user.userId }}</div>
-                </div>
-                <div class="detail user-ids-bg" matTooltip="{{ user.name }}">
-                  <small>Name</small>
-                  <div class="truncate">{{ user.name }}</div>
-                </div>
-                <div
-                  class="detail user-ids-bg"
-                  matTooltip="{{ user.contact_Number }}"
-                >
-                  <small>Number</small>
-                  <div class="truncate">{{ user.contact_Number }}</div>
-                </div>
-                <div class="detail user-ids-bg" matTooltip="{{ user.email }}">
-                  <small>Email ID</small>
-                  <div class="truncate">{{ user.email }}</div>
-                </div>
-                <div class="detail user-ids-bg" matTooltip="{{ user.role }}">
-                  <small>Role</small>
-                  <div class="truncate">{{ user.role }}</div>
-                </div>
-                <div class="detail user-ids-bg">
-                  <small>{{ user.isActive ? "Disable" : "Enable" }}</small>
-                  <button
-                    class="btn btn-sm"
-                    [ngClass]="{
-                      'btn-success': user.isActive,
-                      'btn-danger': !user.isActive
-                    }"
-                    (click)="toggleUserStatus(user)"
-                  >
-                    <i
-                      class="fas"
-                      [ngClass]="{
-                        'fa-user-times': user.isActive,
-                        'fa-user-check': !user.isActive
-                      }"
-                    ></i>
-                  </button>
-                </div>
-
-                <div class="detail user-ids-bg">
-                  <small>Modify</small>
-                  <button mat-icon-button class="btn btn-sm">
-                    <mat-icon style="height: auto" svgIcon="modify"></mat-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <app-usercard
+            *ngFor="let user of pagedUsers"
+            [user]="user"
+            [toggleUserStatus]="toggleUserStatus.bind(this)"
+          ></app-usercard>
         </div>
       </div>
     </div>

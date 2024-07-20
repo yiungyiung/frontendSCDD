@@ -1,0 +1,91 @@
+.custcard {
+  border: 1px solid #ddd;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 6vh;
+  width: 60vw;
+  margin-top: 3vh;
+  margin-left: 0.6vw;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.user-status {
+  position: relative;
+  width: 6vw;
+  top: -4vh;
+  left: 10px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 1.7vh;
+}
+
+.user-status.active {
+  background-color: #339a2d;
+}
+
+.user-status.inactive {
+  background-color: #ee4a1c;
+}
+
+.user-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7vw, 1fr));
+  gap: 1vw;
+  text-align: center;
+}
+
+.detail {
+  margin-top: -20px;
+  text-align: center;
+  font-size: 2vh;
+}
+
+.detail small {
+  display: block;
+  font-size: 1.7vh;
+  color: gray;
+  text-align: center;
+}
+
+.user-id-bg {
+  background-color: #e7f4f9;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.user-ids-bg {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.user-ids-bg mat-icon {
+  padding-top: -10px;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  display: block;
+}
+
+.btn-success {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: white;
+}

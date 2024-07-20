@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
+import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
+import { AppComponent } from '../../app/app.component';
 
 @Component({
   selector: 'app-TopBar',
@@ -8,18 +8,19 @@ import { MatSidenav } from '@angular/material/sidenav';
 })
 export class TopBarComponent implements OnInit {
 
-  constructor() { }
 
   ngOnInit() {
   }
 
-  @ViewChild('sidenav') sidenav!: MatSidenav;
+
+  constructor(private appComponent: AppComponent) {}
+  isSidenavOpen = false;
 
   openSidenav() {
-    this.sidenav.open();
+    this.isSidenavOpen = true;
   }
 
   closeSidenav() {
-    this.sidenav.close();
+    this.isSidenavOpen = false;
   }
 }

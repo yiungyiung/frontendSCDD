@@ -13,6 +13,7 @@ import { IconService } from '../services/IconService/Icon.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 export function initializeApp(iconService: IconService) {
   return () => iconService.registerIcons();
@@ -33,6 +34,7 @@ export function initializeApp(iconService: IconService) {
     MatCardModule,
     MatDialogModule,
     MatButtonModule,
+    MatSidenavModule
   ],
   providers: [
     provideAnimationsAsync(),

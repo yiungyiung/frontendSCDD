@@ -21,6 +21,9 @@ import { PopupBoxComponent } from '../Component/popup-box/popup-box.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { PaginationComponent } from '../Component/Pagination/pagination/pagination.component';
+import { NotificationComponent } from '../Component/notification/notification/notification.component';
+import { VendorcardComponent } from '../Component/vendorcard/vendorcard.component';
+import { UsercardComponent } from '../Component/usercard/usercard.component';
 
 @NgModule({
   imports: [
@@ -37,6 +40,6 @@ import { PaginationComponent } from '../Component/Pagination/pagination/paginati
     MatFormFieldModule,
     MatInputModule,
   ],
-  declarations: [AdminComponent,DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,disclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PopupBoxComponent, PaginationComponent]
+  declarations: [AdminComponent,UsercardComponent, VendorcardComponent, DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,disclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PopupBoxComponent, PaginationComponent, NotificationComponent]
 })
 export class AdminModule { }
