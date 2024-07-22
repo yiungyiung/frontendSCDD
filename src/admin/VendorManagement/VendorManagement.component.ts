@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Vendor } from '../../model/vendor';
 import { AuthService } from '../../services/AuthService/auth.service';
 import { VendorService } from '../../services/VendorService/Vendor.service';
+import { Role } from '../../model/role';
 import { Category } from '../../model/category';
 import { Tier } from '../../model/tier';
 import { PopupService } from '../../services/PopupService/popup.service';
@@ -9,12 +10,15 @@ import { ExportModalServiceService } from '../../services/ExportModalService/Exp
 import { AdminService } from '../../services/AdminService/Admin.service';
 import { ChangeDetectorRef } from '@angular/core'; 
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-VendorManagement',
   templateUrl: './VendorManagement.component.html',
   styleUrls: ['./VendorManagement.component.css']
 })
 export class VendorManagementComponent implements OnInit {
+  vendorForm!: FormGroup;
   vendors: Vendor[] = [];
   categories: Category[] = [];
   tiers: Tier[] = [];
@@ -33,10 +37,11 @@ export class VendorManagementComponent implements OnInit {
   itemsPerPage: number = 10;
   totalItems: number = 0;
   totalPages: number = 0;
+  submitted = false;
   
   selectedColumns: string[] = ['Vendor ID','Vendor Name','Vendor Address','Tier','Category','Contact Name','Contact Email','Contact Number']; 
   allColumns: string[] = ['Vendor ID','Vendor Name','Vendor Address','Tier','Category','Contact Name','Contact Email','Contact Number'];
-
+  
   newVendor: Vendor = {
     vendorRegistration: '',
     vendorName: '',
@@ -54,13 +59,66 @@ export class VendorManagementComponent implements OnInit {
     registrationDate: new Date()
   };
   showVendorSelection = false; 
-  constructor(private cdr: ChangeDetectorRef, private adminService: AdminService,private vendorService: VendorService, private authService: AuthService, private popupService: PopupService, private modalService: ExportModalServiceService) {}
+  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef,private authService: AuthService, private adminService: AdminService,private vendorService: VendorService, private popupService: PopupService, private modalService: ExportModalServiceService) {
+    console.log('AuthService initialized:', this.authService);
+    if (this.authService) {
+      const token = this.authService.getToken();
+      console.log('Token:', token);
+    } else {
+      console.error('AuthService is not available.');
+    }}
 
   ngOnInit() {
     this.loadVendors();
     this.loadCategories();
     this.loadTiers();
+    this.vendorForm = this.fb.group({
+      vendorName: ['', Validators.required],
+      vendorRegistration: ['', Validators.required],
+      vendorAddress: ['', Validators.required],
+      contactName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      contactNumber: ['', Validators.required],
+      categoryID: ['', Validators.required],
+      tierID: ['', Validators.required]
+    });
+    
   }
+  onSubmit(): void {
+    this.submitted = true;
+    if (this.vendorForm.invalid) {
+      return;
+    }
+  
+    // Populate newVendor with form values
+    this.newVendor.vendorRegistration = this.vendorForm.get('vendorRegistration')?.value || '';
+    this.newVendor.vendorName = this.vendorForm.get('vendorName')?.value || '';
+    this.newVendor.vendorAddress = this.vendorForm.get('vendorAddress')?.value || '';
+    this.newVendor.user.name = this.vendorForm.get('contactName')?.value || '';
+    this.newVendor.user.email = this.vendorForm.get('email')?.value || '';
+    this.newVendor.user.contact_Number = this.vendorForm.get('contactNumber')?.value || '';
+    this.newVendor.categoryID = Number(this.vendorForm.get('categoryID')?.value) || 0;
+    this.newVendor.tierID = Number(this.vendorForm.get('tierID')?.value) || 0;
+  
+    const vendorPayload: Vendor = {
+      vendorRegistration: this.newVendor.vendorRegistration,
+      vendorName: this.newVendor.vendorName,
+      vendorAddress: this.newVendor.vendorAddress,
+      tierID: this.newVendor.tierID,
+      user: {
+        email: this.newVendor.user.email,
+        name: this.newVendor.user.name,
+        contact_Number: this.newVendor.user.contact_Number,
+        roleId: 4,  // Assuming roleId is static for this example
+        isActive: this.newVendor.user.isActive
+      },
+      categoryID: this.newVendor.categoryID,
+      parentVendorIDs: this.newVendor.parentVendorIDs!.map(Number)
+    };
+  
+    this.addVendor(vendorPayload);
+  }
+  
 
   toggleVendorSelection() {
     this.showVendorSelection = !this.showVendorSelection;
@@ -92,6 +150,7 @@ export class VendorManagementComponent implements OnInit {
     const token = this.authService.getToken();
     this.vendorService.getAllVendors(token).subscribe(
       serverVendors => {
+        this.vendors = serverVendors.map(serverVendor => this.mapServerUserToUser(serverVendor));
         this.vendors = serverVendors;
         this.totalItems = this.vendors.length;
         this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
@@ -168,26 +227,10 @@ export class VendorManagementComponent implements OnInit {
     );
   }
 
-  addVendor() {
+  addVendor(vendordata: Vendor) {
     const token = this.authService.getToken();
-    const vendorPayload: Vendor = {
-      vendorRegistration: this.newVendor.vendorRegistration,
-      vendorName: this.newVendor.vendorName,
-      vendorAddress: this.newVendor.vendorAddress,
-      tierID: Number(this.newVendor.tierID),
-      user: {
-        email: this.newVendor.user.email,
-        name: this.newVendor.user.name,
-        contact_Number: this.newVendor.user.contact_Number,
-        roleId: 4,
-        isActive: this.newVendor.user.isActive
-      },
-      categoryID: Number(this.newVendor.categoryID),
-      parentVendorIDs: this.newVendor.parentVendorIDs!.map(Number)
-    };
-
-    console.log('Adding vendor with payload:', vendorPayload);
-    this.vendorService.addVendor(token, vendorPayload).subscribe(
+    console.log('Adding vendor with payload:', vendordata);
+    this.vendorService.addVendor(token, vendordata).subscribe(
       addedVendor => {
         this.vendors.push(addedVendor);
         this.totalItems = this.vendors.length;
@@ -204,6 +247,7 @@ export class VendorManagementComponent implements OnInit {
   }
 
   resetForm() {
+    this.vendorForm.reset();
     this.newVendor = {
       vendorRegistration: '',
       vendorName: '',
@@ -217,11 +261,13 @@ export class VendorManagementComponent implements OnInit {
         name: '',
         contact_Number: '',
         roleId: 4
-      }
+      },
+      registrationDate: new Date()
     };
     this.tier1Vendors = [];
     this.applySearch(); // Re-apply search to update the displayed vendors
   }
+  
   
   openExportModal() {
     const data = this.vendors.map(vendor => ({
@@ -239,5 +285,74 @@ export class VendorManagementComponent implements OnInit {
     this.modalService.showExportModal();
   }
 
-  
+  private getRoleFromRoleId(roleId: number): Role {
+    switch(roleId) {
+      case 1: return Role.Admin;
+      case 2: return Role.Manager;
+      case 3: return Role.Analyst;
+      case 4: return Role.Vendor;
+      default: throw new Error('Invalid role ID');
+    }
+  }
+
+  private mapServerUserToUser(serverUser: any): Vendor {
+    console.log('Mapping server user to vendor:', serverUser);
+    console.log('please::',serverUser.user.isActive);
+    return {
+      vendorID: serverUser.vendorID,
+      vendorName: serverUser.vendorName, 
+      vendorAddress: serverUser.vendorAddress, 
+      tierID: serverUser.tierID, 
+      categoryID:serverUser.categoryID,
+      vendorRegistration: serverUser.vendorRegistration,
+      user: {
+        isActive: serverUser.user.isActive,
+        email: serverUser.user.email,
+        name: serverUser.user.name,
+        contact_Number: serverUser.user.contact_Number,
+        roleId: serverUser.user.roleId
+      },
+      userID: serverUser.userId,
+    };
+  }
+
+  toggleVendorStatus(vendor: Vendor){
+    if (!this.authService) {
+    console.error('AuthService is not initialized.');
+    return;
+  }
+
+  if (this.authService) {
+    const token = this.authService.getToken();
+    console.log('Tokennnn:', token);
+  } else {
+    console.error('AuthService is not available.');
+  }
+
+  if (!vendor || !vendor.user) {
+    console.error('Vendor or vendor.user is undefined.');
+    return;
+  }
+
+    console.log("workinhgggggg")
+    const newStatus = !vendor.user.isActive;
+    const token = this.authService.getToken();
+    const updatedvendor = { ...vendor.user, isActive: newStatus };
+    this.adminService.updateUser(updatedvendor, token).subscribe(
+      response => {
+        const index = this.vendors.findIndex(u => u.user.userId === response.userId);
+        if (index !== -1) {
+          this.vendors[index] = this.mapServerUserToUser(response);
+          this.updatePagedUsers();
+          this.cdr.detectChanges();  
+        }
+      },
+      error => {
+        console.error('Error updating user:', error);
+        alert('Failed to update user. Please try again.');
+        vendor.user.isActive = !newStatus;
+        this.cdr.detectChanges(); 
+      }
+    );
+  }
 }

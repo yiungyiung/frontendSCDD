@@ -14,6 +14,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { PopupBoxModule } from '../Component/popup-box/popup-box/popup-box.module';
 
 export function initializeApp(iconService: IconService) {
   return () => iconService.registerIcons();
@@ -34,7 +35,8 @@ export function initializeApp(iconService: IconService) {
     MatCardModule,
     MatDialogModule,
     MatButtonModule,
-    MatSidenavModule
+    MatSidenavModule,
+    PopupBoxModule
   ],
   providers: [
     provideAnimationsAsync(),

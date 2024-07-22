@@ -12,6 +12,10 @@
 .card-body {
   padding: 15px;
 }
+.card-body:hover {
+  border: 2px solid #f9a634;
+  border-radius: 8px;
+}
 
 .user-status {
   position: relative;

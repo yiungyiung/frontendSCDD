@@ -4,7 +4,11 @@
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin: 3vh 0 6vh 0.6vw;
-  width: 60vw;
+  width: 63vw;
+}
+
+.custcard:hover {
+  border: 2px solid #f9a634;
 }
 
 .vendor-details {
@@ -18,7 +22,7 @@
 
 .kaam {
   display: grid;
-  gap: 1vw;
+  gap: 0.5vw;
   grid-template-columns: repeat(4, 1fr);
   width: 100%;
 }
@@ -36,16 +40,23 @@
 }
 
 .vendor-id-bg {
-  padding: 10px;
-  border-radius: 4px;
+  margin-top: 20px;
+  margin-left: 20px;
+  padding: 3px; /* Decrease padding */
+  max-width: 100px; /* Adjust max-width */
   background-color: #e7f4f9;
+  height: 80px;
 }
 
 .truncate {
-  overflow: hidden; /* Hide text overflow */
-  text-overflow: ellipsis; /* Show ellipsis (...) */
-  white-space: nowrap; /* Prevent text wrapping */
-  display: block; /* Ensure block-level behavior */
+  padding-left: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  word-wrap: break-word;
+  word-break: break-all;
+  max-width: 200px;
 }
 
 .truncate-container {
@@ -84,20 +95,21 @@
 .action {
   text-align: center;
   margin-top: 10px;
+  margin-right: 30px;
 }
 
 .action button {
-  display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 1px 1px;
+  width: 100%;
+  height: auto;
+  font-size: 1.5em;
 }
 
 .action button mat-icon {
-  margin-right: 5px;
+  margin-right: 10px;
   height: auto;
 }
 

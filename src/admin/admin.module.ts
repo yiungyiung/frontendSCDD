@@ -17,13 +17,24 @@ import { MatCardModule } from '@angular/material/card';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { disclaimerFooterComponent} from '../Component/disclaimerFooter/disclaimerFooter.component';
 import { ExportDialogBoxComponent } from '../Component/exportDialogBox/exportDialogBox.component';
-import { PopupBoxComponent } from '../Component/popup-box/popup-box.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { PaginationComponent } from '../Component/Pagination/pagination/pagination.component';
 import { NotificationComponent } from '../Component/notification/notification/notification.component';
 import { VendorcardComponent } from '../Component/vendorcard/vendorcard.component';
 import { UsercardComponent } from '../Component/usercard/usercard.component';
+import { PopupBoxModule } from '../Component/popup-box/popup-box/popup-box.module';
+import { ReactiveFormsModule } from '@angular/forms';
+
+@NgModule({
+  imports: [
+    // other imports
+    FormsModule,
+  ],
+  // declarations, providers, etc.
+})
+export class AppModule { }
+
 
 @NgModule({
   imports: [
@@ -39,7 +50,9 @@ import { UsercardComponent } from '../Component/usercard/usercard.component';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    PopupBoxModule,
+    ReactiveFormsModule
   ],
-  declarations: [AdminComponent,UsercardComponent, VendorcardComponent, DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,disclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PopupBoxComponent, PaginationComponent, NotificationComponent]
+  declarations: [AdminComponent,UsercardComponent, VendorcardComponent, DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,disclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PaginationComponent, NotificationComponent]
 })
 export class AdminModule { }

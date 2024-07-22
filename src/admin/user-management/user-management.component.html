@@ -4,7 +4,7 @@
       <div class="card mb-3">
         <h5 class="card-header">Add New User</h5>
         <div class="card-body">
-          <form (ngSubmit)="addUser()">
+          <form #userForm="ngForm" (ngSubmit)="addUser(userForm)">
             <div class="form-group">
               <label for="email">Email</label>
               <input
@@ -14,7 +14,15 @@
                 [(ngModel)]="newUser.email"
                 name="email"
                 required
+                #email="ngModel"
               />
+              <div
+                *ngIf="email.invalid && (email.dirty || email.touched)"
+                class="alert alert-danger"
+              >
+                <div *ngIf="email.errors?.['required']">Email is required.</div>
+                <div *ngIf="email.errors?.['email']">Invalid email format.</div>
+              </div>
             </div>
             <div class="form-group">
               <label for="name">Name</label>
@@ -25,7 +33,14 @@
                 [(ngModel)]="newUser.name"
                 name="name"
                 required
+                #name="ngModel"
               />
+              <div
+                *ngIf="name.invalid && (name.dirty || name.touched)"
+                class="alert alert-danger"
+              >
+                <div *ngIf="name.errors?.['required']">Name is required.</div>
+              </div>
             </div>
             <div class="form-group">
               <label for="contact_Number">Contact Number</label>
@@ -36,7 +51,19 @@
                 [(ngModel)]="newUser.contact_Number"
                 name="contact_Number"
                 required
+                #contact_Number="ngModel"
               />
+              <div
+                *ngIf="
+                  contact_Number.invalid &&
+                  (contact_Number.dirty || contact_Number.touched)
+                "
+                class="alert alert-danger"
+              >
+                <div *ngIf="contact_Number.errors?.['required']">
+                  Contact Number is required.
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <label for="role">Role</label>
@@ -46,14 +73,28 @@
                 [(ngModel)]="newUser.role"
                 name="role"
                 required
+                #role="ngModel"
               >
                 <option *ngFor="let role of roles" [ngValue]="role">
                   {{ role }}
                 </option>
               </select>
+              <div
+                *ngIf="role.invalid && (role.dirty || role.touched)"
+                class="alert alert-danger"
+              >
+                <div *ngIf="role.errors?.['required']">Role is required.</div>
+              </div>
             </div>
-            <button type="submit" class="btn btn-primary">Add User</button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="userForm.invalid"
+            >
+              Add User
+            </button>
           </form>
+
           <app-popup-box></app-popup-box>
         </div>
       </div>
@@ -65,16 +106,6 @@
           <h4 style="font-size: 18px; font-weight: bold; color: #073c5a">
             Users
           </h4>
-
-          <!-- Pagination Container -->
-          <app-pagination
-            [currentPage]="currentPage"
-            [totalPages]="totalPages"
-            [itemsPerPage]="itemsPerPage"
-            [totalItems]="totalItems"
-            (pageChange)="onPageChange($event)"
-            (itemsPerPageChange)="onItemsPerPageChange($event)"
-          ></app-pagination>
 
           <div class="icon-container">
             <mat-icon
@@ -88,6 +119,15 @@
             ></app-exportDialogBox>
 
             <mat-icon svgIcon="filterIcon"></mat-icon>
+            <!-- Pagination Container -->
+            <app-pagination
+              [currentPage]="currentPage"
+              [totalPages]="totalPages"
+              [itemsPerPage]="itemsPerPage"
+              [totalItems]="totalItems"
+              (pageChange)="onPageChange($event)"
+              (itemsPerPageChange)="onItemsPerPageChange($event)"
+            ></app-pagination>
           </div>
         </div>
 

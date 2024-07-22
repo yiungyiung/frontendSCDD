@@ -6,81 +6,103 @@
         <div class="vendor-title-card">
           <h4 class="card-header">Add Vendor</h4>
         </div>
-        <form (ngSubmit)="addVendor()">
+        <form [formGroup]="vendorForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
-            <label for="vendorName">Vendor Name</label>
+            <label for="vendorName">Vendor Name </label>
             <input
               type="text"
               id="vendorName"
+              formControlName="vendorName"
               class="form-control"
-              [(ngModel)]="newVendor.vendorName"
-              name="vendorName"
-              required
             />
+            <div
+              *ngIf="submitted && vendorForm.get('vendorName')?.invalid"
+              class="error"
+            >
+              Please fill the required question.
+            </div>
           </div>
           <div class="form-group">
-            <label for="vendorRegNumber">Vendor Registration Number</label>
+            <label for="vendorRegNumber">Vendor Registration Number </label>
             <input
               type="text"
               id="vendorRegNumber"
+              formControlName="vendorRegistration"
               class="form-control"
-              [(ngModel)]="newVendor.vendorRegistration"
-              name="vendorRegNumber"
-              required
             />
+            <div
+              *ngIf="submitted && vendorForm.get('vendorRegistration')?.invalid"
+              class="error"
+            >
+              Please fill the required question.
+            </div>
           </div>
           <div class="form-group">
-            <label for="vendorAddress">Vendor Address</label>
+            <label for="vendorAddress">Vendor Address </label>
             <input
               type="text"
               id="vendorAddress"
+              formControlName="vendorAddress"
               class="form-control"
-              [(ngModel)]="newVendor.vendorAddress"
-              name="vendorAddress"
-              required
             />
+            <div
+              *ngIf="submitted && vendorForm.get('vendorAddress')?.invalid"
+              class="error"
+            >
+              Please fill the required question.
+            </div>
           </div>
           <div class="form-group">
-            <label for="contactPerson">Contact Person</label>
+            <label for="contactPerson">Contact Person </label>
             <input
               type="text"
               id="contactPerson"
+              formControlName="contactName"
               class="form-control"
-              [(ngModel)]="newVendor.user.name"
-              name="contactPerson"
-              required
             />
+            <div
+              *ngIf="submitted && vendorForm.get('contactName')?.invalid"
+              class="error"
+            >
+              Please fill the required question.
+            </div>
           </div>
           <div class="form-group">
-            <label for="emailID">Email ID</label>
+            <label for="emailID">Email ID </label>
             <input
               type="email"
               id="emailID"
+              formControlName="email"
               class="form-control"
-              [(ngModel)]="newVendor.user.email"
-              name="emailID"
-              required
             />
+            <div
+              *ngIf="submitted && vendorForm.get('email')?.invalid"
+              class="error"
+            >
+              Please fill the required question.
+            </div>
           </div>
           <div class="form-group">
-            <label for="contactNumber">Contact Number</label>
+            <label for="contactNumber">Contact Number </label>
             <input
               type="tel"
               id="contactNumber"
+              formControlName="contactNumber"
               class="form-control"
-              [(ngModel)]="newVendor.user.contact_Number"
-              name="contactNumber"
-              required
             />
+            <div
+              *ngIf="submitted && vendorForm.get('contactNumber')?.invalid"
+              class="error"
+            >
+              Please fill the required question.
+            </div>
           </div>
           <div class="form-group">
-            <label for="category">Category of Industry</label>
+            <label for="category">Category of Industry </label>
             <select
               id="category"
+              formControlName="categoryID"
               class="form-control"
-              [(ngModel)]="newVendor.categoryID"
-              name="category"
-              required
             >
               <option value="">Select Category</option>
               <option
@@ -90,22 +112,32 @@
                 {{ category.categoryName }}
               </option>
             </select>
+            <div
+              *ngIf="submitted && vendorForm.get('categoryID')?.invalid"
+              class="error"
+            >
+              Please fill the required question.
+            </div>
           </div>
           <div class="form-group">
-            <label for="tier">Tier</label>
+            <label for="tier">Tier </label>
             <select
               id="tier"
+              formControlName="tierID"
               class="form-control"
-              [(ngModel)]="newVendor.tierID"
-              name="tier"
               (change)="onTierChange($event)"
-              required
             >
               <option value="">Select Tier</option>
               <option *ngFor="let tier of tiers" [value]="tier.tierId">
                 {{ tier.tierName }}
               </option>
             </select>
+            <div
+              *ngIf="submitted && vendorForm.get('tierID')?.invalid"
+              class="error"
+            >
+              Please fill the required question.
+            </div>
           </div>
           <div class="form-group" *ngIf="tier1Vendors.length > 0">
             <mat-form-field class="example-full-width">
@@ -114,7 +146,6 @@
                   matInput
                   placeholder="Search vendors"
                   [(ngModel)]="searchQuery"
-                  (ngModelChange)="applySearch()"
                   [ngModelOptions]="{ standalone: true }"
                 />
               </div>
@@ -126,19 +157,15 @@
                   class="form-check-input"
                   [id]="vendor.vendorID"
                   [value]="vendor.vendorID"
-                  [checked]="
-                    (newVendor.parentVendorIDs ?? []).includes(vendor.vendorID!)
-                  "
                   (change)="toggleSelection(vendor.vendorID!, $event)"
                 />
-                <label class="form-check-label" [for]="vendor.vendorID">
-                  {{ vendor.vendorName }}
-                </label>
+                <label class="form-check-label" [for]="vendor.vendorID">{{
+                  vendor.vendorName
+                }}</label>
               </div>
             </div>
           </div>
-
-          <button type="submit" class="btn btn-primary">Add Vendor</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </form>
         <app-popup-box></app-popup-box>
       </div>
@@ -179,6 +206,7 @@
           <app-vendorcard
             *ngFor="let vendor of pagedUsers"
             [vendor]="vendor"
+            [toggleVendorStatus]="toggleVendorStatus.bind(this)"
           ></app-vendorcard>
         </div>
       </div>

@@ -12,6 +12,9 @@
   height: 70vh;
   width: 25vw;
   margin-left: -0.9vw;
+  height: 68vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 
 .card-header {
@@ -178,7 +181,7 @@
   background-color: #ffffff;
   width: 63vw;
   margin-left: -19vw;
-  height: 70vh;
+  height: 68vh;
   overflow-y: scroll;
   scrollbar-width: none;
 }
@@ -204,6 +207,7 @@
 }
 
 .icon-container mat-icon {
+  margin-top: 20px;
   margin-left: 10px;
   height: auto;
   color: #073c5a;

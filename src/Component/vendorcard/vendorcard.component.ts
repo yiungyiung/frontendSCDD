@@ -13,7 +13,9 @@ export class VendorcardComponent implements OnInit {
   }
 
   @Input() vendor: any;
-
+  @Input() toggleVendorStatus: (vendor: any) => void = () => {
+    console.log("workinh");
+  }; 
   
 
 }

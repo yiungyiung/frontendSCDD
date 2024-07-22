@@ -54,6 +54,12 @@
   background-color: #ffffff;
 }
 
+.add-vendor-card {
+  height: 68vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
 .add-vendor-card h4,
 .back-card h4 {
   font-size: 18px;
@@ -102,6 +108,7 @@
 }
 
 .back-card {
+  height: 68vh;
   overflow-y: scroll;
   scrollbar-width: none;
 }
@@ -113,6 +120,7 @@
   background-color: #e7f4f9;
   border-bottom: 1px solid #ddd;
   padding: 10px 15px;
+  height: 9vh;
 }
 
 .icon-container {
@@ -121,9 +129,11 @@
 }
 
 .icon-container mat-icon {
+  margin-top: 20px;
   margin-left: 10px;
   cursor: pointer;
   color: #073c5a;
+  width: 24px;
   height: auto;
 }
 
@@ -197,11 +207,11 @@
 }
 
 .user-status.active {
-  background-color: #339a2d;
+  background-color: #0f9d09;
 }
 
 .user-status.inactive {
-  background-color: #ee4a1c;
+  background-color: #fd3500;
 }
 
 .user-actions {
@@ -227,4 +237,10 @@
 .action button mat-icon {
   margin-right: 5px;
   height: auto;
+}
+
+.error {
+  color: #ff0000;
+  font-size: 0.875em;
+  margin-top: 0.25em;
 }

@@ -6,6 +6,7 @@ import { AdminService } from '../../services/AdminService/Admin.service';
 import { AuthService } from '../../services/AuthService/auth.service';
 import { ExportModalServiceService } from '../../services/ExportModalService/ExportModalService.service';
 import { PopupService } from '../../services/PopupService/popup.service';
+import { NgForm } from '@angular/forms'; 
 
 @Component({
   selector: 'app-user-management',
@@ -70,7 +71,11 @@ export class UserManagementComponent implements OnInit {
     this.pagedUsers = this.users.slice(startIndex, endIndex);
   }
 
-  addUser(): void {
+  addUser(userForm: NgForm): void {
+    if (userForm.invalid) {
+      return; // Prevent form submission if invalid
+    }
+    
     if (!this.newUser.role) {
       this.popupService.showPopup('Please select a role for the new user.', '#C10000');
       return;

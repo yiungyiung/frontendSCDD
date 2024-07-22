@@ -24,6 +24,8 @@
       <div class="detail vendor-id-bg" matTooltip="{{ vendor.vendorID }}">
         <small>Vendor ID</small>
         <div class="truncate">{{ vendor.vendorID }}</div>
+        <small>User ID</small>
+        <div class="truncate">{{ vendor.user?.userId }}</div>
       </div>
       <div class="kaam">
         <div class="detail vendor-name-bg" matTooltip="{{ vendor.vendorName }}">
@@ -50,9 +52,10 @@
             <button
               class="btn btn-sm"
               [ngClass]="{
-                'btn-success': vendor.user?.isActive,
-                'btn-danger': !vendor.user?.isActive
+                'btn-success': !vendor.user?.isActive,
+                'btn-danger': vendor.user?.isActive
               }"
+              (click)="toggleVendorStatus(vendor)"
             >
               <i
                 class="fas"
