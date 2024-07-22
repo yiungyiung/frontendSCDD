@@ -5,6 +5,7 @@ import { VendorService } from '../../services/VendorService/Vendor.service';
 import { Role } from '../../model/role';
 import { Category } from '../../model/category';
 import { Tier } from '../../model/tier';
+import { User } from '../../model/user';
 import { PopupService } from '../../services/PopupService/popup.service';
 import { ExportModalServiceService } from '../../services/ExportModalService/ExportModalService.service';
 import { AdminService } from '../../services/AdminService/Admin.service';
@@ -336,15 +337,20 @@ export class VendorManagementComponent implements OnInit {
 
     console.log("workinhgggggg")
     const newStatus = !vendor.user.isActive;
+    console.log(vendor.user.isActive);
     const token = this.authService.getToken();
-    const updatedvendor = { ...vendor.user, isActive: newStatus };
-    this.adminService.updateUser(updatedvendor, token).subscribe(
+    vendor.user.isActive= !vendor.user.isActive;
+    const usser : User = {
+    ...vendor.user
+  };
+    this.adminService.updateUser(usser, token).subscribe(
       response => {
         const index = this.vendors.findIndex(u => u.user.userId === response.userId);
         if (index !== -1) {
           this.vendors[index] = this.mapServerUserToUser(response);
           this.updatePagedUsers();
-          this.cdr.detectChanges();  
+          this.cdr.detectChanges(); 
+          this.loadVendors();
         }
       },
       error => {
