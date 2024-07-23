@@ -1,144 +1,72 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card mb-3">
-        <h5 class="card-header">Add New User</h5>
-        <div class="card-body">
-          <form #userForm="ngForm" (ngSubmit)="addUser(userForm)">
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                class="form-control"
-                [(ngModel)]="newUser.email"
-                name="email"
-                required
-                #email="ngModel"
-              />
-              <div
-                *ngIf="email.invalid && (email.dirty || email.touched)"
-                class="alert alert-danger"
-              >
-                <div *ngIf="email.errors?.['required']">Email is required.</div>
-                <div *ngIf="email.errors?.['email']">Invalid email format.</div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                class="form-control"
-                [(ngModel)]="newUser.name"
-                name="name"
-                required
-                #name="ngModel"
-              />
-              <div
-                *ngIf="name.invalid && (name.dirty || name.touched)"
-                class="alert alert-danger"
-              >
-                <div *ngIf="name.errors?.['required']">Name is required.</div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="contact_Number">Contact Number</label>
-              <input
-                type="text"
-                id="contact_Number"
-                class="form-control"
-                [(ngModel)]="newUser.contact_Number"
-                name="contact_Number"
-                required
-                #contact_Number="ngModel"
-              />
-              <div
-                *ngIf="
-                  contact_Number.invalid &&
-                  (contact_Number.dirty || contact_Number.touched)
-                "
-                class="alert alert-danger"
-              >
-                <div *ngIf="contact_Number.errors?.['required']">
-                  Contact Number is required.
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <h5 class="card-header">{{ selectedUser ? 'Update User' : 'Add New User' }}</h5>
+                <div class="card-body">
+                    <form #userForm="ngForm" (ngSubmit)="selectedUser ? updateUser(userForm) : addUser(userForm)">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" [(ngModel)]="email" name="email" required #emailField="ngModel" />
+                            <div *ngIf="emailField.invalid && (emailField.dirty || emailField.touched)" class="alert alert-danger">
+                                <div *ngIf="emailField.errors?.['required']">Email is required.</div>
+                                <div *ngIf="emailField.errors?.['email']">Invalid email format.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="form-control" [(ngModel)]="name" name="name" required #nameField="ngModel" />
+                            <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="alert alert-danger">
+                                <div *ngIf="nameField.errors?.['required']">Name is required.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact_Number">Contact Number</label>
+                            <input type="text" id="contact_Number" class="form-control" [(ngModel)]="contactNumber" name="contact_Number" required #contact_NumberField="ngModel" />
+                            <div *ngIf="contact_NumberField.invalid && (contact_NumberField.dirty || contact_NumberField.touched)" class="alert alert-danger">
+                                <div *ngIf="contact_NumberField.errors?.['required']">Contact Number is required.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="role">Role</label>
+                            <select id="role" class="form-control" [(ngModel)]="role" name="role" required #roleField="ngModel">
+                              <option *ngFor="let roleOption of roles" [ngValue]="roleOption">{{ roleOption }}</option>
+                          </select>
+                            <div *ngIf="roleField.invalid && (roleField.dirty || roleField.touched)" class="alert alert-danger">
+                                <div *ngIf="roleField.errors?.['required']">Role is required.</div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+                          {{ selectedUser ? 'Update User' : 'Add User' }}
+                      </button>
+                        <button *ngIf="selectedUser" type="button" class="btn btn-secondary" (click)="resetSelectedUser()">Cancel</button>
+                    </form>
+
+                    <app-popup-box></app-popup-box>
                 </div>
-              </div>
             </div>
-            <div class="form-group">
-              <label for="role">Role</label>
-              <select
-                id="role"
-                class="form-control"
-                [(ngModel)]="newUser.role"
-                name="role"
-                required
-                #role="ngModel"
-              >
-                <option *ngFor="let role of roles" [ngValue]="role">
-                  {{ role }}
-                </option>
-              </select>
-              <div
-                *ngIf="role.invalid && (role.dirty || role.touched)"
-                class="alert alert-danger"
-              >
-                <div *ngIf="role.errors?.['required']">Role is required.</div>
-              </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="back-card mb-3">
+                <div class="card-header-container">
+                    <h4 style="font-size: 18px; font-weight: bold; color: #073c5a">Users</h4>
+
+                    <div class="icon-container">
+                        <mat-icon svgIcon="exportButton" (click)="openExportModal()"></mat-icon>
+                        <app-exportDialogBox [selectedColumns]="selectedColumns" [allColumns]="allColumns" [data]="users"></app-exportDialogBox>
+
+                        <mat-icon svgIcon="filterIcon"></mat-icon>
+                        <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" [itemsPerPage]="itemsPerPage" [totalItems]="totalItems" (pageChange)="onPageChange($event)" (itemsPerPageChange)="onItemsPerPageChange($event)">
+                        </app-pagination>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <app-usercard *ngFor="let user of pagedUsers" [user]="user" [toggleUserStatus]="toggleUserStatus.bind(this)" (click)="selectUserForUpdate(user)">
+                    </app-usercard>
+                </div>
             </div>
-            <button
-              type="submit"
-              class="btn btn-primary"
-              [disabled]="userForm.invalid"
-            >
-              Add User
-            </button>
-          </form>
-
-          <app-popup-box></app-popup-box>
         </div>
-      </div>
     </div>
-
-    <div class="col-md-6">
-      <div class="back-card mb-3">
-        <div class="card-header-container">
-          <h4 style="font-size: 18px; font-weight: bold; color: #073c5a">
-            Users
-          </h4>
-
-          <div class="icon-container">
-            <mat-icon
-              svgIcon="exportButton"
-              (click)="openExportModal()"
-            ></mat-icon>
-            <app-exportDialogBox
-              [selectedColumns]="selectedColumns"
-              [allColumns]="allColumns"
-              [data]="users"
-            ></app-exportDialogBox>
-
-            <mat-icon svgIcon="filterIcon"></mat-icon>
-            <!-- Pagination Container -->
-            <app-pagination
-              [currentPage]="currentPage"
-              [totalPages]="totalPages"
-              [itemsPerPage]="itemsPerPage"
-              [totalItems]="totalItems"
-              (pageChange)="onPageChange($event)"
-              (itemsPerPageChange)="onItemsPerPageChange($event)"
-            ></app-pagination>
-          </div>
-        </div>
-
-        <div class="container">
-          <app-usercard
-            *ngFor="let user of pagedUsers"
-            [user]="user"
-            [toggleUserStatus]="toggleUserStatus.bind(this)"
-          ></app-usercard>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
