@@ -15,7 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { disclaimerFooterComponent} from '../Component/disclaimerFooter/disclaimerFooter.component';
+import { DisclaimerFooterComponent } from '../Component/disclaimerFooter/disclaimerFooter.component';
 import { ExportDialogBoxComponent } from '../Component/exportDialogBox/exportDialogBox.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -53,6 +53,6 @@ export class AppModule { }
     PopupBoxModule,
     ReactiveFormsModule
   ],
-  declarations: [AdminComponent,UsercardComponent, VendorcardComponent, DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,disclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PaginationComponent, NotificationComponent]
+  declarations: [AdminComponent,UsercardComponent, VendorcardComponent, DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,DisclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PaginationComponent, NotificationComponent]
 })
 export class AdminModule { }

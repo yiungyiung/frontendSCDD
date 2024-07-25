@@ -17,6 +17,19 @@
   scrollbar-width: none;
 }
 
+.addusertitle {
+  background-color: #e7f4f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.addusertitle mat-icon {
+  margin-right: 20px;
+  width: 30px;
+  height: auto;
+}
+
 .card-header {
   background-color: #e7f4f9;
   border-bottom: 1px solid #ddd;
@@ -118,7 +131,7 @@
 }
 
 .user-status.inactive {
-  background-color: #ee4a1c;
+  background-color: #dc3545;
 }
 
 .user-details {
@@ -192,7 +205,11 @@
   align-items: center;
   background-color: #e7f4f9;
   border-bottom: none;
-  padding: 10px 15px;
+  padding: px 15px;
+}
+
+.card-header-container h4 {
+  padding-left: 20px;
 }
 
 .card-header {
@@ -202,6 +219,8 @@
 }
 
 .icon-container {
+  padding-right: 20px;
+  padding-bottom: 20px;
   display: flex;
   align-items: center;
 }

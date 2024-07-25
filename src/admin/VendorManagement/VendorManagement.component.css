@@ -26,21 +26,6 @@
   padding: 15px;
 }
 
-.tab-critical {
-  background-color: #da3b00;
-  color: white;
-}
-
-.tab-non-critical {
-  background-color: #fe9300;
-  color: white;
-}
-
-.tab-others {
-  background-color: #ffe400;
-  color: white;
-}
-
 .vendor-title-card {
   background-color: #12789e;
 }
@@ -123,14 +108,19 @@
   height: 9vh;
 }
 
+.card-header-container h4 {
+  padding-top: 20px;
+}
+
 .icon-container {
   display: flex;
   align-items: center;
+  padding-bottom: 10px;
 }
 
 .icon-container mat-icon {
   margin-top: 20px;
-  margin-left: 10px;
+  margin-right: 10px;
   cursor: pointer;
   color: #073c5a;
   width: 24px;
@@ -204,14 +194,6 @@
   display: inline-block;
   font-size: 1.7vh;
   margin-left: 10px;
-}
-
-.user-status.active {
-  background-color: #0f9d09;
-}
-
-.user-status.inactive {
-  background-color: #fd3500;
 }
 
 .user-actions {

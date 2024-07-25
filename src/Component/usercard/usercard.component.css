@@ -10,10 +10,11 @@
 }
 
 .card-body {
+  border: 1px solid transparent;
   padding: 15px;
 }
 .card-body:hover {
-  border: 2px solid #f9a634;
+  border: 1px solid #f9a634;
   border-radius: 8px;
 }
 
@@ -35,14 +36,15 @@
 }
 
 .user-status.inactive {
-  background-color: #ee4a1c;
+  background-color: #dc3545;
 }
 
 .user-details {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(7vw, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(8vw, 1fr));
   gap: 1vw;
   text-align: center;
+  justify-items: space-between;
 }
 
 .detail {

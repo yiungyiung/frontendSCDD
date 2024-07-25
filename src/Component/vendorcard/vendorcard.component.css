@@ -22,7 +22,7 @@
 
 .kaam {
   display: grid;
-  gap: 0.5vw;
+  gap: 1vw;
   grid-template-columns: repeat(4, 1fr);
   width: 100%;
 }
@@ -42,14 +42,13 @@
 .vendor-id-bg {
   margin-top: 20px;
   margin-left: 20px;
-  padding: 3px; /* Decrease padding */
-  max-width: 100px; /* Adjust max-width */
+  padding: 3px;
+  max-width: 100px;
   background-color: #e7f4f9;
   height: 80px;
 }
 
 .truncate {
-  padding-left: 25px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -60,8 +59,8 @@
 }
 
 .truncate-container {
-  max-width: 150px; /* Set max-width as needed */
-  display: block; /* Ensure block-level container */
+  max-width: 150px;
+  display: block;
 }
 
 .user-status {
@@ -84,7 +83,7 @@
 }
 
 .user-status.inactive {
-  background-color: #ee4a1c;
+  background-color: #dc3545;
 }
 
 .user-actions {
