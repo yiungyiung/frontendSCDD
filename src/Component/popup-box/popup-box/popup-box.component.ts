@@ -20,11 +20,7 @@ export class PopupBoxComponent implements OnInit {
     message: string = '';
     backgroundColor: string = 'black'; // Default background color
     isVisible: boolean = false;
-  
-    
-  
-    
-  
+
     show(message: string, backgroundColor: string): void {
       this.message = message;
       this.backgroundColor = backgroundColor;

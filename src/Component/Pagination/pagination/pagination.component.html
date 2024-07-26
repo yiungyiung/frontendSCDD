@@ -1,22 +1,31 @@
+<!-- Pagination Container -->
 <div class="pagination-container">
-  <div class="custom-select-wrapper">
+  <!-- Items Per Page Select Wrapper -->
+  <div class="items-per-page-select-wrapper">
+    <!-- Items Per Page Select Dropdown -->
     <select
-      id="itemsPerPage"
-      class="custom-select"
+      id="itemsPerPageSelect"
+      class="items-per-page-select"
       [(ngModel)]="itemsPerPage"
       (change)="onItemsPerPageChange($event)"
     >
+      <!-- Items Per Page Options -->
       <option *ngFor="let option of itemsPerPageOptions" [value]="option">
         {{ option }}
       </option>
     </select>
-    <mat-icon class="dropdownIcon" svgIcon="downArrow"></mat-icon>
+    <!-- Dropdown Icon -->
+    <mat-icon class="dropdown-icon" svgIcon="downArrow"></mat-icon>
   </div>
+  <!-- Pagination Controls -->
   <div class="pagination-controls">
+    <!-- Previous Page Button -->
     <button (click)="previousPage()" [disabled]="currentPage === 1">
       &#10094;
     </button>
+    <!-- Pagination Text -->
     <span>{{ paginationText() }}</span>
+    <!-- Next Page Button -->
     <button (click)="nextPage()" [disabled]="currentPage === totalPages">
       &#10095;
     </button>

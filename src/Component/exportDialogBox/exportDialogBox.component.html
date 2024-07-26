@@ -1,3 +1,4 @@
+<!-- Export Modal -->
 <div
   class="modal fade"
   id="exportModal"
@@ -12,6 +13,7 @@
     <div class="modal-content">
       <div class="modal-body">
         <div>
+          <!-- Selected Columns Section -->
           <h5>Selected Columns:</h5>
           <div class="selected-columns">
             <span class="column-tag" *ngFor="let column of selectedColumns">
@@ -22,6 +24,7 @@
               ></mat-icon>
             </span>
           </div>
+          <!-- All Columns Section -->
           <h5>All Columns:</h5>
           <div class="add-columns">
             <span
@@ -40,6 +43,7 @@
         </div>
       </div>
       <div class="modal-footer">
+        <!-- Download Options -->
         <div class="download-options">
           <mat-icon
             svgIcon="excelIcon"
@@ -52,6 +56,7 @@
             [ngClass]="{ 'selected-icon': downloadFormat === 'pdf' }"
           ></mat-icon>
         </div>
+        <!-- Cancel Button -->
         <a
           type="button"
           class="cancell"
@@ -59,6 +64,7 @@
           (click)="isModalVisible = false"
           >Cancel</a
         >
+        <!-- Download Button -->
         <button
           type="button"
           class="btn download-btn"

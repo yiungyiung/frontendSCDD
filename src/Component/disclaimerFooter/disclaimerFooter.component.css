@@ -28,6 +28,12 @@
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
 }
 
+.Modal-Title mat-icon {
+  padding-bottom: 1px;
+  height: 27px;
+  width: auto;
+}
+
 .disclaimerModalTitle {
   font-size: 18px;
   font-weight: bold;

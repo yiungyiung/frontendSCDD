@@ -1,3 +1,4 @@
+/* Pagination Container Styles */
 .pagination-container {
   display: flex;
   justify-content: space-between;
@@ -5,6 +6,7 @@
   margin-top: 20px;
 }
 
+/* Pagination Controls Styles */
 .pagination-controls {
   display: flex;
   align-items: center;
@@ -12,6 +14,7 @@
   color: #073c5a;
 }
 
+/* Pagination Button Styles */
 .pagination-controls button {
   background: none;
   border: none;
@@ -20,21 +23,25 @@
   cursor: pointer;
 }
 
+/* Disabled Button Styles */
 .pagination-controls button:disabled {
   color: #ccc;
   cursor: not-allowed;
 }
 
+/* Pagination Text Styles */
 .pagination-controls span {
   margin: 0 10px;
 }
 
-.custom-select-wrapper {
+/* Items Per Page Select Wrapper Styles */
+.items-per-page-select-wrapper {
   position: relative;
   display: inline-block;
 }
 
-.custom-select {
+/* Items Per Page Select Styles */
+.items-per-page-select {
   appearance: none;
   padding: 5px 30px 5px 10px;
   border: 1px solid #ccc;
@@ -43,11 +50,13 @@
   font-size: 16px;
 }
 
-.custom-select::-ms-expand {
+/* Hide Default Dropdown Icon in IE */
+.items-per-page-select::-ms-expand {
   display: none;
 }
 
-.dropdownIcon {
+/* Dropdown Icon Styles */
+.dropdown-icon {
   position: absolute;
   right: 10px;
   top: 50%;

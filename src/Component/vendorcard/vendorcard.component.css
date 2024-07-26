@@ -6,9 +6,12 @@
   margin: 3vh 0 6vh 0.6vw;
   width: 63vw;
 }
-
+.card-body {
+  border: 1px solid transparent;
+  padding-bottom: 15px;
+}
 .custcard:hover {
-  border: 2px solid #f9a634;
+  border: 1px solid #f9a634;
 }
 
 .vendor-details {

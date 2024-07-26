@@ -5,10 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { LoginComponent } from '../Component/login/login.component';
-import { TestComponent } from '../Component/test/test.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
-import { MatIcon } from '@angular/material/icon';
 import { IconService } from '../services/IconService/Icon.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -24,7 +22,7 @@ export function initializeApp(iconService: IconService) {
   declarations: [
     AppComponent,
     LoginComponent,
-    TestComponent,
+
   ],
   imports: [
     BrowserModule,

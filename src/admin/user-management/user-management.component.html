@@ -1,12 +1,13 @@
+<!-- User Management Component -->
 <div class="container">
   <div class="row">
+    <!-- User Form Section -->
     <div class="col-md-6">
       <div class="card mb-3">
         <div class="addusertitle">
           <h5 class="card-header">
             {{ selectedUser ? "Update User" : "Add New User" }}
           </h5>
-
           <mat-icon
             *ngIf="selectedUser"
             type="button"
@@ -19,6 +20,7 @@
             #userForm="ngForm"
             (ngSubmit)="selectedUser ? updateUser(userForm) : addUser(userForm)"
           >
+            <!-- Email Field -->
             <div class="form-group">
               <label for="email">Email</label>
               <input
@@ -44,6 +46,7 @@
                 </div>
               </div>
             </div>
+            <!-- Name Field -->
             <div class="form-group">
               <label for="name">Name</label>
               <input
@@ -66,6 +69,7 @@
                 </div>
               </div>
             </div>
+            <!-- Contact Number Field -->
             <div class="form-group">
               <label for="contact_Number">Contact Number</label>
               <input
@@ -89,6 +93,7 @@
                 </div>
               </div>
             </div>
+            <!-- Role Field -->
             <div class="form-group">
               <label for="role">Role</label>
               <select
@@ -114,6 +119,7 @@
                 </div>
               </div>
             </div>
+            <!-- Submit Button -->
             <button
               type="submit"
               class="btn btn-primary"
@@ -122,19 +128,15 @@
               {{ selectedUser ? "Update User" : "Add User" }}
             </button>
           </form>
-
           <app-popup-box></app-popup-box>
         </div>
       </div>
     </div>
-
+    <!-- User List Section -->
     <div class="col-md-6">
       <div class="back-card mb-3">
         <div class="card-header-container">
-          <h4 style="font-size: 18px; font-weight: bold; color: #073c5a">
-            Users
-          </h4>
-
+          <h4 class="card-header">Users</h4>
           <div class="icon-container">
             <mat-icon
               svgIcon="exportButton"
@@ -145,7 +147,6 @@
               [allColumns]="allColumns"
               [data]="users"
             ></app-exportDialogBox>
-
             <mat-icon svgIcon="filterIcon"></mat-icon>
             <app-pagination
               [currentPage]="currentPage"
@@ -154,19 +155,16 @@
               [totalItems]="totalItems"
               (pageChange)="onPageChange($event)"
               (itemsPerPageChange)="onItemsPerPageChange($event)"
-            >
-            </app-pagination>
+            ></app-pagination>
           </div>
         </div>
-
         <div class="container">
           <app-usercard
             *ngFor="let user of pagedUsers"
             [user]="user"
             [toggleUserStatus]="toggleUserStatus.bind(this)"
             (click)="selectUserForUpdate(user)"
-          >
-          </app-usercard>
+          ></app-usercard>
         </div>
       </div>
     </div>
