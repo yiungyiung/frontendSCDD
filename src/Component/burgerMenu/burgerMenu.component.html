@@ -1,0 +1,15 @@
+<div class="burger-menu" [class.open]="isOpen">
+  <div class="profile-settings-header">
+    Profile Settings
+    <div id="cancelButton" (click)="closeMenu()"></div>
+  </div>
+  <div class="user-details" *ngIf="fetchuser">
+    <p>Name: {{ fetchuser.name }}</p>
+    <p>Email: {{ fetchuser.email }}</p>
+  </div>
+  <ul>
+    <li><a >User Manual</a></li>
+    <li><a >Change Password</a></li>
+    <li><a href="/login" (click)="closeMenu()">Logout</a></li>
+  </ul>
+</div>

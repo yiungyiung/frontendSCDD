@@ -26,6 +26,7 @@ import { UsercardComponent } from '../Component/usercard/usercard.component';
 import { PopupBoxModule } from '../Component/popup-box/popup-box/popup-box.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FilterComponent } from '../Component/filter/filter.component';
+import { BurgerMenuComponent } from '../Component/burgerMenu/burgerMenu.component';
 
 @NgModule({
   imports: [
@@ -54,6 +55,6 @@ export class AppModule { }
     PopupBoxModule,
     ReactiveFormsModule
   ],
-  declarations: [AdminComponent,FilterComponent, UsercardComponent, VendorcardComponent, DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,DisclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PaginationComponent, NotificationComponent]
+  declarations: [AdminComponent,BurgerMenuComponent,FilterComponent, UsercardComponent, VendorcardComponent, DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,DisclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PaginationComponent, NotificationComponent]
 })
 export class AdminModule { }

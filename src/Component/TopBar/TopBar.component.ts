@@ -1,5 +1,4 @@
-import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
-import { AppComponent } from '../../app/app.component';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-TopBar',
@@ -7,14 +6,12 @@ import { AppComponent } from '../../app/app.component';
   styleUrls: ['./TopBar.component.css']
 })
 export class TopBarComponent implements OnInit {
-
-
-  ngOnInit() {
-  }
-
-
-  constructor(private appComponent: AppComponent) {}
   isSidenavOpen = false;
+  showBurgerMenu = false;
+
+  constructor() {}
+
+  ngOnInit() {}
 
   openSidenav() {
     this.isSidenavOpen = true;
@@ -22,5 +19,9 @@ export class TopBarComponent implements OnInit {
 
   closeSidenav() {
     this.isSidenavOpen = false;
+  }
+
+  toggleBurgerMenu() {
+    this.showBurgerMenu = !this.showBurgerMenu;
   }
 }

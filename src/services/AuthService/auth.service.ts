@@ -10,6 +10,9 @@ import { User } from '../../model/user';
   providedIn: 'root'
 })
 export class AuthService {
+  JwtRegisteredClaimNames = {
+    Email: 'email'
+};
   private apiUrl = environment.apiUrl;
   private tokenKey = 'auth-token';
   public jwtHelper = new JwtHelperService();
@@ -52,10 +55,13 @@ export class AuthService {
 
   getCurrentUser(): User | null {
     const token = this.getToken();
+    console.log(token);
     if (token && !this.jwtHelper.isTokenExpired(token)) {
       const decodedToken = this.jwtHelper.decodeToken(token);
+
       return {
-        email: decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
+        
+        email:decodedToken[this.JwtRegisteredClaimNames.Email],
         name: decodedToken['name'],
         userId:decodedToken['user_id'],
         isActive: decodedToken['is_active'] === 'true',
