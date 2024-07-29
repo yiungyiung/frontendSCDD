@@ -4,11 +4,11 @@
     <div class="col-md-3">
       <div class="add-vendor-card">
         <div class="vendor-title-card">
-          <h4 class="card-header">Add Vendor</h4>
+          <h4 class="card-header">Add Supply Chain Partner</h4>
         </div>
         <form [formGroup]="vendorForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
-            <label for="vendorName">Vendor Name </label>
+            <label for="vendorName">Supply Chain Partner Name</label>
             <input
               type="text"
               id="vendorName"
@@ -16,14 +16,18 @@
               class="form-control"
             />
             <div
-              *ngIf="submitted && vendorForm.get('vendorName')?.invalid"
+              *ngIf="
+                vendorForm.get('vendorName')?.invalid &&
+                (vendorForm.get('vendorName')?.dirty ||
+                  vendorForm.get('vendorName')?.touched)
+              "
               class="error"
             >
-              Please fill the required question.
+              Vendor Name is required.
             </div>
           </div>
           <div class="form-group">
-            <label for="vendorRegNumber">Vendor Registration Number </label>
+            <label for="vendorRegNumber">Vendor Registration Number</label>
             <input
               type="text"
               id="vendorRegNumber"
@@ -31,14 +35,18 @@
               class="form-control"
             />
             <div
-              *ngIf="submitted && vendorForm.get('vendorRegistration')?.invalid"
+              *ngIf="
+                vendorForm.get('vendorRegistration')?.invalid &&
+                (vendorForm.get('vendorRegistration')?.dirty ||
+                  vendorForm.get('vendorRegistration')?.touched)
+              "
               class="error"
             >
-              Please fill the required question.
+              Vendor Registration Number is required.
             </div>
           </div>
           <div class="form-group">
-            <label for="vendorAddress">Vendor Address </label>
+            <label for="vendorAddress">Vendor Address</label>
             <input
               type="text"
               id="vendorAddress"
@@ -46,14 +54,18 @@
               class="form-control"
             />
             <div
-              *ngIf="submitted && vendorForm.get('vendorAddress')?.invalid"
+              *ngIf="
+                vendorForm.get('vendorAddress')?.invalid &&
+                (vendorForm.get('vendorAddress')?.dirty ||
+                  vendorForm.get('vendorAddress')?.touched)
+              "
               class="error"
             >
-              Please fill the required question.
+              Vendor Address is required.
             </div>
           </div>
           <div class="form-group">
-            <label for="contactPerson">Contact Person </label>
+            <label for="contactPerson">Name of Contact Person</label>
             <input
               type="text"
               id="contactPerson"
@@ -61,14 +73,18 @@
               class="form-control"
             />
             <div
-              *ngIf="submitted && vendorForm.get('contactName')?.invalid"
+              *ngIf="
+                vendorForm.get('contactName')?.invalid &&
+                (vendorForm.get('contactName')?.dirty ||
+                  vendorForm.get('contactName')?.touched)
+              "
               class="error"
             >
-              Please fill the required question.
+              Contact Person is required.
             </div>
           </div>
           <div class="form-group">
-            <label for="emailID">Email ID </label>
+            <label for="emailID">Email ID of Contact Person</label>
             <input
               type="email"
               id="emailID"
@@ -76,14 +92,18 @@
               class="form-control"
             />
             <div
-              *ngIf="submitted && vendorForm.get('email')?.invalid"
+              *ngIf="
+                vendorForm.get('email')?.invalid &&
+                (vendorForm.get('email')?.dirty ||
+                  vendorForm.get('email')?.touched)
+              "
               class="error"
             >
-              Please fill the required question.
+              Valid Email ID is required.
             </div>
           </div>
           <div class="form-group">
-            <label for="contactNumber">Contact Number </label>
+            <label for="contactNumber">Contact Number</label>
             <input
               type="tel"
               id="contactNumber"
@@ -91,14 +111,18 @@
               class="form-control"
             />
             <div
-              *ngIf="submitted && vendorForm.get('contactNumber')?.invalid"
+              *ngIf="
+                vendorForm.get('contactNumber')?.invalid &&
+                (vendorForm.get('contactNumber')?.dirty ||
+                  vendorForm.get('contactNumber')?.touched)
+              "
               class="error"
             >
-              Please fill the required question.
+              Contact Number is required.
             </div>
           </div>
           <div class="form-group">
-            <label for="category">Category of Industry </label>
+            <label for="category">Category of Industry</label>
             <select
               id="category"
               formControlName="categoryID"
@@ -113,14 +137,18 @@
               </option>
             </select>
             <div
-              *ngIf="submitted && vendorForm.get('categoryID')?.invalid"
+              *ngIf="
+                vendorForm.get('categoryID')?.invalid &&
+                (vendorForm.get('categoryID')?.dirty ||
+                  vendorForm.get('categoryID')?.touched)
+              "
               class="error"
             >
-              Please fill the required question.
+              Category is required.
             </div>
           </div>
           <div class="form-group">
-            <label for="tier">Tier </label>
+            <label for="tier">Tier</label>
             <select
               id="tier"
               formControlName="tierID"
@@ -133,21 +161,29 @@
               </option>
             </select>
             <div
-              *ngIf="submitted && vendorForm.get('tierID')?.invalid"
+              *ngIf="
+                vendorForm.get('tierID')?.invalid &&
+                (vendorForm.get('tierID')?.dirty ||
+                  vendorForm.get('tierID')?.touched)
+              "
               class="error"
             >
-              Please fill the required question.
+              Tier is required.
             </div>
           </div>
           <div class="form-group" *ngIf="tier1Vendors.length > 0">
             <mat-form-field class="example-full-width">
-              <div class="form-control">
+              <div class="search-container">
                 <input
                   matInput
                   placeholder="Search vendors"
                   [(ngModel)]="searchQuery"
                   [ngModelOptions]="{ standalone: true }"
+                  class="search-input"
                 />
+                <button class="search-button">
+                  <mat-icon svgIcon="searchIcon"></mat-icon>
+                </button>
               </div>
             </mat-form-field>
             <div class="vendor-list">
@@ -165,7 +201,13 @@
               </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="vendorForm.invalid"
+          >
+            Submit
+          </button>
         </form>
         <app-popup-box></app-popup-box>
       </div>
@@ -175,7 +217,7 @@
     <div class="col-md-9">
       <div class="back-card mb-3">
         <div class="card-header-container">
-          <h4>Vendors</h4>
+          <h4>Supply Chain Partners</h4>
 
           <!-- Export,filter Icon-->
           <div class="icon-container ml-auto">
@@ -188,7 +230,10 @@
               [allColumns]="allColumns"
               [data]="vendors"
             ></app-exportDialogBox>
-            <mat-icon svgIcon="filterIcon"></mat-icon>
+            <mat-icon
+              svgIcon="filterIcon"
+              (click)="toggleFilterVisibility()"
+            ></mat-icon>
 
             <!-- Pagination Container -->
             <app-pagination
@@ -204,12 +249,19 @@
         <!--Vendor Cards-->
         <div class="container">
           <app-vendorcard
-            *ngFor="let vendor of pagedUsers"
+            *ngFor="let vendor of filteredVendor"
             [vendor]="vendor"
             [toggleVendorStatus]="toggleVendorStatus.bind(this)"
           ></app-vendorcard>
         </div>
       </div>
     </div>
+  </div>
+  <div *ngIf="isFilterVisible">
+    <app-filter
+      [subParts]="filterSubParts"
+      (close)="closeFilter()"
+      (filterChange)="onFilterChange($event)"
+    ></app-filter>
   </div>
 </div>

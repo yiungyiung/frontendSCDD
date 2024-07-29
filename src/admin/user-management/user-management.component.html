@@ -5,9 +5,9 @@
     <div class="col-md-6">
       <div class="card mb-3">
         <div class="addusertitle">
-          <h5 class="card-header">
+          <h4 class="card-header">
             {{ selectedUser ? "Update User" : "Add New User" }}
-          </h5>
+          </h4>
           <mat-icon
             *ngIf="selectedUser"
             type="button"
@@ -147,7 +147,10 @@
               [allColumns]="allColumns"
               [data]="users"
             ></app-exportDialogBox>
-            <mat-icon svgIcon="filterIcon"></mat-icon>
+            <mat-icon
+              svgIcon="filterIcon"
+              (click)="toggleFilterVisibility()"
+            ></mat-icon>
             <app-pagination
               [currentPage]="currentPage"
               [totalPages]="totalPages"
@@ -165,6 +168,13 @@
             [toggleUserStatus]="toggleUserStatus.bind(this)"
             (click)="selectUserForUpdate(user)"
           ></app-usercard>
+        </div>
+        <div *ngIf="isFilterVisible">
+          <app-filter
+            [subParts]="filterSubParts"
+            (close)="closeFilter()"
+            (filterChange)="onFilterChange($event)"
+          ></app-filter>
         </div>
       </div>
     </div>

@@ -25,6 +25,7 @@ import { VendorcardComponent } from '../Component/vendorcard/vendorcard.componen
 import { UsercardComponent } from '../Component/usercard/usercard.component';
 import { PopupBoxModule } from '../Component/popup-box/popup-box/popup-box.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FilterComponent } from '../Component/filter/filter.component';
 
 @NgModule({
   imports: [
@@ -53,6 +54,6 @@ export class AppModule { }
     PopupBoxModule,
     ReactiveFormsModule
   ],
-  declarations: [AdminComponent,UsercardComponent, VendorcardComponent, DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,DisclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PaginationComponent, NotificationComponent]
+  declarations: [AdminComponent,FilterComponent, UsercardComponent, VendorcardComponent, DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,DisclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PaginationComponent, NotificationComponent]
 })
 export class AdminModule { }

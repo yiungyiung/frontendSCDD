@@ -34,6 +34,7 @@ export class IconService {
     this.registerIcon('pdfIcon', 'pdfIcon.svg');
     this.registerIcon('searchIcon', 'searchIcon.svg');
     this.registerIcon('reset', 'reset.svg');
+    this.registerIcon('upArrow', 'upArrow.svg');
     // Add any other icons here
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import { User } from '../../model/user';
 import { Role } from '../../model/role';
 import { AdminService } from '../../services/AdminService/Admin.service';
@@ -6,6 +6,7 @@ import { AuthService } from '../../services/AuthService/auth.service';
 import { ExportModalServiceService } from '../../services/ExportModalService/ExportModalService.service';
 import { PopupService } from '../../services/PopupService/popup.service';
 import { NgForm } from '@angular/forms'; 
+import { SubPart } from '../../Component/filter/filter.component';
 
 @Component({
   selector: 'app-user-management',
@@ -14,6 +15,7 @@ import { NgForm } from '@angular/forms';
 })
 export class UserManagementComponent implements OnInit {
   users: User[] = [];
+  filteredUsers: User[] = [];
   newUser: User = { email: '', role: Role.Admin, name: '', contact_Number: '', isActive: true };
   selectedUser: User | null = null;
   roles = Object.values(Role).filter(role => role !== Role.Vendor);
@@ -38,6 +40,118 @@ export class UserManagementComponent implements OnInit {
   ngOnInit() {
     this.loadUsers();
   }
+
+  // Define your filter parts and the criteria to be used for filtering.
+filterSubParts: SubPart[] = [
+  {
+    name: 'Search By',
+    type: 'MCQ',
+    options: ['User Id', 'User Name', 'Email Id']
+  },
+  {
+    name: 'Search Keyword',
+    type: 'searchBar',
+    keyword: '' 
+  },
+  {
+    name: 'Role',
+    type: 'checkbox',
+    options: ['Analyst','Manager','Admin']
+  },
+  {
+    name: 'User Status',
+    type: 'checkbox',
+    options: ['Active','Inactive']
+  }
+];
+
+isFilterVisible = false;
+searchBy = '';
+searchKeyword = '';
+selectedRoleIds: string[] = [];
+selectedUserStatus: string[] = [];
+
+// Toggle filter visibility
+toggleFilterVisibility() {
+  this.isFilterVisible = !this.isFilterVisible;
+}
+
+// Close the filter
+closeFilter(): void {
+  this.isFilterVisible = false;
+}
+
+onFilterChange(event: any) {
+  // Capture the search keyword and selected options
+  const searchBySubPart = this.filterSubParts.find(part => part.name === 'Search By');
+  console.log('search by', searchBySubPart);
+  const searchKeywordSubPart = this.filterSubParts.find(part => part.name === 'Search Keyword');
+  console.log('keyword',searchKeywordSubPart);
+  const roleIdSubPart = this.filterSubParts.find(part => part.name === 'Role Id');
+  const userstatussubpart = this.filterSubParts.find(part => part.name === 'User Status');
+
+  if (searchBySubPart && searchKeywordSubPart) {
+    this.searchBy = searchBySubPart.selectedOption || '';
+    this.searchKeyword = searchKeywordSubPart.keyword || '';
+  }
+  this.applyFilter();
+}
+
+applyFilter() {
+  // Retrieve the selected options and search keyword
+  const searchBySubPart = this.filterSubParts.find(part => part.name === 'Search By');
+  const searchKeywordSubPart = this.filterSubParts.find(part => part.name === 'Search Keyword');
+  const roleIdSubPart = this.filterSubParts.find(part => part.name === 'Role');
+  const userStatusSubPart = this.filterSubParts.find(part => part.name === 'User Status');
+
+  if (searchBySubPart && searchKeywordSubPart) {
+    this.searchBy = searchBySubPart.selectedOption || '';
+    this.searchKeyword = searchKeywordSubPart.keyword || '';
+  }
+
+  if (roleIdSubPart) {
+    this.selectedRoleIds = roleIdSubPart.selectedOptions || [];
+  }
+
+  if (userStatusSubPart){
+    this.selectedUserStatus = userStatusSubPart.selectedOptions || [];
+  }
+
+  this.filteredUsers = this.users.filter(user => {
+    let matchesSearch = true;
+    let matchesRole = true;
+    let matchesStatus = true;
+
+    if (this.searchBy === 'User Id' && this.searchKeyword) {
+      matchesSearch = user.userId?.toString().includes(this.searchKeyword) ?? false;
+    } else if (this.searchBy === 'User Name' && this.searchKeyword) {
+      matchesSearch = user.name.toLowerCase().includes(this.searchKeyword.toLowerCase());
+    } else if (this.searchBy === 'Email Id' && this.searchKeyword) {
+      matchesSearch = user.email.toLowerCase().includes(this.searchKeyword.toLowerCase());
+    }
+
+    if (this.selectedRoleIds.length > 0) {
+      matchesRole = this.selectedRoleIds.includes(user.role!);
+    }
+
+    if (this.selectedUserStatus.length >0){
+      const isActive = user.isActive ? 'Active' : 'Inactive';
+      matchesStatus = this.selectedUserStatus.includes(isActive);
+    }
+
+    return matchesSearch && matchesRole && matchesStatus;
+  });
+
+  this.totalItems = this.filteredUsers.length;
+  this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+  this.currentPage = 1;
+  this.updatePagedUsers();
+}
+
+
+
+
+
 
   get email(): string {
     return this.selectedUser ? this.selectedUser.email : this.newUser.email;
@@ -94,6 +208,7 @@ export class UserManagementComponent implements OnInit {
   
         console.log('Loaded users:', this.users);
         
+        this.filteredUsers = this.users;
         this.totalItems = this.users.length;
         this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
         this.updatePagedUsers();
@@ -116,7 +231,7 @@ export class UserManagementComponent implements OnInit {
   updatePagedUsers() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    this.pagedUsers = this.users.slice(startIndex, endIndex);
+    this.pagedUsers = this.filteredUsers.slice(startIndex, endIndex);
   }
 
   addUser(userForm: NgForm): void {

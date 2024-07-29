@@ -1,0 +1,231 @@
+:host {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 25%;
+  background-color: #e7f4f9;
+  color: #0a4357;
+  z-index: 1000;
+  padding: 0; /* Remove padding from the host element */
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.filter-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 50px); /* Reserve space for the button container */
+}
+
+.Filter-Title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  background-color: #12789e;
+  color: #ffffff;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  position: sticky;
+  top: 0; /* Ensure it stays at the top when scrolling */
+  z-index: 1; /* Ensure it is above other content */
+}
+
+.Filter-Title h3 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.Filter-Title mat-icon {
+  height: auto;
+  fill: #ffffff;
+}
+
+.filter-section-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 10px;
+  background-color: #e7f4f9;
+}
+
+.filter-section {
+  padding: 20px;
+  padding-bottom: 15px; /* Space for scroll */
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #707070; /* Add bottom border */
+  margin-bottom: 5px;
+}
+
+.filter-header h3 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.filter-header mat-icon {
+  height: auto;
+}
+
+.filter-section input[type="search"] {
+  width: calc(100% - 10px);
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #004366; /* Adjust border color if needed */
+  border-radius: 4px; /* Adjust border radius if needed */
+  overflow: hidden;
+}
+
+.search-input {
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+  flex: 1;
+}
+
+.search-button {
+  background-color: #004366; /* Adjust button background color */
+  border: none;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.search-button mat-icon {
+  fill: #ffffff; /* Adjust icon color */
+  height: auto;
+}
+
+.search-button:focus,
+.search-input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.checkbox-option,
+.mcq-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.checkbox-option input[type="checkbox"],
+.mcq-option input[type="radio"] {
+  margin-right: 10px;
+  position: relative;
+}
+
+.checkbox-option input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #0a4357; /* Default border color */
+  accent-color: #f9a634; /* This is the color of the checkbox checkmark */
+  appearance: none;
+  background-color: #fff;
+}
+
+.checkbox-option input[type="checkbox"]:checked {
+  background-color: #f9a634;
+  border-color: #f9a634;
+}
+
+.checkbox-option input[type="checkbox"]:checked::after {
+  content: "✔";
+  color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mcq-option input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #0a4357; /* Default border color */
+  border-radius: 50%;
+  appearance: none;
+  background-color: #fff;
+  position: relative;
+}
+
+.mcq-option input[type="radio"]:checked {
+  border-color: #f9a634;
+}
+
+.mcq-option input[type="radio"]:checked::before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #f9a634;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.checkbox-option.selected input[type="checkbox"],
+.checkbox-option.selected label {
+  color: #f9a634;
+  border-color: #f9a634;
+}
+
+.mcq-option.selected input[type="radio"] {
+  border-color: #f9a634;
+}
+
+.mcq-option.selected input[type="radio"]::before {
+  background-color: #f9a634;
+}
+
+.mcq-option.selected label {
+  color: #f9a634;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 40px;
+  background-color: #e7f4f9;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 25%;
+  z-index: 2;
+}
+
+.reset-button,
+.submit-button {
+  width: 70%;
+  padding: 10px 20px;
+  background-color: #12789e;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.submit-button {
+  background-color: #ffffff;
+  border: 2px solid #12789e;
+  color: #12789e;
+}

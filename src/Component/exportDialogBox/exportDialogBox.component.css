@@ -1,4 +1,3 @@
-/* Modal Dialog Styles */
 .modal-dialog {
   display: flex;
   justify-content: center;
@@ -6,7 +5,6 @@
   height: auto;
 }
 
-/* Modal Content Styles */
 .modal-content {
   background-color: #fefefe;
   margin: auto;
@@ -15,12 +13,10 @@
   border-radius: 8px;
 }
 
-/* Modal Body Styles */
 .modal-body {
   /* Customize as needed */
 }
 
-/* Modal Footer Styles */
 .modal-footer {
   display: flex;
   justify-content: space-between;
@@ -29,7 +25,6 @@
   border-top: none;
 }
 
-/* Selected Columns Styles */
 .selected-columns,
 .add-columns {
   display: flex;
@@ -37,37 +32,34 @@
   gap: 10px;
 }
 
-/* Column Tag Styles */
 .column-tag {
   display: flex;
   align-items: center;
   background-color: #e7f4f9;
   border: 1px solid #12789e;
   border-radius: 16px;
-  padding: px 10px;
+  padding: 5px 10px;
   font-size: 14px;
+  cursor: pointer;
 }
 
-/* Icon Inside Column Tag Styles */
 .column-tag mat-icon {
   margin-left: 5px;
-  color: #888;
+  cursor: pointer;
+  color: #12789e;
 }
 
-/* Add Column Tag Styles */
 .add-column {
   background-color: #e7f4f9;
   color: #12789e;
 }
 
-/* Added Column Tag Styles */
 .added-column {
   background-color: #e7f4f9;
   border-color: #12789e;
   color: #12789e;
 }
 
-/* Download Options Styles */
 .download-options {
   height: auto;
   display: flex;
@@ -75,32 +67,27 @@
   align-items: center;
 }
 
-/* Icon Inside Download Options Styles */
 .download-options mat-icon {
   cursor: pointer;
   color: #12789e;
 }
 
-/* Selected Icon Styles */
 .download-options mat-icon.selected-icon {
   color: #f9a634;
 }
 
-/* Download Button Styles */
-.download-btn {
-  padding: 10px 20px;
-  background-color: #12789e;
-  color: #ffffff;
-  cursor: pointer;
-}
-
-/* Cancel Button Styles */
+.download-btn,
 .cancel-btn {
   padding: 10px 20px;
   cursor: pointer;
 }
 
+.download-btn {
+  background-color: #12789e;
+  color: #ffffff;
+}
+
 .cancell {
-  color: #12789e;
+  color: #073c5a;
   text-decoration: underline;
 }

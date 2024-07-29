@@ -10,7 +10,7 @@ import { PopupService } from '../../services/PopupService/popup.service';
 import { ExportModalServiceService } from '../../services/ExportModalService/ExportModalService.service';
 import { AdminService } from '../../services/AdminService/Admin.service';
 import { ChangeDetectorRef } from '@angular/core'; 
-
+import { SubPart } from '../../Component/filter/filter.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -21,6 +21,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class VendorManagementComponent implements OnInit {
   vendorForm!: FormGroup;
   vendors: Vendor[] = [];
+  filteredVendor: Vendor[] = [];
   categories: Category[] = [];
   tiers: Tier[] = [];
   tier1Vendors: Vendor[] = [];
@@ -85,6 +86,114 @@ export class VendorManagementComponent implements OnInit {
     });
     
   }
+
+  filterSubParts: SubPart[] = [
+    {
+      name: 'Search By',
+      type: 'MCQ',
+      options: ['User Id','Vendor Id', 'Vendor Name', 'Email Id']
+    },
+    {
+      name: 'Search Keyword',
+      type: 'searchBar',
+      keyword: '' 
+    },
+    {
+      name: 'Vendor Status',
+      type: 'checkbox',
+      options: ['Active','Inactive']
+    },
+    {
+      name: 'Category',
+      type: 'checkbox',
+      options: ['Critical','Non-Critical','Others']
+    }
+  ];
+  
+  isFilterVisible = false;
+  searchBy = '';
+  searchKeyword = '';
+  selectedUserStatus: string[] = [];
+  selectedVendorCategory: string[] = [];
+  
+  // Toggle filter visibility
+  toggleFilterVisibility() {
+    this.isFilterVisible = !this.isFilterVisible;
+  }
+  
+  // Close the filter
+  closeFilter(): void {
+    this.isFilterVisible = false;
+  }
+  
+  onFilterChange(event: any) {
+    // Capture the search keyword and selected options
+    const searchBySubPart = this.filterSubParts.find(part => part.name === 'Search By');
+    console.log('search by', searchBySubPart);
+    const searchKeywordSubPart = this.filterSubParts.find(part => part.name === 'Search Keyword');
+    console.log('keyword',searchKeywordSubPart);
+  
+    if (searchBySubPart && searchKeywordSubPart) {
+      this.searchBy = searchBySubPart.selectedOption || '';
+      this.searchKeyword = searchKeywordSubPart.keyword || '';
+    }
+    this.applyFilter();
+  }
+  
+  applyFilter() {
+    // Retrieve the selected options and search keyword
+    const searchBySubPart = this.filterSubParts.find(part => part.name === 'Search By');
+    const searchKeywordSubPart = this.filterSubParts.find(part => part.name === 'Search Keyword');
+    const vendorStatuSubPart = this.filterSubParts.find(part => part.name === 'Vendor Status');
+    const vendorCategorySubPart = this.filterSubParts.find(part => part.name ==='Category');
+  
+    if (searchBySubPart && searchKeywordSubPart) {
+      this.searchBy = searchBySubPart.selectedOption || '';
+      this.searchKeyword = searchKeywordSubPart.keyword || '';
+    }
+  
+    if (vendorStatuSubPart){
+      this.selectedUserStatus = vendorStatuSubPart.selectedOptions || [];
+    }
+
+    if (vendorCategorySubPart){
+      this.selectedVendorCategory = vendorCategorySubPart.selectedOptions || [];
+    }
+  
+    this.filteredVendor = this.vendors.filter(vendor => {
+      let matchesSearch = true;
+      let matchesRole = true;
+      let matchesStatus = true;
+      let matchesCategory = true;
+  
+      if (this.searchBy === 'Vendor Id' && this.searchKeyword) {
+        matchesSearch = vendor.vendorID?.toString().includes(this.searchKeyword) ?? false;
+      } else if (this.searchBy === 'Vendor Name' && this.searchKeyword) {
+        matchesSearch = vendor.vendorName.toLowerCase().includes(this.searchKeyword.toLowerCase());
+      } else if (this.searchBy === 'Email Id' && this.searchKeyword) {
+        matchesSearch = vendor.user.email.toLowerCase().includes(this.searchKeyword.toLowerCase());
+      } else if (this.searchBy === 'User Id' && this.searchKeyword){
+        matchesSearch = vendor.userID?.toString().includes(this.searchKeyword) ?? false;
+      }
+  
+      if (this.selectedUserStatus.length >0){
+        const isActive = vendor.user.isActive ? 'Active' : 'Inactive';
+        matchesStatus = this.selectedUserStatus.includes(isActive);
+      }
+  
+      if(this.selectedVendorCategory.length>0){
+        matchesCategory = this.selectedVendorCategory.includes(vendor.category!.categoryName);
+      }
+
+      return matchesSearch && matchesRole && matchesStatus && matchesCategory;
+    });
+  
+    this.totalItems = this.filteredVendor.length;
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+    this.currentPage = 1;
+    this.updatePagedUsers();
+  }
+
   onSubmit(): void {
     this.submitted = true;
     if (this.vendorForm.invalid) {
@@ -153,6 +262,7 @@ export class VendorManagementComponent implements OnInit {
       serverVendors => {
         this.vendors = serverVendors.map(serverVendor => this.mapServerUserToUser(serverVendor));
         this.vendors = serverVendors;
+        this.filteredVendor = this.vendors;
         this.totalItems = this.vendors.length;
         this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
         this.updatePagedUsers();

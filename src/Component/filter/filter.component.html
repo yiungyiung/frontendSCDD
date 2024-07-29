@@ -1,0 +1,74 @@
+<div class="filter-wrapper">
+  <div class="Filter-Title">
+    <h3>Filter</h3>
+    <mat-icon svgIcon="cancelButton" (click)="closeFilter()"></mat-icon>
+  </div>
+  <div class="filter-section-wrapper">
+    <div *ngFor="let subPart of subParts" class="filter-section">
+      <div class="filter-header" (click)="toggleSubPart(subPart.name)">
+        <h3>{{ subPart.name }}</h3>
+        <mat-icon
+          svgIcon="{{
+            isSubPartToggled(subPart.name) ? 'upArrow' : 'downArrow'
+          }}"
+        ></mat-icon>
+      </div>
+      <div *ngIf="isSubPartToggled(subPart.name)">
+        <div *ngIf="subPart.type === 'checkbox'">
+          <div
+            *ngFor="let option of subPart.options"
+            class="checkbox-option"
+            [class.selected]="subPart.selectedOptions?.includes(option)"
+            (click)="selectOption(subPart, option)"
+          >
+            <input
+              type="checkbox"
+              id="{{ option }}"
+              name="{{ option }}"
+              [checked]="subPart.selectedOptions?.includes(option)"
+            />
+            <label for="{{ option }}">{{ option }}</label>
+          </div>
+        </div>
+        <div *ngIf="subPart.type === 'searchBar'">
+          <div class="search-container">
+            <input
+              type="search"
+              placeholder="Search by Name"
+              [(ngModel)]="subPart.keyword"
+              (input)="filterChange.emit()"
+              class="search-input"
+            />
+            <button class="search-button">
+              <mat-icon svgIcon="searchIcon"></mat-icon>
+            </button>
+          </div>
+        </div>
+        <div *ngIf="subPart.type === 'MCQ'">
+          <div
+            *ngFor="let option of subPart.options"
+            class="mcq-option"
+            (click)="selectOption(subPart, option)"
+            [class.selected]="subPart.selectedOption === option"
+          >
+            <input
+              type="radio"
+              id="{{ option }}"
+              name="{{ subPart.name }}"
+              [checked]="subPart.selectedOption === option"
+            />
+            <label
+              for="{{ option }}"
+              [class.selected]="subPart.selectedOption === option"
+              >{{ option }}</label
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="button-container">
+    <button class="reset-button" (click)="resetFilter()">Reset</button>
+    <button class="submit-button" (click)="filterChange.emit()">Submit</button>
+  </div>
+</div>
