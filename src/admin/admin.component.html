@@ -16,7 +16,14 @@
         href="/admin/vendor-management"
       >
       </app-nav-item>
-      <app-nav-item svgIcon="ques" text="Questionnaire"> </app-nav-item>
+      <app-nav-item svgIcon="ques" text="Questionnaire" [hasSubPanel]="true">
+        <a href="/admin/Assign-questionnaire" class="nav-text"
+          >Assign Questionnaire</a
+        >
+        <a href="/admin/Manage-question" class="nav-text"
+          >Manage Questionnaire</a
+        >
+      </app-nav-item>
       <app-nav-item svgIcon="users" text="Users" href="/admin/user-management">
       </app-nav-item>
       <app-nav-item svgIcon="reports" text="Reports"> </app-nav-item>

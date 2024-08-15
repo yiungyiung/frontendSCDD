@@ -1,4 +1,8 @@
 /* Base styles */
+.custom-navbar {
+  position: relative; /* Position the navbar relative to allow absolute positioning of the sub-panel */
+}
+
 .nav-item {
   display: flex;
   align-items: center;
@@ -78,4 +82,50 @@
   .nav-text {
     font-size: 1rem;
   }
+}
+.nav-item-wrapper {
+  position: relative;
+  width: 100%;
+}
+.nav-item-wrapper:hover .sub-panel::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 10px;
+  background-color: white;
+  border-radius: 10px 10px 0 0;
+  z-index: 11;
+}
+
+/* Sub-panel should be positioned absolutely with respect to the navbar */
+.sub-panel {
+  position: absolute;
+  top: 100%;
+  background-color: #eaf4f8;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  /*margin-top: 30px; */
+}
+/* Styling each sub-panel item */
+.sub-panel a {
+  font-size: 14px;
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: #e7f4f9;
+  transition: color 0.3s;
+}
+
+/* Hover effect for sub-panel items */
+.sub-panel a:hover {
+  color: #007bff; /* Change text color on hover */
 }

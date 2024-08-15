@@ -1,0 +1,31 @@
+<div class="organization-chart">
+  <button class="company-button">Company</button>
+
+  <div
+    *ngFor="let tier of vendorTiers; let i = index"
+    class="tier"
+    [ngClass]="'tier-' + (i + 1)"
+  >
+    <div *ngFor="let vendor of tier" class="vendor-wrapper">
+      <!-- SVG connector for parent to child -->
+      <svg
+        *ngIf="hasChildren(vendor)"
+        class="connector"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line
+          *ngFor="let child of vendor.children"
+          [attr.x1]="getVendorX(vendor)"
+          y1="0"
+          [attr.x2]="getVendorX(child)"
+          y2="100"
+          stroke="black"
+        />
+      </svg>
+
+      <div class="vendor-card">
+        {{ vendor.vendorName }}
+      </div>
+    </div>
+  </div>
+</div>

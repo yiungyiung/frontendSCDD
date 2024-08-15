@@ -127,6 +127,10 @@
   height: auto;
 }
 
+.icon-container mat-icon.filter-applied {
+  color: #f9a634;
+}
+
 .ml-auto {
   margin-left: auto;
 }
@@ -231,8 +235,9 @@
   display: flex;
   align-items: center;
   border: 1px solid #004366; /* Adjust border color if needed */
-  border-radius: 4px; /* Adjust border radius if needed */
+  border-radius: 2px; /* Adjust border radius if needed */
   overflow: hidden;
+  width: 100%;
 }
 
 .search-input {
@@ -241,6 +246,8 @@
   font-size: 16px;
   outline: none;
   flex: 1;
+  background-color: #ffffff;
+  width: 300px;
 }
 
 .search-button {
@@ -262,4 +269,11 @@
 .search-input:focus {
   outline: none;
   box-shadow: none;
+}
+
+.mat-form-field {
+  background-color: none;
+  border: none;
+  box-shadow: none;
+  width: 100%;
 }

@@ -1,0 +1,82 @@
+<div class="form-container">
+  <span class="close-btn">&times;</span>
+  <h2>Add Question</h2>
+
+  <!-- Question Input Section -->
+  <div class="form-group">
+    <label for="question">Enter Question</label>
+    <input
+      type="text"
+      id="question"
+      name="question"
+      placeholder="Enter your question here"
+    />
+  </div>
+
+  <!-- Helper Text and Domain Selection Section -->
+  <div class="input-row">
+    <div class="form-group">
+      <label for="helper-text">Helper Text</label>
+      <input
+        type="text"
+        id="helper-text"
+        name="helper-text"
+        placeholder="Enter helper text here"
+      />
+    </div>
+    <div class="form-group">
+      <label for="domain">Select Domain</label>
+      <select id="domain" name="domain">
+        <option value="">Select Domain</option>
+        <option value="domain1">Domain 1</option>
+        <option value="domain2">Domain 2</option>
+        <option value="domain3">Domain 3</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Question Type Buttons -->
+  <div class="button-group">
+    <button (click)="addComponent(questionTypes.SELECT_ONE)">Select One</button>
+    <button (click)="addComponent(questionTypes.SELECT_MULTIPLE)">
+      Select Multiple
+    </button>
+    <button (click)="addComponent(questionTypes.TEXT_BOX)">Text Box</button>
+    <button (click)="addComponent(questionTypes.ATTACH_FILE)">
+      Attach File
+    </button>
+    <button (click)="addComponent(questionTypes.DATE)">Date</button>
+  </div>
+
+  <div class="questiontypecomp">
+    <!-- Dynamically Rendered Components -->
+    <div *ngFor="let component of selectedComponents">
+      <ng-container [ngSwitch]="component.type">
+        <app-QuestionType_SelectOneOption
+          *ngSwitchCase="questionTypes.SELECT_ONE"
+          (remove)="removeComponent(component.id)"
+        >
+        </app-QuestionType_SelectOneOption>
+
+        <app-QuestionType_SelectMultipleOption
+          *ngSwitchCase="questionTypes.SELECT_MULTIPLE"
+          (remove)="removeComponent(component.id)"
+        >
+        </app-QuestionType_SelectMultipleOption>
+
+        <app-QuestionType_TextBox
+          *ngSwitchCase="questionTypes.TEXT_BOX"
+          (remove)="removeComponent(component.id)"
+        ></app-QuestionType_TextBox>
+        <app-QuestionType_AttachFile
+          *ngSwitchCase="questionTypes.ATTACH_FILE"
+          (remove)="removeComponent(component.id)"
+        ></app-QuestionType_AttachFile>
+        <app-QuestionType_Date
+          *ngSwitchCase="questionTypes.DATE"
+          (remove)="removeComponent(component.id)"
+        ></app-QuestionType_Date>
+      </ng-container>
+    </div>
+  </div>
+</div>

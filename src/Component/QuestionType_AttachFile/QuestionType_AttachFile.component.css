@@ -1,0 +1,87 @@
+.form-section {
+  padding: 15px;
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  background-color: white;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* This will push the icon to the right */
+  margin-bottom: 10px;
+}
+
+.title {
+  display: flex;
+  grid-column: auto;
+}
+
+.title h5 {
+  font-weight: bold;
+}
+.title mat-icon {
+  height: auto;
+}
+
+.delete-icon {
+  height: auto;
+}
+
+.form-group input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.option-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.option-group input[type="text"] {
+  flex: 1;
+  margin-right: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #ff5c5c;
+}
+
+.add-option-btn {
+  background-color: #f0f7fb;
+  border: none;
+  color: #333;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-block;
+}
+.option-group input[type="radio"] {
+  margin-right: 10px;
+}
+
+.option-group input[type="text"] {
+  flex: 1;
+  max-width: 400px;
+  margin-right: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.option-group mat-icon {
+  height: auto;
+}

@@ -2,12 +2,20 @@
 <div class="container">
   <div class="row">
     <!-- User Form Section -->
+
     <div class="col-md-6">
       <div class="card mb-3">
         <div class="addusertitle">
+          <!-- parent.component.html -->
+
           <h4 class="card-header">
             {{ selectedUser ? "Update User" : "Add New User" }}
           </h4>
+          <mat-icon
+            *ngIf="selectedUser == null"
+            svgIcon="uploadButton"
+            (click)="toggleFileUpload()"
+          ></mat-icon>
           <mat-icon
             *ngIf="selectedUser"
             type="button"
@@ -32,19 +40,6 @@
                 required
                 #emailField="ngModel"
               />
-              <div
-                *ngIf="
-                  emailField.invalid && (emailField.dirty || emailField.touched)
-                "
-                class="alert alert-danger"
-              >
-                <div *ngIf="emailField.errors?.['required']">
-                  Email is required.
-                </div>
-                <div *ngIf="emailField.errors?.['email']">
-                  Invalid email format.
-                </div>
-              </div>
             </div>
             <!-- Name Field -->
             <div class="form-group">
@@ -58,16 +53,6 @@
                 required
                 #nameField="ngModel"
               />
-              <div
-                *ngIf="
-                  nameField.invalid && (nameField.dirty || nameField.touched)
-                "
-                class="alert alert-danger"
-              >
-                <div *ngIf="nameField.errors?.['required']">
-                  Name is required.
-                </div>
-              </div>
             </div>
             <!-- Contact Number Field -->
             <div class="form-group">
@@ -81,17 +66,6 @@
                 required
                 #contact_NumberField="ngModel"
               />
-              <div
-                *ngIf="
-                  contact_NumberField.invalid &&
-                  (contact_NumberField.dirty || contact_NumberField.touched)
-                "
-                class="alert alert-danger"
-              >
-                <div *ngIf="contact_NumberField.errors?.['required']">
-                  Contact Number is required.
-                </div>
-              </div>
             </div>
             <!-- Role Field -->
             <div class="form-group">
@@ -108,16 +82,6 @@
                   {{ roleOption }}
                 </option>
               </select>
-              <div
-                *ngIf="
-                  roleField.invalid && (roleField.dirty || roleField.touched)
-                "
-                class="alert alert-danger"
-              >
-                <div *ngIf="roleField.errors?.['required']">
-                  Role is required.
-                </div>
-              </div>
             </div>
             <!-- Submit Button -->
             <button
@@ -148,6 +112,7 @@
               [data]="users"
             ></app-exportDialogBox>
             <mat-icon
+              [ngClass]="{ 'filter-applied': isFilterApplied() }"
               svgIcon="filterIcon"
               (click)="toggleFilterVisibility()"
             ></mat-icon>
@@ -176,6 +141,16 @@
             (filterChange)="onFilterChange($event)"
           ></app-filter>
         </div>
+        <div *ngIf="showFileUpload" class="file-upload-wrapper">
+          <app-fileUpload
+            [TemplateHeader]="csvHeaders"
+            (fileParsed)="onFileParsed($event)"
+            (cancel)="onCancelFileUpload()"
+          ></app-fileUpload>
+        </div>
+        <app-FileUploadStatus
+          [failedUsers]="failedUsersUpload"
+        ></app-FileUploadStatus>
       </div>
     </div>
   </div>

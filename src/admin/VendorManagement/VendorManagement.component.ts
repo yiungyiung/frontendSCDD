@@ -19,6 +19,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./VendorManagement.component.css']
 })
 export class VendorManagementComponent implements OnInit {
+  selectedVendor: Vendor | null = null;
   vendorForm!: FormGroup;
   vendors: Vendor[] = [];
   filteredVendor: Vendor[] = [];
@@ -471,4 +472,62 @@ export class VendorManagementComponent implements OnInit {
       }
     );
   }
+  isFilterApplied(): boolean {
+    const searchBySubPart = this.filterSubParts.find(part => part.name === 'Search By');
+    const roleIdSubPart = this.filterSubParts.find(part => part.name === 'Role');
+    const userStatusSubPart = this.filterSubParts.find(part => part.name === 'Vendor Status');
+    const vendorCategorySubPart = this.filterSubParts.find(part => part.name ==='Category');
+  console.log("filtter applieddd....",!!(searchBySubPart && searchBySubPart.selectedOption) ||
+  !!(roleIdSubPart && roleIdSubPart.selectedOptions && roleIdSubPart.selectedOptions.length > 0) ||
+  !!(userStatusSubPart && userStatusSubPart.selectedOptions && userStatusSubPart.selectedOptions.length > 0)||
+  !!(vendorCategorySubPart && vendorCategorySubPart.selectedOptions && vendorCategorySubPart.selectedOptions.length > 0)
+)
+    return (
+      !!(searchBySubPart && searchBySubPart.selectedOption) ||
+      !!(roleIdSubPart && roleIdSubPart.selectedOptions && roleIdSubPart.selectedOptions.length > 0) ||
+      !!(userStatusSubPart && userStatusSubPart.selectedOptions && userStatusSubPart.selectedOptions.length > 0)||
+      !!(vendorCategorySubPart && vendorCategorySubPart.selectedOptions && vendorCategorySubPart.selectedOptions.length > 0)
+    );
+  }
+
+  resetNewVendor() {
+    this.newVendor= {
+      vendorRegistration: '',
+      vendorName: '',
+      vendorAddress: '',
+      tierID: 0,
+      categoryID: 0,
+      parentVendorIDs: [],
+      user: {
+        isActive: true,
+        email: '',
+        name: '',
+        contact_Number: '',
+        roleId: 4
+      },
+      registrationDate: new Date()
+    };
+  }
+
+  resetSelectedVendor() {
+    this.selectedVendor = null;
+    this.resetNewVendor();
+  }
+
+  get vendorName(): string {
+    return this.selectedVendor ? this.selectedVendor.vendorName : this.newVendor.vendorName;
+  }
+  set vendorName(value: string) {
+    if (this.selectedVendor) {
+      this.selectedVendor.vendorName = value;
+    } else {
+      this.newVendor.vendorName = value;
+    }
+  }
+
+
+
+
+
+
 }

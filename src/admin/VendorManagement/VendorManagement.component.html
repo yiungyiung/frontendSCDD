@@ -4,7 +4,20 @@
     <div class="col-md-3">
       <div class="add-vendor-card">
         <div class="vendor-title-card">
-          <h4 class="card-header">Add Supply Chain Partner</h4>
+          <h4 class="card-header">
+            {{
+              selectedVendor
+                ? "Update Supply Chain Partner"
+                : "Add Supply Chain Partner"
+            }}
+          </h4>
+
+          <mat-icon
+            *ngIf="selectedVendor"
+            type="button"
+            (click)="resetSelectedVendor()"
+            svgIcon="reset"
+          ></mat-icon>
         </div>
         <form [formGroup]="vendorForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
@@ -172,7 +185,7 @@
             </div>
           </div>
           <div class="form-group" *ngIf="tier1Vendors.length > 0">
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="mat-form-field">
               <div class="search-container">
                 <input
                   matInput
@@ -231,6 +244,7 @@
               [data]="vendors"
             ></app-exportDialogBox>
             <mat-icon
+              [ngClass]="{ 'filter-applied': isFilterApplied() }"
               svgIcon="filterIcon"
               (click)="toggleFilterVisibility()"
             ></mat-icon>

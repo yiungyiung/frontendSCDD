@@ -7,6 +7,7 @@ import { ExportModalServiceService } from '../../services/ExportModalService/Exp
 import { PopupService } from '../../services/PopupService/popup.service';
 import { NgForm } from '@angular/forms'; 
 import { SubPart } from '../../Component/filter/filter.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-management',
@@ -16,6 +17,7 @@ import { SubPart } from '../../Component/filter/filter.component';
 export class UserManagementComponent implements OnInit {
   users: User[] = [];
   filteredUsers: User[] = [];
+  failedUsersUpload: string[] = [];
   newUser: User = { email: '', role: Role.Admin, name: '', contact_Number: '', isActive: true };
   selectedUser: User | null = null;
   roles = Object.values(Role).filter(role => role !== Role.Vendor);
@@ -25,11 +27,13 @@ export class UserManagementComponent implements OnInit {
   itemsPerPage: number = 10;
   totalItems: number = 0;
   totalPages: number = 0;
-
+  showFileUpload: boolean = false;
   selectedColumns: string[] = ['User ID', 'Email', 'Name', 'Contact Number', 'Role', 'Is Active']; 
   allColumns: string[] = ['User ID', 'Email', 'Name', 'Contact Number', 'Role', 'Is Active'];
+  csvHeaders: string[] = ['Email', 'Name', 'Contact Number', 'Role'];
 
   constructor(
+    private fb: FormBuilder,
     private adminService: AdminService,
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
@@ -39,7 +43,9 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit() {
     this.loadUsers();
+    
   }
+  
 
   // Define your filter parts and the criteria to be used for filtering.
 filterSubParts: SubPart[] = [
@@ -377,4 +383,106 @@ applyFilter() {
   selectUserForUpdate(user: User) {
     this.selectedUser = { ...user };
   }
+
+  toggleFileUpload(): void {
+    console.log("visbility triggered");
+    this.showFileUpload = !this.showFileUpload;
+  }
+
+  onFileParsed(parsedData: any[]): void {
+    this.showFileUpload = false;
+    console.log('Parsed data received:', parsedData);
+    const token = this.authService.getToken();
+    
+    let successCount = 0;
+    let failureCount = 0;
+    this.failedUsersUpload = [];
+    
+    parsedData.forEach((userData, index) => {
+      try {
+        console.log('usrdata:',userData);
+        // Map the CSV data to the User object
+        const newUser = this.mapServerUserToUserForFileUpload(userData);
+        // Set the roleId based on the role name in userData
+        newUser.roleId = this.getRoleId(userData['Role']);
+  
+        console.log('User to be added:', newUser);
+  
+        this.adminService.addUser(newUser, token).subscribe(
+          (response) => {
+            console.log("got error yet??");
+            this.users.push(this.mapServerUserToUser(response));
+            console.log('User added from file successfully:', response);
+            successCount++;
+            this.loadUsers();
+            if (index === parsedData.length - 1) {
+              this.triggerNotification(successCount, failureCount);
+              this.showSummaryPopup(successCount, failureCount);
+            }
+          },
+          (error) => {
+            console.error(`Error adding user from file at index ${index}:`, error);
+            this.failedUsersUpload.push(newUser.name || 'Unknown User');
+            failureCount++;
+            if (index === parsedData.length - 1) {
+              this.triggerNotification(successCount, failureCount);
+              this.showSummaryPopup(successCount, failureCount);
+            }
+          }
+        );
+      } catch (error) {
+        console.error(`Error processing user data at index ${index}:`, userData, error);
+        this.failedUsersUpload.push(userData['Name'] || 'Unknown User');
+        failureCount++;
+        if (index === parsedData.length - 1) {
+          this.triggerNotification(successCount, failureCount);
+          this.showSummaryPopup(successCount, failureCount);
+        }
+      }
+    });
+  }
+  
+  private showSummaryPopup(successCount: number, failureCount: number): void {
+    const message = `${successCount} users added successfully, ${failureCount} could not be added.`;
+    this.popupService.showPopup(message,'#0F9D09');
+  }
+
+  onCancelFileUpload(): void {
+    this.showFileUpload = false;
+  }
+
+  mapServerUserToUserForFileUpload(userData: any): User {
+    return {
+      userId: userData['User ID'],
+      email: userData['Email'],
+      name: userData['Name'],
+      contact_Number: userData['Contact Number'],
+      role: userData['Role'],
+      isActive: userData['Is Active'] === 'true'
+    };
+  }
+
+  private triggerNotification(successCount: number, failureCount: number): void {
+    // Triggering notification for failed users
+    if (failureCount > 0) {
+      // Add any additional logic if necessary
+      console.log('Notification triggered for failed users');
+    }
+  }
+
+  isFilterApplied(): boolean {
+    const searchBySubPart = this.filterSubParts.find(part => part.name === 'Search By');
+    const roleIdSubPart = this.filterSubParts.find(part => part.name === 'Role');
+    const userStatusSubPart = this.filterSubParts.find(part => part.name === 'User Status');
+  console.log("filtter applieddd....",!!(searchBySubPart && searchBySubPart.selectedOption) ||
+  !!(roleIdSubPart && roleIdSubPart.selectedOptions && roleIdSubPart.selectedOptions.length > 0) ||
+  !!(userStatusSubPart && userStatusSubPart.selectedOptions && userStatusSubPart.selectedOptions.length > 0)
+)
+    return (
+      !!(searchBySubPart && searchBySubPart.selectedOption) ||
+      !!(roleIdSubPart && roleIdSubPart.selectedOptions && roleIdSubPart.selectedOptions.length > 0) ||
+      !!(userStatusSubPart && userStatusSubPart.selectedOptions && userStatusSubPart.selectedOptions.length > 0)
+    );
+  }
+  
 }

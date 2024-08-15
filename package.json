@@ -22,14 +22,17 @@
     "@angular/router": "^18.0.0",
     "@auth0/angular-jwt": "^5.2.0",
     "bootstrap": "^5.3.3",
+    "gojs": "^3.0.9",
     "jquery": "^3.7.1",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",
     "ngx-bootstrap": "^18.0.0",
     "ngx-csv": "^0.3.2",
+    "ngx-csv-parser": "^2.0.0",
     "ngx-pagination": "^6.0.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.14.3"
   },
   "devDependencies": {

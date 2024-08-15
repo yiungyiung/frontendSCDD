@@ -27,6 +27,22 @@ import { PopupBoxModule } from '../Component/popup-box/popup-box/popup-box.modul
 import { ReactiveFormsModule } from '@angular/forms';
 import { FilterComponent } from '../Component/filter/filter.component';
 import { BurgerMenuComponent } from '../Component/burgerMenu/burgerMenu.component';
+import { FileUploadComponent } from '../Component/fileUpload/fileUpload.component';
+import { NgxCsvParserModule } from 'ngx-csv-parser';
+import { FileUploadStatusComponent } from '../Component/FileUploadStatus/FileUploadStatus.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { AddQuestionComponent } from '../Component/AddQuestion/AddQuestion.component';
+import { ManageQuestionaireComponent } from './ManageQuestionaire/ManageQuestionaire.component';
+import { QuestionType_SelectOneOptionComponent } from '../Component/QuestionType_SelectOneOption/QuestionType_SelectOneOption.component';
+import { QuestionType_SelectMultipleOptionComponent } from '../Component/QuestionType_SelectMultipleOption/QuestionType_SelectMultipleOption.component';
+import { QuestionType_TextBoxComponent } from '../Component/QuestionType_TextBox/QuestionType_TextBox.component';
+import { QuestionType_AttachFileComponent } from '../Component/QuestionType_AttachFile/QuestionType_AttachFile.component';
+import { QuestionType_DateComponent } from '../Component/QuestionType_Date/QuestionType_Date.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { AssignQuestionnaireComponent } from './AssignQuestionnaire/AssignQuestionnaire.component';
+import { VendorHierarchyGraphComponent } from '../Component/vendorHierarchyGraph/vendorHierarchyGraph.component';
 
 @NgModule({
   imports: [
@@ -53,8 +69,13 @@ export class AppModule { }
     MatFormFieldModule,
     MatInputModule,
     PopupBoxModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxCsvParserModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSlideToggleModule,
   ],
-  declarations: [AdminComponent,BurgerMenuComponent,FilterComponent, UsercardComponent, VendorcardComponent, DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,DisclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PaginationComponent, NotificationComponent]
+  declarations: [AdminComponent,VendorHierarchyGraphComponent,AssignQuestionnaireComponent,QuestionType_TextBoxComponent,QuestionType_AttachFileComponent,QuestionType_DateComponent,QuestionType_SelectMultipleOptionComponent,FileUploadStatusComponent,QuestionType_SelectOneOptionComponent,ManageQuestionaireComponent,AddQuestionComponent,FileUploadComponent,BurgerMenuComponent,FilterComponent, UsercardComponent, VendorcardComponent, DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,DisclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PaginationComponent, NotificationComponent]
 })
 export class AdminModule { }

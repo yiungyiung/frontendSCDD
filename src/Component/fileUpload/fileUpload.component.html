@@ -1,0 +1,21 @@
+<!-- Export Modal -->
+
+<div class="file-upload-container">
+  <h3>Upload Your File</h3>
+  <input
+    type="file"
+    id="fileInput"
+    (change)="onFileSelected($event)"
+    accept=".csv,.xls,.xlsx"
+  />
+
+  <!-- Add a download button to download the template or file -->
+  <button class="download-button" (click)="onDownloadTemplate()">
+    Download Template
+  </button>
+
+  <div class="button-group">
+    <button class="cancel-button" (click)="onCancel()">Cancel</button>
+    <button class="submit-button" (click)="onSubmit()">Submit</button>
+  </div>
+</div>

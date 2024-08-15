@@ -1,0 +1,23 @@
+<div class="form-section">
+  <div class="header">
+    <div class="title">
+      <mat-icon svgIcon="calendarIcon"></mat-icon>
+      <h6>Add Calender</h6>
+    </div>
+
+    <mat-icon
+      svgIcon="deleteIcon"
+      class="delete-icon"
+      (click)="removeComponent()"
+    ></mat-icon>
+  </div>
+  <div class="form-group">
+    <input type="text" placeholder="Add Sub Question" />
+  </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Choose Date</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</div>
