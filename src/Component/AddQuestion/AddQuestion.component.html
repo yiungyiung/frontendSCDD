@@ -1,6 +1,25 @@
 <div class="form-container">
-  <span class="close-btn">&times;</span>
-  <h2>Add Question</h2>
+  <div style="display: flex; justify-content: space-between">
+    <h2>Add Question</h2>
+    <div class="form-group custom-select">
+      <label for="domain">Select Framework</label>
+      <div class="select-wrapper" (click)="toggleDropdown()">
+        <span>{{ selectedText }}</span>
+        <div class="options" [class.show]="isOpen">
+          <div class="option" *ngFor="let domain of domains">
+            <label>
+              <input
+                type="checkbox"
+                [value]="domain.value"
+                (change)="onOptionChange($event, domain)"
+              />
+              {{ domain.label }}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Question Input Section -->
   <div class="form-group">

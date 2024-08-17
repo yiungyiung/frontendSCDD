@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, Renderer2, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, ElementRef, Renderer2, AfterViewInit,  ChangeDetectorRef} from '@angular/core';
 
 @Component({
   selector: 'app-nav-item',
@@ -11,6 +11,7 @@ export class NavItemComponent implements AfterViewInit {
   @Input() href!: string;
   @Input() hasSubPanel: boolean = false;
   showSubPanel: boolean = false;
+  private clickListener: (() => void) | null = null;
 
   constructor(
     private elementRef: ElementRef,
@@ -33,10 +34,13 @@ export class NavItemComponent implements AfterViewInit {
     }
   }
 
-  toggleSubPanel(show: boolean) {
-    this.showSubPanel = show;
-    if (show) {
+  toggleSubPanel() {
+    this.showSubPanel = !this.showSubPanel;
+    if (this.showSubPanel) {
       this.adjustSubPanelSize();
+      this.attachClickListener();
+    } else {
+      this.detachClickListener();
     }
   }
 
@@ -49,5 +53,28 @@ export class NavItemComponent implements AfterViewInit {
       this.renderer.setStyle(subPanelElement, 'width', `${navbarRect.width}px`);
       this.renderer.setStyle(subPanelElement, 'left', `${navbarRect.left - navItemRect.left}px`);
     }
+  }
+
+  private attachClickListener() {
+    if (!this.clickListener) {
+      this.clickListener = this.renderer.listen('document', 'click', (event: Event) => {
+        if (!this.elementRef.nativeElement.contains(event.target)) {
+          this.showSubPanel = false;
+          this.cdr.detectChanges();
+          this.detachClickListener();
+        }
+      });
+    }
+  }
+
+  private detachClickListener() {
+    if (this.clickListener) {
+      this.clickListener();
+      this.clickListener = null;
+    }
+  }
+
+  ngOnDestroy() {
+    this.detachClickListener();
   }
 }

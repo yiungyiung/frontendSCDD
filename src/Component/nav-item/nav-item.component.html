@@ -1,24 +1,19 @@
-<div
-  class="nav-item-wrapper"
-  (mouseover)="toggleSubPanel(true)"
-  (mouseout)="toggleSubPanel(false)"
->
+<div class="nav-item-container" (click)="toggleSubPanel()">
   <a
-    class="nav-item"
+    class="nav-link"
     [routerLink]="href"
     routerLinkActive="active"
     tabindex="0"
   >
     <mat-icon class="nav-icon" [svgIcon]="svgIcon"></mat-icon>
-    <span class="nav-text">{{ text }}</span>
+    <span class="nav-label">{{ text }}</span>
   </a>
-  <!-- Render the sub-panel always, but hide it when not shown -->
+  <!--Sub-menu -->
   <div
     class="sub-panel"
     *ngIf="hasSubPanel"
     [style.display]="showSubPanel ? 'flex' : 'none'"
   >
     <ng-content></ng-content>
-    <!-- Sub-panel content goes here -->
   </div>
 </div>

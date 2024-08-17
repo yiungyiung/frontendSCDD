@@ -1,31 +1,15 @@
 <div class="organization-chart">
-  <button class="company-button">Company</button>
-
-  <div
-    *ngFor="let tier of vendorTiers; let i = index"
-    class="tier"
-    [ngClass]="'tier-' + (i + 1)"
-  >
+  <svg #linesContainer class="lines-container"></svg>
+  <div class="company-container">
+    <button #companyButton class="company-button">Company</button>
+  </div>
+  <div *ngFor="let tier of vendorTiers; let i = index" class="tier">
     <div *ngFor="let vendor of tier" class="vendor-wrapper">
-      <!-- SVG connector for parent to child -->
-      <svg
-        *ngIf="hasChildren(vendor)"
-        class="connector"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <line
-          *ngFor="let child of vendor.children"
-          [attr.x1]="getVendorX(vendor)"
-          y1="0"
-          [attr.x2]="getVendorX(child)"
-          y2="100"
-          stroke="black"
-        />
-      </svg>
-
-      <div class="vendor-card">
-        {{ vendor.vendorName }}
-      </div>
+      <button class="vendor-card" [attr.data-vendor-id]="vendor.vendorID">
+        <div #vendorCard class="vendor-name">{{ vendor.vendorName }}</div>
+        <div class="tier-label">Tier: {{ vendor.tierID }}</div>
+        <div class="tier-label">Vendor Id: {{ vendor.vendorID }}</div>
+      </button>
     </div>
   </div>
 </div>

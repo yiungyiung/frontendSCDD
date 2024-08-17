@@ -14,12 +14,11 @@
 }
 
 .card-header {
-  background-color: #e7f4f9;
-  border-bottom: 1px solid #ddd;
-  padding: 20px 15px;
   font-size: 18px;
   font-weight: bold;
   color: #073c5a;
+  background-color: transparent;
+  border: none;
 }
 
 .card-body {
@@ -27,7 +26,17 @@
 }
 
 .vendor-title-card {
-  background-color: #12789e;
+  background-color: #e7f4f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.vendor-title-card mat-icon {
+  margin-right: 20px;
+  width: 30px;
+  height: auto;
 }
 
 .add-vendor-card,
@@ -276,4 +285,17 @@
   border: none;
   box-shadow: none;
   width: 100%;
+}
+
+/* parent.component.css */
+.file-upload-wrapper {
+  position: absolute; /* Or fixed, depending on your requirement */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000; /* Adjust as needed */
+  background: white; /* Ensure the background is visible */
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

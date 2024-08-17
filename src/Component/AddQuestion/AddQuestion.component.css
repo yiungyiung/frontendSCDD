@@ -98,8 +98,45 @@ body {
   scrollbar-width: none; /* Optional: Hide the scrollbar in Firefox */
 }
 
-/* Optional: Hide the scrollbar in WebKit browsers (Chrome, Safari) */
-.questiontypecomp::-webkit-scrollbar {
-  width: 0;
-  background: transparent;
+.custom-select {
+  position: relative;
+  width: 200px;
+}
+
+.select-wrapper {
+  border: 1px solid #ccc;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.options.show {
+  display: block;
+}
+
+.option {
+  padding: 10px;
+}
+
+.option label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.option input[type="checkbox"] {
+  margin-right: 10px;
 }

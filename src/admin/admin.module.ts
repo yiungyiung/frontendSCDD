@@ -20,7 +20,6 @@ import { ExportDialogBoxComponent } from '../Component/exportDialogBox/exportDia
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { PaginationComponent } from '../Component/Pagination/pagination/pagination.component';
-import { NotificationComponent } from '../Component/notification/notification/notification.component';
 import { VendorcardComponent } from '../Component/vendorcard/vendorcard.component';
 import { UsercardComponent } from '../Component/usercard/usercard.component';
 import { PopupBoxModule } from '../Component/popup-box/popup-box/popup-box.module';
@@ -46,10 +45,8 @@ import { VendorHierarchyGraphComponent } from '../Component/vendorHierarchyGraph
 
 @NgModule({
   imports: [
-    // other imports
     FormsModule,
   ],
-  // declarations, providers, etc.
 })
 export class AppModule { }
 
@@ -76,6 +73,6 @@ export class AppModule { }
     MatNativeDateModule,
     MatSlideToggleModule,
   ],
-  declarations: [AdminComponent,VendorHierarchyGraphComponent,AssignQuestionnaireComponent,QuestionType_TextBoxComponent,QuestionType_AttachFileComponent,QuestionType_DateComponent,QuestionType_SelectMultipleOptionComponent,FileUploadStatusComponent,QuestionType_SelectOneOptionComponent,ManageQuestionaireComponent,AddQuestionComponent,FileUploadComponent,BurgerMenuComponent,FilterComponent, UsercardComponent, VendorcardComponent, DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,DisclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PaginationComponent, NotificationComponent]
+  declarations: [AdminComponent,VendorHierarchyGraphComponent,AssignQuestionnaireComponent,QuestionType_TextBoxComponent,QuestionType_AttachFileComponent,QuestionType_DateComponent,QuestionType_SelectMultipleOptionComponent,FileUploadStatusComponent,QuestionType_SelectOneOptionComponent,ManageQuestionaireComponent,AddQuestionComponent,FileUploadComponent,BurgerMenuComponent,FilterComponent, UsercardComponent, VendorcardComponent, DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,DisclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PaginationComponent]
 })
 export class AdminModule { }

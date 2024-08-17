@@ -11,7 +11,11 @@
                 : "Add Supply Chain Partner"
             }}
           </h4>
-
+          <mat-icon
+            *ngIf="selectedVendor == null"
+            svgIcon="uploadButton"
+            (click)="toggleFileUpload()"
+          ></mat-icon>
           <mat-icon
             *ngIf="selectedVendor"
             type="button"
@@ -278,4 +282,14 @@
       (filterChange)="onFilterChange($event)"
     ></app-filter>
   </div>
+  <div *ngIf="showFileUpload" class="file-upload-wrapper">
+    <app-fileUpload
+      [TemplateHeader]="csvHeaders"
+      (fileParsed)="onFileParsed($event)"
+      (cancel)="onCancelFileUpload()"
+    ></app-fileUpload>
+  </div>
+  <app-FileUploadStatus
+    [failedUsers]="failedUsersUpload"
+  ></app-FileUploadStatus>
 </div>

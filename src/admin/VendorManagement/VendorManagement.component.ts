@@ -36,6 +36,7 @@ export class VendorManagementComponent implements OnInit {
   }
   itemsPerPageOptions: number[] = [5, 10, 20, 50];
   pagedUsers: Vendor[] = [];
+  filteredTier1Vendors: Vendor[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalItems: number = 0;
@@ -44,7 +45,10 @@ export class VendorManagementComponent implements OnInit {
   
   selectedColumns: string[] = ['Vendor ID','Vendor Name','Vendor Address','Tier','Category','Contact Name','Contact Email','Contact Number']; 
   allColumns: string[] = ['Vendor ID','Vendor Name','Vendor Address','Tier','Category','Contact Name','Contact Email','Contact Number'];
-  
+  showFileUpload: boolean = false;
+  failedUsersUpload: string[] = [];
+  csvHeaders: string[] = ['Vendor Name','Vendor Address','Tier','Category','Contact Name','Contact Email','Contact Number'];
+
   newVendor: Vendor = {
     vendorRegistration: '',
     vendorName: '',
@@ -312,7 +316,7 @@ export class VendorManagementComponent implements OnInit {
     );
   }
 
-  filteredTier1Vendors: Vendor[] = [];
+ 
 
   onTierChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
@@ -525,8 +529,101 @@ export class VendorManagementComponent implements OnInit {
     }
   }
 
+  toggleFileUpload(): void {
+    console.log("visbility triggered");
+    this.showFileUpload = !this.showFileUpload;
+  }
 
+  onFileParsed(parsedData: any[]): void {
+    this.showFileUpload = false;
+    console.log('Parsed data received:', parsedData);
+    const token = this.authService.getToken();
+    
+    let successCount = 0;
+    let failureCount = 0;
+    this.failedUsersUpload = [];
+    
+    parsedData.forEach((vendordata, index) => {
+      try {
+        console.log('vendordata:',vendordata);
+        /*
+        // Map the CSV data to the User object
+        const newUser = this.mapServerUserToUserForFileUpload(vendordata);
+        // Set the roleId based on the role name in userData
+        newUser.roleId = this.getRoleId(userData['Role']);
+  
+        console.log('User to be added:', newUser);
+  
+        this.adminService.addUser(newUser, token).subscribe(
+          (response) => {
+            console.log("got error yet??");
+            this.vendors.push(this.mapServerUserToUser(response));
+            console.log('User added from file successfully:', response);
+            successCount++;
+            this.loadVendors();
+            if (index === parsedData.length - 1) {
+              this.triggerNotification(successCount, failureCount);
+              this.showSummaryPopup(successCount, failureCount);
+            }
+          },
+          (error) => {
+            console.error(`Error adding user from file at index ${index}:`, error);
+            this.failedUsersUpload.push(newUser.name || 'Unknown User');
+            failureCount++;
+            if (index === parsedData.length - 1) {
+              this.triggerNotification(successCount, failureCount);
+              this.showSummaryPopup(successCount, failureCount);
+            }
+          }
+        );
+        */
+      } catch (error) {
+        console.error(`Error processing user data at index ${index}:`, vendordata, error);
+        this.failedUsersUpload.push(vendordata['Name'] || 'Unknown User');
+        failureCount++;
+        if (index === parsedData.length - 1) {
+          this.triggerNotification(successCount, failureCount);
+          this.showSummaryPopup(successCount, failureCount);
+        }
+      }
+    });
+  }
+  
+  private showSummaryPopup(successCount: number, failureCount: number): void {
+    const message = `${successCount} users added successfully, ${failureCount} could not be added.`;
+    this.popupService.showPopup(message,'#0F9D09');
+  }
 
+  onCancelFileUpload(): void {
+    this.showFileUpload = false;
+  }
+/*
+  mapServerUserToUserForFileUpload(userData: any): User {
+    return {
+      vendorID: userData['vendorID'],
+      vendorName: userData['Vendor Name'], 
+      vendorAddress: userData['Vendor Address'], 
+      tierID: userData['Tier'], 
+      categoryID:userData['Category'],
+      vendorRegistration: userData['vendor Registration'],
+      user: {
+        isActive: userData.user.isActive,
+        email: userData['Contact Email'],
+        name: userData['Contact Name'],
+        contact_Number: userData['Contact Number'],
+        roleId: userData['roleId'] === '4'
+      },
+      userID: userData.userId,
+    };
+  }
+*/
+  private triggerNotification(successCount: number, failureCount: number): void {
+    // Triggering notification for failed users
+    if (failureCount > 0) {
+      // Add any additional logic if necessary
+      console.log('Notification triggered for failed users');
+    }
+  }
 
 
 

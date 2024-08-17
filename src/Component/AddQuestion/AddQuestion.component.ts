@@ -55,4 +55,41 @@ addComponent(type: QuestionType) {
     this.selectedComponents = this.selectedComponents.filter(component => component.id !== id);
   }
   
+
+  isOpen = false;
+  selectedDomains: string[] = [];
+  selectedText = 'Select Domain';
+
+  domains = [
+    { value: 'domain1', label: 'Domain 1' },
+    { value: 'domain2', label: 'Domain 2' },
+    { value: 'domain3', label: 'Domain 3' },
+  ];
+
+  toggleDropdown() {
+    this.isOpen = !this.isOpen;
+  }
+
+  onOptionChange(event: Event, domain: { value: string, label: string }) {
+    const checkbox = event.target as HTMLInputElement;
+    if (checkbox.checked) {
+      this.selectedDomains.push(domain.value);
+    } else {
+      const index = this.selectedDomains.indexOf(domain.value);
+      if (index > -1) {
+        this.selectedDomains.splice(index, 1);
+      }
+    }
+    this.updateSelectedText();
+  }
+
+  updateSelectedText() {
+    if (this.selectedDomains.length === 0) {
+      this.selectedText = 'Select Domain';
+    } else if (this.selectedDomains.length === 1) {
+      this.selectedText = this.domains.find(d => d.value === this.selectedDomains[0])?.label || '';
+    } else {
+      this.selectedText = `${this.selectedDomains.length} domains selected`;
+    }
+  }
 }

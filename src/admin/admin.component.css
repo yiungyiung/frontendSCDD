@@ -22,13 +22,20 @@
   transition: color 0.1s;
 }
 
+.nav-text:hover {
+  font-size: 1rem;
+  color: #000000;
+  font-weight: bold;
+  text-decoration-line: underline;
+}
+
 .nav-item-wrapper {
-  flex: 1; /* Optional: each nav-item takes up an equal part of the navbar */
+  flex: 1;
 }
 
 .custom-navbar .active {
-  background-color: #12789e; /* Change this to the desired active background color */
-  color: #f9a634; /* Change this to the desired active text color */
+  background-color: #12789e;
+  color: #f9a634;
 }
 
 .custom-padded-content {
