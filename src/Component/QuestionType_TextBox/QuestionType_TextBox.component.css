@@ -2,9 +2,12 @@
   padding: 15px;
   border: 1px solid #e6e6e6;
   border-radius: 10px;
-  margin-bottom: 20px;
-  margin-top: 10px;
-  background-color: white;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 6vh;
+  width: 60vw;
+  margin-top: 3vh;
+  margin-left: 0.6vw;
 }
 
 .header {

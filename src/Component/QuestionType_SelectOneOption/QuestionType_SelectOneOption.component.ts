@@ -20,20 +20,10 @@ export class QuestionType_SelectOneOptionComponent implements OnInit {
   }
 
   addOption() {
-    if (this.isFirstAddition) {
-      // Add the first option even if it is empty
       this.options.push(this.newOption);
-      this.isFirstAddition = false; // Subsequent additions will require a non-empty value
+      
       this.emitOptions();
-    } else {
-      // For subsequent additions, ensure the new option is non-empty and unique
-      const trimmedOption = this.newOption.trim();
-      if (trimmedOption && !this.options.includes(trimmedOption)) {
-        this.options.push(trimmedOption);
-        this.emitOptions();
-      }
-
-  }
+    
 }
 
   removeOption(index: number) {

@@ -1,0 +1,145 @@
+/* Container Styles */
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Card Styles */
+.card,
+.back-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2.5vh;
+  margin-top: 3vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.card {
+  width: 25vw;
+  margin-left: -0.9vw;
+  height: 68vh;
+}
+
+.back-card {
+  background-color: #ffffff;
+  width: 63vw;
+  margin-left: -19vw;
+  height: 68vh;
+}
+
+/* Adjust the card widths for smaller screens */
+@media (max-width: 993px) {
+  .card {
+    width: 22vw;
+    margin-left: 0.9vw;
+    height: 68vh;
+  }
+
+  .back-card {
+    background-color: #ffffff;
+    width: 63vw;
+    margin-left: -19vw;
+    height: 68vh;
+  }
+}
+
+/* Maintain width ratio for larger screens */
+@media (min-width: 993px) {
+  .card {
+    width: 25vw;
+    margin-left: -0.9vw;
+    height: 68vh;
+  }
+
+  .back-card {
+    background-color: #ffffff;
+    width: 63vw;
+    margin-left: -19vw;
+    height: 68vh;
+  }
+}
+
+.addusertitle {
+  background-color: #e7f4f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.addusertitle mat-icon {
+  margin-right: 20px;
+  width: 30px;
+  height: auto;
+}
+
+.card-header {
+  font-size: 18px;
+  font-weight: bold;
+  color: #073c5a;
+  background-color: transparent;
+  border: none;
+}
+
+/* Form Styles */
+.form-group {
+  font-size: 2vh;
+  font-weight: 600;
+  color: #073c5a;
+  margin-bottom: 2vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.form-group label {
+  align-self: flex-start; /* Align the label to the start of the input box */
+  width: 80%; /* Ensure the label width matches the input width */
+  margin-bottom: 0.5vh; /* Add some space between the label and the input */
+  padding-left: 2.2vh;
+}
+
+.form-control,
+.custom-select {
+  width: 100%;
+  padding: 0.5vh;
+  font-size: 1vh;
+  border: 1px solid #073c5a;
+  border-radius: 4px;
+}
+
+.form-control {
+  width: 90%;
+  padding: 1.5vh;
+  font-size: 2vh;
+  border: 1px solid #073c5a84;
+  border-radius: 4px;
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
+}
+
+.input-row .form-group {
+  flex: 1;
+}
+
+.button-group {
+  margin-top: 20px;
+  margin: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.button-group button {
+  background-color: #ffffff;
+  border: 2px solid #12789e;
+  color: #12789e;
+  font-size: 16px;
+  border-radius: 5px;
+  text-align: center;
+}

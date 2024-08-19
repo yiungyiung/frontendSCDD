@@ -30,7 +30,6 @@ import { FileUploadComponent } from '../Component/fileUpload/fileUpload.componen
 import { NgxCsvParserModule } from 'ngx-csv-parser';
 import { FileUploadStatusComponent } from '../Component/FileUploadStatus/FileUploadStatus.component';
 import { MatRadioModule } from '@angular/material/radio';
-import { AddQuestionComponent } from '../Component/AddQuestion/AddQuestion.component';
 import { ManageQuestionaireComponent } from './ManageQuestionaire/ManageQuestionaire.component';
 import { QuestionType_SelectOneOptionComponent } from '../Component/QuestionType_SelectOneOption/QuestionType_SelectOneOption.component';
 import { QuestionType_SelectMultipleOptionComponent } from '../Component/QuestionType_SelectMultipleOption/QuestionType_SelectMultipleOption.component';
@@ -42,6 +41,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AssignQuestionnaireComponent } from './AssignQuestionnaire/AssignQuestionnaire.component';
 import { VendorHierarchyGraphComponent } from '../Component/vendorHierarchyGraph/vendorHierarchyGraph.component';
+import { AddQuestionComponent } from './AddQuestion/AddQuestion.component';
 
 @NgModule({
   imports: [

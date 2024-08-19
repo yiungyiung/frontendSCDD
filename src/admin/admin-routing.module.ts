@@ -7,6 +7,7 @@ import { AdminComponent } from './admin.component';
 import { VendorManagementComponent } from './VendorManagement/VendorManagement.component';
 import { ManageQuestionaireComponent } from './ManageQuestionaire/ManageQuestionaire.component';
 import { AssignQuestionnaireComponent } from './AssignQuestionnaire/AssignQuestionnaire.component';
+import { AddQuestionComponent } from './AddQuestion/AddQuestion.component';
 const routes: Routes = [
   {
     path: '',
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: 'vendor-management', component: VendorManagementComponent},
       { path: 'Manage-question', component: ManageQuestionaireComponent},
       {path: 'Assign-questionnaire', component:AssignQuestionnaireComponent},
+      {path: 'Add-question', component:AddQuestionComponent},
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   }
