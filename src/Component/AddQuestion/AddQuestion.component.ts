@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Domain, Framework } from '../../model/entity';
+import { Question, Textbox, FileUpload, Option } from '../../model/question';
+import { EntityService } from '../../services/EntityService/Entity.service';
+import { AuthService } from '../../services/AuthService/auth.service';
 
 enum QuestionType {
   SELECT_ONE = 'SELECT_ONE',
@@ -14,82 +18,148 @@ enum QuestionType {
   styleUrls: ['./AddQuestion.component.css']
 })
 export class AddQuestionComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  Framework: Framework[] = [];
+  Domain: Domain[] = [];
+  isOpen = false;
+  selectedTextFramework = 'Select Framework';
+  selectedTextDomain = 'Select Domain';
+  selectedFramework: string[] = [];
+  selectedFrameworks: number[] = [];
+  questionText: string = '';
+  helperText: string = '';
+  selectedDomainID: number | null = null;
   questionTypes = QuestionType; // Enum for referencing in the template
-  selectedComponents: { type: QuestionType, id: number }[] = []; // To track added components
+  selectedComponents: { type: QuestionType, id: number, options?: Option[], textboxes?: Textbox[], fileUploads?: FileUpload[] }[] = []; // To track added components
   private componentId = 0; // Unique ID for each added component
 
-//  addComponent(type: QuestionType) {
-  //  this.selectedComponents.push({ type, id: this.componentId++ });
-  //}
-  // In your parent component (e.g., QuestionTypeContainerComponent)
+  constructor(private entityService: EntityService, private authService: AuthService, private cdr: ChangeDetectorRef) { }
 
-addComponent(type: QuestionType) {
-  switch (type) {
-      case this.questionTypes.SELECT_ONE:
-          this.selectedComponents.push({ type, id: this.componentId++});
-          break;
-      case this.questionTypes.SELECT_MULTIPLE:
-          this.selectedComponents.push({  type, id: this.componentId++});
-          break;
-      case this.questionTypes.TEXT_BOX:
-          this.selectedComponents.push({ type, id: this.componentId++});
-          break;
-      case this.questionTypes.ATTACH_FILE:
-          this.selectedComponents.push({ type, id: this.componentId++ });
-          break;
-      case this.questionTypes.DATE:
-          this.selectedComponents.push({ type, id: this.componentId++ });
-          break;
-      default:
-          break;
+  ngOnInit() {
+    this.loadFrameworks();
+    this.loadDomain();
   }
-}
+
+  loadDomain() {
+    const token = this.authService.getToken();
+    this.entityService.GetAllDomains(token).subscribe(
+      (Domains) => {
+        this.Domain = Domains;
+        console.log('Loaded Domains:', this.Domain);
+      },
+      error => console.error('Error loading Domains:', error)
+    );
+  }
+
+  loadFrameworks() {
+    const token = this.authService.getToken();
+    this.entityService.GetAllFrameworks(token).subscribe(
+      (Frameworks) => {
+        this.Framework = Frameworks;
+      },
+      error => {
+        console.error('Error loading Frameworks:', error);
+      }
+    );
+  }
+
+  addComponent(type: QuestionType) {
+    this.selectedComponents.push({ type, id: this.componentId++ });
+  }
 
   removeComponent(id: number) {
     this.selectedComponents = this.selectedComponents.filter(component => component.id !== id);
   }
-  
-
-  isOpen = false;
-  selectedDomains: string[] = [];
-  selectedText = 'Select Domain';
-
-  domains = [
-    { value: 'domain1', label: 'Domain 1' },
-    { value: 'domain2', label: 'Domain 2' },
-    { value: 'domain3', label: 'Domain 3' },
-  ];
 
   toggleDropdown() {
     this.isOpen = !this.isOpen;
   }
 
-  onOptionChange(event: Event, domain: { value: string, label: string }) {
+  onOptionChangeframework(event: Event, framework: Framework) {
     const checkbox = event.target as HTMLInputElement;
     if (checkbox.checked) {
-      this.selectedDomains.push(domain.value);
+      this.selectedFramework.push(framework.frameworkName);
+      this.selectedFrameworks.push(framework.frameworkID);
     } else {
-      const index = this.selectedDomains.indexOf(domain.value);
+      const index = this.selectedFramework.indexOf(framework.frameworkName);
       if (index > -1) {
-        this.selectedDomains.splice(index, 1);
+        this.selectedFramework.splice(index, 1);
+        this.selectedFrameworks.splice(index, 1);
       }
     }
-    this.updateSelectedText();
+    this.updateSelectedTextframework();
   }
 
-  updateSelectedText() {
-    if (this.selectedDomains.length === 0) {
-      this.selectedText = 'Select Domain';
-    } else if (this.selectedDomains.length === 1) {
-      this.selectedText = this.domains.find(d => d.value === this.selectedDomains[0])?.label || '';
+  updateSelectedTextframework() {
+    if (this.selectedFramework.length === 0) {
+      this.selectedTextFramework = 'Select Framework';
+    } else if (this.selectedFramework.length === 1) {
+      this.selectedTextFramework = this.selectedFramework[0];
     } else {
-      this.selectedText = `${this.selectedDomains.length} domains selected`;
+      this.selectedTextFramework = `${this.selectedFramework.length} frameworks selected`;
     }
+  }
+
+  onSubmit() {
+    const newQuestion: Question = {
+      questionText: this.questionText,
+      description: this.helperText,
+      orderIndex: 1, // This could be dynamically assigned based on your requirement
+      domainID: this.selectedDomainID ? this.selectedDomainID : 0,
+      categoryID: 1, // Adjust based on the form input
+      options: this.collectOptions(),
+      textboxes: this.collectTextboxes(),
+      fileUploads: this.collectFileUploads(),
+      frameworkIDs: this.selectedFrameworks
+    };
+
+    // Handle the submission, e.g., send to the server
+    console.log('New Question:', newQuestion);
+  }
+
+  handleOptionsChange(data: { subQuestion: string, options: string[] }, componentId: number) {
+    const component = this.selectedComponents.find(comp => comp.id === componentId);
+    if (component) {
+      component.options = data.options.map((option, index) => ({
+        optionText: option,
+        orderIndex: index // You might need a different approach to set the order index
+      }));
+    }
+  }
+  
+  
+  collectOptions(): Option[] {
+    let options: Option[] = [];
+    this.selectedComponents.forEach(component => {
+      if (component.type === this.questionTypes.SELECT_ONE || component.type === this.questionTypes.SELECT_MULTIPLE) {
+        if (component.options) {
+          options = options.concat(component.options); // No mapping needed
+        }
+      }
+    });
+    return options.slice(1); // Exclude the first option
+  }
+  
+  collectTextboxes(): Textbox[] {
+    let textboxes: Textbox[] = [];
+    this.selectedComponents.forEach(component => {
+      if (component.type === this.questionTypes.TEXT_BOX) {
+        if (component.textboxes) {
+          textboxes = textboxes.concat(component.textboxes);
+        }
+      }
+    });
+    return textboxes;
+  }
+  
+  collectFileUploads(): FileUpload[] {
+    let fileUploads: FileUpload[] = [];
+    this.selectedComponents.forEach(component => {
+      if (component.type === this.questionTypes.ATTACH_FILE) {
+        if (component.fileUploads) {
+          fileUploads = fileUploads.concat(component.fileUploads);
+        }
+      }
+    });
+    return fileUploads;
   }
 }
