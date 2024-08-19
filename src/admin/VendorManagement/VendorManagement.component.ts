@@ -199,6 +199,46 @@ export class VendorManagementComponent implements OnInit {
     this.updatePagedUsers();
   }
 
+  selectVendorForUpdate(vendor: Vendor) {
+    this.selectedVendor = { ...vendor };
+    this.vendorForm.patchValue({
+      contactName: vendor.user.name,
+      email: vendor.user.email,
+      contactNumber: vendor.user.contact_Number
+    });
+  }
+
+  updateVendor(): void {
+    if (this.vendorForm.invalid || !this.selectedVendor) {
+      return;
+    }
+
+    const token = this.authService.getToken();
+    const updatedUser: User = {
+      ...this.selectedVendor.user,
+      name: this.vendorForm.get('contactName')?.value,
+      email: this.vendorForm.get('email')?.value,
+      contact_Number: this.vendorForm.get('contactNumber')?.value,
+    };
+
+    this.adminService.updateUser(updatedUser, token).subscribe(
+      response => {
+        const index = this.vendors.findIndex(v => v.userID === response.userId);
+        if (index !== -1) {
+          this.vendors[index].user = response;
+          this.updatePagedUsers();
+          this.resetSelectedVendor();
+          this.popupService.showPopup('Vendor user details updated successfully', '#0F9D09');
+        }
+      },
+      error => {
+        console.error('Error updating vendor user details:', error);
+        this.popupService.showPopup('Failed to update vendor user details. Please try again.', '#C10000');
+      }
+    );
+  }
+
+
   onSubmit(): void {
     this.submitted = true;
     if (this.vendorForm.invalid) {
@@ -260,13 +300,11 @@ export class VendorManagementComponent implements OnInit {
       vendor.vendorName.toLowerCase().includes(this.searchQuery.toLowerCase())
     );
   }
-
   loadVendors() {
     const token = this.authService.getToken();
     this.vendorService.getAllVendors(token).subscribe(
       serverVendors => {
         this.vendors = serverVendors.map(serverVendor => this.mapServerUserToUser(serverVendor));
-        this.vendors = serverVendors;
         this.filteredVendor = this.vendors;
         this.totalItems = this.vendors.length;
         this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
@@ -275,7 +313,6 @@ export class VendorManagementComponent implements OnInit {
       error => console.error('Error loading vendors:', error)
     );
   }
-
   onPageChange(page: number) {
     this.currentPage = page;
     this.updatePagedUsers();
@@ -291,7 +328,7 @@ export class VendorManagementComponent implements OnInit {
   updatePagedUsers() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    this.pagedUsers = this.vendors.slice(startIndex, endIndex);
+    this.pagedUsers = this.filteredVendor.slice(startIndex, endIndex);
   }
 
   loadCategories() {
@@ -349,6 +386,7 @@ export class VendorManagementComponent implements OnInit {
     this.vendorService.addVendor(token, vendordata).subscribe(
       addedVendor => {
         this.vendors.push(addedVendor);
+        this.filteredVendor = this.vendors; // Update filteredVendor
         this.totalItems = this.vendors.length;
         this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
         this.updatePagedUsers();

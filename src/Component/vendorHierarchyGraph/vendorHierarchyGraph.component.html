@@ -1,15 +1,15 @@
 <div class="organization-chart">
-  <svg #linesContainer class="lines-container"></svg>
-  <div class="company-container">
-    <button #companyButton class="company-button">Company</button>
-  </div>
-  <div *ngFor="let tier of vendorTiers; let i = index" class="tier">
-    <div *ngFor="let vendor of tier" class="vendor-wrapper">
-      <button class="vendor-card" [attr.data-vendor-id]="vendor.vendorID">
+    <svg #linesContainer class="lines-container"></svg>
+    <div class="company-container">
+        <button #companyButton class="company-button" (click)="onComponentClick(null)">Company</button>
+    </div>
+    <div *ngFor="let tier of vendorTiers; let i = index" class="tier">
+        <div *ngFor="let vendor of tier" class="vendor-wrapper">
+            <button class="vendor-card" [attr.data-vendor-id]="vendor.vendorID" (click)="onComponentClick(vendor.vendorID)" [style.border-color]="tierColors[i]">
         <div #vendorCard class="vendor-name">{{ vendor.vendorName }}</div>
         <div class="tier-label">Tier: {{ vendor.tierID }}</div>
         <div class="tier-label">Vendor Id: {{ vendor.vendorID }}</div>
       </button>
+        </div>
     </div>
-  </div>
 </div>
