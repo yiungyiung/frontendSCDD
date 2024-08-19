@@ -6,6 +6,7 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import { AdminComponent } from './admin.component';
 import { VendorManagementComponent } from './VendorManagement/VendorManagement.component';
 import { ManageQuestionaireComponent } from './ManageQuestionaire/ManageQuestionaire.component';
+import { AssignQuestionnaireComponent } from './AssignQuestionnaire/AssignQuestionnaire.component';
 const routes: Routes = [
   {
     path: '',
@@ -15,6 +16,7 @@ const routes: Routes = [
       { path: 'user-management', component: UserManagementComponent },
       { path: 'vendor-management', component: VendorManagementComponent},
       { path: 'Manage-question', component: ManageQuestionaireComponent},
+      {path: 'Assign-questionnaire', component:AssignQuestionnaireComponent},
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   }
