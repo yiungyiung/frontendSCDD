@@ -1,4 +1,5 @@
-import { Component, OnInit , Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { FileUpload } from '../../model/question';
 
 @Component({
   selector: 'app-QuestionType_AttachFile',
@@ -6,30 +7,31 @@ import { Component, OnInit , Output, EventEmitter} from '@angular/core';
   styleUrls: ['./QuestionType_AttachFile.component.css']
 })
 export class QuestionType_AttachFileComponent implements OnInit {
+  @Input() id!: number;
   @Output() remove = new EventEmitter<void>();
+  @Output() fileUploadChange = new EventEmitter<FileUpload>();
+
+  label: string = '';
+
   constructor() { }
 
   ngOnInit() {
-  }
-  options: string[] = ['Option 1']; // Initial option
-
-  addOption() {
-    this.options.push(`Option ${this.options.length + 1}`);
-  }
-
-  removeOption(index: number) {
-    this.options.splice(index, 1);
+    this.emitFileUpload();
   }
 
   removeComponent() {
     this.remove.emit();
   }
 
-  isToggled = false;
-
-  onToggleChange(event: any) {
-    console.log('Toggle state:', event.checked);
-    // Perform any additional logic here
+  onLabelChange() {
+    this.emitFileUpload();
   }
 
+  private emitFileUpload() {
+    const fileUpload: FileUpload = {
+      label: this.label,
+      orderIndex: 0 // You might want to handle this differently based on your requirements
+    };
+    this.fileUploadChange.emit(fileUpload);
+  }
 }

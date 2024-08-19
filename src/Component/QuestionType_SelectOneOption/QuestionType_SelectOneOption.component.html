@@ -12,12 +12,31 @@
   </div>
 
   <div class="form-group">
-    <input type="text" placeholder="Add Sub Question" />
+    <input
+      type="text"
+      placeholder="Add Sub Question"
+      [(ngModel)]="subQuestion"
+      (ngModelChange)="onSubQuestionChange()"
+    />
   </div>
   <div class="option-group" *ngFor="let option of options; let i = index">
     <input type="radio" name="selectOneOption" [value]="option" />
-    <input type="text" [placeholder]="option" />
+    <input
+      type="text"
+      [placeholder]="'Option ' + (i + 1)"
+      [(ngModel)]="options[i]"
+      (ngModelChange)="onOptionChange(i, $event)"
+    />
     <mat-icon svgIcon="deleteIcon" (click)="removeOption(i)"></mat-icon>
   </div>
-  <button class="add-option-btn" (click)="addOption()">+ Add Options</button>
+  <div class="option-group">
+    <input type="radio" disabled />
+    <input
+      type="text"
+      placeholder="Add new option"
+      [(ngModel)]="newOption"
+      (keyup.enter)="addOption()"
+    />
+    <button class="add-option-btn" (click)="addOption()">+</button>
+  </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-QuestionType_SelectOneOption',
@@ -6,25 +6,27 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./QuestionType_SelectOneOption.component.css']
 })
 export class QuestionType_SelectOneOptionComponent implements OnInit {
+  @Input() id!: number;
   @Output() remove = new EventEmitter<void>();
-  @Output() optionsChanged = new EventEmitter<{subQuestion: string, options: string[]}>();
+  @Output() optionsChange = new EventEmitter<{subQuestion: string, options: string[]}>();
 
   subQuestion: string = '';
-  options: string[] = []; 
+  options: string[] = ['Option 1'];
   newOption: string = '';
-  isFirstAddition :boolean = true;
 
   constructor() { }
 
   ngOnInit() {
+    this.emitOptions();
   }
 
   addOption() {
-      this.options.push(this.newOption);
-      
+    if (this.newOption.trim()) {
+      this.options.push(this.newOption.trim());
+      this.newOption = '';
       this.emitOptions();
-    
-}
+    }
+  }
 
   removeOption(index: number) {
     this.options.splice(index, 1);
@@ -35,12 +37,20 @@ export class QuestionType_SelectOneOptionComponent implements OnInit {
     this.remove.emit();
   }
 
+  onSubQuestionChange() {
+    this.emitOptions();
+  }
+
+  onOptionChange(index: number, value: string) {
+    this.options[index] = value;
+    this.emitOptions();
+  }
+
   private emitOptions() {
     const dataToEmit = {
-      subQuestion: this.subQuestion, // Include the subQuestion in the emitted data
+      subQuestion: this.subQuestion,
       options: this.options
     };
-    this.optionsChanged.emit(dataToEmit);
+    this.optionsChange.emit(dataToEmit);
   }
 }
-

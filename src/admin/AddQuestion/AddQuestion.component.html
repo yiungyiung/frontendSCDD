@@ -31,19 +31,28 @@
         </div>
         <div class="form-group">
           <label for="framework">Framework</label>
-          <select
-            id="framework"
-            class="form-control"
-            [(ngModel)]="selectedFrameworks"
-          >
-            <option value="">Select Framework</option>
-            <option
-              *ngFor="let framework of Framework"
-              [value]="framework.frameworkID"
+          <div class="custom-dropdown">
+            <button
+              type="button"
+              class="btn btn-primary dropdown-toggle"
+              (click)="toggleDropdown()"
             >
-              {{ framework.frameworkName }}
-            </option>
-          </select>
+              {{ selectedTextFramework }}
+            </button>
+            <div class="dropdown-menu" [class.show]="isOpen">
+              <div class="dropdown-item" *ngFor="let framework of Framework">
+                <input
+                  type="checkbox"
+                  [id]="'framework_' + framework.frameworkID"
+                  [checked]="selectedFrameworks.includes(framework.frameworkID)"
+                  (change)="onOptionChangeframework($event, framework)"
+                />
+                <label [for]="'framework_' + framework.frameworkID">{{
+                  framework.frameworkName
+                }}</label>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="form-group">
@@ -80,31 +89,37 @@
     </div>
 
     <div class="col-md-6">
-      <div class="back-card mb-3">
-        <div class="addusertitle">
-          <h4 class="card-header">Options</h4>
-        </div>
-        <div *ngFor="let component of selectedComponents">
+      <div class="back-card">
+        <ng-container *ngFor="let component of selectedComponents">
           <ng-container [ngSwitch]="component.type">
             <app-QuestionType_SelectOneOption
               *ngSwitchCase="questionTypes.SELECT_ONE"
+              [id]="component.id"
+              (optionsChange)="handleOptionsChange($event, component.id)"
               (remove)="removeComponent(component.id)"
-              (optionsChanged)="handleOptionsChange($event, component.id)"
             ></app-QuestionType_SelectOneOption>
+
             <app-QuestionType_TextBox
               *ngSwitchCase="questionTypes.TEXT_BOX"
+              [id]="component.id"
+              (textboxChange)="handleTextboxChange($event, component.id)"
               (remove)="removeComponent(component.id)"
             ></app-QuestionType_TextBox>
+
             <app-QuestionType_AttachFile
               *ngSwitchCase="questionTypes.ATTACH_FILE"
+              [id]="component.id"
+              (fileUploadChange)="handleFileUploadChange($event, component.id)"
               (remove)="removeComponent(component.id)"
             ></app-QuestionType_AttachFile>
+
             <app-QuestionType_Date
               *ngSwitchCase="questionTypes.DATE"
+              [id]="component.id"
               (remove)="removeComponent(component.id)"
             ></app-QuestionType_Date>
           </ng-container>
-        </div>
+        </ng-container>
       </div>
     </div>
   </div>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Domain, Framework, Tier } from '../../model/entity';
+import { Domain, Framework, Tier, UnitOfMeasurement } from '../../model/entity';
 
 
 @Injectable({
@@ -52,5 +52,23 @@ export class EntityService {
     });
     return this.http.get<Framework>(`${this.apiUrl}/entity/frameworks/${id}`,{headers});
   }
+
+  getAllUnitsOfMeasurement(token:string): Observable<UnitOfMeasurement[]> {
+    const headers = new HttpHeaders({ 
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<UnitOfMeasurement[]>(`${this.apiUrl}/entity/unitsOfMeasurement`,{headers});
+  }
+
+  // Get a unit of measurement by ID
+  getUnitOfMeasurementById(id: number,token:string): Observable<UnitOfMeasurement> {
+    const headers = new HttpHeaders({ 
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<UnitOfMeasurement>(`${this.apiUrl}/entity/unitsOfMeasurement/${id}`, {headers});
+  }
+
 
 }

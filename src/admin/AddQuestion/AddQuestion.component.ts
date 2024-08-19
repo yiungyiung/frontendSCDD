@@ -102,9 +102,9 @@ export class AddQuestionComponent implements OnInit {
     const newQuestion: Question = {
       questionText: this.questionText,
       description: this.helperText,
-      orderIndex: 1, // This could be dynamically assigned based on your requirement
+      orderIndex: 1, 
       domainID: this.selectedDomainID ? this.selectedDomainID : 0,
-      categoryID: 1, // Adjust based on the form input
+      categoryID: 1,
       options: this.collectOptions(),
       textboxes: this.collectTextboxes(),
       fileUploads: this.collectFileUploads(),
@@ -115,7 +115,7 @@ export class AddQuestionComponent implements OnInit {
     console.log('New Question:', newQuestion);
   }
 
-  handleOptionsChange(data: { subQuestion: string, options: string[] }, componentId: number) {
+  handleOptionsChange(data: { subQuestion: string; options: string[]; }, componentId: number) {
     const component = this.selectedComponents.find(comp => comp.id === componentId);
     if (component) {
       component.options = data.options.map((option, index) => ({
@@ -124,18 +124,38 @@ export class AddQuestionComponent implements OnInit {
       }));
     }
   }
+
+  handleTextboxChange(data: { textbox: string; uomID: number }, componentId: number) {
+    const component = this.selectedComponents.find(comp => comp.id === componentId);
+    if (component) {
+      component.textboxes = [{
+        label: data.textbox,
+        uomid: data.uomID,
+        orderIndex: 0
+      }];
+    }
+  }
   
-  
+  handleFileUploadChange(fileUpload: FileUpload, componentId: number){
+    const component = this.selectedComponents.find(comp => comp.id === componentId);
+    if (component) {
+      component.fileUploads = [{
+        label: fileUpload.label,
+        orderIndex: 0
+      }];
+    }
+  }
+
   collectOptions(): Option[] {
     let options: Option[] = [];
     this.selectedComponents.forEach(component => {
       if (component.type === this.questionTypes.SELECT_ONE ) {
         if (component.options) {
-          options = options.concat(component.options); // No mapping needed
+          options = options.concat(component.options); 
         }
       }
     });
-    return options.slice(1); // Exclude the first option
+    return options.slice(1);
   }
   
   collectTextboxes(): Textbox[] {

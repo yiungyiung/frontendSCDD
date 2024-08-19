@@ -1,4 +1,8 @@
-import { Component, OnInit ,Output,EventEmitter} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { UnitOfMeasurement } from '../../model/entity';
+import { EntityService } from '../../services/EntityService/Entity.service';
+import { AuthService } from '../../services/AuthService/auth.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-QuestionType_TextBox',
@@ -6,23 +10,46 @@ import { Component, OnInit ,Output,EventEmitter} from '@angular/core';
   styleUrls: ['./QuestionType_TextBox.component.css']
 })
 export class QuestionType_TextBoxComponent implements OnInit {
+  @Input() id!: number;
+  @Output() textboxChange = new EventEmitter<{ textbox: string, uomID: number }>();
   @Output() remove = new EventEmitter<void>();
-  constructor() { }
+ UnitOfMeasurement:UnitOfMeasurement[] = [];
 
-  ngOnInit() {
-  }
-  options: string[] = ['Option 1']; // Initial option
+  textbox: string = '';
+  selectedUomId: number | null = null; 
 
-  addOption() {
-    this.options.push(`Option ${this.options.length + 1}`);
+  constructor(private entityService: EntityService, private authService: AuthService, private cdr: ChangeDetectorRef) { }
+
+  ngOnInit() {this.loadunitofmeasurement(); }
+
+  loadunitofmeasurement() {
+    const token = this.authService.getToken();
+    this.entityService.getAllUnitsOfMeasurement(token).subscribe(
+      (unitOfMeasurement) => {
+        this.UnitOfMeasurement = unitOfMeasurement;
+        console.log('Loaded uom:', this.UnitOfMeasurement);
+      },
+      error => console.error('Error loading uom:', error)
+    );
   }
 
-  removeOption(index: number) {
-    this.options.splice(index, 1);
-  }
 
   removeComponent() {
     this.remove.emit();
   }
-}
 
+  onTextboxChange() {
+    this.emitData();
+  }
+
+  onUnitChange() {
+    this.emitData();
+  }
+
+  private emitData() {
+    this.textboxChange.emit({
+      textbox: this.textbox,
+      uomID: this.selectedUomId !== null ? this.selectedUomId : -1 
+    });
+  }
+}
