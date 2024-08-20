@@ -131,6 +131,19 @@ export class VendorManagementComponent implements OnInit {
   closeFilter(): void {
     this.isFilterVisible = false;
   }
+  isFilterApplied(): boolean {
+    const searchBySubPart = this.filterSubParts.find(part => part.name === 'Search By');
+    const roleIdSubPart = this.filterSubParts.find(part => part.name === 'Role');
+    const userStatusSubPart = this.filterSubParts.find(part => part.name === 'Vendor Status');
+    const vendorCategorySubPart = this.filterSubParts.find(part => part.name ==='Category');
+  
+    return (
+      !!(searchBySubPart && searchBySubPart.selectedOption) ||
+      !!(roleIdSubPart && roleIdSubPart.selectedOptions && roleIdSubPart.selectedOptions.length > 0) ||
+      !!(userStatusSubPart && userStatusSubPart.selectedOptions && userStatusSubPart.selectedOptions.length > 0) ||
+      !!(vendorCategorySubPart && vendorCategorySubPart.selectedOptions && vendorCategorySubPart.selectedOptions.length > 0)
+    );
+  }
   
   onFilterChange(event: any) {
     this.filteredVendor = this.filterService.applyFilter(this.vendors, this.filterSubParts, {
@@ -155,18 +168,20 @@ export class VendorManagementComponent implements OnInit {
   }
 
   updateVendor(): void {
+    
     if (this.vendorForm.invalid || !this.selectedVendor) {
+      console.log("Form is invalid or selectedVendor is null");
       return;
     }
-
     const token = this.authService.getToken();
+    alert('Button clicked!');
     const updatedUser: User = {
       ...this.selectedVendor.user,
       name: this.vendorForm.get('contactName')?.value,
       email: this.vendorForm.get('email')?.value,
       contact_Number: this.vendorForm.get('contactNumber')?.value,
     };
-
+    
     this.adminService.updateUser(updatedUser, token).subscribe(
       response => {
         const index = this.vendors.findIndex(v => v.userID === response.userId);
@@ -185,11 +200,15 @@ export class VendorManagementComponent implements OnInit {
     );
   }
 
+  
+
   onSubmit(): void {
     this.submitted = true;
     if (this.vendorForm.invalid) {
       return;
     }
+  
+    
   
     // Populate newVendor with form values
     this.newVendor.vendorRegistration = this.vendorForm.get('vendorRegistration')?.value || '';
@@ -397,56 +416,64 @@ export class VendorManagementComponent implements OnInit {
 
   private mapServerUserToUser(serverUser: any): Vendor {
     console.log('Mapping server user to vendor:', serverUser);
-    console.log('please::',serverUser.user.isActive);
+    console.log('please::', serverUser.user.isActive);
     return {
       vendorID: serverUser.vendorID,
       vendorName: serverUser.vendorName, 
       vendorAddress: serverUser.vendorAddress, 
       tierID: serverUser.tierID, 
-      categoryID:serverUser.categoryID,
+      categoryID: serverUser.categoryID,
       vendorRegistration: serverUser.vendorRegistration,
+      userID: serverUser.userID, // Use the correct property name
       user: {
+        userId: serverUser.user.userId, // Use the correct property name
         isActive: serverUser.user.isActive,
         email: serverUser.user.email,
         name: serverUser.user.name,
         contact_Number: serverUser.user.contact_Number,
         roleId: serverUser.user.roleId
       },
-      userID: serverUser.userId,
     };
   }
 
-  toggleVendorStatus(vendor: Vendor){
+  toggleVendorStatus(vendor: Vendor) {
     if (!this.authService) {
-    console.error('AuthService is not initialized.');
-    return;
-  }
-
-  if (this.authService) {
-    const token = this.authService.getToken();
-    console.log('Tokennnn:', token);
-  } else {
-    console.error('AuthService is not available.');
-  }
-
-  if (!vendor || !vendor.user) {
-    console.error('Vendor or vendor.user is undefined.');
-    return;
-  }
-
+      console.error('AuthService is not initialized.');
+      return;
+    }
+  
+    if (this.authService) {
+      const token = this.authService.getToken();
+      console.log('Tokennnn:', token);
+    } else {
+      console.error('AuthService is not available.');
+    }
+  
+    if (!vendor || !vendor.user) {
+      console.error('Vendor or vendor.user is undefined.');
+      return;
+    }
+  
     console.log("workinhgggggg")
     const newStatus = !vendor.user.isActive;
     console.log(vendor.user.isActive);
     const token = this.authService.getToken();
-    vendor.user.isActive= !vendor.user.isActive;
-    const usser : User = {
-    ...vendor.user
-  };
-    this.adminService.updateUser(usser, token).subscribe(
+  
+    // Update the user's isActive status
+    const updatedUser: User = {
+      userId: vendor.user.userId,
+      isActive: !vendor.user.isActive,
+      email: vendor.user.email,
+      name: vendor.user.name,
+      contact_Number: vendor.user.contact_Number,
+      roleId: vendor.user.roleId
+    };
+  
+    this.adminService.updateUser(updatedUser, token).subscribe(
       response => {
-        const index = this.vendors.findIndex(u => u.user.userId === response.userId);
+        const index = this.vendors.findIndex(v => v.userID === response.userId);
         if (index !== -1) {
-          this.vendors[index] = this.mapServerUserToUser(response);
+          this.vendors[index].user = response;
           this.updatePagedUsers();
           this.cdr.detectChanges(); 
           this.loadVendors();
@@ -458,23 +485,6 @@ export class VendorManagementComponent implements OnInit {
         vendor.user.isActive = !newStatus;
         this.cdr.detectChanges(); 
       }
-    );
-  }
-  isFilterApplied(): boolean {
-    const searchBySubPart = this.filterSubParts.find(part => part.name === 'Search By');
-    const roleIdSubPart = this.filterSubParts.find(part => part.name === 'Role');
-    const userStatusSubPart = this.filterSubParts.find(part => part.name === 'Vendor Status');
-    const vendorCategorySubPart = this.filterSubParts.find(part => part.name ==='Category');
-  console.log("filtter applieddd....",!!(searchBySubPart && searchBySubPart.selectedOption) ||
-  !!(roleIdSubPart && roleIdSubPart.selectedOptions && roleIdSubPart.selectedOptions.length > 0) ||
-  !!(userStatusSubPart && userStatusSubPart.selectedOptions && userStatusSubPart.selectedOptions.length > 0)||
-  !!(vendorCategorySubPart && vendorCategorySubPart.selectedOptions && vendorCategorySubPart.selectedOptions.length > 0)
-)
-    return (
-      !!(searchBySubPart && searchBySubPart.selectedOption) ||
-      !!(roleIdSubPart && roleIdSubPart.selectedOptions && roleIdSubPart.selectedOptions.length > 0) ||
-      !!(userStatusSubPart && userStatusSubPart.selectedOptions && userStatusSubPart.selectedOptions.length > 0)||
-      !!(vendorCategorySubPart && vendorCategorySubPart.selectedOptions && vendorCategorySubPart.selectedOptions.length > 0)
     );
   }
 

@@ -10,7 +10,7 @@
       {{ vendor.user?.isActive ? "Active" : "Inactive" }}
     </div>
     <div
-      class="user-status"
+      class="a-status"
       [ngClass]="{
         'tab-critical': categoryName === 'Critical',
         'tab-non-critical': categoryName === 'Non-Critical',
@@ -25,7 +25,7 @@
         <small>Vendor ID</small>
         <div class="truncate">{{ vendor.vendorID }}</div>
         <small>User ID</small>
-        <div class="truncate">{{ vendor.user?.userId }}</div>
+        <div class="truncate">{{ vendor.user.userId }}</div>
       </div>
       <div class="kaam">
         <div class="detail vendor-name-bg" matTooltip="{{ vendor.vendorName }}">
@@ -47,6 +47,7 @@
         <div class="detail user-actions">
           <div class="action" matTooltip="Disable Vendor">
             <small>{{ vendor.user?.isActive ? "Disable" : "Enable" }}</small>
+            <div style="padding-top: 0.5vw"></div>
             <button
               class="btn btn-sm"
               [ngClass]="{
@@ -56,12 +57,13 @@
               (click)="toggleVendorStatus(vendor)"
             >
               <i
-                class="fas"
+                class="fas icon-small"
                 [ngClass]="{
                   'fa-user-times': vendor.user?.isActive,
                   'fa-user-check': !vendor.user?.isActive
                 }"
               ></i>
+            
             </button>
           </div>
         </div>

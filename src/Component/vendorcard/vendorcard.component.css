@@ -128,6 +128,7 @@
 
 .action button.btn-success {
   background-color: #339a2d;
+  height:5vh;
 }
 
 .action button mat-icon {
@@ -148,3 +149,23 @@
   background-color: #ffe400;
   color: white;
 }
+
+.a-status{
+  position: relative;
+  width: 8vw;
+  height: auto;
+  top: -2vh;
+  left: 10px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  text-align: center;
+  display: inline-block;
+  font-size: 1.7vh;
+  margin-left: 10px;
+  color: #ffffff;
+}
+
+.icon-small {
+  font-size: 1.1vw; 
+}
+
