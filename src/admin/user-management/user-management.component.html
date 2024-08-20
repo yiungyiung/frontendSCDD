@@ -1,102 +1,15 @@
-<!-- User Management Component -->
 <div class="container">
   <div class="row">
-    <!-- User Form Section -->
-
     <div class="col-md-6">
-      <div class="card mb-3">
-        <div class="addusertitle">
-          <!-- parent.component.html -->
-
-          <h4 class="card-header">
-            {{ selectedUser ? "Update User" : "Add New User" }}
-          </h4>
-          <mat-icon
-            *ngIf="selectedUser == null"
-            svgIcon="uploadButton"
-            (click)="toggleFileUpload()"
-          ></mat-icon>
-          <mat-icon
-            *ngIf="selectedUser"
-            type="button"
-            (click)="resetSelectedUser()"
-            svgIcon="reset"
-          ></mat-icon>
-        </div>
-        <div class="card-body">
-          <form
-            #userForm="ngForm"
-            (ngSubmit)="selectedUser ? updateUser(userForm) : addUser(userForm)"
-          >
-            <!-- Email Field -->
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                class="form-control"
-                [(ngModel)]="email"
-                name="email"
-                required
-                #emailField="ngModel"
-              />
-            </div>
-            <!-- Name Field -->
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                class="form-control"
-                [(ngModel)]="name"
-                name="name"
-                required
-                #nameField="ngModel"
-              />
-            </div>
-            <!-- Contact Number Field -->
-            <div class="form-group">
-              <label for="contact_Number">Contact Number</label>
-              <input
-                type="text"
-                id="contact_Number"
-                class="form-control"
-                [(ngModel)]="contactNumber"
-                name="contact_Number"
-                required
-                #contact_NumberField="ngModel"
-              />
-            </div>
-            <!-- Role Field -->
-            <div class="form-group">
-              <label for="role">Role</label>
-              <select
-                id="role"
-                class="form-control"
-                [(ngModel)]="role"
-                name="role"
-                required
-                #roleField="ngModel"
-              >
-                <option *ngFor="let roleOption of roles" [ngValue]="roleOption">
-                  {{ roleOption }}
-                </option>
-              </select>
-            </div>
-            <!-- Submit Button -->
-            <button
-              type="submit"
-              class="btn btn-primary"
-              [disabled]="userForm.invalid"
-            >
-              {{ selectedUser ? "Update User" : "Add User" }}
-            </button>
-          </form>
-          <app-popup-box></app-popup-box>
-        </div>
-      </div>
+      <app-userForm
+        [selectedUser]="selectedUser"
+        [roles]="roles"
+        (userAdded)="onUserAdded($event)"
+        (userUpdated)="onUserUpdated($event)"
+        (fileUploadTriggered)="onFileUploadTriggered()"
+      ></app-userForm>
+      <div *ngIf="!selectedUser"></div>
     </div>
-    <!-- User List Section -->
     <div class="col-md-6">
       <div class="back-card mb-3">
         <div class="card-header-container">

@@ -42,6 +42,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AssignQuestionnaireComponent } from './AssignQuestionnaire/AssignQuestionnaire.component';
 import { VendorHierarchyGraphComponent } from '../Component/vendorHierarchyGraph/vendorHierarchyGraph.component';
 import { AddQuestionComponent } from './AddQuestion/AddQuestion.component';
+import { UserFormComponent } from '../Component/userForm/userForm.component';
 
 @NgModule({
   imports: [
@@ -73,6 +74,6 @@ export class AppModule { }
     MatNativeDateModule,
     MatSlideToggleModule,
   ],
-  declarations: [AdminComponent,VendorHierarchyGraphComponent,AssignQuestionnaireComponent,QuestionType_TextBoxComponent,QuestionType_AttachFileComponent,QuestionType_DateComponent,QuestionType_SelectMultipleOptionComponent,FileUploadStatusComponent,QuestionType_SelectOneOptionComponent,ManageQuestionaireComponent,AddQuestionComponent,FileUploadComponent,BurgerMenuComponent,FilterComponent, UsercardComponent, VendorcardComponent, DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,DisclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PaginationComponent]
+  declarations: [AdminComponent,VendorHierarchyGraphComponent,UserFormComponent,AssignQuestionnaireComponent,QuestionType_TextBoxComponent,QuestionType_AttachFileComponent,QuestionType_DateComponent,QuestionType_SelectMultipleOptionComponent,FileUploadStatusComponent,QuestionType_SelectOneOptionComponent,ManageQuestionaireComponent,AddQuestionComponent,FileUploadComponent,BurgerMenuComponent,FilterComponent, UsercardComponent, VendorcardComponent, DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,DisclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PaginationComponent]
 })
 export class AdminModule { }
