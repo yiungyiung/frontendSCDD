@@ -12,12 +12,12 @@
     <div
       class="user-status"
       [ngClass]="{
-        'tab-critical': vendor.category?.categoryName === 'Critical',
-        'tab-non-critical': vendor.category?.categoryName === 'Non-Critical',
-        'tab-others': vendor.category?.categoryName === 'Others'
+        'tab-critical': categoryName === 'Critical',
+        'tab-non-critical': categoryName === 'Non-Critical',
+        'tab-others': categoryName === 'Others'
       }"
     >
-      {{ vendor.category?.categoryName }}
+      {{ categoryName }}
     </div>
 
     <div class="vendor-details">
@@ -39,13 +39,11 @@
           <small>Vendor Address</small>
           <div class="truncate">{{ vendor.vendorAddress }}</div>
         </div>
-        <div
-          class="detail vendor-tier-bg"
-          matTooltip="{{ vendor.tier?.tierName }}"
-        >
+        <div class="detail vendor-tier-bg" matTooltip="{{ tierName }}">
           <small>Tier</small>
-          <div class="truncate">{{ vendor.tier?.tierName }}</div>
+          <div class="truncate">{{ tierName }}</div>
         </div>
+
         <div class="detail user-actions">
           <div class="action" matTooltip="Disable Vendor">
             <small>{{ vendor.user?.isActive ? "Disable" : "Enable" }}</small>

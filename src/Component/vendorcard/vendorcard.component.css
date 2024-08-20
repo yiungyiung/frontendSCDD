@@ -32,25 +32,31 @@
   width: 100%;
 }
 
+.vendor-id-bg {
+  margin-top: 10px;
+  margin-left: 20px;
+  display: inline-flex; /* Use inline-flex to ensure the width and height are content-based */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #e7f4f9;
+  border-radius: 8px; /* Optional: add border-radius for better visual appearance */
+}
+
 .detail {
   text-align: center;
   font-size: 2vh;
-  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.detail small {
+.detail small,
+.detail .truncate {
   display: block;
   font-size: 1.7vh;
   text-align: center;
-}
-
-.vendor-id-bg {
-  margin-top: 20px;
-  margin-left: 20px;
-  padding: 3px;
-  width: auto;
-  background-color: #e7f4f9;
-  height: auto;
 }
 
 .truncate {
@@ -70,7 +76,7 @@
 
 .user-status {
   position: relative;
-  width: auto;
+  width: 6vw;
   height: auto;
   top: -2vh;
   left: 10px;
@@ -98,10 +104,16 @@
   padding: 0; /* Remove padding */
 }
 
+.action mat-icon {
+  padding-top: -10px;
+}
+
 .action {
   text-align: center;
   margin: 0; /* Remove margins */
-  padding: 0; /* Remove padding */
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 4px;
 }
 
 .action button {

@@ -12,6 +12,7 @@ import { AdminService } from '../../services/AdminService/Admin.service';
 import { ChangeDetectorRef } from '@angular/core'; 
 import { SubPart } from '../../Component/filter/filter.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FilterService } from '../../services/FilterService/Filter.service';
 
 @Component({
   selector: 'app-VendorManagement',
@@ -66,7 +67,7 @@ export class VendorManagementComponent implements OnInit {
     registrationDate: new Date()
   };
   showVendorSelection = false; 
-  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef,private authService: AuthService, private adminService: AdminService,private vendorService: VendorService, private popupService: PopupService, private modalService: ExportModalServiceService) {
+  constructor(private fb: FormBuilder, private filterService: FilterService,private cdr: ChangeDetectorRef,private authService: AuthService, private adminService: AdminService,private vendorService: VendorService, private popupService: PopupService, private modalService: ExportModalServiceService) {
     console.log('AuthService initialized:', this.authService);
     if (this.authService) {
       const token = this.authService.getToken();
@@ -132,73 +133,18 @@ export class VendorManagementComponent implements OnInit {
   }
   
   onFilterChange(event: any) {
-    // Capture the search keyword and selected options
-    const searchBySubPart = this.filterSubParts.find(part => part.name === 'Search By');
-    console.log('search by', searchBySubPart);
-    const searchKeywordSubPart = this.filterSubParts.find(part => part.name === 'Search Keyword');
-    console.log('keyword',searchKeywordSubPart);
-  
-    if (searchBySubPart && searchKeywordSubPart) {
-      this.searchBy = searchBySubPart.selectedOption || '';
-      this.searchKeyword = searchKeywordSubPart.keyword || '';
-    }
-    this.applyFilter();
-  }
-  
-  applyFilter() {
-    // Retrieve the selected options and search keyword
-    const searchBySubPart = this.filterSubParts.find(part => part.name === 'Search By');
-    const searchKeywordSubPart = this.filterSubParts.find(part => part.name === 'Search Keyword');
-    const vendorStatuSubPart = this.filterSubParts.find(part => part.name === 'Vendor Status');
-    const vendorCategorySubPart = this.filterSubParts.find(part => part.name ==='Category');
-  
-    if (searchBySubPart && searchKeywordSubPart) {
-      this.searchBy = searchBySubPart.selectedOption || '';
-      this.searchKeyword = searchKeywordSubPart.keyword || '';
-    }
-  
-    if (vendorStatuSubPart){
-      this.selectedUserStatus = vendorStatuSubPart.selectedOptions || [];
-    }
-
-    if (vendorCategorySubPart){
-      this.selectedVendorCategory = vendorCategorySubPart.selectedOptions || [];
-    }
-  
-    this.filteredVendor = this.vendors.filter(vendor => {
-      let matchesSearch = true;
-      let matchesRole = true;
-      let matchesStatus = true;
-      let matchesCategory = true;
-  
-      if (this.searchBy === 'Vendor Id' && this.searchKeyword) {
-        matchesSearch = vendor.vendorID?.toString().includes(this.searchKeyword) ?? false;
-      } else if (this.searchBy === 'Vendor Name' && this.searchKeyword) {
-        matchesSearch = vendor.vendorName.toLowerCase().includes(this.searchKeyword.toLowerCase());
-      } else if (this.searchBy === 'Email Id' && this.searchKeyword) {
-        matchesSearch = vendor.user.email.toLowerCase().includes(this.searchKeyword.toLowerCase());
-      } else if (this.searchBy === 'User Id' && this.searchKeyword){
-        matchesSearch = vendor.userID?.toString().includes(this.searchKeyword) ?? false;
-      }
-  
-      if (this.selectedUserStatus.length >0){
-        const isActive = vendor.user.isActive ? 'Active' : 'Inactive';
-        matchesStatus = this.selectedUserStatus.includes(isActive);
-      }
-  
-      if(this.selectedVendorCategory.length>0){
-        matchesCategory = this.selectedVendorCategory.includes(vendor.category!.categoryName);
-      }
-
-      return matchesSearch && matchesRole && matchesStatus && matchesCategory;
+    this.filteredVendor = this.filterService.applyFilter(this.vendors, this.filterSubParts, {
+      'Vendor Id': (vendor) => vendor.vendorID,
+      'Vendor Name': (vendor) => vendor.vendorName,
+      'Email Id': (vendor) => vendor.user.email, // Adjusted for nested property
+      'User Id': (vendor) => vendor.userID
     });
-  
     this.totalItems = this.filteredVendor.length;
     this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
     this.currentPage = 1;
     this.updatePagedUsers();
   }
-
+ 
   selectVendorForUpdate(vendor: Vendor) {
     this.selectedVendor = { ...vendor };
     this.vendorForm.patchValue({
@@ -228,6 +174,7 @@ export class VendorManagementComponent implements OnInit {
           this.vendors[index].user = response;
           this.updatePagedUsers();
           this.resetSelectedVendor();
+          
           this.popupService.showPopup('Vendor user details updated successfully', '#0F9D09');
         }
       },
@@ -237,7 +184,6 @@ export class VendorManagementComponent implements OnInit {
       }
     );
   }
-
 
   onSubmit(): void {
     this.submitted = true;
@@ -662,7 +608,5 @@ export class VendorManagementComponent implements OnInit {
       console.log('Notification triggered for failed users');
     }
   }
-
-
 
 }

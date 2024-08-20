@@ -8,6 +8,7 @@ import { PopupService } from '../../services/PopupService/popup.service';
 import { NgForm } from '@angular/forms'; 
 import { SubPart } from '../../Component/filter/filter.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FilterService } from '../../services/FilterService/Filter.service';
 
 @Component({
   selector: 'app-user-management',
@@ -38,7 +39,8 @@ export class UserManagementComponent implements OnInit {
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
     private modalService: ExportModalServiceService,
-    private popupService: PopupService 
+    private popupService: PopupService ,
+    private filterService  :FilterService
   ) {}
 
   ngOnInit() {
@@ -88,76 +90,16 @@ closeFilter(): void {
 }
 
 onFilterChange(event: any) {
-  // Capture the search keyword and selected options
-  const searchBySubPart = this.filterSubParts.find(part => part.name === 'Search By');
-  console.log('search by', searchBySubPart);
-  const searchKeywordSubPart = this.filterSubParts.find(part => part.name === 'Search Keyword');
-  console.log('keyword',searchKeywordSubPart);
-  const roleIdSubPart = this.filterSubParts.find(part => part.name === 'Role Id');
-  const userstatussubpart = this.filterSubParts.find(part => part.name === 'User Status');
-
-  if (searchBySubPart && searchKeywordSubPart) {
-    this.searchBy = searchBySubPart.selectedOption || '';
-    this.searchKeyword = searchKeywordSubPart.keyword || '';
-  }
-  this.applyFilter();
-}
-
-applyFilter() {
-  // Retrieve the selected options and search keyword
-  const searchBySubPart = this.filterSubParts.find(part => part.name === 'Search By');
-  const searchKeywordSubPart = this.filterSubParts.find(part => part.name === 'Search Keyword');
-  const roleIdSubPart = this.filterSubParts.find(part => part.name === 'Role');
-  const userStatusSubPart = this.filterSubParts.find(part => part.name === 'User Status');
-
-  if (searchBySubPart && searchKeywordSubPart) {
-    this.searchBy = searchBySubPart.selectedOption || '';
-    this.searchKeyword = searchKeywordSubPart.keyword || '';
-  }
-
-  if (roleIdSubPart) {
-    this.selectedRoleIds = roleIdSubPart.selectedOptions || [];
-  }
-
-  if (userStatusSubPart){
-    this.selectedUserStatus = userStatusSubPart.selectedOptions || [];
-  }
-
-  this.filteredUsers = this.users.filter(user => {
-    let matchesSearch = true;
-    let matchesRole = true;
-    let matchesStatus = true;
-
-    if (this.searchBy === 'User Id' && this.searchKeyword) {
-      matchesSearch = user.userId?.toString().includes(this.searchKeyword) ?? false;
-    } else if (this.searchBy === 'User Name' && this.searchKeyword) {
-      matchesSearch = user.name.toLowerCase().includes(this.searchKeyword.toLowerCase());
-    } else if (this.searchBy === 'Email Id' && this.searchKeyword) {
-      matchesSearch = user.email.toLowerCase().includes(this.searchKeyword.toLowerCase());
-    }
-
-    if (this.selectedRoleIds.length > 0) {
-      matchesRole = this.selectedRoleIds.includes(user.role!);
-    }
-
-    if (this.selectedUserStatus.length >0){
-      const isActive = user.isActive ? 'Active' : 'Inactive';
-      matchesStatus = this.selectedUserStatus.includes(isActive);
-    }
-
-    return matchesSearch && matchesRole && matchesStatus;
+  this.filteredUsers = this.filterService.applyFilter(this.users, this.filterSubParts, {
+    'User Id': (user) => user.userId,
+    'User Name': (user) => user.name,
+    'Email Id': (user) => user.email
   });
-
   this.totalItems = this.filteredUsers.length;
   this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
   this.currentPage = 1;
   this.updatePagedUsers();
 }
-
-
-
-
-
 
   get email(): string {
     return this.selectedUser ? this.selectedUser.email : this.newUser.email;
@@ -265,7 +207,9 @@ applyFilter() {
       },
       error => {
         console.error('Error adding user:', error);
+        console.log('popup userdeatail');
         this.popupService.showPopup('Failed to add user. Please try again.', '#C10000');
+        console.log('popup serfice completedddd');
       }
     );
   }

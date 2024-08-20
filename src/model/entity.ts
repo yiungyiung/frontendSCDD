@@ -1,6 +1,6 @@
 export interface Tier {
     tierId : number,
-    TierName: string
+    tierName: string
 }
 
 export interface Framework{
