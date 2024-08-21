@@ -35,12 +35,12 @@
 .vendor-id-bg {
   margin-top: 10px;
   margin-left: 20px;
-  display: inline-flex; /* Use inline-flex to ensure the width and height are content-based */
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: #e7f4f9;
-  border-radius: 8px; /* Optional: add border-radius for better visual appearance */
+  border-radius: 8px;
 }
 
 .detail {
@@ -99,9 +99,9 @@
 
 .user-actions {
   display: flex;
-  justify-content: flex-start; /* Align items to the left */
-  gap: 10px; /* Optional: Add a small gap between buttons if needed */
-  padding: 0; /* Remove padding */
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0;
 }
 
 .action mat-icon {
@@ -110,7 +110,7 @@
 
 .action {
   text-align: center;
-  margin: 0; /* Remove margins */
+  margin: 0;
   background-color: #fff;
   padding: 10px;
   border-radius: 4px;
@@ -121,14 +121,14 @@
   justify-content: center;
   color: white;
   border: none;
-  width: auto; /* Adjust width to fit content */
+  width: auto;
   height: auto;
   font-size: 1.5em;
 }
 
 .action button.btn-success {
   background-color: #339a2d;
-  height:5vh;
+  height: 5vh;
 }
 
 .action button mat-icon {
@@ -150,7 +150,7 @@
   color: white;
 }
 
-.a-status{
+.a-status {
   position: relative;
   width: 8vw;
   height: auto;
@@ -166,6 +166,5 @@
 }
 
 .icon-small {
-  font-size: 1.1vw; 
+  font-size: 1.1vw;
 }
-
