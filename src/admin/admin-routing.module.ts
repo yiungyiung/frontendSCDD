@@ -8,6 +8,8 @@ import { VendorManagementComponent } from './VendorManagement/VendorManagement.c
 import { ManageQuestionaireComponent } from './ManageQuestionaire/ManageQuestionaire.component';
 import { AssignQuestionnaireComponent } from './AssignQuestionnaire/AssignQuestionnaire.component';
 import { AddQuestionComponent } from './AddQuestion/AddQuestion.component';
+import { CreateNewQuestionnaireComponent } from './CreateNewQuestionnaire/CreateNewQuestionnaire.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -17,7 +19,7 @@ const routes: Routes = [
       { path: 'user-management', component: UserManagementComponent },
       { path: 'vendor-management', component: VendorManagementComponent},
       { path: 'Manage-question', component: ManageQuestionaireComponent},
-      {path: 'Assign-questionnaire', component:AssignQuestionnaireComponent},
+      {path: 'CreateNewQuestionnarie', component:CreateNewQuestionnaireComponent},
       {path: 'Add-question', component:AddQuestionComponent},
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]

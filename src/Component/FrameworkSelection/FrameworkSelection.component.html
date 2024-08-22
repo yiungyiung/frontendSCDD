@@ -1,0 +1,8 @@
+<div class="form-group">
+    <label for="framework">Framework</label>
+    <select class="form-control" id="framework" (change)="onFrameworkChange($event)" required>
+    <option *ngFor="let framework of frameworks" [value]="framework.frameworkID">
+      {{ framework.frameworkName }}
+    </option>
+  </select>
+</div>

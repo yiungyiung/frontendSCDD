@@ -1,0 +1,22 @@
+<div class="accordion" id="categoryAccordion">
+    <div *ngFor="let category of categorizedVendors; let i = index" class="card">
+        <div class="card-header" (click)="toggleCollapse(i)">
+            <h5 class="mb-0">
+                {{ category.categoryName }}
+                <input type="checkbox" (change)="selectAllVendors(category, $event)" [disabled]="isCategoryDisabled(category.categoryID)" />
+            </h5>
+        </div>
+        <div [id]="'collapse' + i" class="collapse" [class.show]="isCollapseExpanded(i)">
+            <div class="card-body">
+                <div *ngFor="let vendor of category.vendors">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" [id]="'vendor' + vendor.vendorID" [value]="vendor.vendorID" (change)="onVendorSelectionChange($event, vendor)" [disabled]="isVendorDisabled(category.categoryID)" />
+                        <label class="form-check-label" [for]="'vendor' + vendor.vendorID">
+              {{ vendor.vendorName }}
+            </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,12 +7,12 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { NavItemComponent } from '../Component/nav-item/nav-item.component';
 import { TopBarComponent } from '../Component/TopBar/TopBar.component';
 import { MatIconModule } from '@angular/material/icon';
-import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms'; 
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { VendorManagementComponent } from './VendorManagement/VendorManagement.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';  
 import { MatCardModule } from '@angular/material/card';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DisclaimerFooterComponent } from '../Component/disclaimerFooter/disclaimerFooter.component';
@@ -45,6 +45,9 @@ import { AddQuestionComponent } from './AddQuestion/AddQuestion.component';
 import { UserFormComponent } from '../Component/userForm/userForm.component';
 import { VendorFormComponent } from '../Component/vendorForm/vendorForm.component';
 import { ChangePasswordModalComponent} from '../Component/change-password-modal/change-password-modal.component';
+import { CreateNewQuestionnaireComponent } from './CreateNewQuestionnaire/CreateNewQuestionnaire.component';
+import { VendorSelectionComponent } from '../Component/VendorSelection/VendorSelection.component';
+import { FrameworkSelectionComponent } from '../Component/FrameworkSelection/FrameworkSelection.component';
 
 @NgModule({
   imports: [FormsModule],
@@ -75,9 +78,7 @@ export class AppModule {}
   ],
   declarations: [
     AdminComponent,
-    VendorFormComponent,
     VendorHierarchyGraphComponent,
-    UserFormComponent,
     AssignQuestionnaireComponent,
     QuestionType_TextBoxComponent,
     QuestionType_AttachFileComponent,
@@ -95,13 +96,16 @@ export class AppModule {}
     DashboardComponent,
     UserManagementComponent,
     NavItemComponent,
-    TopBarComponent,
+    TopBarComponent, 
     DisclaimerFooterComponent,
     ExportDialogBoxComponent,
     VendorManagementComponent,
     PaginationComponent,
+    CreateNewQuestionnaireComponent,
+    VendorSelectionComponent,
+    FrameworkSelectionComponent,
     ChangePasswordModalComponent,
-
-  ],
+    UserFormComponent
+  ]
 })
 export class AdminModule {}
