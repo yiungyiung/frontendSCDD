@@ -44,14 +44,12 @@ import { VendorHierarchyGraphComponent } from '../Component/vendorHierarchyGraph
 import { AddQuestionComponent } from './AddQuestion/AddQuestion.component';
 import { UserFormComponent } from '../Component/userForm/userForm.component';
 import { VendorFormComponent } from '../Component/vendorForm/vendorForm.component';
+import { ChangePasswordModalComponent} from '../Component/change-password-modal/change-password-modal.component';
 
 @NgModule({
-  imports: [
-    FormsModule,
-  ],
+  imports: [FormsModule],
 })
-export class AppModule { }
-
+export class AppModule {}
 
 @NgModule({
   imports: [
@@ -75,6 +73,35 @@ export class AppModule { }
     MatNativeDateModule,
     MatSlideToggleModule,
   ],
-  declarations: [AdminComponent,VendorFormComponent,VendorHierarchyGraphComponent,UserFormComponent,AssignQuestionnaireComponent,QuestionType_TextBoxComponent,QuestionType_AttachFileComponent,QuestionType_DateComponent,QuestionType_SelectMultipleOptionComponent,FileUploadStatusComponent,QuestionType_SelectOneOptionComponent,ManageQuestionaireComponent,AddQuestionComponent,FileUploadComponent,BurgerMenuComponent,FilterComponent, UsercardComponent, VendorcardComponent, DashboardComponent,UserManagementComponent,NavItemComponent,TopBarComponent,DisclaimerFooterComponent, ExportDialogBoxComponent, VendorManagementComponent, PaginationComponent]
+  declarations: [
+    AdminComponent,
+    VendorFormComponent,
+    VendorHierarchyGraphComponent,
+    UserFormComponent,
+    AssignQuestionnaireComponent,
+    QuestionType_TextBoxComponent,
+    QuestionType_AttachFileComponent,
+    QuestionType_DateComponent,
+    QuestionType_SelectMultipleOptionComponent,
+    FileUploadStatusComponent,
+    QuestionType_SelectOneOptionComponent,
+    ManageQuestionaireComponent,
+    AddQuestionComponent,
+    FileUploadComponent,
+    BurgerMenuComponent,
+    FilterComponent,
+    UsercardComponent,
+    VendorcardComponent,
+    DashboardComponent,
+    UserManagementComponent,
+    NavItemComponent,
+    TopBarComponent,
+    DisclaimerFooterComponent,
+    ExportDialogBoxComponent,
+    VendorManagementComponent,
+    PaginationComponent,
+    ChangePasswordModalComponent,
+
+  ],
 })
-export class AdminModule { }
+export class AdminModule {}

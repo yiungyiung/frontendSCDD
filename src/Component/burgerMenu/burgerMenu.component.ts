@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { AuthService } from '../../services/AuthService/auth.service';
 import { User } from '../../model/user';
+import { Component, ViewChild, TemplateRef } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-burger-menu',
@@ -10,9 +12,13 @@ import { User } from '../../model/user';
 export class BurgerMenuComponent implements OnInit {
   @Input() isOpen: boolean = false;
   @Output() close = new EventEmitter<void>();
-  constructor(private authservice:AuthService){}
+  @ViewChild('passwordModal') passwordModal?: TemplateRef<any>;
+  private dialogRef?: MatDialogRef<any>;
+
+  constructor(private authservice:AuthService,private dialog: MatDialog){}
 
   fetchuser:User={ email: '',  name: '', contact_Number: '', isActive: true };
+  
 
 
   ngOnInit() {
@@ -23,11 +29,22 @@ export class BurgerMenuComponent implements OnInit {
     var user=this.authservice.getCurrentUser();
     this.fetchuser.email=user!.email;
     this.fetchuser.name=user!.name;
-    console.log(user);
-    
+    console.log(user);   
+  }
 
-    
-    
+  changepassword() {
+    if (this.passwordModal) {
+      this.dialogRef = this.dialog.open(this.passwordModal, {
+        disableClose: true // Prevents closing on clicking outside or pressing ESC
+      });
+    }
+  }
+
+  closePasswordModal() {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+      this.dialogRef = undefined;
+    }
   }
 
 

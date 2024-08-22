@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Role } from '../../model/role';
 import { User } from '../../model/user';
+import { ChangePasswordDto } from '../../model/ChangePasswordDto';
 
 @Injectable({
   providedIn: 'root'
@@ -37,12 +38,25 @@ export class AuthService {
     return decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] as Role;
   }
 
+  
+
   getProtectedData(token: string): Observable<any> {
     const headers = new HttpHeaders({ 
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
     return this.http.get(`${this.apiUrl}/test/protected`, { headers });
+  }
+
+  changePassword(changePasswordDto: ChangePasswordDto, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post(`${this.apiUrl}/auth/changepassword`, changePasswordDto, { 
+      headers: headers,
+      responseType: 'text'
+    });
   }
 
   getAdminData(token: string): Observable<any> {

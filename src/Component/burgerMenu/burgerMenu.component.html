@@ -9,7 +9,12 @@
   </div>
   <ul>
     <li><a >User Manual</a></li>
-    <li><a >Change Password</a></li>
+    <li><a (click)="changepassword()" >Change Password</a></li>
     <li><a href="/login" (click)="closeMenu()">Logout</a></li>
   </ul>
 </div>
+<ng-template #passwordModal let-dialogRef>
+    <app-change-password-modal (closeModal)="closePasswordModal()">
+    </app-change-password-modal>
+  
+</ng-template>
