@@ -1,138 +1,235 @@
-/* General card styling */
+.card-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #e7f4f9;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 15px;
+  height: 9vh;
+}
+
+.card{
+  box-shadow: 0 0 4px rgba(7, 60, 90, 0.2) ;
+  height:60vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  border-radius: 8px;
+}
+
+
+.mb-0 {
+  font-size: 2vh;
+  color: #073c5a;
+  font-weight: bold;
+}
+
+
+.title-cat{
+  font-size:20px ;
+}
+.card-header-container h4 {
+  padding-left: 20px;
+}
+.card-header-container mat-icon {
+  margin-right: 20px;
+  width: 30px;
+  height: auto;
+}
+
 .card-header {
-    color: #000;
-    background-color: #E7F4F9;
+  font-size: 18px;
+  font-weight: bold;
+  color: #073c5a;
+  background-color: transparent;
+  border: none;
 }
 
 /* Framework card styling */
-.framework-card, .vendor-card {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    transition: background-color 0.3s;
+.framework-card,
+.vendor-card {
+  border-radius: 4px;
+  box-shadow: 0 0 4px rgba(7, 60, 90, 0.2);
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  transition: background-color 0.3s;
+  margin-bottom: 2vh;
 }
 
 .framework-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .label {
-    font-size: 12px;
-    color: #666;
-    margin-bottom: 5px;
-    text-align: center;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 5px;
+  text-align: center;
 }
 
 .circle-container {
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .circle {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 2px solid #073C5A;
-    background-color: transparent;
-    position: relative;
-    transition: border-color 0.3s;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #073c5a;
+  background-color: transparent;
+  position: relative;
+  transition: border-color 0.3s;
 }
 
 .framework-card.selected .circle {
-    border-color: #ffb23b; /* Outer circle color when selected */
+  border-color: #ffb23b; /* Outer circle color when selected */
 }
 
 .circle::after {
-    content: '';
-    width: 6px; /* Size of the inner circle */
-    height: 6px;
-    border-radius: 50%;
-    background-color: transparent;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: background-color 0.3s;
+  content: "";
+  width: 6px; /* Size of the inner circle */
+  height: 6px;
+  border-radius: 50%;
+  background-color: transparent;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: background-color 0.3s;
 }
 
 .framework-card.selected .circle::after {
-    background-color: #ffb23b; /* Inner circle color when selected */
+  background-color: #ffb23b; /* Inner circle color when selected */
 }
 
+.framework-section,
+.vendor-section {
+  margin-bottom: 10px;
+  color: #073c5a;
+}
 
-  
-  .framework-section, .vendor-section {
-    margin-bottom: 10px;
-  }
-  
-  .box-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .box {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #073C5A;
-    background-color: #fff;
-    cursor: pointer;
-    position: relative; /* Required for the positioning of the ::after pseudo-element */
-  }
-  
-  .box.selected {
-    border: 2px solid #ffb23b;
-    background-color: #ffb23b;
-  }
-  
-  .box.selected::after {
-    content: '\2713'; /* Unicode for tick mark */
-    font-size: 16px; /* Adjust size as needed */
-    color: #fff; /* Color of the tick mark */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Center the tick mark */
-  }
-  
-  
+.box-container {
+  display: flex;
+  align-items: center;
+}
+
+.box {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #073c5a;
+  background-color: #fff;
+  cursor: pointer;
+  position: relative; /* Required for the positioning of the ::after pseudo-element */
+}
+
+.box.selected {
+  border: 2px solid #ffb23b;
+  background-color: #ffb23b;
+}
+
+.box.selected::after {
+  content: "\2713"; /* Unicode for tick mark */
+  font-size: 16px; /* Adjust size as needed */
+  color: #fff; /* Color of the tick mark */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the tick mark */
+}
+
 /* Vendor card styling (unchanged) */
 .vendor-card {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    transition: background-color 0.3s;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  transition: background-color 0.3s;
 }
 
 .vendor-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .vendor-card .circle-container {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
 .disabled {
-    opacity: 0.5;
-    pointer-events: none;
-  }
-  
+  opacity: 0.5;
+  pointer-events: none;
+}
+.btn-primary {
+  padding: 10px 20px;
+  background-color: #12789e;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-bottom: 10px;
+  margin-top: -10px;
+  display: block; 
+}
 
+.btn-primary:hover {
+  background-color: #105a7e; /* Darker shade for hover effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
 
+.btn-primary:active {
+  background-color: #0d4a61; /* Even darker shade for active effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Smaller shadow on click */
+}
+/* Hide the native checkbox */
+.custom-checkbox {
+  display: none;
+}
+
+/* Style the custom checkbox */
+.box-container {
+  display: flex;
+  align-items: center;
+}
+
+.box {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #073c5a;
+  background-color: #fff;
+  cursor: pointer;
+  position: relative;
+  margin-right:5px /* Required for the positioning of the ::after pseudo-element */
+}
+
+/* Style for the selected state */
+.custom-checkbox:checked + .box {
+  border: 2px solid #ffb23b;
+  background-color: #ffb23b;
+}
+
+.custom-checkbox:checked + .box::after {
+  content: "\2713"; /* Unicode for tick mark */
+  font-size: 16px; /* Adjust size as needed */
+  color: #fff; /* Color of the tick mark */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the tick mark */
+}
 
