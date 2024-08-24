@@ -48,6 +48,7 @@ import { ChangePasswordModalComponent} from '../Component/change-password-modal/
 import { CreateNewQuestionnaireComponent } from './CreateNewQuestionnaire/CreateNewQuestionnaire.component';
 import { VendorSelectionComponent } from '../Component/VendorSelection/VendorSelection.component';
 import { FrameworkSelectionComponent } from '../Component/FrameworkSelection/FrameworkSelection.component';
+import { SelectQuestionsComponent } from './SelectQuestions/SelectQuestions.component';
 
 @NgModule({
   imports: [FormsModule],
@@ -105,7 +106,8 @@ export class AppModule {}
     VendorSelectionComponent,
     FrameworkSelectionComponent,
     ChangePasswordModalComponent,
-    UserFormComponent
+    UserFormComponent,
+    SelectQuestionsComponent
   ]
 })
 export class AdminModule {}

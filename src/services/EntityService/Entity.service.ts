@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Domain, Framework, Tier, UnitOfMeasurement } from '../../model/entity';
-
-
+import {Domain, Framework, Tier, UnitOfMeasurement } from '../../model/entity';
+import { Category } from '../../model/category';
 @Injectable({
   providedIn: 'root'
 })
@@ -30,6 +29,10 @@ export class EntityService {
   GetAllDomains(token: string): Observable<Domain[]> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
       return this.http.get<Domain[]>(`${this.apiUrl}/entity/domains`, { headers });
+  }
+  GetAllCategory(token: string): Observable<Category[]> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      return this.http.get<Category[]>(`${this.apiUrl}/entity/categories`, { headers });
   }
 
   GetDomainById(id: number,token: string): Observable<Domain> {

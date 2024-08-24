@@ -28,4 +28,11 @@ export class QuestionService {
     });
     return this.http.get<Question>(`${this.apiUrl}/question/${id}`,{headers});
   }
+  getQuestionIdsByFramework(frameworkId: number, token: string): Observable<number[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<number[]>(`${this.apiUrl}/question/framework/${frameworkId}`, {headers});
+  }
 }

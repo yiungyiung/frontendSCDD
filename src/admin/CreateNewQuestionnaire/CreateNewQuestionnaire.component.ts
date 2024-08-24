@@ -5,7 +5,7 @@ import { Framework } from '../../model/entity';
 import { VendorService } from '../../services/VendorService/Vendor.service';
 import { EntityService } from '../../services/EntityService/Entity.service';
 import { AuthService } from '../../services/AuthService/auth.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-CreateNewQuestionnaire',
   templateUrl: './CreateNewQuestionnaire.component.html',
@@ -25,7 +25,8 @@ export class CreateNewQuestionnaireComponent implements OnInit {
     private formBuilder: FormBuilder,
     private vendorService: VendorService,
     private entityService: EntityService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router // Inject Router
   ) { }
 
   ngOnInit() {
@@ -36,10 +37,8 @@ export class CreateNewQuestionnaireComponent implements OnInit {
 
   initForm() {
     this.questionnaireForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
       framework: ['', Validators.required],
-      vendors: this.formBuilder.array([])
+      vendors: this.formBuilder.array([], Validators.required) // Ensure at least one vendor is selected
     });
   }
 
@@ -59,9 +58,16 @@ export class CreateNewQuestionnaireComponent implements OnInit {
     const token = this.authService.getToken();
     this.entityService.GetAllFrameworks(token).subscribe((frameworks: Framework[]) => {
       this.frameworks = frameworks;
+  
+      // Set the first framework as the default value if frameworks exist
+      if (this.frameworks && this.frameworks.length > 0) {
+        this.questionnaireForm.patchValue({
+          framework: this.frameworks[0].frameworkID
+        });
+      }
     });
   }
-
+  
   categorizeVendors() {
     const categoriesMap = new Map<number, { categoryID: number, categoryName: string, vendors: Vendor[] }>();
     this.vendors?.forEach((vendor: Vendor) => {
@@ -89,6 +95,15 @@ export class CreateNewQuestionnaireComponent implements OnInit {
     }
 
     this.updateSelectedCategory();
+    this.updateVendorsFormArray(); // Synchronize FormArray with selected vendors
+  }
+  updateVendorsFormArray() {
+    const formArray = this.vendorsFormArray;
+    formArray.clear(); // Clear the form array
+
+    this.selectedVendors.forEach((vendorID) => {
+      formArray.push(this.formBuilder.control(vendorID)); // Add each selected vendor to the form array
+    });
   }
 
   toggleSelectAll(categoryID: number): void {
@@ -110,6 +125,7 @@ export class CreateNewQuestionnaireComponent implements OnInit {
       }
     }
     this.updateSelectedCategory();
+    this.updateVendorsFormArray();
   }
 
   isAllVendorsSelected(categoryID: number): boolean {
@@ -145,12 +161,45 @@ export class CreateNewQuestionnaireComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('Form Valid:', this.questionnaireForm.valid);
+    console.log('Form Errors:', this.questionnaireForm.errors);
+    console.log('Form Controls:', this.questionnaireForm.controls);
+    console.log('Vendors:', this.vendorsFormArray.value);
+      console.log(this.questionnaireForm.value.framework);
     if (this.questionnaireForm.valid) {
-      console.log(this.questionnaireForm.value);
+      const selectedVendors = this.vendorsFormArray.value.map((vendorID: number) => {
+        const vendor = this.vendors?.find(v => v.vendorID === vendorID);
+        return {
+          vendorID: vendor?.vendorID,
+          vendorName: vendor?.vendorName,
+          categoryID: vendor?.categoryID,
+          categoryName: vendor?.category?.categoryName
+        };
+      });
+      
+      const selectedFrameworkID = this.questionnaireForm.value.framework;
+      const selectedFramework = this.frameworks?.find(f => f.frameworkID === selectedFrameworkID);
+  
+      console.log('Selected Framework:', selectedFramework);
+      console.log('Selected Vendors:', selectedVendors);
+      this.router.navigate(['/admin/select-questions'], {
+        state: { frameworkID: selectedFrameworkID, vendorCategories: selectedVendors.map((v: Vendor) => v.categoryID) }
+      }).then(success => {
+        if (success) {
+          console.log('Navigation successful');
+        } else {
+          console.log('Navigation failed');
+        }
+      }).catch(err => {
+        console.error('Navigation error:', err);
+      });
+      // Here you can add code to store the data as needed
     } else {
+      console.log('Form is invalid');
       Object.values(this.questionnaireForm.controls).forEach(control => {
         control.markAsTouched();
       });
     }
   }
+  
 }

@@ -9,6 +9,7 @@ import { ManageQuestionaireComponent } from './ManageQuestionaire/ManageQuestion
 import { AssignQuestionnaireComponent } from './AssignQuestionnaire/AssignQuestionnaire.component';
 import { AddQuestionComponent } from './AddQuestion/AddQuestion.component';
 import { CreateNewQuestionnaireComponent } from './CreateNewQuestionnaire/CreateNewQuestionnaire.component';
+import { SelectQuestionsComponent } from './SelectQuestions/SelectQuestions.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: 'Manage-question', component: ManageQuestionaireComponent},
       {path: 'CreateNewQuestionnarie', component:CreateNewQuestionnaireComponent},
       {path: 'Add-question', component:AddQuestionComponent},
+      { path: 'select-questions', component: SelectQuestionsComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   }

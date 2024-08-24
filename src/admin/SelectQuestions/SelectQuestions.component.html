@@ -1,0 +1,18 @@
+<div class="container">
+    <h2>Select Questions</h2>
+    <p *ngIf="isLoading">Loading questions...</p>
+    <form *ngIf="!isLoading" (ngSubmit)="onSubmit()">
+        <!-- Iterate over the domains and display questions by domain -->
+        <div *ngFor="let domainID of domainIDs">
+            <h3>Domain: {{ getDomainName(domainID) }}</h3>
+            <!-- Show the category under the domain -->
+            <div *ngFor="let question of sortedQuestionsByDomain[domainID]">
+                <p><strong>Category:</strong> {{ getCategoryName(question.categoryID) }}</p>
+                <div>
+                    <input type="checkbox" [value]="question.questionID" (change)="onQuestionSelectionChange(question.questionID!, $event)" /> {{ question.questionText }}
+                </div>
+            </div>
+        </div>
+        <button type="submit">Submit Selected Questions</button>
+    </form>
+</div>

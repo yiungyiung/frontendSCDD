@@ -16,6 +16,7 @@ export interface Textbox {
 
   
 export interface Question {
+    questionID?: number;
     questionText: string;
     description: string;
     orderIndex: number;
