@@ -159,7 +159,6 @@ export class CreateNewQuestionnaireComponent implements OnInit {
 
   updateSelectedCategory() {
     if (this.selectedVendors.size > 0) {
-      // Find the first selected vendor where vendorID is not undefined
       const firstSelectedVendor = this.vendors?.find(
         (v) => v.vendorID !== undefined && this.selectedVendors.has(v.vendorID)
       );
@@ -167,12 +166,9 @@ export class CreateNewQuestionnaireComponent implements OnInit {
     } else {
       this.selectedCategoryID = undefined;
     }
-
-    // Update disabled categories based on selectedCategoryID
-    this.disabledCategories.clear(); // Clear all disabled categories first
+    this.disabledCategories.clear();
 
     if (this.selectedCategoryID !== undefined) {
-      // Disable all categories except the selected one
       this.categorizedVendors.forEach((category) => {
         if (category.categoryID !== this.selectedCategoryID) {
           this.disabledCategories.add(category.categoryID);
@@ -180,9 +176,9 @@ export class CreateNewQuestionnaireComponent implements OnInit {
       });
     }
   }
-
   onFrameworkSelected(frameworkId: number) {
     this.selectedFrameworkID = frameworkId;
+
     this.questionnaireForm.patchValue({ framework: frameworkId });
   }
 
@@ -193,7 +189,6 @@ export class CreateNewQuestionnaireComponent implements OnInit {
   isSubPartToggled(categoryID: number): boolean {
     return !!this.toggledSubParts[categoryID];
   }
-
   onSubmit() {
     console.log('Form Valid:', this.questionnaireForm.valid);
     console.log('Form Errors:', this.questionnaireForm.errors);
@@ -219,12 +214,16 @@ export class CreateNewQuestionnaireComponent implements OnInit {
       );
 
       console.log('Selected Framework:', selectedFramework);
+      const frameworkName = selectedFramework?.frameworkName;
+      console.log('Framework Name:', frameworkName);
       console.log('Selected Vendors:', selectedVendors);
       this.router
         .navigate(['/admin/select-questions'], {
           state: {
+            frameworkName: frameworkName,
             frameworkID: selectedFrameworkID,
             vendorCategories: selectedVendors.map((v: Vendor) => v.categoryID),
+            vendorName: selectedVendors.map((v: Vendor) => v.vendorName),
           },
         })
         .then((success) => {
@@ -237,7 +236,6 @@ export class CreateNewQuestionnaireComponent implements OnInit {
         .catch((err) => {
           console.error('Navigation error:', err);
         });
-      // Here you can add code to store the data as needed
     } else {
       console.log('Form is invalid');
       Object.values(this.questionnaireForm.controls).forEach((control) => {

@@ -14,6 +14,8 @@ import { ChangeDetectorRef } from '@angular/core';
 export class SelectQuestionsComponent implements OnInit {
   frameworkID!: number;
   vendorCategories: number[] = [];
+  vendorName:string[]=[];
+  frameworkName!:string;
   sortedQuestionsByDomain: { [domainID: number]: Question[] } = {};
   selectedQuestions: { [questionID: number]: boolean } = {};
   domainIDs: number[] = [];
@@ -32,6 +34,9 @@ export class SelectQuestionsComponent implements OnInit {
     const state = history.state;
     this.frameworkID = state.frameworkID;
     this.vendorCategories = state.vendorCategories;
+    this.vendorName=state.vendorName;
+    this.frameworkName=state.frameworkName;
+    console.log(this.frameworkName);
 
     if (this.frameworkID && this.vendorCategories.length > 0) {
       this.loadDomains();
@@ -40,6 +45,15 @@ export class SelectQuestionsComponent implements OnInit {
     }
   }
 
+  getFirstCategoryName(): string {
+    if (this.vendorCategories.length > 0) {
+      const firstCategoryID = this.vendorCategories[0];
+      return this.getCategoryName(firstCategoryID);
+    }
+    return 'No Categories Available'; // Default message if no categories are available
+  }
+  
+  
   loadDomains(): void {
     const token = this.authService.getToken();
     this.entityService.GetAllDomains(token).subscribe(domains => {
@@ -49,6 +63,7 @@ export class SelectQuestionsComponent implements OnInit {
       this.cdr.detectChanges(); // Trigger change detection
     });
   }
+
 
   loadCategories(): void {
     const token = this.authService.getToken();

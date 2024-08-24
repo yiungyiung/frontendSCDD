@@ -1,18 +1,62 @@
 <div class="container">
-    <h2>Select Questions</h2>
-    <p *ngIf="isLoading">Loading questions...</p>
-    <form *ngIf="!isLoading" (ngSubmit)="onSubmit()">
-        <!-- Iterate over the domains and display questions by domain -->
-        <div *ngFor="let domainID of domainIDs">
-            <h3>Domain: {{ getDomainName(domainID) }}</h3>
-            <!-- Show the category under the domain -->
-            <div *ngFor="let question of sortedQuestionsByDomain[domainID]">
-                <p><strong>Category:</strong> {{ getCategoryName(question.categoryID) }}</p>
-                <div>
-                    <input type="checkbox" [value]="question.questionID" (change)="onQuestionSelectionChange(question.questionID!, $event)" /> {{ question.questionText }}
-                </div>
-            </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <!-- Input Field -->
+          <div class="mb-3">
+            <label for="inputField" class="form-label"
+              >Name of Questionnaire</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="inputField"
+              placeholder="Enter text here"
+            />
+          </div>
+
+          <!-- Calendar -->
+          <div class="mb-3">
+            <label for="calendar" class="form-label">Select Deadline</label>
+            <input type="date" class="form-control" id="calendar" />
+          </div>
+          <div>
+            <label for="select_category" class="form-label">Selected Category:&nbsp;</label>
+            <span>{{ getFirstCategoryName() }}</span>
+          </div>
+          
+          <div>
+            <label for="select_framework" class="form-label"
+              >Selected Framework :</label
+            >
+            <span>{{this.frameworkName}}</span>
+          </div>
+          <label for="select_vendor" class="form-label"
+            >Selected Vendors :</label
+          ><br />
+          <div class="container">
+            <button
+              class="bubble"
+              data-toggle="tooltip"
+              data-placement="top"
+              *ngFor="let name of vendorName"
+              matTooltip="{{ name }}"
+            >
+              {{ name }}
+            </button>
+          </div>
         </div>
-        <button type="submit">Submit Selected Questions</button>
-    </form>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="card mb-3">
+        <div class="card-header-container">
+          <h5 class="card-header">Selected Vendors</h5>
+        </div>
+        <div class="card-body"></div>
+      </div>
+    </div>
+  </div>
 </div>
