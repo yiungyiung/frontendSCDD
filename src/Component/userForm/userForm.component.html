@@ -18,7 +18,6 @@
   </div>
   <div class="card-body">
     <form #userForm="ngForm" (ngSubmit)="onSubmit()">
-      <!-- Email Field -->
       <div class="form-group">
         <label for="email">Email</label>
         <input
@@ -28,10 +27,20 @@
           [(ngModel)]="email"
           name="email"
           required
+          email
           #emailField="ngModel"
+          [ngClass]="{ 'is-invalid': emailField.invalid && emailField.touched }"
         />
+        <div
+          *ngIf="emailField.invalid && emailField.touched"
+          class="invalid-feedback"
+        >
+          <div *ngIf="emailField.errors?.['required']">Email is required</div>
+          <div *ngIf="emailField.errors?.['email']">
+            Email must be a valid email address
+          </div>
+        </div>
       </div>
-      <!-- Name Field -->
       <div class="form-group">
         <label for="name">Name</label>
         <input
@@ -41,10 +50,20 @@
           [(ngModel)]="name"
           name="name"
           required
+          minlength="3"
           #nameField="ngModel"
+          [ngClass]="{ 'is-invalid': nameField.invalid && nameField.touched }"
         />
+        <div
+          *ngIf="nameField.invalid && nameField.touched"
+          class="invalid-feedback"
+        >
+          <div *ngIf="nameField.errors?.['required']">Name is required</div>
+          <div *ngIf="nameField.errors?.['minlength']">
+            Name must be at least 3 characters long
+          </div>
+        </div>
       </div>
-      <!-- Contact Number Field -->
       <div class="form-group">
         <label for="contact_Number">Contact Number</label>
         <input
@@ -54,10 +73,33 @@
           [(ngModel)]="contactNumber"
           name="contact_Number"
           required
+          minlength="10"
+          maxlength="10"
+          pattern="[0-9]{10}"
           #contact_NumberField="ngModel"
+          [ngClass]="{
+            'is-invalid':
+              contact_NumberField.invalid && contact_NumberField.touched
+          }"
         />
+        <div
+          *ngIf="contact_NumberField.invalid && contact_NumberField.touched"
+          class="invalid-feedback"
+        >
+          <div *ngIf="contact_NumberField.errors?.['required']">
+            Contact Number is required
+          </div>
+          <div *ngIf="contact_NumberField.errors?.['minlength']">
+            Contact Number must be exactly 10 digits
+          </div>
+          <div *ngIf="contact_NumberField.errors?.['maxlength']">
+            Contact Number must be exactly 10 digits
+          </div>
+          <div *ngIf="contact_NumberField.errors?.['pattern']">
+            Contact Number must contain only digits
+          </div>
+        </div>
       </div>
-      <!-- Role Field -->
       <div class="form-group">
         <label for="role">Role</label>
         <select
@@ -67,13 +109,19 @@
           name="role"
           required
           #roleField="ngModel"
+          [ngClass]="{ 'is-invalid': roleField.invalid && roleField.touched }"
         >
           <option *ngFor="let roleOption of roles" [ngValue]="roleOption">
             {{ roleOption }}
           </option>
         </select>
+        <div
+          *ngIf="roleField.invalid && roleField.touched"
+          class="invalid-feedback"
+        >
+          <div *ngIf="roleField.errors?.['required']">Role is required</div>
+        </div>
       </div>
-      <!-- Submit Button -->
       <button
         type="submit"
         class="btn btn-primary"

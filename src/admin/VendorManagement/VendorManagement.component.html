@@ -27,252 +27,13 @@
             ></mat-icon>
           </div>
 
-          <form
-          *ngIf="selectedVendor"
-          [formGroup]="vendorForm"
-          (ngSubmit)="updateVendor()"
-        >
-        <div style="margin-top: 2vh;">
-          <div class="form-group">
-            <label for="contactName">Name of Contact Person</label>
-            <input
-              type="text"
-              id="contactName"
-              formControlName="contactName"
-              class="form-control"
-            />
-          </div>
-          <div class="form-group">
-            <label for="email">Email ID of Contact Person</label>
-            <input
-              type="email"
-              id="email"
-              formControlName="email"
-              class="form-control"
-            />
-          </div>
-          <div class="form-group">
-            <label for="contactNumber">Contact Number</label>
-            <input
-              type="tel"
-              id="contactNumber"
-              formControlName="contactNumber"
-              class="form-control"
-            />
-          </div>
-          <button type="submit" class="btn btn-secondary">
-            Update Vendor Details
-          </button>
-          </div>
-        </form>
-        
-          <form
-            *ngIf="!selectedVendor"
-            [formGroup]="vendorForm"
-            (ngSubmit)="onSubmit()"
-          >
-            <div class="form-group">
-              <label for="vendorName">Supply Chain Partner Name</label>
-              <input
-                type="text"
-                id="vendorName"
-                formControlName="vendorName"
-                class="form-control"
-              />
-              <div
-                *ngIf="
-                  vendorForm.get('vendorName')?.invalid &&
-                  (vendorForm.get('vendorName')?.dirty ||
-                    vendorForm.get('vendorName')?.touched)
-                "
-                class="error"
-              >
-                Vendor Name is required.
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="vendorRegNumber">Vendor Registration Number</label>
-              <input
-                type="text"
-                id="vendorRegNumber"
-                formControlName="vendorRegistration"
-                class="form-control"
-              />
-              <div
-                *ngIf="
-                  vendorForm.get('vendorRegistration')?.invalid &&
-                  (vendorForm.get('vendorRegistration')?.dirty ||
-                    vendorForm.get('vendorRegistration')?.touched)
-                "
-                class="error"
-              >
-                Vendor Registration Number is required.
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="vendorAddress">Vendor Address</label>
-              <input
-                type="text"
-                id="vendorAddress"
-                formControlName="vendorAddress"
-                class="form-control"
-              />
-              <div
-                *ngIf="
-                  vendorForm.get('vendorAddress')?.invalid &&
-                  (vendorForm.get('vendorAddress')?.dirty ||
-                    vendorForm.get('vendorAddress')?.touched)
-                "
-                class="error"
-              >
-                Vendor Address is required.
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="contactPerson">Name of Contact Person</label>
-              <input
-                type="text"
-                id="contactPerson"
-                formControlName="contactName"
-                class="form-control"
-              />
-              <div
-                *ngIf="
-                  vendorForm.get('contactName')?.invalid &&
-                  (vendorForm.get('contactName')?.dirty ||
-                    vendorForm.get('contactName')?.touched)
-                "
-                class="error"
-              >
-                Contact Person is required.
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="emailID">Email ID of Contact Person</label>
-              <input
-                type="email"
-                id="emailID"
-                formControlName="email"
-                class="form-control"
-              />
-              <div
-                *ngIf="
-                  vendorForm.get('email')?.invalid &&
-                  (vendorForm.get('email')?.dirty ||
-                    vendorForm.get('email')?.touched)
-                "
-                class="error"
-              >
-                Valid Email ID is required.
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="contactNumber">Contact Number</label>
-              <input
-                type="tel"
-                id="contactNumber"
-                formControlName="contactNumber"
-                class="form-control"
-              />
-              <div
-                *ngIf="
-                  vendorForm.get('contactNumber')?.invalid &&
-                  (vendorForm.get('contactNumber')?.dirty ||
-                    vendorForm.get('contactNumber')?.touched)
-                "
-                class="error"
-              >
-                Contact Number is required.
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="category">Category of Industry</label>
-              <select
-                id="category"
-                formControlName="categoryID"
-                class="form-control"
-              >
-                <option value="">Select Category</option>
-                <option
-                  *ngFor="let category of categories"
-                  [value]="category.categoryID"
-                >
-                  {{ category.categoryName }}
-                </option>
-              </select>
-              <div
-                *ngIf="
-                  vendorForm.get('categoryID')?.invalid &&
-                  (vendorForm.get('categoryID')?.dirty ||
-                    vendorForm.get('categoryID')?.touched)
-                "
-                class="error"
-              >
-                Category is required.
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="tier">Tier</label>
-              <select
-                id="tier"
-                formControlName="tierID"
-                class="form-control"
-                (change)="onTierChange($event)"
-              >
-                <option value="">Select Tier</option>
-                <option *ngFor="let tier of tiers" [value]="tier.tierId">
-                  {{ tier.tierName }}
-                </option>
-              </select>
-              <div
-                *ngIf="
-                  vendorForm.get('tierID')?.invalid &&
-                  (vendorForm.get('tierID')?.dirty ||
-                    vendorForm.get('tierID')?.touched)
-                "
-                class="error"
-              >
-                Tier is required.
-              </div>
-            </div>
-            <div class="form-group" *ngIf="tier1Vendors.length > 0">
-              <mat-form-field class="mat-form-field">
-                <div class="search-container">
-                  <input
-                    matInput
-                    placeholder="Search vendors"
-                    [(ngModel)]="searchQuery"
-                    [ngModelOptions]="{ standalone: true }"
-                    class="search-input"
-                  />
-                  <button class="search-button">
-                    <mat-icon svgIcon="searchIcon"></mat-icon>
-                  </button>
-                </div>
-              </mat-form-field>
-              <div class="vendor-list">
-                <div *ngFor="let vendor of filteredVendors" class="form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    [id]="vendor.vendorID"
-                    [value]="vendor.vendorID"
-                    (change)="toggleSelection(vendor.vendorID!, $event)"
-                  />
-                  <label class="form-check-label" [for]="vendor.vendorID">
-                    {{ vendor.vendorName }}
-                  </label>
-                </div>
-              </div>
-            </div>
-            <button
-              type="submit"
-              class="btn btn-primary"
-              [disabled]="vendorForm.invalid"
-            >
-              Add Vendor
-            </button>
-          </form>
+          <app-vendorForm
+            [categories]="categories"
+            [tiers]="tiers"
+            [selectedVendor]="selectedVendor"
+            (vendorAdded)="onVendorAdded($event)"
+            (vendorUpdated)="onVendorUpdated($event)"
+          ></app-vendorForm>
 
           <app-popup-box></app-popup-box>
         </div>
@@ -293,7 +54,7 @@
             <app-exportDialogBox
               [selectedColumns]="selectedColumns"
               [allColumns]="allColumns"
-              [data]="vendors"
+              [data]="vendorForExport"
             ></app-exportDialogBox>
             <mat-icon
               [ngClass]="{ 'filter-applied': isFilterApplied() }"
@@ -317,6 +78,7 @@
             [vendor]="vendor"
             (click)="selectVendorForUpdate(vendor)"
             [toggleVendorStatus]="toggleVendorStatus.bind(this)"
+            (vendorUpdated)="handleUpdatedVendor($event)"
           >
             <span>Vendor ID: {{ vendor.vendorID }}</span>
             <span>User ID: {{ vendor.user.userId }}</span>
