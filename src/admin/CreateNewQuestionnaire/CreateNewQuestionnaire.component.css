@@ -1,0 +1,138 @@
+/* General card styling */
+.card-header {
+    color: #000;
+    background-color: #E7F4F9;
+}
+
+/* Framework card styling */
+.framework-card, .vendor-card {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    transition: background-color 0.3s;
+}
+
+.framework-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.label {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.circle-container {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #073C5A;
+    background-color: transparent;
+    position: relative;
+    transition: border-color 0.3s;
+}
+
+.framework-card.selected .circle {
+    border-color: #ffb23b; /* Outer circle color when selected */
+}
+
+.circle::after {
+    content: '';
+    width: 6px; /* Size of the inner circle */
+    height: 6px;
+    border-radius: 50%;
+    background-color: transparent;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: background-color 0.3s;
+}
+
+.framework-card.selected .circle::after {
+    background-color: #ffb23b; /* Inner circle color when selected */
+}
+
+
+  
+  .framework-section, .vendor-section {
+    margin-bottom: 10px;
+  }
+  
+  .box-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .box {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #073C5A;
+    background-color: #fff;
+    cursor: pointer;
+    position: relative; /* Required for the positioning of the ::after pseudo-element */
+  }
+  
+  .box.selected {
+    border: 2px solid #ffb23b;
+    background-color: #ffb23b;
+  }
+  
+  .box.selected::after {
+    content: '\2713'; /* Unicode for tick mark */
+    font-size: 16px; /* Adjust size as needed */
+    color: #fff; /* Color of the tick mark */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the tick mark */
+  }
+  
+  
+/* Vendor card styling (unchanged) */
+.vendor-card {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    transition: background-color 0.3s;
+}
+
+.vendor-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.vendor-card .circle-container {
+    width: 30px;
+    height: 30px;
+}
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  
+
+
+

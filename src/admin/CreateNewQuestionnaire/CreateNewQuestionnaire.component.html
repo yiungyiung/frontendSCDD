@@ -1,18 +1,112 @@
 <div class="container">
-    <h2>Create New Questionnaire</h2>
     <form [formGroup]="questionnaireForm" (ngSubmit)="onSubmit()">
-        <div class="row">
-            <div class="col-md-4">
-                <app-FrameworkSelection [frameworks]="frameworks" (frameworkSelected)="onFrameworkSelected($event)"></app-FrameworkSelection>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-3">
+            <div class="card-header">
+              <h5>Select Framework</h5>
             </div>
-            <div class="col-md-8">
-                <app-VendorSelection [categorizedVendors]="categorizedVendors" [selectedCategoryID]="selectedCategoryID" (vendorSelectionChanged)="onVendorSelectionChange($event)"></app-VendorSelection>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12" *ngFor="let framework of frameworks">
+                  <div
+                    class="framework-card d-flex align-items-start"
+                    [ngClass]="{ selected: framework.frameworkID === selectedFrameworkID }"
+                    (click)="onFrameworkSelected(framework.frameworkID)"
+                  >
+                    <div class="framework-section">
+                      <small class="label">Select</small>
+                      <div class="circle-container">
+                        <div class="circle"></div>
+                      </div>
+                    </div>
+                    <div class="framework-section">
+                      <small class="label">Framework ID</small>
+                      <div class="framework-content">
+                        <small>{{ framework.frameworkID }}</small>
+                      </div>
+                    </div>
+                    <div class="framework-section">
+                      <small class="label">Framework Name</small>
+                      <div class="framework-content">
+                        <small>{{ framework.frameworkName }}</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-        <div class="row mt-3">
-            <div class="col-12">
-                <button type="submit" class="btn btn-primary">Create Questionnaire</button>
+        <div class="col-md-8">
+          <div class="card mb-3">
+            <div class="card-header">
+              <h5>Select Vendor</h5>
             </div>
+            <div class="card-body">
+              <div *ngFor="let category of categorizedVendors">
+                <div class="d-flex align-items-center mb-2">
+                  <input type="checkbox" 
+                         [checked]="isAllVendorsSelected(category.categoryID)"
+                         (change)="toggleSelectAll(category.categoryID)"
+                         id="category-{{category.categoryID}}"
+                         class="mr-2"
+                         [disabled]="disabledCategories.has(category.categoryID)">
+                  <h5 class="mb-0">{{ category.categoryName }}</h5>
+                </div>
+                <ul>
+                  <div *ngFor="let vendor of category.vendors">
+                    <div class="vendor-card d-flex align-items-start">
+                      <div class="vendor-section">
+                        <small class="label">Select</small>
+                        <div class="box-container">
+                          <div
+                            class="box"
+                            [ngClass]="{ selected: isVendorSelected(vendor.vendorID) }"
+                            (click)="onVendorSelect(vendor.vendorID)"
+                            [class.disabled]="disabledCategories.has(category.categoryID)"
+                            [style.pointer-events]="disabledCategories.has(category.categoryID) ? 'none' : 'auto'"
+                          ></div>
+                        </div>
+                      </div>
+                      <div class="vendor-section">
+                        <small class="label">Vendor ID</small>
+                        <div class="vendor-content">
+                          <small>{{ vendor.vendorID }}</small>
+                        </div>
+                      </div>
+                      <div class="vendor-section">
+                        <small class="label">Vendor Name</small>
+                        <div class="vendor-content">
+                          <small>{{ vendor.vendorName }}</small>
+                        </div>
+                      </div>
+                      <div class="vendor-section">
+                        <small class="label">Tier</small>
+                        <div class="vendor-content">
+                          <small>{{ vendor.tier?.tierName }}</small>
+                        </div>
+                      </div>
+                      <div class="vendor-section">
+                        <small class="label">Contact Number</small>
+                        <div class="vendor-content">
+                          <small>{{ vendor.user?.contact_Number }}</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">
+            Create Questionnaire
+          </button>
+        </div>
+      </div>
     </form>
-</div>
+  </div>

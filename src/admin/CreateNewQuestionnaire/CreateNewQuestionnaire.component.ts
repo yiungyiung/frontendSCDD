@@ -17,6 +17,9 @@ export class CreateNewQuestionnaireComponent implements OnInit {
   frameworks?: Framework[];
   categorizedVendors: any[] = [];
   selectedCategoryID: number | undefined;
+  selectedFrameworkID?: number;
+  selectedVendors: Set<number> = new Set<number>();
+  disabledCategories: Set<number> = new Set<number>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,7 +49,7 @@ export class CreateNewQuestionnaireComponent implements OnInit {
 
   getVendors() {
     const token = this.authService.getToken();
-    this.vendorService.getAllVendors(token).subscribe(vendors => {
+    this.vendorService.getAllVendors(token).subscribe((vendors: Vendor[]) => {
       this.vendors = vendors;
       this.categorizeVendors();
     });
@@ -54,15 +57,14 @@ export class CreateNewQuestionnaireComponent implements OnInit {
 
   getFrameworks() {
     const token = this.authService.getToken();
-    this.entityService.GetAllFrameworks(token).subscribe(frameworks => {
+    this.entityService.GetAllFrameworks(token).subscribe((frameworks: Framework[]) => {
       this.frameworks = frameworks;
     });
   }
 
   categorizeVendors() {
     const categoriesMap = new Map<number, { categoryID: number, categoryName: string, vendors: Vendor[] }>();
-
-    this.vendors?.forEach(vendor => {
+    this.vendors?.forEach((vendor: Vendor) => {
       if (vendor.categoryID !== undefined) {
         if (!categoriesMap.has(vendor.categoryID)) {
           categoriesMap.set(vendor.categoryID, { categoryID: vendor.categoryID, categoryName: vendor.category?.categoryName || 'Unknown', vendors: [] });
@@ -70,33 +72,75 @@ export class CreateNewQuestionnaireComponent implements OnInit {
         categoriesMap.get(vendor.categoryID)?.vendors.push(vendor);
       }
     });
-
     this.categorizedVendors = Array.from(categoriesMap.values());
   }
 
-  onVendorSelectionChange(event: { vendorID: number, isSelected: boolean }) {
-    const { vendorID, isSelected } = event;
-    if (isSelected) {
-      this.vendorsFormArray.push(this.formBuilder.control(vendorID));
+  isVendorSelected(vendorID: number | undefined): boolean {
+    return vendorID !== undefined && this.selectedVendors.has(vendorID);
+  }
+
+  onVendorSelect(vendorID: number | undefined): void {
+    if (vendorID === undefined) return;
+
+    if (this.isVendorSelected(vendorID)) {
+      this.selectedVendors.delete(vendorID);
     } else {
-      const index = this.vendorsFormArray.controls.findIndex(x => x.value === vendorID);
-      if (index >= 0) {
-        this.vendorsFormArray.removeAt(index);
+      this.selectedVendors.add(vendorID);
+    }
+
+    this.updateSelectedCategory();
+  }
+
+  toggleSelectAll(categoryID: number): void {
+    const category = this.categorizedVendors.find(cat => cat.categoryID === categoryID);
+    if (category) {
+      const allSelected = category.vendors.every((vendor: Vendor) => vendor.vendorID !== undefined && this.selectedVendors.has(vendor.vendorID));
+      if (allSelected) {
+        category.vendors.forEach((vendor: Vendor) => {
+          if (vendor.vendorID !== undefined) {
+            this.selectedVendors.delete(vendor.vendorID);
+          }
+        });
+      } else {
+        category.vendors.forEach((vendor: Vendor) => {
+          if (vendor.vendorID !== undefined) {
+            this.selectedVendors.add(vendor.vendorID);
+          }
+        });
       }
     }
     this.updateSelectedCategory();
   }
 
+  isAllVendorsSelected(categoryID: number): boolean {
+    const category = this.categorizedVendors.find(cat => cat.categoryID === categoryID);
+    return category ? category.vendors.every((vendor: Vendor) => vendor.vendorID !== undefined && this.selectedVendors.has(vendor.vendorID)) : false;
+  }
+
   updateSelectedCategory() {
-    if (this.vendorsFormArray.length > 0) {
-      const firstSelectedVendor = this.vendors?.find(v => v.vendorID === this.vendorsFormArray.at(0).value);
+    if (this.selectedVendors.size > 0) {
+      // Find the first selected vendor where vendorID is not undefined
+      const firstSelectedVendor = this.vendors?.find(v => v.vendorID !== undefined && this.selectedVendors.has(v.vendorID));
       this.selectedCategoryID = firstSelectedVendor?.categoryID;
     } else {
       this.selectedCategoryID = undefined;
     }
+
+    // Update disabled categories based on selectedCategoryID
+    this.disabledCategories.clear(); // Clear all disabled categories first
+
+    if (this.selectedCategoryID !== undefined) {
+      // Disable all categories except the selected one
+      this.categorizedVendors.forEach(category => {
+        if (category.categoryID !== this.selectedCategoryID) {
+          this.disabledCategories.add(category.categoryID);
+        }
+      });
+    }
   }
 
   onFrameworkSelected(frameworkId: number) {
+    this.selectedFrameworkID = frameworkId;
     this.questionnaireForm.patchValue({ framework: frameworkId });
   }
 
