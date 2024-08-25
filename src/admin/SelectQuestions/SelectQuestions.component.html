@@ -22,15 +22,17 @@
             <input type="date" class="form-control" id="calendar" />
           </div>
           <div>
-            <label for="select_category" class="form-label">Selected Category:&nbsp;</label>
+            <label for="select_category" class="form-label"
+              >Selected Category:&nbsp;</label
+            >
             <span>{{ getFirstCategoryName() }}</span>
           </div>
-          
+
           <div>
             <label for="select_framework" class="form-label"
               >Selected Framework :</label
             >
-            <span>{{this.frameworkName}}</span>
+            <span>{{ this.frameworkName }}</span>
           </div>
           <label for="select_vendor" class="form-label"
             >Selected Vendors :</label
@@ -49,13 +51,80 @@
         </div>
       </div>
     </div>
-
     <div class="col-md-8">
       <div class="card mb-3">
         <div class="card-header-container">
-          <h5 class="card-header">Selected Vendors</h5>
+          <h5 class="card-header">Questions</h5>
         </div>
-        <div class="card-body"></div>
+        <div *ngFor="let domainID of domainIDs">
+          <div class="box-container">
+            <input type="checkbox" class="custom-checkbox" />
+            <h5 class="card-header">{{ getDomainName(domainID) }}</h5>
+            <mat-icon
+              svgIcon="{{
+                isSubPartToggled(domainID) ? 'upArrow' : 'downArrow'
+              }}"
+              (click)="toggleSubPart(domainID)"
+            ></mat-icon>
+          </div>
+          <div
+            *ngFor="let question of sortedQuestionsByDomain[domainID]"
+            class="custcard mb-3"
+          >
+            <div class="card-body" *ngIf="isSubPartToggled(domainID)">
+              <!-- Display Category Name Here -->
+              <div
+                class="user-status"
+                [ngClass]="{
+                  'tab-critical':
+                    getCategoryName(question.categoryID) === 'Critical',
+                  'tab-non-critical':
+                    getCategoryName(question.categoryID) === 'Non-Critical',
+                  'tab-others':
+                    getCategoryName(question.categoryID) === 'Others'
+                }"
+              >
+                {{ getCategoryName(question.categoryID) }}
+              </div>
+
+              <div class="user-details">
+                <div class="checkbox-option">
+                  <input
+                    type="checkbox"
+                    [checked]="
+                      question.questionID !== undefined
+                        ? selectedQuestions[question.questionID]
+                        : false
+                    "
+                    (change)="
+                      question.questionID !== undefined &&
+                        onQuestionSelectionChange(question.questionID, $event)
+                    "
+                  />
+                </div>
+                <div class="detail user-id-bg">
+                  <small>Question ID</small>
+                  <div class="truncate">{{ question.questionID }}</div>
+                </div>
+                <div class="detail user-ids-bg">
+                  <small>Question</small>
+                  <div class="truncate">{{ question.questionText }}</div>
+                </div>
+                <div class="detail user-ids-bg">
+                  <div class="truncate">
+                    <span class="helper-icon">
+                      <mat-icon
+                        svgIcon="HelperText"
+                        matTooltip="{{ question.description }}"
+                      ></mat-icon>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="submit">Submit Selected Questions</button>
       </div>
     </div>
   </div>

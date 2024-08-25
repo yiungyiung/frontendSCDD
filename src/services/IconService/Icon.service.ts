@@ -5,7 +5,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IconService {
   constructor(
@@ -35,16 +35,17 @@ export class IconService {
     this.registerIcon('searchIcon', 'searchIcon.svg');
     this.registerIcon('reset', 'reset.svg');
     this.registerIcon('upArrow', 'upArrow.svg');
-    this.registerIcon('uploadButton','uploadButton.svg');
-    this.registerIcon('Attach','Attach.svg');
-    this.registerIcon('textBox','textBox.svg');
-    this.registerIcon('deleteIcon','deleteIcon.svg');
-    this.registerIcon('ModifyIcon','ModifyIcon.svg');
-    this.registerIcon('helpIcon','helpIcon.svg');
-    this.registerIcon('calendarIcon','calendarIcon.svg');
-    this.registerIcon('upload','upload.svg');
-    this.registerIcon('selectMultiple','selectMultiple.svg');
-    this.registerIcon('singleOption','singleOption.svg');
+    this.registerIcon('uploadButton', 'uploadButton.svg');
+    this.registerIcon('Attach', 'Attach.svg');
+    this.registerIcon('textBox', 'textBox.svg');
+    this.registerIcon('deleteIcon', 'deleteIcon.svg');
+    this.registerIcon('ModifyIcon', 'ModifyIcon.svg');
+    this.registerIcon('helpIcon', 'helpIcon.svg');
+    this.registerIcon('calendarIcon', 'calendarIcon.svg');
+    this.registerIcon('upload', 'upload.svg');
+    this.registerIcon('selectMultiple', 'selectMultiple.svg');
+    this.registerIcon('singleOption', 'singleOption.svg');
+    this.registerIcon('HelperText', 'HelperText.svg');
     // Add any other icons here
   }
 
