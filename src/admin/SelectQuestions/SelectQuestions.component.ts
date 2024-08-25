@@ -50,6 +50,16 @@ export class SelectQuestionsComponent implements OnInit {
     this.toggledSubParts[domainID] = !this.toggledSubParts[domainID];
   }
 
+  areAllQuestionsInDomainSelected(domainID: number): boolean {
+    const questions = this.sortedQuestionsByDomain[domainID];
+    if (!questions || questions.length === 0) return false;
+    return questions.every(
+      (q) =>
+        q.questionID !== undefined &&
+        this.selectedQuestions.includes(q.questionID)
+    );
+  }
+
   isSubPartToggled(domainID: number): boolean {
     return !!this.toggledSubParts[domainID];
   }
@@ -127,23 +137,42 @@ export class SelectQuestionsComponent implements OnInit {
     return this.categoryMap[categoryID] || 'Unknown Category';
   }
 
-  onQuestionSelectionChange(
-    questionID: number | undefined,
-    event: Event
-  ): void {
-    if (questionID !== undefined) {
-      const inputElement = event.target as HTMLInputElement;
-      if (inputElement.checked) {
-        if (!this.selectedQuestions.includes(questionID)) {
-          this.selectedQuestions.push(questionID);
+  onDomainSelectionChange(domainID: number, event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const isSelected = inputElement.checked;
+
+    const questions = this.sortedQuestionsByDomain[domainID];
+    if (questions) {
+      questions.forEach((question) => {
+        if (question.questionID !== undefined) {
+          if (isSelected) {
+            if (!this.selectedQuestions.includes(question.questionID)) {
+              this.selectedQuestions.push(question.questionID);
+            }
+          } else {
+            const index = this.selectedQuestions.indexOf(question.questionID);
+            if (index !== -1) {
+              this.selectedQuestions.splice(index, 1);
+            }
+          }
         }
-      } else {
-        this.selectedQuestions = this.selectedQuestions.filter(
-          (id) => id !== questionID
-        );
-      }
-      console.log(this.selectedQuestions);
+      });
     }
+    this.cdr.detectChanges(); // Trigger change detection to update UI
+  }
+
+  onQuestionSelectionChange(questionID: number, event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.checked) {
+      if (!this.selectedQuestions.includes(questionID)) {
+        this.selectedQuestions.push(questionID);
+      }
+    } else {
+      this.selectedQuestions = this.selectedQuestions.filter(
+        (id) => id !== questionID
+      );
+    }
+    console.log(this.selectedQuestions);
   }
 
   onSubmit(): void {

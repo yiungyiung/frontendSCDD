@@ -1,44 +1,136 @@
 <div class="container">
-    <form [formGroup]="questionnaireForm" (ngSubmit)="onSubmit()">
-      <div class="row mt-3">
-        <div class="col-12">
-          <button type="submit" class="btn-primary">
-            Create Questionnaire
-          </button>
+  <form [formGroup]="questionnaireForm" (ngSubmit)="onSubmit()">
+    <div class="row mt-3">
+      <div class="col-12">
+        <button type="submit" class="btn-primary">Create Questionnaire</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card mb-3">
+          <div class="card-header-container">
+            <h5 class="card-header">Select Framework</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12" *ngFor="let framework of frameworks">
+                <div
+                  class="framework-card d-flex align-items-start"
+                  [ngClass]="{
+                    selected: framework.frameworkID === selectedFrameworkID
+                  }"
+                  (click)="onFrameworkSelected(framework.frameworkID)"
+                >
+                  <div class="framework-section">
+                    <small class="label">Select</small>
+                    <div class="circle-container">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+                  <div class="framework-section">
+                    <small class="label">Framework ID</small>
+                    <div class="framework-content">
+                      <small>{{ framework.frameworkID }}</small>
+                    </div>
+                  </div>
+                  <div class="framework-section">
+                    <small class="label">Framework Name</small>
+                    <div class="framework-content">
+                      <small>{{ framework.frameworkName }}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="card mb-3">
-            <div class="card-header-container">
-              <h5 class="card-header">Select Framework</h5>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-12" *ngFor="let framework of frameworks">
-                  <div
-                    class="framework-card d-flex align-items-start"
-                    [ngClass]="{
-                      selected: framework.frameworkID === selectedFrameworkID
-                    }"
-                    (click)="onFrameworkSelected(framework.frameworkID)"
-                  >
-                    <div class="framework-section">
-                      <small class="label">Select</small>
-                      <div class="circle-container">
-                        <div class="circle"></div>
+      <div class="col-md-8">
+        <div class="card mb-3">
+          <div class="card-header-container">
+            <h5 class="card-header">Select Vendor</h5>
+            <mat-icon
+              [ngClass]="{ 'filter-applied': isFilterApplied() }"
+              svgIcon="filterIcon"
+              (click)="toggleFilterVisibility()"
+            ></mat-icon>
+          </div>
+          <div class="card-body">
+            <div *ngFor="let category of categorizedVendors">
+              <div class="d-flex mb-2">
+                <div class="box-container">
+                  <input
+                    type="checkbox"
+                    id="category-{{ category.categoryID }}"
+                    class="custom-checkbox"
+                    [checked]="isAllVendorsSelected(category.categoryID)"
+                    (change)="toggleSelectAll(category.categoryID)"
+                    [disabled]="disabledCategories.has(category.categoryID)"
+                  />
+                  <label
+                    for="category-{{ category.categoryID }}"
+                    class="box"
+                  ></label>
+                </div>
+
+                <div class="mb-0">{{ category.categoryName }}</div>
+                <mat-icon
+                  svgIcon="{{
+                    isSubPartToggled(category.categoryID)
+                      ? 'upArrow'
+                      : 'downArrow'
+                  }}"
+                  (click)="toggleSubPart(category.categoryID)"
+                ></mat-icon>
+              </div>
+              <div class="divider"></div>
+              <div>
+                <div *ngIf="isSubPartToggled(category.categoryID)">
+                  <div *ngFor="let vendor of category.vendors">
+                    <div class="vendor-card d-flex align-items-start">
+                      <div class="vendor-section">
+                        <small class="label">Select</small>
+                        <div class="box-container">
+                          <div
+                            class="box"
+                            [ngClass]="{
+                              selected: isVendorSelected(vendor.vendorID)
+                            }"
+                            (click)="onVendorSelect(vendor.vendorID)"
+                            [class.disabled]="
+                              disabledCategories.has(category.categoryID)
+                            "
+                            [style.pointer-events]="
+                              disabledCategories.has(category.categoryID)
+                                ? 'none'
+                                : 'auto'
+                            "
+                          ></div>
+                        </div>
                       </div>
-                    </div>
-                    <div class="framework-section">
-                      <small class="label">Framework ID</small>
-                      <div class="framework-content">
-                        <small>{{ framework.frameworkID }}</small>
+                      <div class="vendor-section">
+                        <small class="label">Vendor ID</small>
+                        <div class="vendor-content">
+                          <small>{{ vendor.vendorID }}</small>
+                        </div>
                       </div>
-                    </div>
-                    <div class="framework-section">
-                      <small class="label">Framework Name</small>
-                      <div class="framework-content">
-                        <small>{{ framework.frameworkName }}</small>
+                      <div class="vendor-section">
+                        <small class="label">Vendor Name</small>
+                        <div class="vendor-content">
+                          <small>{{ vendor.vendorName }}</small>
+                        </div>
+                      </div>
+                      <div class="vendor-section">
+                        <small class="label">Tier</small>
+                        <div class="vendor-content">
+                          <small>{{ vendor.tier?.tierName }}</small>
+                        </div>
+                      </div>
+                      <div class="vendor-section">
+                        <small class="label">Contact Number</small>
+                        <div class="vendor-content">
+                          <small>{{ vendor.user?.contact_Number }}</small>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -47,94 +139,14 @@
             </div>
           </div>
         </div>
-        <div class="col-md-8">
-          <div class="card mb-3">
-            <div class="card-header-container">
-              <h5 class="card-header">Select Vendor</h5>
-            </div>
-            <div class="card-body">
-              <div *ngFor="let category of categorizedVendors">
-                <div class="d-flex  mb-2">
-                    <div class="box-container">
-                        <input
-                          type="checkbox"
-                          id="category-{{ category.categoryID }}"
-                          class="custom-checkbox"
-                          [checked]="isAllVendorsSelected(category.categoryID)"
-                          (change)="toggleSelectAll(category.categoryID)"
-                          [disabled]="disabledCategories.has(category.categoryID)"
-                        />
-                        <label for="category-{{ category.categoryID }}" class="box"></label>
-                        
-                      </div>
-                      
-                  
-                    <div class="mb-0">{{ category.categoryName }}</div>
-                    <mat-icon
-                      svgIcon="{{ isSubPartToggled(category.categoryID) ? 'upArrow' : 'downArrow' }}"
-                      (click)="toggleSubPart(category.categoryID)"
-                    ></mat-icon>
-                 
-                  
-                </div>
-                <div class="divider"></div>
-                <div>
-                  <div *ngIf="isSubPartToggled(category.categoryID)">
-                    <div *ngFor="let vendor of category.vendors">
-                      <div class="vendor-card d-flex align-items-start">
-                        <div class="vendor-section">
-                          <small class="label">Select</small>
-                          <div class="box-container">
-                            <div
-                              class="box"
-                              [ngClass]="{
-                                selected: isVendorSelected(vendor.vendorID)
-                              }"
-                              (click)="onVendorSelect(vendor.vendorID)"
-                              [class.disabled]="
-                                disabledCategories.has(category.categoryID)
-                              "
-                              [style.pointer-events]="
-                                disabledCategories.has(category.categoryID)
-                                  ? 'none'
-                                  : 'auto'
-                              "
-                            ></div>
-                          </div>
-                        </div>
-                        <div class="vendor-section">
-                          <small class="label">Vendor ID</small>
-                          <div class="vendor-content">
-                            <small>{{ vendor.vendorID }}</small>
-                          </div>
-                        </div>
-                        <div class="vendor-section">
-                          <small class="label">Vendor Name</small>
-                          <div class="vendor-content">
-                            <small>{{ vendor.vendorName }}</small>
-                          </div>
-                        </div>
-                        <div class="vendor-section">
-                          <small class="label">Tier</small>
-                          <div class="vendor-content">
-                            <small>{{ vendor.tier?.tierName }}</small>
-                          </div>
-                        </div>
-                        <div class="vendor-section">
-                          <small class="label">Contact Number</small>
-                          <div class="vendor-content">
-                            <small>{{ vendor.user?.contact_Number }}</small>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-        </div>
       </div>
-    </form>
-  </div>
+      <div *ngIf="isFilterVisible">
+        <app-filter
+          [subParts]="filterSubParts"
+          (close)="closeFilter()"
+          (filterChange)="onFilterChange($event)"
+        ></app-filter>
+      </div>
+    </div>
+  </form>
+</div>

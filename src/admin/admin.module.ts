@@ -49,6 +49,7 @@ import { CreateNewQuestionnaireComponent } from './CreateNewQuestionnaire/Create
 import { VendorSelectionComponent } from '../Component/VendorSelection/VendorSelection.component';
 import { FrameworkSelectionComponent } from '../Component/FrameworkSelection/FrameworkSelection.component';
 import { SelectQuestionsComponent } from './SelectQuestions/SelectQuestions.component';
+import { BreadcrumbComponent } from '../Component/breadcrumb/breadcrumb.component';
 
 @NgModule({
   imports: [FormsModule],
@@ -109,6 +110,7 @@ export class AppModule {}
     UserFormComponent,
     SelectQuestionsComponent,
     VendorFormComponent,
+    BreadcrumbComponent,
   ],
 })
 export class AdminModule {}

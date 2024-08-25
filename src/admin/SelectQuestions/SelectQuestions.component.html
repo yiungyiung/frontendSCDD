@@ -1,9 +1,15 @@
 <div class="container">
+  <div class="row mt-3">
+    <div class="col-12">
+      <button type="submit" class="btn-primary" (click)="onSubmit()">
+        Submit Questionnaire
+      </button>
+    </div>
+  </div>
   <div class="row">
     <div class="col-md-4">
       <div class="card mb-3">
-        <div class="card-body">
-          <!-- Input Field -->
+        <div class="card-bodyy">
           <div class="mb-3">
             <label for="inputField" class="form-label"
               >Name of Questionnaire</label
@@ -15,12 +21,12 @@
               placeholder="Enter text here"
             />
           </div>
-
           <!-- Calendar -->
           <div class="mb-3">
             <label for="calendar" class="form-label">Select Deadline</label>
             <input type="date" class="form-control" id="calendar" />
           </div>
+          <div class="deadline-divider"></div>
           <div>
             <label for="select_category" class="form-label"
               >Selected Category:&nbsp;</label
@@ -37,7 +43,7 @@
           <label for="select_vendor" class="form-label"
             >Selected Vendors :</label
           ><br />
-          <div class="container">
+          <div class="bubble-container">
             <button
               class="bubble"
               data-toggle="tooltip"
@@ -58,8 +64,14 @@
         </div>
         <div *ngFor="let domainID of domainIDs">
           <div class="box-container">
-            <input type="checkbox" class="custom-checkbox" />
-            <h5 class="card-header">{{ getDomainName(domainID) }}</h5>
+            <div class="checkbox-option">
+              <input
+                type="checkbox"
+                [checked]="areAllQuestionsInDomainSelected(domainID)"
+                (change)="onDomainSelectionChange(domainID, $event)"
+              />
+            </div>
+            <h5 class="domain-header">{{ getDomainName(domainID) }}</h5>
             <mat-icon
               svgIcon="{{
                 isSubPartToggled(domainID) ? 'upArrow' : 'downArrow'
@@ -67,6 +79,7 @@
               (click)="toggleSubPart(domainID)"
             ></mat-icon>
           </div>
+          <div class="divider"></div>
           <div
             *ngFor="let question of sortedQuestionsByDomain[domainID]"
             class="custcard mb-3"
@@ -90,15 +103,11 @@
               <div class="user-details">
                 <div class="checkbox-option">
                   <input
+                    *ngIf="question.questionID !== undefined"
                     type="checkbox"
-                    [checked]="
-                      question.questionID !== undefined
-                        ? selectedQuestions[question.questionID]
-                        : false
-                    "
+                    [checked]="selectedQuestions.includes(question.questionID)"
                     (change)="
-                      question.questionID !== undefined &&
-                        onQuestionSelectionChange(question.questionID, $event)
+                      onQuestionSelectionChange(question.questionID, $event)
                     "
                   />
                 </div>
@@ -124,7 +133,6 @@
             </div>
           </div>
         </div>
-        <button type="submit">Submit Selected Questions</button>
       </div>
     </div>
   </div>

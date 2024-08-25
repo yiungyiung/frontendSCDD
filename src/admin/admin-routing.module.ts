@@ -16,20 +16,48 @@ const routes: Routes = [
     path: '',
     component: AdminComponent,
     children: [
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'user-management', component: UserManagementComponent },
-      { path: 'vendor-management', component: VendorManagementComponent},
-      { path: 'Manage-question', component: ManageQuestionaireComponent},
-      {path: 'CreateNewQuestionnarie', component:CreateNewQuestionnaireComponent},
-      {path: 'Add-question', component:AddQuestionComponent},
-      { path: 'select-questions', component: SelectQuestionsComponent },
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
-    ]
-  }
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        data: { breadcrumb: 'Dashboard' },
+      },
+      {
+        path: 'user-management',
+        component: UserManagementComponent,
+        data: { breadcrumb: 'User Management' },
+      },
+      {
+        path: 'vendor-management',
+        component: VendorManagementComponent,
+        data: { breadcrumb: 'Vendor Management' },
+      },
+      {
+        path: 'Manage-question',
+        component: ManageQuestionaireComponent,
+        data: { breadcrumb: 'User Management' },
+      },
+      {
+        path: 'CreateNewQuestionnarie',
+        component: CreateNewQuestionnaireComponent,
+        data: { breadcrumb: 'New Questionnaire' },
+      },
+      {
+        path: 'Add-question',
+        component: AddQuestionComponent,
+        data: { breadcrumb: 'Add Question' },
+      },
+      {
+        path: 'select-questions',
+        component: SelectQuestionsComponent,
+        data: { breadcrumb: 'Select questions' },
+      },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AdminRoutingModule { }
+export class AdminRoutingModule {}

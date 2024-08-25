@@ -1,25 +1,34 @@
 <!-- admin.component.html -->
 <div>
-    <div class="custom-padded-content">
-        <app-TopBar></app-TopBar>
-        <nav class="custom-navbar">
-            <app-nav-item svgIcon="dashboard" text="Dashboard" href="/admin/dashboard">
-            </app-nav-item>
-            <app-nav-item svgIcon="framework" text="Framework"> </app-nav-item>
-            <app-nav-item svgIcon="vendors" text="Manage Vendors" href="/admin/vendor-management">
-            </app-nav-item>
-            <app-nav-item svgIcon="ques" text="Questionnaire" [hasSubPanel]="true">
-                <a class="nav-text">Assign Existing Questionnaire</a>
-                <a class="nav-text" href="/admin/CreateNewQuestionnarie">Assign New Questionnaire</a
+  <div class="custom-padded-content">
+    <app-TopBar></app-TopBar>
+    <nav class="custom-navbar">
+      <app-nav-item
+        svgIcon="dashboard"
+        text="Dashboard"
+        href="/admin/dashboard"
+      >
+      </app-nav-item>
+      <app-nav-item svgIcon="framework" text="Framework"> </app-nav-item>
+      <app-nav-item
+        svgIcon="vendors"
+        text="Manage Vendors"
+        href="/admin/vendor-management"
+      >
+      </app-nav-item>
+      <app-nav-item svgIcon="ques" text="Questionnaire" [hasSubPanel]="true">
+        <a class="nav-text">Assign Existing Questionnaire</a>
+        <a class="nav-text" href="/admin/CreateNewQuestionnarie"
+          >Assign New Questionnaire</a
         >
         <a href="/admin/Add-question" class="nav-text">Add Question</a>
-            </app-nav-item>
-            <app-nav-item svgIcon="users" text="Users" href="/admin/user-management">
-            </app-nav-item>
-            <app-nav-item svgIcon="reports" text="Reports"> </app-nav-item>
-        </nav>
-
-        <router-outlet></router-outlet>
-    </div>
-    <app-disclaimerFooter></app-disclaimerFooter>
+      </app-nav-item>
+      <app-nav-item svgIcon="users" text="Users" href="/admin/user-management">
+      </app-nav-item>
+      <app-nav-item svgIcon="reports" text="Reports"> </app-nav-item>
+    </nav>
+    <app-breadcrumb></app-breadcrumb>
+    <router-outlet></router-outlet>
+  </div>
+  <app-disclaimerFooter></app-disclaimerFooter>
 </div>

@@ -1,0 +1,12 @@
+nav {
+  font-size: 2vh;
+}
+
+a {
+  text-decoration: none;
+  color: #157195;
+}
+
+nav::after {
+  content: " ";
+}

@@ -4,16 +4,18 @@
   justify-content: space-between;
   background-color: #e7f4f9;
   border-bottom: 1px solid #ddd;
-  padding: 10px 15px;
+  padding: 5px 10px;
   height: 9vh;
+  margin-top: -4vh;
 }
 
 .card {
   box-shadow: 0 0 4px rgba(7, 60, 90, 0.2);
-  height: 60vh;
+  height: 70vh;
   overflow-y: scroll;
   scrollbar-width: none;
   border-radius: 8px;
+  padding-top: 4vh;
 }
 
 .mb-0 {
@@ -37,25 +39,49 @@
 }
 
 .card-header {
-  font-size: 18px;
+  font-size: 2.5vh;
   font-weight: bold;
   color: #073c5a;
   background-color: transparent;
   border: none;
 }
 
+.domain-header {
+  margin-top: 1vh;
+  font-size: 2.5vh;
+  color: #073c5a;
+  background-color: transparent;
+  border: none;
+}
+
+.divider {
+  border-top: 1px solid rgba(0, 0, 0, 0.25);
+  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.25);
+  margin: 20px 0;
+  margin-left: 4vh;
+  width: 57vw;
+}
+.deadline-divider {
+  border-top: 1px solid rgba(0, 0, 0, 0.25);
+  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.25);
+  margin: 20px 0;
+  margin-left: 2vh;
+  width: 60vh;
+}
+
 .custcard {
-  border: 1px solid #ddd;
   background-color: #ffffff;
   border-radius: 8px;
   margin-bottom: 6vh;
-  width: 54vw;
+  margin-left: 4vh;
+  width: 57vw;
   margin-top: 3vh;
-  margin-left: 0.6vw;
+  align-items: right;
 }
 
 .card-body {
-  border: 1px solid transparent;
+  border: 1px solid #ddd;
+  border-radius: 8px;
   padding: 15px;
 }
 
@@ -67,8 +93,8 @@
 .user-status {
   position: relative;
   width: 6vw;
-  top: -4vh;
   left: 10px;
+  top: -4vh;
   padding: 5px 10px;
   border-radius: 4px;
   color: white;
@@ -97,6 +123,7 @@
   display: grid;
   grid-template-columns: 1fr 3fr 0.5fr;
   align-items: center;
+  margin-top: -3vh;
 }
 
 .mcq-option {
@@ -145,7 +172,9 @@
 
 .user-id-bg {
   background-color: #e7f4f9;
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
   border-radius: 4px;
   margin-left: 30px;
 }
@@ -158,6 +187,7 @@
 
 .user-ids-bg mat-icon {
   padding-top: -10px;
+  height: auto;
 }
 
 .truncate {
@@ -173,28 +203,35 @@
   fill: #073c5a;
 }
 
+.checkbox-option {
+  display: flex;
+  justify-items: center;
+}
+
 .checkbox-option input[type="checkbox"] {
   width: 20px;
   height: 20px;
   border: 2px solid #0a4357; /* Default border color */
-  accent-color: #f9a634; /* This is the color of the checkbox checkmark */
+  accent-color: #f9a634; /* The color of the checkbox checkmark */
   appearance: none;
   background-color: #fff;
+  cursor: pointer;
 }
 
 .checkbox-option input[type="checkbox"]:checked {
-  background-color: #f9a634;
+  background-color: #f9a634; /* Orange background for checked state */
   border-color: #f9a634;
+  position: relative;
 }
 
 .checkbox-option input[type="checkbox"]:checked::after {
-  content: "✔";
-  color: #fff;
+  content: "✔"; /* Unicode for checkmark */
+  color: #fff; /* White color for the tick */
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  font-size: 14px; /* Adjust font size for the checkmark */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -207,27 +244,26 @@
 }
 
 .box {
-  width: 20px;
-  height: 20px;
-  border: 1px solid #073c5a;
+  width: 2vh;
+  height: 2vh;
+  border: 2px solid #073c5a;
   background-color: #fff;
   cursor: pointer;
-  position: relative;
-  margin-right: 5px;
 }
 
-.custom-checkbox:checked + .box {
+.box.selected {
   border: 2px solid #ffb23b;
   background-color: #ffb23b;
 }
 
-.custom-checkbox:checked + .box::after {
-  font-size: 16px;
-  color: #fff;
+.box.selected::after {
+  content: "\2713"; /* Unicode for tick mark */
+  font-size: 16px; /* Adjust size as needed */
+  color: #fff; /* Color of the tick mark */
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); /* Center the tick mark */
 }
 
 .helper-icon {
@@ -273,7 +309,14 @@
 .container {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px; /* Adjust spacing between bubbles */
+  gap: 10px;
+  max-width: 100%;
+}
+
+.bubble-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .bubble {
@@ -297,4 +340,38 @@
   font-size: 15px;
   font-weight: bold;
   color: #073c5a;
+  margin-left: 1vw;
+}
+
+.form-control {
+  margin-left: 1vw;
+  width: 90%;
+  padding: 1.5vh;
+  font-size: 2vh;
+  border: 1px solid #073c5a84;
+  border-radius: 4px;
+}
+
+.btn-primary {
+  background-color: #12789e;
+  height: 4vh;
+  align-items: center;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 2.5vh;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-bottom: 2vh;
+  display: block;
+}
+
+.btn-primary:hover {
+  background-color: #105a7e; /* Darker shade for hover effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+
+.btn-primary:active {
+  background-color: #0d4a61; /* Even darker shade for active effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Smaller shadow on click */
 }

@@ -2,6 +2,7 @@
 .container {
   max-width: 100%;
   margin: 0 auto;
+  margin-top: 3.3vh;
 }
 
 /* Card Styles */
@@ -19,46 +20,14 @@
 .card {
   width: 25vw;
   margin-left: -0.9vw;
-  height: 68vh;
+  height: 71vh;
 }
 
 .back-card {
   background-color: #ffffff;
   width: 63vw;
   margin-left: -19vw;
-  height: 68vh;
-}
-
-/* Adjust the card widths for smaller screens */
-@media (max-width: 993px) {
-  .card {
-    width: 22vw;
-    margin-left: 0.9vw;
-    height: 68vh;
-  }
-
-  .back-card {
-    background-color: #ffffff;
-    width: 63vw;
-    margin-left: -19vw;
-    height: 68vh;
-  }
-}
-
-/* Maintain width ratio for larger screens */
-@media (min-width: 993px) {
-  .card {
-    width: 25vw;
-    margin-left: -0.9vw;
-    height: 68vh;
-  }
-
-  .back-card {
-    background-color: #ffffff;
-    width: 63vw;
-    margin-left: -19vw;
-    height: 68vh;
-  }
+  height: 71vh;
 }
 
 .addusertitle {

@@ -6,6 +6,9 @@ import { VendorService } from '../../services/VendorService/Vendor.service';
 import { EntityService } from '../../services/EntityService/Entity.service';
 import { AuthService } from '../../services/AuthService/auth.service';
 import { Router } from '@angular/router';
+import { FilterService } from '../../services/FilterService/Filter.service';
+import { SubPart } from '../../Component/filter/filter.component';
+
 @Component({
   selector: 'app-CreateNewQuestionnaire',
   templateUrl: './CreateNewQuestionnaire.component.html',
@@ -21,13 +24,15 @@ export class CreateNewQuestionnaireComponent implements OnInit {
   selectedVendors: Set<number> = new Set<number>();
   disabledCategories: Set<number> = new Set<number>();
   toggledSubParts: { [key: string]: boolean } = {};
+  isFilterVisible = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private vendorService: VendorService,
     private entityService: EntityService,
     private authService: AuthService,
-    private router: Router // Inject Router
+    private router: Router,
+    private filterService: FilterService
   ) {}
 
   ngOnInit() {
@@ -41,6 +46,72 @@ export class CreateNewQuestionnaireComponent implements OnInit {
       framework: ['', Validators.required],
       vendors: this.formBuilder.array([], Validators.required), // Ensure at least one vendor is selected
     });
+  }
+
+  filterSubParts: SubPart[] = [
+    {
+      name: 'Search By',
+      type: 'MCQ',
+      options: ['User Id', 'Vendor Id', 'Vendor Name', 'Email Id'],
+    },
+    {
+      name: 'Search Keyword',
+      type: 'searchBar',
+      keyword: '',
+    },
+  ];
+
+  toggleFilterVisibility() {
+    this.isFilterVisible = !this.isFilterVisible;
+  }
+
+  closeFilter(): void {
+    this.isFilterVisible = false;
+  }
+
+  isFilterApplied(): boolean {
+    const searchBySubPart = this.filterSubParts.find(
+      (part) => part.name === 'Search By'
+    );
+
+    return !!(searchBySubPart && searchBySubPart.selectedOption);
+  }
+
+  onFilterChange(event: any) {
+    const filteredVendors = this.filterService.applyFilter(
+      this.vendors ?? [],
+      this.filterSubParts,
+      {
+        'Vendor Id': (vendor) => vendor.vendorID,
+        'Vendor Name': (vendor) => vendor.vendorName,
+        'Email Id': (vendor) => vendor.user.email,
+        'User Id': (vendor) => vendor.userID,
+      }
+    );
+    this.categorizeFilteredVendors(filteredVendors);
+  }
+
+  categorizeFilteredVendors(filteredVendors: Vendor[]) {
+    const categoriesMap = new Map<
+      number,
+      { categoryID: number; categoryName: string; vendors: Vendor[] }
+    >();
+
+    filteredVendors.forEach((vendor: Vendor) => {
+      if (vendor.categoryID !== undefined) {
+        if (!categoriesMap.has(vendor.categoryID)) {
+          categoriesMap.set(vendor.categoryID, {
+            categoryID: vendor.categoryID,
+            categoryName: vendor.category?.categoryName || 'Unknown',
+            vendors: [],
+          });
+        }
+        categoriesMap.get(vendor.categoryID)?.vendors.push(vendor);
+      }
+    });
+
+    // Update the categorized vendors list
+    this.categorizedVendors = Array.from(categoriesMap.values());
   }
 
   get vendorsFormArray() {
@@ -72,11 +143,14 @@ export class CreateNewQuestionnaireComponent implements OnInit {
   }
 
   categorizeVendors() {
+    if (!this.vendors) return;
+
     const categoriesMap = new Map<
       number,
       { categoryID: number; categoryName: string; vendors: Vendor[] }
     >();
-    this.vendors?.forEach((vendor: Vendor) => {
+
+    this.vendors.forEach((vendor: Vendor) => {
       if (vendor.categoryID !== undefined) {
         if (!categoriesMap.has(vendor.categoryID)) {
           categoriesMap.set(vendor.categoryID, {
@@ -88,6 +162,7 @@ export class CreateNewQuestionnaireComponent implements OnInit {
         categoriesMap.get(vendor.categoryID)?.vendors.push(vendor);
       }
     });
+
     this.categorizedVendors = Array.from(categoriesMap.values());
   }
 
@@ -107,6 +182,7 @@ export class CreateNewQuestionnaireComponent implements OnInit {
     this.updateSelectedCategory();
     this.updateVendorsFormArray(); // Synchronize FormArray with selected vendors
   }
+
   updateVendorsFormArray() {
     const formArray = this.vendorsFormArray;
     formArray.clear(); // Clear the form array
@@ -176,6 +252,7 @@ export class CreateNewQuestionnaireComponent implements OnInit {
       });
     }
   }
+
   onFrameworkSelected(frameworkId: number) {
     this.selectedFrameworkID = frameworkId;
 
@@ -189,6 +266,7 @@ export class CreateNewQuestionnaireComponent implements OnInit {
   isSubPartToggled(categoryID: number): boolean {
     return !!this.toggledSubParts[categoryID];
   }
+
   onSubmit() {
     console.log('Form Valid:', this.questionnaireForm.valid);
     console.log('Form Errors:', this.questionnaireForm.errors);

@@ -2,20 +2,30 @@ import { Injectable } from '@angular/core';
 import { SubPart } from '../../Component/filter/filter.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FilterService {
-
-  applyFilter<T>(data: T[], subParts: SubPart[], searchByFields: { [key: string]: (item: T) => any }): T[] {
+  applyFilter<T>(
+    data: T[],
+    subParts: SubPart[],
+    searchByFields: { [key: string]: (item: T) => any }
+  ): T[] {
     let searchBy = '';
     let searchKeyword = '';
     let selectedStatuses: string[] = [];
     let selectedCategoriesOrRoles: string[] = [];
 
-    const searchBySubPart = subParts.find(part => part.name === 'Search By');
-    const searchKeywordSubPart = subParts.find(part => part.name === 'Search Keyword');
-    const statusSubPart = subParts.find(part => part.name === 'Vendor Status' || part.name === 'User Status');
-    const categoryOrRoleSubPart = subParts.find(part => part.name === 'Category' || part.name === 'Role');
+    const searchBySubPart = subParts.find((part) => part.name === 'Search By');
+    const searchKeywordSubPart = subParts.find(
+      (part) => part.name === 'Search Keyword'
+    );
+    const statusSubPart = subParts.find(
+      (part) => part.name === 'Vendor Status' || part.name === 'User Status'
+    );
+    const categoryOrRoleSubPart = subParts.find(
+      (part) =>
+        part.name === 'Category' || part.name === 'Role' || part.name === 'Tier'
+    );
 
     if (searchBySubPart && searchKeywordSubPart) {
       searchBy = searchBySubPart.selectedOption || '';
@@ -30,7 +40,7 @@ export class FilterService {
       selectedCategoriesOrRoles = categoryOrRoleSubPart.selectedOptions || [];
     }
 
-    return data.filter(item => {
+    return data.filter((item) => {
       let matchesSearch = true;
       let matchesStatus = true;
       let matchesCategoryOrRole = true;
@@ -47,12 +57,15 @@ export class FilterService {
       }
 
       if (selectedCategoriesOrRoles.length > 0) {
-        const categoryOrRole = (item as any).category?.categoryName || (item as any).role;
-        matchesCategoryOrRole = selectedCategoriesOrRoles.includes(categoryOrRole);
+        const categoryOrRole =
+          (item as any).category?.categoryName ||
+          (item as any).role ||
+          (item as any).tier;
+        matchesCategoryOrRole =
+          selectedCategoriesOrRoles.includes(categoryOrRole);
       }
 
       return matchesSearch && matchesStatus && matchesCategoryOrRole;
     });
   }
-
 }
