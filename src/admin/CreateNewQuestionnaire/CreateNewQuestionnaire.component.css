@@ -1,3 +1,4 @@
+
 .card-header-container {
   display: flex;
   align-items: center;
@@ -5,15 +6,30 @@
   background-color: #e7f4f9;
   border-bottom: 1px solid #ddd;
   padding: 10px 15px;
-  height: 9vh;
+  height: 8vh;
+}
+.container{
+  margin-top: auto;
+  max-width: 100%;
 }
 
 .card{
   box-shadow: 0 0 4px rgba(7, 60, 90, 0.2) ;
-  height:60vh;
+  height:70vh;
   overflow-y: scroll;
   scrollbar-width: none;
   border-radius: 8px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.mb-2{
+  padding-top: 2vh;
+}
+
+.divider {
+  border-top: 1px solid rgba(0, 0, 0, 0.25);
+  margin: 20px 0;
 }
 
 
@@ -21,6 +37,8 @@
   font-size: 2vh;
   color: #073c5a;
   font-weight: bold;
+  width:60vw;
+  position:right;
 }
 
 
@@ -31,13 +49,12 @@
   padding-left: 20px;
 }
 .card-header-container mat-icon {
-  margin-right: 20px;
   width: 30px;
   height: auto;
 }
 
 .card-header {
-  font-size: 18px;
+  font-size: 2.5vh;
   font-weight: bold;
   color: #073c5a;
   background-color: transparent;
@@ -57,7 +74,9 @@
   justify-content: space-between;
   transition: background-color 0.3s;
   margin-bottom: 2vh;
+
 }
+
 
 .framework-section {
   display: flex;
@@ -66,23 +85,23 @@
 }
 
 .label {
-  font-size: 12px;
+  font-size: 1.5vh;
   color: #666;
   margin-bottom: 5px;
   text-align: center;
 }
 
 .circle-container {
-  width: 30px;
-  height: 30px;
+  width: 3.75vh;
+  height: 3.75vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .circle {
-  width: 20px;
-  height: 20px;
+  width: 2.5vh;
+  height: 2.5vh;
   border-radius: 50%;
   border: 2px solid #073c5a;
   background-color: transparent;
@@ -115,6 +134,7 @@
 .vendor-section {
   margin-bottom: 10px;
   color: #073c5a;
+  font-size: 2.25vh;
 }
 
 .box-container {
@@ -123,12 +143,11 @@
 }
 
 .box {
-  width: 20px;
-  height: 20px;
+  width:2vh;
+  height: 2vh;
   border: 2px solid #073c5a;
   background-color: #fff;
   cursor: pointer;
-  position: relative; /* Required for the positioning of the ::after pseudo-element */
 }
 
 .box.selected {
@@ -174,16 +193,16 @@
   pointer-events: none;
 }
 .btn-primary {
-  padding: 10px 20px;
   background-color: #12789e;
+  height: 3.5vh;
+  align-items: center;
   color: #ffffff;
   border: none;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 2.5vh;
   border-radius: 5px;
   margin-left: auto;
-  margin-bottom: 10px;
-  margin-top: -10px;
+  margin-bottom:2vh;
   display: block; 
 }
 
@@ -196,7 +215,6 @@
   background-color: #0d4a61; /* Even darker shade for active effect */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Smaller shadow on click */
 }
-/* Hide the native checkbox */
 .custom-checkbox {
   display: none;
 }
