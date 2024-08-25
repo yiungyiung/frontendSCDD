@@ -4,10 +4,7 @@ import { AdminComponent } from './admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { AdminRoutingModule } from './admin-routing.module';
-import { NavItemComponent } from '../Component/nav-item/nav-item.component';
-import { TopBarComponent } from '../Component/TopBar/TopBar.component';
-import { MatIconModule } from '@angular/material/icon';
-import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms'; 
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { VendorManagementComponent } from './VendorManagement/VendorManagement.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -15,7 +12,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { DisclaimerFooterComponent } from '../Component/disclaimerFooter/disclaimerFooter.component';
 import { ExportDialogBoxComponent } from '../Component/exportDialogBox/exportDialogBox.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -49,6 +45,7 @@ import { CreateNewQuestionnaireComponent } from './CreateNewQuestionnaire/Create
 import { VendorSelectionComponent } from '../Component/VendorSelection/VendorSelection.component';
 import { FrameworkSelectionComponent } from '../Component/FrameworkSelection/FrameworkSelection.component';
 import { SelectQuestionsComponent } from './SelectQuestions/SelectQuestions.component';
+import { SharedModule } from '../app/Shared/Shared.module';
 import { BreadcrumbComponent } from '../Component/breadcrumb/breadcrumb.component';
 
 @NgModule({
@@ -58,25 +55,8 @@ export class AppModule {}
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
     AdminRoutingModule,
-    MatIconModule,
-    FormsModule,
-    MatTooltipModule,
-    MatSidenavModule,
-    MatCardModule,
-    NgxPaginationModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    PopupBoxModule,
-    ReactiveFormsModule,
-    NgxCsvParserModule,
-    MatRadioModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatSlideToggleModule,
   ],
   declarations: [
     AdminComponent,
@@ -91,22 +71,17 @@ export class AppModule {}
     ManageQuestionaireComponent,
     AddQuestionComponent,
     FileUploadComponent,
-    BurgerMenuComponent,
     FilterComponent,
     UsercardComponent,
     VendorcardComponent,
     DashboardComponent,
     UserManagementComponent,
-    NavItemComponent,
-    TopBarComponent,
-    DisclaimerFooterComponent,
     ExportDialogBoxComponent,
     VendorManagementComponent,
     PaginationComponent,
     CreateNewQuestionnaireComponent,
     VendorSelectionComponent,
     FrameworkSelectionComponent,
-    ChangePasswordModalComponent,
     UserFormComponent,
     SelectQuestionsComponent,
     VendorFormComponent,

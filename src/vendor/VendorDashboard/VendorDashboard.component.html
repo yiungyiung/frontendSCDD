@@ -1,0 +1,26 @@
+<div class="status-container" *ngFor="let status of getStatusKeys()">
+    <div class="status-card">
+        <h2>{{ status }}</h2>
+        <ul>
+            <li *ngFor="let assignment of assignmentsByStatus[status]" (click)="onAssignmentClick(assignment)">
+                <div class="assignment-card">
+                    <div>
+                        <strong>Assignment ID:</strong> {{ assignment.assignmentID }}
+                    </div>
+                    <div>
+                        <strong>Questionnaire ID:</strong> {{ assignment.questionnaireID }}
+                    </div>
+                    <div>
+                        <strong>Questionnaire Name:</strong> {{ getQuestionnaireDetails(assignment.questionnaireID)?.name }}
+                    </div>
+                    <div>
+                        <strong>Year:</strong> {{ getQuestionnaireDetails(assignment.questionnaireID)?.year }}
+                    </div>
+                    <div>
+                        <strong>Submission Date:</strong> {{ assignment.submissionDate | date:'shortDate' }}
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

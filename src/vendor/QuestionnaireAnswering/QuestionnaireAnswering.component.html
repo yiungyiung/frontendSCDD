@@ -1,0 +1,43 @@
+<div class="answering-container">
+    <!-- Left Panel: Questionnaire Details -->
+    <div class="questionnaire-details">
+        <h2>Questionnaire Details</h2>
+        <div *ngIf="selectedQuestionnaire">
+            <p><strong>Name:</strong> {{ selectedQuestionnaire.name }}</p>
+            <p><strong>ID:</strong> {{ selectedQuestionnaire.questionnaireID }}</p>
+        </div>
+        <div *ngIf="domains && domains.length">
+            <ng-container *ngFor="let domain of domains">
+                <h3>{{ domain.domainName }}</h3>
+                <div *ngFor="let question of getQuestionsByDomain(domain.domainID)">
+                    <button (click)="onQuestionClick(question)" class="question-button">
+            {{ question.questionText }}
+          </button>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+
+    <!-- Right Panel: Question Details -->
+    <div class="question-details" *ngIf="selectedQuestion">
+        <h2>Answer the Question</h2>
+        <p><strong>Question Text:</strong> {{ selectedQuestion.questionText }}</p>
+        <p>{{ selectedQuestion.description }}</p>
+
+        <!-- Options for the question -->
+        <div *ngIf="selectedQuestion.options && selectedQuestion.options.length">
+            <label *ngFor="let option of selectedQuestion.options">
+        <input type="radio" name="option" [value]="option.optionText" />
+        {{ option.optionText }}
+      </label>
+        </div>
+
+        <!-- Textboxes for the question -->
+        <div *ngIf="selectedQuestion.textboxes && selectedQuestion.textboxes.length">
+            <label *ngFor="let textbox of selectedQuestion.textboxes">
+        {{ textbox.label }}
+        <input type="text"  />
+      </label>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,96 @@
+/* Container to hold both panels */
+
+.answering-container {
+    display: flex;
+    /* Use Flexbox for layout */
+    flex-direction: row;
+    /* Align children in a row */
+    gap: 20px;
+    /* Space between panels */
+    padding: 20px;
+    /* Padding for container */
+}
+
+
+/* Left panel styling */
+
+.questionnaire-details {
+    flex: 1;
+    /* Takes up half the container width */
+    max-width: 40%;
+    /* Maximum width to prevent growing too much */
+    border-right: 1px solid #ccc;
+    /* Right border for separation */
+    padding-right: 20px;
+    /* Padding inside left panel */
+}
+
+
+/* Right panel styling */
+
+.question-details {
+    flex: 2;
+    /* Takes up remaining space */
+    padding-left: 20px;
+    /* Padding inside right panel */
+}
+
+
+/* Styling for question buttons */
+
+.question-button {
+    display: block;
+    /* Block display for full width */
+    width: 100%;
+    /* Full width buttons */
+    padding: 10px;
+    /* Padding for button */
+    margin-bottom: 10px;
+    /* Space between buttons */
+    background-color: #f0f0f0;
+    /* Button background color */
+    border: none;
+    /* Remove default border */
+    cursor: pointer;
+    /* Cursor pointer on hover */
+    text-align: left;
+    /* Align text to the left */
+}
+
+
+/* Button hover effect */
+
+.question-button:hover {
+    background-color: #e0e0e0;
+    /* Change background color on hover */
+}
+
+
+/* Domain select dropdown */
+
+.domain-select {
+    width: 100%;
+    /* Full width */
+    padding: 8px;
+    /* Padding for select */
+    margin-bottom: 20px;
+    /* Space below the select */
+    font-size: 16px;
+    /* Increase font size */
+    border: 1px solid #ccc;
+    /* Border for the select */
+    border-radius: 4px;
+    /* Rounded corners */
+    background-color: #f9f9f9;
+    /* Background color */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+}
+
+
+/* Dropdown hover effect */
+
+.domain-select:hover {
+    border-color: #999;
+    /* Darker border on hover */
+}

@@ -1,0 +1,31 @@
+.status-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    /* Adjust gap as needed */
+}
+
+.status-card {
+    flex: 1;
+    min-width: 300px;
+    /* Adjust width as needed */
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.assignment-card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    /* Change cursor to pointer to indicate clickable area */
+    transition: background-color 0.3s ease;
+}
+
+.assignment-card:hover {
+    background-color: #f0f0f0;
+    /* Highlight effect on hover */
+}

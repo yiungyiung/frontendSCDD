@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import {Domain, Framework, Tier, UnitOfMeasurement } from '../../model/entity';
+import {Domain, Framework, Status, Tier, UnitOfMeasurement } from '../../model/entity';
 import { Category } from '../../model/category';
 @Injectable({
   providedIn: 'root'
@@ -72,6 +72,27 @@ export class EntityService {
     });
     return this.http.get<UnitOfMeasurement>(`${this.apiUrl}/entity/unitsOfMeasurement/${id}`, {headers});
   }
+  getAllStatuses(token: string): Observable<Status[]> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Status[]>(`${this.apiUrl}/entity/statuses`, { headers });
+  }
 
+  // Fetch a status by ID
+  getStatusById(id: number, token: string): Observable<Status> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<Status>(`${this.apiUrl}/entity/statuses/${id}`, { headers });
+  }
+
+  // Add a new status
+  addStatus(status: Status, token: string): Observable<Status> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post<Status>(`${this.apiUrl}/entity/statuses`, status, { headers });
+  }
 
 }

@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.authService.getRoleFromToken(this.authService.getToken()));
     this.loadVendorHierarchy();
   }
 

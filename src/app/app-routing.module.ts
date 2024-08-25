@@ -1,4 +1,3 @@
-// app-routing.module.ts
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Role } from '../model/role';
@@ -12,6 +11,12 @@ const routes: Routes = [
     loadChildren: () => import('../admin/admin.module').then(m => m.AdminModule),
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin] }
+  },
+  {
+    path: 'vendor',
+    loadChildren: () => import('../vendor/vendor.module').then(m => m.VendorModule),
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Vendor] }
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' }

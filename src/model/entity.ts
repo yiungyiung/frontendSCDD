@@ -17,3 +17,7 @@ export interface UnitOfMeasurement {
     uomType: string;  // Corresponds to UOMType in the backend
   }
   
+  export interface Status{
+    statusID: number; // Corresponds to
+    statusName : string; // Corresponds to
+  }

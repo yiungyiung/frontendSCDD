@@ -38,6 +38,10 @@ export class VendorService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post<Vendor>(`${this.apiUrl}/add`, vendor, { headers });
   }
+  getVendorIdByUserId(token: string, userId: number): Observable<number> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<number>(`${this.apiUrl}/byUserId/${userId}`, { headers });
+  }
 }
 
 

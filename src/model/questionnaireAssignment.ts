@@ -1,7 +1,14 @@
+import { Status } from "./entity";
+import { Vendor } from "./vendor";
+
 export interface QuestionnaireAssignment {
-    vendorIDs: number[];
+    assignmentID?:number;
+    vendorIDs?: number[];
     questionnaireID: number;
-    statusID: number;
-    dueDate: Date;
+    statusID?: number;
+    vendorID? : number;
+    assignmentDate?:Date;
+    dueDate?:Date;
+    submissionDate?: number
 }
   

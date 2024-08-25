@@ -1,15 +1,18 @@
 export interface Textbox {
+    textBoxID?:number;  
     label: string;
     orderIndex: number;
     uomid: number;
   }
 
   export interface FileUpload {
+    fileUploadID?:number;
     label: string;
     orderIndex: number;
   }
 
   export interface Option {
+    optionID?: number;
     optionText: string;
     orderIndex: number;
   }
