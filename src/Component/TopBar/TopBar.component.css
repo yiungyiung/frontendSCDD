@@ -11,8 +11,8 @@
   align-items: center;
   background-color: #e7f4f9;
   padding: 2vh 0.5vw;
-  max-height: 12vh;
-  min-height: 6vh;
+  height: 8vh;
+
 }
 
 .logo {
@@ -45,7 +45,6 @@
 .sidenav-container {
   width: 100%;
   position: relative;
-  margin-top: 12vh; /* Adjust as needed */
   z-index: 1001;
 }
 
@@ -58,15 +57,5 @@
   top: 0;
 }
 
-.sidenav-content {
-  padding: 0px;
-}
 
-.sidenav-content p {
-  margin: 0;
-  padding: 0 0 20px;
-}
 
-.sidenav-content button {
-  color: white;
-}
