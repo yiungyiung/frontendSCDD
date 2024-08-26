@@ -302,6 +302,7 @@ export class CreateNewQuestionnaireComponent implements OnInit {
             frameworkID: selectedFrameworkID,
             vendorCategories: selectedVendors.map((v: Vendor) => v.categoryID),
             vendorName: selectedVendors.map((v: Vendor) => v.vendorName),
+            vendorID: selectedVendors.map((v: Vendor) => v.vendorID)
           },
         })
         .then((success) => {

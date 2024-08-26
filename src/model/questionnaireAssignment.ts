@@ -8,7 +8,7 @@ export interface QuestionnaireAssignment {
     statusID?: number;
     vendorID? : number;
     assignmentDate?:Date;
-    dueDate?:Date;
-    submissionDate?: number
+    dueDate?:string;
+    submissionDate?: Date;
 }
   

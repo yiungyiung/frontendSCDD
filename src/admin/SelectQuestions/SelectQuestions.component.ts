@@ -5,7 +5,10 @@ import { QuestionService } from '../../services/QuestionService/Question.service
 import { Domain } from '../../model/entity'; // Import both Domain and Category interfaces
 import { EntityService } from '../../services/EntityService/Entity.service';
 import { ChangeDetectorRef } from '@angular/core';
-
+import { questionnaire } from '../../model/questionnaire';
+import { QuestionnaireService } from '../../services/QuestionnaireService/Questionnaire.service';
+import { QuestionnaireAssignmentService } from '../../services/QuestionnaireAssignmentService/questionnaireAssignment.service';
+import { QuestionnaireAssignment } from '../../model/questionnaireAssignment';
 @Component({
   selector: 'app-SelectQuestions',
   templateUrl: './SelectQuestions.component.html',
@@ -23,12 +26,16 @@ export class SelectQuestionsComponent implements OnInit {
   categoryMap: { [id: number]: string } = {};
   isLoading: boolean = true;
   toggledSubParts: { [key: string]: boolean } = {};
-
+  vendorID: number[] = [];
+  questionnaireName: string = '';
+  deadline: string = '';
   constructor(
     private questionService: QuestionService,
     private authService: AuthService,
     private entityService: EntityService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private questionnaireService: QuestionnaireService,
+    private questionnaireAssignmentService:QuestionnaireAssignmentService
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +44,7 @@ export class SelectQuestionsComponent implements OnInit {
     this.vendorCategories = state.vendorCategories;
     this.vendorName = state.vendorName;
     this.frameworkName = state.frameworkName;
+    this.vendorID=state.vendorID;
     console.log(this.frameworkName);
 
     if (this.frameworkID && this.vendorCategories.length > 0) {
@@ -176,8 +184,45 @@ export class SelectQuestionsComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('Selected Questions:', this.selectedQuestions);
+    const newQuestionnaire: questionnaire = {
+      name: this.questionnaireName,
+      year: new Date(this.deadline).getFullYear(), // Extract year from date string
+      questionIDs: this.selectedQuestions,
+    };
 
-    // Further logic to handle selected questions...
+    const token = this.authService.getToken(); // Assume you have a method to get the token
+
+    // Call the createQuestionnaire method from the service
+    this.questionnaireService.createQuestionnaire(newQuestionnaire, token)
+      .subscribe({
+        next: (response) => {
+          console.log('Newly created questionnaire:', response.questionnaireID); // Log the response
+          const dueDateObj = new Date(this.deadline);
+        const dueDateFormatted = dueDateObj.toISOString().split('.')[0]; 
+          const newAssignment: QuestionnaireAssignment = {
+            vendorIDs: this.vendorID,
+            questionnaireID: response.questionnaireID,
+            statusID: 2, // Assuming statusID 2 means 'Assigned' or equivalent
+            dueDate: dueDateFormatted,
+          };
+
+          this.createQuestionnaireAssignment(newAssignment, token);
+        },
+        error: (error) => {
+          console.error('Error creating questionnaire:', error); // Log any errors
+        }
+      });
+  }
+  createQuestionnaireAssignment(assignment: QuestionnaireAssignment, token: string): void {
+    console.log(assignment);
+    this.questionnaireAssignmentService.createQuestionnaireAssignment(assignment, token)
+      .subscribe({
+        next: (response) => {
+          console.log('Questionnaire assignment created successfully:', response);
+        },
+        error: (error) => {
+          console.error('Error creating questionnaire assignment:', error);
+        }
+      });
   }
 }

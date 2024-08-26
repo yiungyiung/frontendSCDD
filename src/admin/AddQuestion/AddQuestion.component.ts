@@ -3,6 +3,7 @@ import { Domain, Framework } from '../../model/entity';
 import { Question, Textbox, FileUpload, Option } from '../../model/question';
 import { EntityService } from '../../services/EntityService/Entity.service';
 import { AuthService } from '../../services/AuthService/auth.service';
+import { QuestionService } from '../../services/QuestionService/Question.service';
 
 enum QuestionType {
   SELECT_ONE = 'SELECT_ONE',
@@ -31,7 +32,7 @@ export class AddQuestionComponent implements OnInit {
   selectedComponents: { type: QuestionType, id: number, options?: Option[], textboxes?: Textbox[], fileUploads?: FileUpload[] }[] = []; // To track added components
   private componentId = 0; // Unique ID for each added component
 
-  constructor(private entityService: EntityService, private authService: AuthService, private cdr: ChangeDetectorRef) { }
+  constructor(private questionService:QuestionService,private entityService: EntityService, private authService: AuthService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.loadFrameworks();
@@ -110,9 +111,18 @@ export class AddQuestionComponent implements OnInit {
       fileUploads: this.collectFileUploads(),
       frameworkIDs: this.selectedFrameworks
     };
-
+    
     // Handle the submission, e.g., send to the server
-    console.log('New Question:', newQuestion);
+    const token: string = this.authService.getToken();
+    
+    this.questionService.addQuestion(newQuestion, token).subscribe(
+      (response) => {
+        console.log("Response:", response);
+      },
+      (error) => {
+        console.error("Error:", error);
+      }
+    );
   }
 
   handleOptionsChange(data: { subQuestion: string; options: string[]; }, componentId: number) {

@@ -13,7 +13,7 @@ export interface Domain{
 }
 
 export interface UnitOfMeasurement {
-    uomID: number;    // Corresponds to UOMID in the backend
+    uomid: number;    // Corresponds to UOMID in the backend
     uomType: string;  // Corresponds to UOMType in the backend
   }
   

@@ -16,7 +16,7 @@ export class QuestionType_TextBoxComponent implements OnInit {
  UnitOfMeasurement:UnitOfMeasurement[] = [];
 
   textbox: string = '';
-  selectedUomId: number | null = null; 
+  selectedUomId: number | undefined = undefined; 
 
   constructor(private entityService: EntityService, private authService: AuthService, private cdr: ChangeDetectorRef) { }
 
@@ -43,13 +43,17 @@ export class QuestionType_TextBoxComponent implements OnInit {
   }
 
   onUnitChange() {
+    console.log("yash");
+    console.log('Selected UOM ID:', this.selectedUomId);
     this.emitData();
   }
+  
 
   private emitData() {
+    const uomID = this.selectedUomId !== null && this.selectedUomId !== undefined ? this.selectedUomId : -1;
     this.textboxChange.emit({
       textbox: this.textbox,
-      uomID: this.selectedUomId !== null ? this.selectedUomId : -1 
+      uomID: uomID
     });
   }
 }

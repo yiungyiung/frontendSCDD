@@ -1,39 +1,22 @@
 <div class="form-section">
-  <div class="header">
-    <div class="title">
-      <mat-icon svgIcon="textBox"></mat-icon>
-      <h6>Text Box</h6>
+    <div class="header">
+        <div class="title">
+            <mat-icon svgIcon="textBox"></mat-icon>
+            <h6>Text Box</h6>
+        </div>
+        <mat-icon svgIcon="deleteIcon" class="delete-icon" (click)="removeComponent()"></mat-icon>
     </div>
-    <mat-icon
-      svgIcon="deleteIcon"
-      class="delete-icon"
-      (click)="removeComponent()"
-    ></mat-icon>
-  </div>
 
-  <div class="form-group">
-    <input
-      type="text"
-      placeholder="Add Textbox"
-      [(ngModel)]="textbox"
-      (ngModelChange)="onTextboxChange()"
-    />
-  </div>
-  <div class="form-group">
-    <label for="unitofmeasurement">Select unitofmeasurement</label>
-    <select
-      id="unitofmeasurement"
-      name="unitofmeasurement"
-      [(ngModel)]="selectedUomId"
-      (ngModelChange)="onUnitChange()"
-    >
-      <option value="">Select unitofmeasurement</option>
-      <option
-        *ngFor="let unitofmeasurement of UnitOfMeasurement"
-        [value]="unitofmeasurement.uomID"
-      >
-        {{ unitofmeasurement.uomType }}
-      </option>
-    </select>
-  </div>
+    <div class="form-group">
+        <input type="text" placeholder="Add Textbox" [(ngModel)]="textbox" (ngModelChange)="onTextboxChange()" />
+    </div>
+    <div class="form-group">
+        <label for="unitofmeasurement">Select unitofmeasurement</label>
+        <select id="unitofmeasurement" name="unitofmeasurement" [(ngModel)]="selectedUomId" (ngModelChange)="onUnitChange()">
+          <option [ngValue]="null">Select unit of measurement</option>
+          <option *ngFor="let unitofmeasurement of UnitOfMeasurement" [ngValue]="unitofmeasurement.uomid">
+            {{ unitofmeasurement.uomType }}
+          </option>
+        </select>
+    </div>
 </div>

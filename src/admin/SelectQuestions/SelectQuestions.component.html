@@ -1,38 +1,37 @@
 <div class="container">
-  <div class="row mt-3">
-    <div class="col-12">
-      <button type="submit" class="btn-primary" (click)="onSubmit()">
+    <div class="row mt-3">
+        <div class="col-12">
+            <button type="submit" class="btn-primary" (click)="onSubmit()">
         Submit Questionnaire
       </button>
+        </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-4">
-      <div class="card mb-3">
-        <div class="card-bodyy">
-          <div class="mb-3">
-            <label for="inputField" class="form-label"
-              >Name of Questionnaire</label
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-bodyy">
+                    <div class="mb-3">
+                        <label for="inputField" class="form-label">Name of Questionnaire</label
             >
             <input
               type="text"
               class="form-control"
               id="inputField"
               placeholder="Enter text here"
+              [(ngModel)]="questionnaireName"
             />
           </div>
           <!-- Calendar -->
           <div class="mb-3">
             <label for="calendar" class="form-label">Select Deadline</label>
-            <div class="input-container">
-              <input type="date" class="form-control" id="calendar" />
-              <mat-icon svgIcon="calendar"></mat-icon>
-            </div>
-          </div>
-          <div class="deadline-divider"></div>
-          <div>
-            <label for="select_category" class="form-label"
-              >Selected Category:&nbsp;</label
+                        <div class="input-container">
+                            <input type="date" class="form-control" id="calendar" [(ngModel)]="deadline" />
+                            <mat-icon svgIcon="calendar"></mat-icon>
+                        </div>
+                    </div>
+                    <div class="deadline-divider"></div>
+                    <div>
+                        <label for="select_category" class="form-label">Selected Category:&nbsp;</label
             >
             <span>{{ getFirstCategoryName() }}</span>
           </div>

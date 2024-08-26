@@ -13,12 +13,12 @@ export class QuestionnaireService {
 
   constructor(private http: HttpClient) { }
 
-  createQuestionnaire(questionnaire: questionnaire, token:string): Observable<{ QuestionnaireID: number }> {
+  createQuestionnaire(questionnaire: questionnaire, token:string): Observable<{ questionnaireID: number }> {
     const headers = new HttpHeaders({ 
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.post<{ QuestionnaireID: number }>(`${this.apiUrl}/questionnaire`, questionnaire,{headers});
+    return this.http.post<{ questionnaireID: number }>(`${this.apiUrl}/questionnaire`, questionnaire,{headers});
   }
 
   getAllQuestionnaires(token:string): Observable<questionnaire[]> {

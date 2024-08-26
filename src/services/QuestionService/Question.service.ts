@@ -18,6 +18,7 @@ export class QuestionService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
+    console.log(question);
     return this.http.post<Question>(`${this.apiUrl}/question/add`, question,{headers});
   }
 
