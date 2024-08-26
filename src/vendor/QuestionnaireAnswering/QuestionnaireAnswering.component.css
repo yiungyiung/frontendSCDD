@@ -1,96 +1,173 @@
-/* Container to hold both panels */
-
 .answering-container {
-    display: flex;
-    /* Use Flexbox for layout */
-    flex-direction: row;
-    /* Align children in a row */
-    gap: 20px;
-    /* Space between panels */
-    padding: 20px;
-    /* Padding for container */
+  display: flex;
+  height: 100vh;
+  background-color: #f0f8ff;
 }
-
-
-/* Left panel styling */
 
 .questionnaire-details {
-    flex: 1;
-    /* Takes up half the container width */
-    max-width: 40%;
-    /* Maximum width to prevent growing too much */
-    border-right: 1px solid #ccc;
-    /* Right border for separation */
-    padding-right: 20px;
-    /* Padding inside left panel */
+  width: 30vw;
+  background-color: #ffffff;
+  border-right: 1px solid #e3f2fd;
+  padding: 20px;
+  overflow-y: auto;
+  height: 100vh;
 }
-
-
-/* Right panel styling */
 
 .question-details {
-    flex: 2;
-    /* Takes up remaining space */
-    padding-left: 20px;
-    /* Padding inside right panel */
+  width: 60vw;
+  background-color: #ffffff;
+  padding: 20px;
+  overflow-y: auto;
+  height: 100vh;
+  margin-left: 10vw;
 }
 
+h2 {
+  color: #12789e;
+  border-bottom: 2px solid #e3f2fd;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  font-size: 1.2em;
+}
 
-/* Styling for question buttons */
+.questionnaire-info p,
+.question-text,
+.question-description {
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  font-size: 0.9em;
+}
+
+.domains-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.domain-card {
+  background-color: #f8fdff;
+  border: 1px solid #e3f2fd;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.domain-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e3f2fd;
+  padding: 8px 12px;
+}
+
+.domain-header h3 {
+  color: #0d47a1;
+  margin: 0;
+  font-size: 1em;
+}
+
+.toggle-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #12789e;
+  padding: 0;
+}
+
+.domain-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+}
 
 .question-button {
-    display: block;
-    /* Block display for full width */
-    width: 100%;
-    /* Full width buttons */
-    padding: 10px;
-    /* Padding for button */
-    margin-bottom: 10px;
-    /* Space between buttons */
-    background-color: #f0f0f0;
-    /* Button background color */
-    border: none;
-    /* Remove default border */
-    cursor: pointer;
-    /* Cursor pointer on hover */
-    text-align: left;
-    /* Align text to the left */
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  text-align: left;
+  background-color: white;
+  border: 2px solid #12789e;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  font-size: 0.9em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.3s ease;
 }
-
-
-/* Button hover effect */
 
 .question-button:hover {
-    background-color: #e0e0e0;
-    /* Change background color on hover */
+  background-color: #e3f2fd;
 }
 
-
-/* Domain select dropdown */
-
-.domain-select {
-    width: 100%;
-    /* Full width */
-    padding: 8px;
-    /* Padding for select */
-    margin-bottom: 20px;
-    /* Space below the select */
-    font-size: 16px;
-    /* Increase font size */
-    border: 1px solid #ccc;
-    /* Border for the select */
-    border-radius: 4px;
-    /* Rounded corners */
-    background-color: #f9f9f9;
-    /* Background color */
-    cursor: pointer;
-    /* Pointer cursor on hover */
+.options-container,
+.textboxes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
 }
 
+.option,
+.textbox {
+  display: flex;
+  align-items: center;
+  background-color: #e3f2fd;
+  border-radius: 4px;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+}
 
-/* Dropdown hover effect */
+.option:hover,
+.textbox:hover {
+  background-color: #bbdefb;
+}
 
-.domain-select:hover {
-    border-color: #999;
-    /* Darker border on hover */
+.option-text,
+.textbox-label {
+  margin-left: 10px;
+  color: #333;
+}
+
+input[type="radio"] {
+  accent-color: #12789e;
+}
+
+.textbox-input {
+  flex-grow: 1;
+  border: 1px solid #bbdefb;
+  border-radius: 4px;
+  padding: 8px;
+  margin-left: 10px;
+}
+
+.textbox-input:focus {
+  outline: none;
+  border-color: #12789e;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+}
+
+/* Adjust scrollbar for better visibility */
+.questionnaire-details::-webkit-scrollbar,
+.question-details::-webkit-scrollbar {
+  width: 8px;
+}
+
+.questionnaire-details::-webkit-scrollbar-track,
+.question-details::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.questionnaire-details::-webkit-scrollbar-thumb,
+.question-details::-webkit-scrollbar-thumb {
+  background: #bbdefb;
+  border-radius: 4px;
+}
+
+.questionnaire-details::-webkit-scrollbar-thumb:hover,
+.question-details::-webkit-scrollbar-thumb:hover {
+  background: #12789e;
 }

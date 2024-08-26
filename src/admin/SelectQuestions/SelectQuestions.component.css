@@ -375,3 +375,17 @@
   background-color: #0d4a61; /* Even darker shade for active effect */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Smaller shadow on click */
 }
+
+.input-container {
+  position: relative;
+  display: inline-block;
+  width: 35vh;
+}
+
+.input-container mat-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}

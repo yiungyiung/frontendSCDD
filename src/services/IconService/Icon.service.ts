@@ -46,6 +46,7 @@ export class IconService {
     this.registerIcon('selectMultiple', 'selectMultiple.svg');
     this.registerIcon('singleOption', 'singleOption.svg');
     this.registerIcon('HelperText', 'HelperText.svg');
+    this.registerIcon('Calendar', 'Calendar.svg');
     // Add any other icons here
   }
 

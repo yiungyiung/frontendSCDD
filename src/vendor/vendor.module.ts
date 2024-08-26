@@ -20,7 +20,7 @@ import { QuestionnaireAnsweringComponent } from './QuestionnaireAnswering/Questi
   ],
   imports: [
     CommonModule,
-    RouterModule, // Import RouterModule to ensure routing works
+    RouterModule, 
     VendorRoutingModule,
     SharedModule
   ]

@@ -1,31 +1,141 @@
-.status-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    /* Adjust gap as needed */
+.card-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #e7f4f9;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 15px;
+  height: 9vh;
 }
 
-.status-card {
-    flex: 1;
-    min-width: 300px;
-    /* Adjust width as needed */
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.card {
+  box-shadow: 0 0 4px rgba(7, 60, 90, 0.2);
+  height: auto;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  border-radius: 8px;
 }
 
-.assignment-card {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    /* Change cursor to pointer to indicate clickable area */
-    transition: background-color 0.3s ease;
+.mb-0 {
+  font-size: 2vh;
+  color: #073c5a;
+  font-weight: bold;
 }
 
-.assignment-card:hover {
-    background-color: #f0f0f0;
-    /* Highlight effect on hover */
+.title-cat {
+  font-size: 20px;
+}
+.card-header-container h4 {
+  padding-left: 20px;
+}
+.card-header-container mat-icon {
+  margin-right: 20px;
+  width: 30px;
+  height: auto;
+}
+
+.card-header {
+  font-size: 18px;
+  font-weight: bold;
+  color: #073c5a;
+  background-color: transparent;
+  border: none;
+}
+
+.custcard {
+  border: 1px solid #ddd;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 6vh;
+  width: 60vw;
+  margin-top: 3vh;
+  margin-left: 0.6vw;
+}
+
+.card-body {
+  border: 1px solid #ddd;
+  padding: 15px;
+}
+.card-body:hover {
+  border: 1px solid #f9a634;
+  border-radius: 8px;
+}
+
+.user-status {
+  position: relative;
+  width: 6vw;
+  top: -4vh;
+  left: 10px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 1.7vh;
+}
+
+.user-status.active {
+  background-color: #339a2d;
+}
+
+.user-status.inactive {
+  background-color: #dc3545;
+}
+
+.user-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8vw, 1fr));
+  gap: 1vw;
+  text-align: center;
+  justify-items: space-between;
+}
+
+.detail {
+  margin-top: -20px;
+  text-align: center;
+  font-size: 2vh;
+}
+
+.detail small {
+  display: block;
+  font-size: 1.7vh;
+  color: gray;
+  text-align: center;
+}
+
+.user-id-bg {
+  background-color: #e7f4f9;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.user-ids-bg {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.user-ids-bg mat-icon {
+  padding-top: -10px;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  display: block;
+}
+
+.btn-success {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: white;
 }
