@@ -10,7 +10,7 @@ const routes: Routes = [
     component: VendorComponent,
     children: [
       { path: 'dashboard', component: VendorDashboardComponent },
-      { path: 'answer-questionnaire/:questionnaireID', component: QuestionnaireAnsweringComponent },
+      { path: 'answer-questionnaire', component: QuestionnaireAnsweringComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       // Add other child routes as needed
     ]

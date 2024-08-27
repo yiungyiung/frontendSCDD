@@ -7,7 +7,7 @@ import { VendorService } from '../../services/VendorService/Vendor.service';
 import { EntityService } from '../../services/EntityService/Entity.service';
 import { HttpHeaders } from '@angular/common/http'; // Import HttpHeaders if not already done
 import { QuestionnaireService } from '../../services/QuestionnaireService/Questionnaire.service';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 
 interface Questionnaire {
   questionnaireID?: number;
@@ -91,7 +91,18 @@ export class VendorDashboardComponent implements OnInit {
     return this.questionnaireDetails[questionnaireID];
   }
   onAssignmentClick(assignment: QuestionnaireAssignment): void {
-    console.log('Navigating to answer questionnaire with ID:', assignment.questionnaireID);
-    this.router.navigate(['/vendor/answer-questionnaire', assignment.questionnaireID]);
+    console.log(assignment.statusID);
+    if (assignment.statusID === 1) {
+      // If the status ID is 1, do not navigate
+      console.log('Cannot navigate. Assignment status ID is 1.');
+      return;
+    }
+    console.log('Navigating to answer questionnaire with ID:', assignment.questionnaireID,assignment.assignmentID);
+   
+  
+    this.router.navigate(['/vendor/answer-questionnaire'], {state: {
+      assignmentID: assignment.assignmentID,
+      questionnaireID: assignment.questionnaireID
+    }});
   }
 }

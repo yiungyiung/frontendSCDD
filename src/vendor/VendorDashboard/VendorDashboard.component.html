@@ -1,57 +1,49 @@
 <div class="container">
-  <div class="row" *ngFor="let status of getStatusKeys()">
-    <div class="col-md-12">
-      <div class="card mb-3">
-        <div class="card-header-container">
-          <h5 class="card-header">{{ status }}</h5>
-        </div>
-        <div class="card-body">
-          <!-- Each assignment is a card with a border -->
-          <div
-            class="card-body mb-3 assignment-card"
-            *ngFor="let assignment of assignmentsByStatus[status]"
-            (click)="onAssignmentClick(assignment)"
-          >
-            <div class="card-bo">
-              <div class="row align-items-center">
-                <div class="col-md-2 user-id-bg text-center">
-                  <small>User ID</small>
-                  <div class="truncate">{{ assignment.assignmentID }}</div>
+    <div class="row" *ngFor="let status of getStatusKeys()">
+        <div class="col-md-12">
+            <div class="card mb-3">
+                <div class="card-header-container">
+                    <h5 class="card-header">{{ status }}</h5>
                 </div>
-                <div class="col-md-2">
-                  <small>Questionnaire ID</small>
-                  <div class="truncate">{{ assignment.questionnaireID }}</div>
+                <div class="card-body">
+                    <!-- Each assignment is a card with a border -->
+                    <div class="card-body mb-3 assignment-card" *ngFor="let assignment of assignmentsByStatus[status]" (click)="onAssignmentClick(assignment)">
+                        <div class="card-bo">
+                            <div class="row align-items-center">
+                                <div class="col-md-2 user-id-bg text-center">
+                                    <small>Assignment ID</small>
+                                    <div class="truncate">{{ assignment.assignmentID }}</div>
+                                </div>
+                                <div class="col-md-2">
+                                    <small>Questionnaire ID</small>
+                                    <div class="truncate">{{ assignment.questionnaireID }}</div>
+                                </div>
+                                <div class="col-md-2">
+                                    <small>Questionnaire Name</small>
+                                    <div class="truncate">
+                                        {{ getQuestionnaireDetails(assignment.questionnaireID)?.name }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <small>Year</small>
+                                    <div class="truncate">
+                                        {{ getQuestionnaireDetails(assignment.questionnaireID)?.year }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <small>Submission Date</small>
+                                    <div class="truncate">
+                                        {{ assignment.submissionDate | date : "shortDate" }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <!-- Add icons or action buttons here if needed -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-2">
-                  <small>Questionnaire Name</small>
-                  <div class="truncate">
-                    {{
-                      getQuestionnaireDetails(assignment.questionnaireID)?.name
-                    }}
-                  </div>
-                </div>
-                <div class="col-md-2">
-                  <small>Year</small>
-                  <div class="truncate">
-                    {{
-                      getQuestionnaireDetails(assignment.questionnaireID)?.year
-                    }}
-                  </div>
-                </div>
-                <div class="col-md-2">
-                  <small>Submission Date</small>
-                  <div class="truncate">
-                    {{ assignment.submissionDate | date : "shortDate" }}
-                  </div>
-                </div>
-                <div class="col-md-2 text-center">
-                  <!-- Add icons or action buttons here if needed -->
-                </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
