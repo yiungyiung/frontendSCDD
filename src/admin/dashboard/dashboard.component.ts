@@ -6,7 +6,7 @@ import { AuthService } from '../../services/AuthService/auth.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
   vendorHierarchy: VendorHierarchy[] = [];
@@ -27,10 +27,33 @@ export class DashboardComponent implements OnInit {
       (hierarchy: VendorHierarchy[]) => {
         this.vendorHierarchy = hierarchy;
       },
-      error => {
+      (error) => {
         console.error('Error loading vendor hierarchy:', error);
       }
     );
   }
 
+  isModal: boolean = false;
+  currentCard: number | null = null;
+
+  maximizeCard(event: MouseEvent, cardNumber: number): void {
+    event.stopPropagation();
+    this.isModal = true;
+    this.currentCard = cardNumber;
+  }
+
+  closeModal(): void {
+    this.isModal = false;
+    this.currentCard = null;
+  }
+
+  onCardClick(event: MouseEvent, cardNumber: number): void {
+    if (this.isModal && this.currentCard === cardNumber) {
+      event.stopPropagation(); // Prevents modal from closing when clicking on the card
+    }
+  }
+
+  isCurrentCard(cardNumber: number): boolean {
+    return this.currentCard === cardNumber;
+  }
 }

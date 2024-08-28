@@ -1,3 +1,45 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div
+        class="card mb-3"
+        [ngClass]="{
+          'modal-card': isModal,
+          hidden: isModal && !isCurrentCard(1)
+        }"
+        (click)="onCardClick($event, 1)"
+      >
+        <div class="card-header-container">
+          <h5 class="card-header">Grpah 1</h5>
+          <mat-icon
+            svgIcon="Maximize"
+            (click)="maximizeCard($event, 1)"
+          ></mat-icon>
+        </div>
+        <div class="card-body"></div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div
+        class="card mb-3"
+        [ngClass]="{
+          'modal-card': isModal,
+          hidden: isModal && !isCurrentCard(2)
+        }"
+        (click)="onCardClick($event, 2)"
+      >
+        <div class="card-header-container">
+          <h5 class="card-header">GRaph 2</h5>
+          <mat-icon
+            svgIcon="Maximize"
+            (click)="maximizeCard($event, 2)"
+          ></mat-icon>
+        </div>
+        <div class="card-body"></div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="assign-questionnaire-container">
   <p *ngIf="vendorHierarchy.length === 0">Loading vendor hierarchy...</p>
 
@@ -7,3 +49,5 @@
     [vendorHierarchy]="vendorHierarchy"
   ></app-vendorHierarchyGraph>
 </div>
+
+<div class="modal-overlay" *ngIf="isModal" (click)="closeModal()"></div>
