@@ -1,23 +1,53 @@
 .answering-container {
+  position: relative; /* To position the button relative to this container */
   width: 100%;
   margin: 0 auto;
-  margin-top: 3.3vh;
   display: flex;
   height: 70vh;
   gap: 2vw;
+  margin-top: 7vh;
+}
+
+.top-right-button-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top:-6vh;
+  margin-right:-3.3vh;
+}
+
+
+.button-top {
+  background-color: #12789e;
+ 
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 1vh 2vh; /* Adjusted padding */
+  font-size: 2vh;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  outline: none;
+}
+
+.button-top:hover {
+  background-color: #032b42;
+  transform: translateY(-2px);
 }
 
 .questionnaire-details {
-  width: 30vw; /* Fixed width */
-  min-width: 30vw; /* Ensure it doesn't shrink */
-  flex-shrink: 0; /* Prevent shrinking */
+  float: left;
+  margin-left: -3vw;
+  width: 30vw;
+  flex-shrink: 0;
   background-color: #ffffff;
   border-right: 1px solid #e3f2fd;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
-  height: 73vh;
+  height: 68vh;
   padding-left: 1vw;
   padding-right: 1vw;
   overflow-y: scroll;
@@ -27,9 +57,10 @@
 .question-details {
   flex-grow: 1; /* Take up remaining space */
   background-color: #ffffff;
-  padding: 20px;
+  padding: 2vh; /* Converted to vh */
   overflow-y: auto;
-  height: 73vh;
+  height: 68vh;
+  margin-right: -3vw;
   background-color: #ffffff;
   border-right: 1px solid #e3f2fd;
   border: 1px solid #ddd;
@@ -53,7 +84,7 @@
 .card-header {
   padding-left: 1vw;
   padding-top: 5vh;
-  font-size: 1.25vw;
+  font-size: 2vh; /* Converted to vh */
   font-weight: bold;
   color: #073c5a;
   background-color: transparent;
@@ -61,10 +92,9 @@
 }
 
 .form-label {
-  font-size: 15px;
+  font-size: 2vh;
   font-weight: bold;
   color: #073c5a;
-  margin-left: 1vw;
 }
 
 .card-header-container-question {
@@ -82,7 +112,7 @@
 .card-header-question {
   padding-left: 1vw;
   padding-top: 5vh;
-  font-size: 1.25vw;
+  font-size: 2vh; /* Converted to vh */
   font-weight: bold;
   color: #073c5a;
   background-color: transparent;
@@ -94,7 +124,7 @@ h2 {
   border-bottom: 2px solid #e3f2fd;
   padding-bottom: 10px;
   margin-bottom: 20px;
-  font-size: 1.2em;
+  font-size: 2vh; /* Converted to vh */
 }
 
 .questionnaire-info,
@@ -102,13 +132,19 @@ h2 {
   margin-top: 1vh;
 }
 
+.questionnaire-info span
+{color: #073C5A;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  font-size: 1.8vh;}
+
 .questionnaire-info p,
 .question-text,
 .question-description {
-  color: #333;
+  color: #073C5A;
   line-height: 1.6;
   margin-bottom: 10px;
-  font-size: 0.9em;
+  font-size: 1.8vh; /* Converted to vh */
 }
 
 .domains-container {
@@ -135,7 +171,7 @@ h2 {
 .domain-header h3 {
   color: #12789e;
   margin: 0;
-  font-size: 1em;
+  font-size: 2vh; /* Converted to vh */
 }
 
 .toggle-button {
@@ -156,7 +192,7 @@ h2 {
 .question-button {
   display: block;
   width: 100%;
-  padding: 10px;
+  padding: 2vh; /* Converted to vh */
   margin-bottom: 10px;
   cursor: pointer;
   text-align: left;
@@ -165,7 +201,7 @@ h2 {
   color: #12789e;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  font-size: 0.9em;
+  font-size: 1.8vh; /* Converted to vh */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -190,13 +226,14 @@ h2 {
   align-items: center;
   border: 1px solid #12789e;
   border-radius: 4px;
-  padding: 10px;
+  padding: 2vh; /* Converted to vh */
 }
 
 .option-text,
 .textbox-label {
   margin-left: 10px;
   color: #333;
+  font-size: 1.8vh; /* Converted to vh */
 }
 
 input[type="radio"] {
@@ -207,12 +244,32 @@ input[type="radio"] {
   flex-grow: 1;
   border: 1px solid #bbdefb;
   border-radius: 4px;
-  padding: 8px;
+  padding: 2vh; /* Converted to vh */
   margin-left: 10px;
+  font-size: 1.8vh; /* Converted to vh */
 }
 
 .textbox-input:focus {
   outline: none;
   border-color: #12789e;
   box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+}
+
+.button-down {
+  margin: 2vw;
+  background-color: #12789e;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding:1vh; /* Converted to vh */
+  font-size: 2vh;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  outline: none;
+}
+
+.button-down:hover {
+  background-color: #032b42;
+  transform: translateY(-2px);
 }

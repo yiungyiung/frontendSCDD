@@ -6,7 +6,6 @@
   height:69vh;
   margin-left: -2.5vw;
   gap: 20px;
-  
 }
 
 .status-card {
@@ -20,7 +19,6 @@
   scrollbar-width: none;
 }
 
-
 .assignment-card {
   border: 1px solid #ddd;
   background-color: #ffffff;
@@ -33,7 +31,6 @@
   margin-left: 0.6vw;
   margin-right:0.6vw;
   padding: 15px;
-  
 }
 
 .assignment-card:hover {
@@ -41,7 +38,7 @@
 }
 
 .assignment-title {
-  font-size: 0.8em;
+  font-size: 1.2vh; /* Adjusted */
   color: #666;
   margin-bottom: 10px;
 }
@@ -52,6 +49,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
 }
+
 .detail-item {
   display: flex;
   flex-direction: column;
@@ -64,15 +62,14 @@
 }
 
 .detail-item small {
-  font-size: 0.7em;
+  font-size: 1vh; /* Adjusted */
   color: #666;
   margin-bottom: 2px;
 }
 
 .detail-item span {
-  font-size: 0.9em;
+  font-size: 1.3vh; /* Adjusted */
 }
-
 
 .card-header-container {
   display: flex;
@@ -87,15 +84,13 @@
   width: 46vw; 
   font-size: 2.5vh;
   color:#073C5A;
-  
 }
 
 .no-assignments {
   color: #073C5A; /* Your existing color */
-  font-size: 1.2rem; /* Adjust the font size */
+  font-size: 2.5vh; /* Adjusted */
   font-weight: 500; /* Make the text semi-bold */
   text-align: center; /* Center the text */
   margin-top: 20px; /* Add some space from the top */
   padding: 10px; /* Add padding around the text */
 }
-

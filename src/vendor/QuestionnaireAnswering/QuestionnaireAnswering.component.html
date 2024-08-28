@@ -1,5 +1,9 @@
+
 <div class="answering-container">
-  <!-- Left Panel: Questionnaire Details -->
+ <!-- Left Panel: Questionnaire Details -->
+ <div class="top-right-button-container">
+  <button class="button-top" (click)="onSubmitAllResponses()">Submit All Responses</button>
+</div>
   <div class="questionnaire-details">
     <div class="card-header-container">
       <h2 class="card-header">Questionnaire Details</h2>
@@ -90,10 +94,10 @@
     </div>
 
     <!-- Buttons for saving, resetting, and submitting responses -->
-    <button (click)="saveCurrentResponse()">Save Response</button>
-    <button (click)="resetCurrentResponse()">Reset Response</button>
+    <button class="button-down" (click)="saveCurrentResponse()">Save Response</button>
+    <button class="button-down" (click)="resetCurrentResponse()">Reset Response</button>
   </div>
 
-  <!-- Submit all responses -->
-  <button (click)="onSubmitAllResponses()">Submit All Responses</button>
+  
+ 
 </div>
