@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Status } from '../../model/entity'; // Import Status model
-import { QuestionnaireAssignment } from '../../model/questionnaireAssignment'; // Import QuestionnaireAssignment model
+import { Status } from '../../model/entity';
+import { QuestionnaireAssignment } from '../../model/questionnaireAssignment';
 import { QuestionnaireAssignmentService } from '../../services/QuestionnaireAssignmentService/questionnaireAssignment.service';
 import { AuthService } from '../../services/AuthService/auth.service';
 import { VendorService } from '../../services/VendorService/Vendor.service';
 import { EntityService } from '../../services/EntityService/Entity.service';
-import { HttpHeaders } from '@angular/common/http'; // Import HttpHeaders if not already done
 import { QuestionnaireService } from '../../services/QuestionnaireService/Questionnaire.service';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 interface Questionnaire {
   questionnaireID?: number;
@@ -25,14 +24,14 @@ export class VendorDashboardComponent implements OnInit {
   questionnaireAssignments: QuestionnaireAssignment[] = [];
   assignmentsByStatus: { [key: string]: QuestionnaireAssignment[] } = {};
   statuses: Status[] = [];
-  questionnaireDetails: { [key: number]: Questionnaire } = {}; // Map to store questionnaire details
+  questionnaireDetails: { [key: number]: Questionnaire } = {};
 
   constructor(
     private router: Router,
     private questionnaireAssignmentService: QuestionnaireAssignmentService,
     private authService: AuthService,
     private vendorService: VendorService,
-    private entityService: EntityService, // Inject EntityService to fetch statuses
+    private entityService: EntityService,
     private questionnaireService: QuestionnaireService
   ) { }
 
@@ -47,15 +46,22 @@ export class VendorDashboardComponent implements OnInit {
     if (user && token) {
       this.entityService.getAllStatuses(token).subscribe(statuses => {
         this.statuses = statuses;
+        this.initializeAssignmentsByStatus(); // Initialize all statuses with empty arrays
         this.vendorService.getVendorIdByUserId(token, user.userId!).subscribe(vendorId => {
           this.questionnaireAssignmentService.getAssignmentsByVendorId(vendorId, token).subscribe(assignments => {
             this.questionnaireAssignments = assignments;
             this.mapAssignmentsToStatusNames();
-            this.loadQuestionnaireDetails(token); // Fetch questionnaire details after assignments are loaded
+            this.loadQuestionnaireDetails(token);
           });
         });
       });
     }
+  }
+
+  private initializeAssignmentsByStatus(): void {
+    this.statuses.forEach(status => {
+      this.assignmentsByStatus[status.statusName] = [];
+    });
   }
 
   private loadQuestionnaireDetails(token: string): void {
@@ -67,15 +73,12 @@ export class VendorDashboardComponent implements OnInit {
       });
     });
   }
+
   private mapAssignmentsToStatusNames(): void {
-    this.assignmentsByStatus = this.questionnaireAssignments.reduce((acc, assignment) => {
+    this.questionnaireAssignments.forEach(assignment => {
       const statusName = this.getStatusNameById(assignment.statusID);
-      if (!acc[statusName]) {
-        acc[statusName] = [];
-      }
-      acc[statusName].push(assignment);
-      return acc;
-    }, {} as { [key: string]: QuestionnaireAssignment[] });
+      this.assignmentsByStatus[statusName].push(assignment);
+    });
   }
 
   private getStatusNameById(statusID?: number): string {
@@ -84,25 +87,25 @@ export class VendorDashboardComponent implements OnInit {
   }
 
   getStatusKeys(): string[] {
-    return Object.keys(this.assignmentsByStatus);
+    return this.statuses.map(status => status.statusName);
   }
 
   getQuestionnaireDetails(questionnaireID: number): Questionnaire | undefined {
     return this.questionnaireDetails[questionnaireID];
   }
+
   onAssignmentClick(assignment: QuestionnaireAssignment): void {
-    console.log(assignment.statusID);
     if (assignment.statusID === 1) {
-      // If the status ID is 1, do not navigate
       console.log('Cannot navigate. Assignment status ID is 1.');
       return;
     }
-    console.log('Navigating to answer questionnaire with ID:', assignment.questionnaireID,assignment.assignmentID);
-   
+    console.log('Navigating to answer questionnaire with ID:', assignment.questionnaireID, assignment.assignmentID);
   
-    this.router.navigate(['/vendor/answer-questionnaire'], {state: {
-      assignmentID: assignment.assignmentID,
-      questionnaireID: assignment.questionnaireID
-    }});
+    this.router.navigate(['/vendor/answer-questionnaire'], {
+      state: {
+        assignmentID: assignment.assignmentID,
+        questionnaireID: assignment.questionnaireID
+      }
+    });
   }
 }

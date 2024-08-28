@@ -1,141 +1,101 @@
-.card-header-container {
+.status-container {
+  margin-top: 7vh;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  background-color: #e7f4f9;
-  border-bottom: 1px solid #ddd;
-  padding: 10px 15px;
-  height: 9vh;
+  width: 92vw;
+  height:69vh;
+  margin-left: -2.5vw;
+  gap: 20px;
+  
 }
 
-.card {
-  box-shadow: 0 0 4px rgba(7, 60, 90, 0.2);
-  height: auto;
+.status-card {
+  flex: 1;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow-x: hidden;
   overflow-y: scroll;
   scrollbar-width: none;
-  border-radius: 8px;
 }
 
-.mb-0 {
-  font-size: 2vh;
-  color: #073c5a;
-  font-weight: bold;
-}
 
-.title-cat {
-  font-size: 20px;
-}
-.card-header-container h4 {
-  padding-left: 20px;
-}
-.card-header-container mat-icon {
-  margin-right: 20px;
-  width: 30px;
-  height: auto;
-}
-
-.card-header {
-  font-size: 18px;
-  font-weight: bold;
-  color: #073c5a;
-  background-color: transparent;
-  border: none;
-}
-
-.custcard {
+.assignment-card {
   border: 1px solid #ddd;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 6vh;
-  width: 60vw;
-  margin-top: 3vh;
+  margin-bottom: 1vh;
+  align-items: center;
+  width: auto;
+  margin-top: 2vh;
   margin-left: 0.6vw;
-}
-
-.card-body {
-  border: 1px solid #ddd;
+  margin-right:0.6vw;
   padding: 15px;
-}
-.card-body:hover {
-  border: 1px solid #f9a634;
-  border-radius: 8px;
+  
 }
 
-.user-status {
-  position: relative;
-  width: 6vw;
-  top: -4vh;
-  left: 10px;
-  padding: 5px 10px;
-  border-radius: 4px;
-  color: white;
-  text-align: center;
-  display: inline-block;
-  font-size: 1.7vh;
+.assignment-card:hover {
+  background-color: #f0f0f0;
 }
 
-.user-status.active {
-  background-color: #339a2d;
+.assignment-title {
+  font-size: 0.8em;
+  color: #666;
+  margin-bottom: 10px;
 }
 
-.user-status.inactive {
-  background-color: #dc3545;
+.assignment-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+  color:#073C5A;
+  margin-bottom: 5px;
+  text-align: center; /* Center align the text */
+  justify-content: center; /* Center the content vertically */
+  align-items: center; /* Center the content horizontally */
 }
 
-.user-details {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(8vw, 1fr));
-  gap: 1vw;
-  text-align: center;
-  justify-items: space-between;
+.detail-item small {
+  font-size: 0.7em;
+  color: #666;
+  margin-bottom: 2px;
 }
 
-.detail {
-  margin-top: -20px;
-  text-align: center;
-  font-size: 2vh;
+.detail-item span {
+  font-size: 0.9em;
 }
 
-.detail small {
-  display: block;
-  font-size: 1.7vh;
-  color: gray;
-  text-align: center;
+
+.card-header-container {
+  display: flex;
+  align-items: center;
+  background-color: #e7f4f9; /* Light blue background */
+  border: 1px solid #cbd2d6; /* Light border to match the card's appearance */
+  border-radius: 8px; /* Rounded corners */
+  padding: 10px 15px; /* Padding for spacing */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  font-weight: bold; /* Bold text */
+  height:8vh;
+  width: 46vw; 
+  font-size: 2.5vh;
+  color:#073C5A;
+  
 }
 
-.user-id-bg {
-  background-color: #e7f4f9;
-  padding: 10px;
-  border-radius: 4px;
+.no-assignments {
+  color: #073C5A; /* Your existing color */
+  font-size: 1.2rem; /* Adjust the font size */
+  font-weight: 500; /* Make the text semi-bold */
+  text-align: center; /* Center the text */
+  margin-top: 20px; /* Add some space from the top */
+  padding: 10px; /* Add padding around the text */
 }
 
-.user-ids-bg {
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 4px;
-}
-
-.user-ids-bg mat-icon {
-  padding-top: -10px;
-}
-
-.truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100%;
-  display: block;
-}
-
-.btn-success {
-  background-color: #dc3545;
-  border-color: #dc3545;
-  color: white;
-}
-
-.btn-danger {
-  background-color: #28a745;
-  border-color: #28a745;
-  color: white;
-}
