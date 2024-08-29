@@ -5,36 +5,65 @@ import { QuestionnaireAssignment } from '../../model/questionnaireAssignment';
 import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class QuestionnaireAssignmentService {
-
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  createQuestionnaireAssignment(dto: QuestionnaireAssignment,token:string): Observable<{ message: string }> {
-    const headers = new HttpHeaders({ 
+  createQuestionnaireAssignment(
+    dto: QuestionnaireAssignment,
+    token: string
+  ): Observable<{ message: string }> {
+    const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     });
-    return this.http.post<{ message: string }>(`${this.apiUrl}/QuestionnaireAssignment`, dto,{headers});
+    return this.http.post<{ message: string }>(
+      `${this.apiUrl}/QuestionnaireAssignment`,
+      dto,
+      { headers }
+    );
   }
 
-  getAssignmentById(id: number, token:string): Observable<QuestionnaireAssignment> {
-    const headers = new HttpHeaders({ 
+  getAssignmentById(
+    id: number,
+    token: string
+  ): Observable<QuestionnaireAssignment> {
+    const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     });
-    return this.http.get<QuestionnaireAssignment>(`${this.apiUrl}/QuestionnaireAssignment/${id}`,{headers});
+    return this.http.get<QuestionnaireAssignment>(
+      `${this.apiUrl}/QuestionnaireAssignment/${id}`,
+      { headers }
+    );
   }
 
-  getAssignmentsByVendorId(vendorId: number, token:string): Observable<QuestionnaireAssignment[]> {
-    const headers = new HttpHeaders({ 
+  getAssignmentsByVendorId(
+    vendorId: number,
+    token: string
+  ): Observable<QuestionnaireAssignment[]> {
+    const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     });
-    return this.http.get<QuestionnaireAssignment[]>(`${this.apiUrl}/QuestionnaireAssignment/vendor/${vendorId}`,{headers});
+    return this.http.get<QuestionnaireAssignment[]>(
+      `${this.apiUrl}/QuestionnaireAssignment/vendor/${vendorId}`,
+      { headers }
+    );
   }
 
+  getallAssignment(token: string): Observable<QuestionnaireAssignment[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.get<QuestionnaireAssignment[]>(
+      `${this.apiUrl}/QuestionnaireAssignment`,
+      { headers }
+    );
+  }
 }

@@ -78,3 +78,8 @@
   background: rgba(0, 0, 0, 0.5);
   z-index: 1040;
 }
+
+.card-body {
+  align-items: center;
+  justify-content: center;
+}

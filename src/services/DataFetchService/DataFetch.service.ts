@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../AuthService/auth.service';
 import { VendorService } from '../VendorService/Vendor.service';
 import { AdminService } from '../AdminService/Admin.service';
+import { QuestionnaireAssignmentService } from '../QuestionnaireAssignmentService/questionnaireAssignment.service';
+import { QuestionnaireAssignment } from '../../model/questionnaireAssignment';
 import { Tier } from '../../model/tier';
 import { Category } from '../../model/category';
 import { Vendor } from '../../model/vendor';
@@ -15,7 +17,8 @@ export class DataFetchService {
   constructor(
     private authService: AuthService,
     private vendorService: VendorService,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private questionnaireAssignmentService: QuestionnaireAssignmentService
   ) {}
 
   loadData<T>(serviceMethod: (token: string) => Observable<T>): Observable<T> {
@@ -44,6 +47,14 @@ export class DataFetchService {
   loadUsers(): Observable<User[]> {
     return this.loadData<User[]>(
       this.adminService.getAllUsers.bind(this.adminService)
+    );
+  }
+
+  loadAssignments(): Observable<QuestionnaireAssignment[]> {
+    return this.loadData<QuestionnaireAssignment[]>(
+      this.questionnaireAssignmentService.getallAssignment.bind(
+        this.questionnaireAssignmentService
+      )
     );
   }
 }

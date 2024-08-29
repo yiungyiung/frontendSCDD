@@ -14,6 +14,8 @@ export class PieChartComponent implements OnChanges {
   chartOptions: Highcharts.Options = {
     chart: {
       type: 'pie',
+      height: null, // Allows the chart to take the full height of the container
+      width: null, // Allows the chart to take the full width of the container
     },
     title: {
       text: this.chartTitle,
