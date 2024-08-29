@@ -12,6 +12,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { SubPart } from '../../Component/filter/filter.component';
 import { FormGroup } from '@angular/forms';
 import { FilterService } from '../../services/FilterService/Filter.service';
+import { DataFetchService } from '../../services/DataFetchService/DataFetch.service';
 
 @Component({
   selector: 'app-VendorManagement',
@@ -90,7 +91,8 @@ export class VendorManagementComponent implements OnInit {
     private adminService: AdminService,
     private vendorService: VendorService,
     private popupService: PopupService,
-    private modalService: ExportModalServiceService
+    private modalService: ExportModalServiceService,
+    private dataFetchService: DataFetchService
   ) {
     if (this.authService) {
       const token = this.authService.getToken();
@@ -252,11 +254,10 @@ export class VendorManagementComponent implements OnInit {
     );
   }
   loadVendors() {
-    const token = this.authService.getToken();
-    this.vendorService.getAllVendors(token).subscribe(
-      (serverVendors) => {
-        this.vendors = serverVendors.map((serverVendor) =>
-          this.mapServerUserToUser(serverVendor)
+    this.dataFetchService.loadVendors().subscribe(
+      (vendors) => {
+        this.vendors = vendors.map((vendor) =>
+          this.mapServerUserToUser(vendor)
         );
         this.filteredVendor = this.vendors;
         this.totalItems = this.vendors.length;
@@ -282,22 +283,14 @@ export class VendorManagementComponent implements OnInit {
     this.pagedUsers = this.filteredVendor.slice(startIndex, endIndex);
   }
   loadCategories() {
-    const token = this.authService.getToken();
-    this.vendorService.getCategories(token).subscribe(
-      (categories) => {
-        this.categories = categories;
-        console.log('Loaded categories:', this.categories);
-      },
+    this.dataFetchService.loadCategories().subscribe(
+      (categories) => (this.categories = categories),
       (error) => console.error('Error loading categories:', error)
     );
   }
   loadTiers() {
-    const token = this.authService.getToken();
-    this.vendorService.getTiers(token).subscribe(
-      (tiers) => {
-        this.tiers = tiers;
-        console.log('Loaded tiers:', this.tiers);
-      },
+    this.dataFetchService.loadTiers().subscribe(
+      (tiers) => (this.tiers = tiers),
       (error) => console.error('Error loading tiers:', error)
     );
   }

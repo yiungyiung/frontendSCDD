@@ -8,6 +8,7 @@ import { PopupService } from '../../services/PopupService/popup.service';
 import { SubPart } from '../../Component/filter/filter.component';
 import { FormBuilder } from '@angular/forms';
 import { FilterService } from '../../services/FilterService/Filter.service';
+import { DataFetchService } from '../../services/DataFetchService/DataFetch.service';
 
 @Component({
   selector: 'app-user-management',
@@ -64,7 +65,8 @@ export class UserManagementComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private modalService: ExportModalServiceService,
     private popupService: PopupService,
-    private filterService: FilterService
+    private filterService: FilterService,
+    private dataFetchService: DataFetchService
   ) {}
 
   ngOnInit() {

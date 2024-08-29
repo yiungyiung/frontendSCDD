@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VendorHierarchy } from '../../model/vendorHierarchy';
 import { VendorHierarchyService } from '../../services/VendorHierarchyService/vendorHierarchy.service';
 import { AuthService } from '../../services/AuthService/auth.service';
+import * as Highcharts from 'highcharts';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,10 +12,46 @@ import { AuthService } from '../../services/AuthService/auth.service';
 export class DashboardComponent implements OnInit {
   vendorHierarchy: VendorHierarchy[] = [];
 
+  Highcharts: typeof Highcharts = Highcharts;
+
+  chartLabels: string[] = ['January', 'February', 'March', 'April', 'May'];
+
+  chartData: Highcharts.SeriesOptionsType[] = [
+    {
+      name: 'Series A',
+      data: [5, 3, 7, 2],
+      type: 'column',
+    },
+    {
+      name: 'Series B',
+      data: [2, 2, 3, 2, 1],
+      type: 'column',
+    },
+    {
+      name: 'Series C',
+      data: [3, 4, 4, 2, 5],
+      type: 'column',
+    },
+  ];
+
   constructor(
     private vendorHierarchyService: VendorHierarchyService,
     private authService: AuthService
   ) {}
+
+  piechartData: Highcharts.SeriesPieOptions[] = [
+    {
+      name: 'Sales',
+      type: 'pie',
+      data: [
+        { name: 'Product A', y: 30 },
+        { name: 'Product B', y: 20 },
+        { name: 'Product C', y: 25 },
+        { name: 'Product D', y: 15 },
+        { name: 'Product E', y: 10 },
+      ],
+    },
+  ];
 
   ngOnInit(): void {
     console.log(this.authService.getRoleFromToken(this.authService.getToken()));

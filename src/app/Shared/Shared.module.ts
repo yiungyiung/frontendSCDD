@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { MatIconModule } from '@angular/material/icon'; // Example of Angular Material module
 import { NavItemComponent } from '../../Component/nav-item/nav-item.component';
 import { TopBarComponent } from '../../Component/TopBar/TopBar.component';
@@ -8,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BurgerMenuComponent } from '../../Component/burgerMenu/burgerMenu.component';
 import { ChangePasswordModalComponent } from '../../Component/change-password-modal/change-password-modal.component';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -23,6 +22,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxCsvParserModule } from 'ngx-csv-parser';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PopupBoxModule } from '../../Component/popup-box/popup-box/popup-box.module';
+import { HighchartsChartModule } from 'highcharts-angular';
+import { StackedBarChartComponent } from '../../Component/stacked-bar-chart/stacked-bar-chart.component';
+import { PieChartComponent } from '../../Component/pie-chart/pie-chart.component';
 
 @NgModule({
   declarations: [
@@ -31,8 +33,11 @@ import { PopupBoxModule } from '../../Component/popup-box/popup-box/popup-box.mo
     DisclaimerFooterComponent,
     BurgerMenuComponent,
     ChangePasswordModalComponent,
+    StackedBarChartComponent,
+    PieChartComponent,
   ],
   imports: [
+    HighchartsChartModule,
     FormsModule,
     CommonModule,
     MatIconModule,
@@ -54,6 +59,8 @@ import { PopupBoxModule } from '../../Component/popup-box/popup-box/popup-box.mo
     MatSlideToggleModule,
   ],
   exports: [
+    PieChartComponent,
+    StackedBarChartComponent,
     NavItemComponent,
     TopBarComponent,
     DisclaimerFooterComponent,

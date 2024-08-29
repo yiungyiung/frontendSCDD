@@ -17,6 +17,11 @@
           ></mat-icon>
         </div>
         <div class="card-body"></div>
+        <app-pie-chart
+          [chartData]="piechartData"
+          [chartTitle]="'Sales Distribution'"
+        >
+        </app-pie-chart>
       </div>
     </div>
     <div class="col-md-6">
@@ -36,6 +41,11 @@
           ></mat-icon>
         </div>
         <div class="card-body"></div>
+        <app-stacked-bar-chart
+          [chartData]="chartData"
+          [chartLabels]="chartLabels"
+        >
+        </app-stacked-bar-chart>
       </div>
     </div>
   </div>
