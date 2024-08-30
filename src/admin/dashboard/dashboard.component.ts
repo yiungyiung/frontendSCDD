@@ -5,6 +5,8 @@ import { AuthService } from '../../services/AuthService/auth.service';
 import { DataFetchService } from '../../services/DataFetchService/DataFetch.service';
 import * as Highcharts from 'highcharts';
 import { QuestionnaireAssignment } from '../../model/questionnaireAssignment';
+import { VendorService } from '../../services/VendorService/Vendor.service';
+import { ComplianceService } from '../../services/ComplainceService/Complaince.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +15,6 @@ import { QuestionnaireAssignment } from '../../model/questionnaireAssignment';
 })
 export class DashboardComponent implements OnInit {
   vendorHierarchy: VendorHierarchy[] = [];
-
   Highcharts: typeof Highcharts = Highcharts;
 
   chartLabels: string[] = ['January', 'February', 'March', 'April', 'May'];
@@ -29,37 +30,14 @@ export class DashboardComponent implements OnInit {
       data: [2, 2, 3, 2, 1],
       type: 'column',
     },
-    {
-      name: 'Series C',
-      data: [3, 4, 4, 2, 5],
-      type: 'column',
-    },
+
   ];
+
   assignments: QuestionnaireAssignment[] = [];
-
-  constructor(
-    private vendorHierarchyService: VendorHierarchyService,
-    private authService: AuthService,
-    private dataFetchService: DataFetchService
-  ) {}
-
-  loadAllAssignments(): void {
-    this.dataFetchService.loadAssignments().subscribe(
-      (data: QuestionnaireAssignment[]) => {
-        this.assignments = data;
-        console.log(this.assignments);
-      },
-      (error) => {
-        console.error('Error fetching assignments', error);
-      }
-    );
-  }
-
   piechartData: Highcharts.SeriesPieOptions[] = [
     {
       name: 'Sales',
       type: 'pie',
-
       data: [
         { name: 'Product A', y: 30 },
         { name: 'Product B', y: 20 },
@@ -70,9 +48,22 @@ export class DashboardComponent implements OnInit {
     },
   ];
 
+  isModal: boolean = false;
+  currentCard: number | null = null;
+
+  constructor(
+    private vendorHierarchyService: VendorHierarchyService,
+    private authService: AuthService,
+    private dataFetchService: DataFetchService,
+    private vendorService: VendorService,
+    private complianceService: ComplianceService
+  ) {}
+
   ngOnInit(): void {
     console.log(this.authService.getRoleFromToken(this.authService.getToken()));
+    this.loadVendorsGroupedByCategory();
     this.loadVendorHierarchy();
+    this.loadComplianceData(); // Load compliance data on initialization
   }
 
   loadVendorHierarchy(): void {
@@ -87,8 +78,51 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  isModal: boolean = false;
-  currentCard: number | null = null;
+  loadVendorsGroupedByCategory(): void {
+    const token = this.authService.getToken();
+    this.vendorService.getVendorsGroupedByCategory(token).subscribe(
+      (data: any[]) => {
+        this.piechartData = [
+          {
+            name: 'Vendors',
+            type: 'pie',
+            data: data.map(item => ({ name: item.categoryName, y: item.vendorCount })),
+          },
+        ];
+      },
+      (error) => {
+        console.error('Error loading vendors by category:', error);
+      }
+    );
+  }
+
+  loadComplianceData(): void {
+    const token = this.authService.getToken();
+    this.complianceService.getComplianceData(token).subscribe(
+      (data: any) => {
+        const years = Object.keys(data);
+        this.chartLabels = years;
+
+        this.chartData = [
+          {
+            name: 'Complied',
+            data: years.map(year => data[year]['Complied']),
+            type: 'column',
+          },
+          {
+            name: 'Not-Complied',
+            data: years.map(year => data[year]['Not-Complied']),
+            type: 'column',
+          },
+        ];
+        console.log(this.chartData);
+        console.log(this.chartLabels);
+      },
+      (error) => {
+        console.error('Error loading compliance data:', error);
+      }
+    );
+  }
 
   maximizeCard(event: MouseEvent, cardNumber: number): void {
     event.stopPropagation();

@@ -24,7 +24,7 @@ export class StackedBarChartComponent implements OnChanges {
     yAxis: {
       min: 0,
       title: {
-        text: 'Total consumption',
+        text: 'Total Vendors',
       },
       stackLabels: {
         enabled: true,

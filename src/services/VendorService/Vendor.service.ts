@@ -23,6 +23,10 @@ export class VendorService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<Category[]>(`${this.apiUrl}/categories`, { headers });
   }
+  getVendorsGroupedByCategory(token: string): Observable<any[]> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any[]>(`${this.apiUrl}/vendors/byCategory`, { headers });
+  }
 
   getTiers(token: string): Observable<Tier[]> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
