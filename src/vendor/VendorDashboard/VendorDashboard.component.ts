@@ -99,13 +99,12 @@ export class VendorDashboardComponent implements OnInit {
       console.log('Cannot navigate. Assignment status ID is 1.');
       return;
     }
-    console.log('Navigating to answer questionnaire with ID:', assignment.questionnaireID, assignment.assignmentID);
-  
-    this.router.navigate(['/vendor/answer-questionnaire'], {
-      state: {
-        assignmentID: assignment.assignmentID,
-        questionnaireID: assignment.questionnaireID
-      }
-    });
+    console.log('Navigating to answer questionnaire with ID:', assignment.questionnaireID,assignment.assignmentID);
+   
+    
+    this.router.navigate(['/vendor/answer-questionnaire'], {state: {
+      assignmentID: assignment.assignmentID,
+      questionnaireID: assignment.questionnaireID
+    }});
   }
 }

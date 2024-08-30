@@ -42,6 +42,11 @@ const routes: Routes = [
         data: { breadcrumb: 'New Questionnaire' },
       },
       {
+        path: 'AssignExistingQuestionnarie',
+        component: AssignQuestionnaireComponent,
+        data: { breadcrumb: 'AssignQuestionnarie' },
+      },
+      {
         path: 'Add-question',
         component: AddQuestionComponent,
         data: { breadcrumb: 'Add Question' },

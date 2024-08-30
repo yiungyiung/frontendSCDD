@@ -1,0 +1,83 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- Vendor Selection Section -->
+        <div class="col-md-4">
+            <div class="accordion" id="vendorAccordion">
+                <div *ngFor="let category of categorizedVendors; let index = index">
+                    <div (click)="toggleCollapse(index)">
+                        {{ category.categoryName }}
+                    </div>
+                    <div *ngIf="isCollapseExpanded(index)">
+                        <input type="checkbox" [checked]="isAllVendorsSelected(category.categoryID)" (change)="toggleSelectAll(category.categoryID)" /> Select All
+
+                        <div *ngFor="let vendor of category.vendors">
+                            <input type="checkbox" [checked]="isVendorSelected(vendor.vendorID)" (change)="onVendorSelect(vendor.vendorID)" /> {{ vendor.vendorName }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Questionnaire Assignment Section -->
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-12" *ngFor="let questionnaire of questionnaires">
+                    <div class="card mb-3 custcard">
+                        <div class="card-header-container">
+                            <h5 class="card-header">{{ questionnaire.name }}</h5>
+                            <button class="btn btn-link p-0" (click)="openModal(questionnaire)">
+                  <i class="material-icons">info</i>
+                </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-3 user-id-bg text-center">
+                                    <small>Questionnaire ID</small>
+                                    <div class="truncate">{{ questionnaire.questionnaireID }}</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <small>Name</small>
+                                    <div class="truncate">{{ questionnaire.name }}</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <small>Year</small>
+                                    <div class="truncate">{{ questionnaire.year }}</div>
+                                </div>
+                                <div class="col-md-3 text-center"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" tabindex="-1" [class.show]="isModalOpen" [ngStyle]="{'display': isModalOpen ? 'block' : 'none'}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Questions for {{ selectedQuestionnaire?.name }}</h5>
+                    <button type="button" class="close" (click)="closeModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div *ngIf="questionsByDomain">
+                        <div *ngFor="let domainID of getObjectKeys(questionsByDomain)">
+                            <h6>{{ getDomainName(+domainID) }}</h6>
+                            <div *ngFor="let question of questionsByDomain[+domainID]">
+                                <p><strong>{{ question.questionText }}</strong></p>
+                                <p>{{ question.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="!questionsByDomain || getObjectKeys(questionsByDomain).length === 0">
+                        <p>No questions available for this questionnaire.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

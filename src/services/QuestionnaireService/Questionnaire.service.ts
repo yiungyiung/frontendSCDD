@@ -26,7 +26,7 @@ export class QuestionnaireService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get<questionnaire[]>(`${this.apiUrl}/getallquestionnaires`,{headers});
+    return this.http.get<questionnaire[]>(`${this.apiUrl}/questionnaire/getallquestionnaires`,{headers});
   }
 
   getQuestionsByQuestionnaireId(questionnaireId: number,token:String): Observable<questionnaire> {
