@@ -7,7 +7,7 @@ import { EntityService } from '../../services/EntityService/Entity.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionnaireService } from '../../services/QuestionnaireService/Questionnaire.service';
 import { AuthService } from '../../services/AuthService/auth.service';
-import { ResponseDto , TextBoxResponseDto } from '../../model/ResponseDto';
+import { ResponseDto, TextBoxResponseDto } from '../../model/ResponseDto';
 import { ResponseService } from '../../services/ResponseService/Response.service';
 
 @Component({
@@ -17,19 +17,21 @@ import { ResponseService } from '../../services/ResponseService/Response.service
 })
 export class QuestionnaireAnsweringComponent implements OnInit {
   selectedQuestionnaire: questionnaire | undefined;
-  selectedQuestion: Question | undefined;
+  selectedQuestion!: Question ;
   domains: Domain[] = [];
-  filteredDomains: Domain[] = []; 
+  filteredDomains: Domain[] = [];
   questionsByDomain: { [key: number]: Question[] } = {};
   toggledSubParts: { [key: string]: boolean } = {};
   selectedDomainID: number | null = null;
-  
+
   // Store responses temporarily
   responses: { [questionID: number]: ResponseDto } = {};
+  answeredQuestions = new Set<number>(); // Track answered question IDs
   selectedOption: number | null = null;
   textboxResponses: { [key: number]: string } = {};
-  assignmentID : number | null = null;
-  questionnaireID : number | null = null;
+  assignmentID: number | null = null;
+  questionnaireID: number | null = null;
+
   constructor(
     private route: ActivatedRoute,
     private questionService: QuestionService,
@@ -42,12 +44,10 @@ export class QuestionnaireAnsweringComponent implements OnInit {
 
   ngOnInit(): void {
     const state = history.state;
-    this.assignmentID=state.assignmentID;
-    this.questionnaireID=state.questionnaireID;
+    this.assignmentID = state.assignmentID;
+    this.questionnaireID = state.questionnaireID;
     const token = this.authService.getToken();
     if (this.questionnaireID) {
-      
-  
       console.log('Received assignmentID:', this.assignmentID);
       console.log('Received questionnaireID:', this.questionnaireID);
       if (this.questionnaireID) {
@@ -116,7 +116,7 @@ export class QuestionnaireAnsweringComponent implements OnInit {
     if (storedResponse) {
       this.selectedOption = storedResponse.optionID ?? null;
       this.textboxResponses = {};
-      storedResponse.textBoxResponses!.forEach(tb => {
+      storedResponse.textBoxResponses!.forEach((tb) => {
         this.textboxResponses[tb.textBoxID] = tb.textValue;
       });
     } else {
@@ -125,15 +125,11 @@ export class QuestionnaireAnsweringComponent implements OnInit {
     }
   }
 
-  onDomainSelect(domainID: number): void {
-    this.selectedDomainID = domainID;
-  }
-
   saveCurrentResponse(): void {
     if (!this.selectedQuestion) return;
 
     const response: ResponseDto = {
-      assignmentID:  this.assignmentID!, // Replace with actual assignment ID
+      assignmentID: this.assignmentID!, // Replace with actual assignment ID
       questionID: this.selectedQuestion.questionID!,
       optionID: this.selectedOption ?? undefined,
       textBoxResponses: this.getTextBoxResponses(),
@@ -141,6 +137,7 @@ export class QuestionnaireAnsweringComponent implements OnInit {
 
     // Save response to local storage
     this.responses[this.selectedQuestion.questionID!] = response;
+    this.answeredQuestions.add(this.selectedQuestion.questionID!); // Mark question as answered
   }
 
   resetCurrentResponse(): void {
@@ -152,13 +149,14 @@ export class QuestionnaireAnsweringComponent implements OnInit {
 
     // Remove the stored response for the current question
     delete this.responses[this.selectedQuestion.questionID!];
+    this.answeredQuestions.delete(this.selectedQuestion.questionID!); // Mark question as unanswered
   }
 
   onSubmitAllResponses(): void {
     const allResponses = Object.values(this.responses);
 
-    if (allResponses.length === 0) {
-      console.warn('No responses to submit.');
+    if (allResponses.length !== this.selectedQuestionnaire?.questionIDs.length) {
+      console.warn('Not all questions have been answered.');
       return;
     }
 
@@ -183,5 +181,9 @@ export class QuestionnaireAnsweringComponent implements OnInit {
       }
     }
     return textBoxResponses;
+  }
+
+  isQuestionAnswered(questionID: number): boolean {
+    return this.answeredQuestions.has(questionID);
   }
 }

@@ -1,85 +1,90 @@
 .container {
-  max-width: 100%;
-  margin: 0 auto;
-  margin-top: 7vh;
+    max-width: 100%;
+    margin: 0 auto;
+    margin-top: 7vh;
 }
 
 .card-header-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #12789e;
-  border-bottom: 1px solid #ddd;
-  padding: 10px 15px;
-  height: 9vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #12789e;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 15px;
+    height: 9vh;
 }
+
 .card-header-container mat-icon {
-  width: 1vh;
-  height: auto;
+    width: 1vh;
+    height: auto;
 }
 
 .card {
-  box-shadow: 0 0 4px rgba(7, 60, 90, 0.2);
-  height: 40vh;
-  overflow-y: scroll;
-  scrollbar-width: none;
-  border-radius: 8px;
+    box-shadow: 0 0 4px rgba(7, 60, 90, 0.2);
+    height: auto;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    border-radius: 8px;
 }
 
 .mb-0 {
-  font-size: 2vh;
-  color: #073c5a;
-  font-weight: bold;
+    font-size: 2vh;
+    color: #073c5a;
+    font-weight: bold;
 }
 
 .title-cat {
-  font-size: 20px;
+    font-size: 20px;
 }
+
 .card-header-container h4 {
-  padding-left: 20px;
+    padding-left: 20px;
 }
+
 .card-header-container mat-icon {
-  margin-right: 20px;
-  width: 30px;
-  height: auto;
+    margin-right: 20px;
+    width: 30px;
+    height: auto;
 }
 
 .card-header {
-  font-size: 18px;
-  font-weight: bold;
-  color: #fff;
-  background-color: transparent;
-  border: none;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: transparent;
+    border: none;
 }
 
+
 /* CSS for the modal effect */
+
 .modal-card {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60vw;
-  height: 60vh;
-  z-index: 1050;
-  background: white;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vw;
+    height: 60vh;
+    z-index: 1050;
+    background: white;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
 .hidden {
-  display: none;
+    display: none;
 }
 
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1040;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
 }
 
 .card-body {
-  align-items: center;
-  justify-content: center;
+    align-items: center;
+    justify-content: center;
 }
