@@ -1,18 +1,18 @@
 <h2 mat-dialog-title>Questionnaire Responses</h2>
-<div mat-dialog-content *ngIf="responses.length > 0">
-    <div *ngFor="let response of responses">
-        <h3>Assignment ID: {{ response.assignmentID }} | Questionnaire ID: {{ response.questionnaireID }}</h3>
-        <div *ngFor="let question of response.questions">
-            <h4>{{ question.questionText }}</h4>
-            <div *ngFor="let option of question.optionResponses">
-                <p>Option: {{ option.optionText }}</p>
-            </div>
-            <div *ngFor="let textBox of question.textBoxResponses">
-                <p>{{ textBox.label }}: {{ textBox.textValue }}</p>
-            </div>
+<div mat-dialog-content *ngIf="responses">
+    <h3>
+        Assignment ID: {{ responses.assignmentID }} | Questionnaire ID: {{ responses.questionnaireID }}
+    </h3>
+    <div *ngFor="let question of responses.questions">
+        <h4>{{ question.questionText }}</h4>
+        <div *ngFor="let option of question.optionResponses">
+            <p>Option: {{ option.optionText }}</p>
         </div>
-        <hr />
+        <div *ngFor="let textBox of question.textBoxResponses">
+            <p>{{ textBox.label }}: {{ textBox.textValue }}</p>
+        </div>
     </div>
+    <hr />
 </div>
 <div mat-dialog-actions>
     <button mat-button (click)="closeModal()">Close</button>

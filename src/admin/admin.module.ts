@@ -49,7 +49,6 @@ import { SharedModule } from '../app/Shared/Shared.module';
 import { BreadcrumbComponent } from '../Component/breadcrumb/breadcrumb.component';
 import { ReportsComponent } from './Reports/Reports.component';
 import { DynamicReportsComponent } from './DynamicReports/DynamicReports.component';
-import { ResponseModalComponent } from '../Component/ResponseModal/ResponseModal.component';
 import { DynamicQuestionnairelistComponent } from '../Component/DynamicQuestionnairelist/DynamicQuestionnairelist.component';
 import { DynamicDisplayComponent } from '../Component/DynamicDisplay/DynamicDisplay.component';
 import { DynamicVendorListComponent } from '../Component/DynamicVendorList/DynamicVendorList.component';
@@ -68,7 +67,6 @@ export class AppModule {}
     DynamicQuestionnairelistComponent,
     DynamicReportsComponent,
     DynamicDisplayComponent,
-    ResponseModalComponent,
     DynamicResponseListComponent,
     DynamicVendorListComponent,
     ReportsComponent,

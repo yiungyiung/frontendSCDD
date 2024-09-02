@@ -8,11 +8,11 @@ import { QuestionnaireAssignmentResponseDto } from '../../model/QuestionOptionRe
   styleUrls: ['./ResponseModal.component.css']
 })
 export class ResponseModalComponent implements OnInit {
-  responses: QuestionnaireAssignmentResponseDto[] = [];
+  responses: QuestionnaireAssignmentResponseDto | undefined;
 
   constructor(
     public dialogRef: MatDialogRef<ResponseModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { questionnaireID: number },
+    @Inject(MAT_DIALOG_DATA) public data: { assignmentID: number },
     private responseService: ResponseService
   ) {}
 
@@ -21,7 +21,7 @@ export class ResponseModalComponent implements OnInit {
   }
 
   loadResponses(): void {
-    this.responseService.getAllResponsesForQuestionnaire(this.data.questionnaireID).subscribe(
+    this.responseService.getResponsesForAssignment(this.data.assignmentID).subscribe(
       (responses) => {
         this.responses = responses;
       },

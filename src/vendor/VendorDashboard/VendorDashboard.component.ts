@@ -7,6 +7,8 @@ import { VendorService } from '../../services/VendorService/Vendor.service';
 import { EntityService } from '../../services/EntityService/Entity.service';
 import { QuestionnaireService } from '../../services/QuestionnaireService/Questionnaire.service';
 import { Router } from '@angular/router';
+import { ResponseModalComponent } from '../../Component/ResponseModal/ResponseModal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 interface Questionnaire {
   questionnaireID?: number;
@@ -32,7 +34,8 @@ export class VendorDashboardComponent implements OnInit {
     private authService: AuthService,
     private vendorService: VendorService,
     private entityService: EntityService,
-    private questionnaireService: QuestionnaireService
+    private questionnaireService: QuestionnaireService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -95,8 +98,9 @@ export class VendorDashboardComponent implements OnInit {
   }
 
   onAssignmentClick(assignment: QuestionnaireAssignment): void {
+    console.log(assignment.assignmentID);
     if (assignment.statusID === 1) {
-      console.log('Cannot navigate. Assignment status ID is 1.');
+      this.openResponseModal(assignment.assignmentID);
       return;
     }
     console.log('Navigating to answer questionnaire with ID:', assignment.questionnaireID,assignment.assignmentID);
@@ -106,5 +110,11 @@ export class VendorDashboardComponent implements OnInit {
       assignmentID: assignment.assignmentID,
       questionnaireID: assignment.questionnaireID
     }});
+  }
+  openResponseModal(assignmentID: number|undefined): void {
+    this.dialog.open(ResponseModalComponent, {
+      width: '600px', // Customize the width if needed
+      data: { assignmentID } // Pass the questionnaireID as data to the modal
+    });
   }
 }

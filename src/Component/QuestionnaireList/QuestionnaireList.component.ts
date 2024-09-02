@@ -64,10 +64,10 @@ export class QuestionnaireListComponent implements OnInit {
     });
   }
 
-  openResponseModal(questionnaireID: number): void {
+  openResponseModal(assignmentID: number): void {
     const dialogRef = this.dialog.open(ResponseModalComponent, {
       width: '600px',
-      data: { questionnaireID }
+      data: { assignmentID }
     });
 
     dialogRef.afterClosed().subscribe(result => {

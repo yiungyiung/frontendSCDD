@@ -26,6 +26,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { StackedBarChartComponent } from '../../Component/stacked-bar-chart/stacked-bar-chart.component';
 import { PieChartComponent } from '../../Component/pie-chart/pie-chart.component';
 import { QuestionnaireListComponent } from '../../Component/QuestionnaireList/QuestionnaireList.component';
+import { ResponseModalComponent } from '../../Component/ResponseModal/ResponseModal.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { QuestionnaireListComponent } from '../../Component/QuestionnaireList/Qu
     StackedBarChartComponent,
     PieChartComponent,
     QuestionnaireListComponent,
+    ResponseModalComponent,
   ],
   imports: [
     
@@ -62,6 +64,7 @@ import { QuestionnaireListComponent } from '../../Component/QuestionnaireList/Qu
     MatSlideToggleModule,
   ],
   exports: [
+    ResponseModalComponent,
     QuestionnaireListComponent,
     PieChartComponent,
     StackedBarChartComponent,

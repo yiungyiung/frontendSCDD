@@ -165,7 +165,7 @@ export class AddQuestionComponent implements OnInit {
         }
       }
     });
-    return options.slice(1);
+    return options;
   }
   
   collectTextboxes(): Textbox[] {

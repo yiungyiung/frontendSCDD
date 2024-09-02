@@ -1,205 +1,130 @@
 <!-- vendor-form.component.html -->
 <form [formGroup]="vendorForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="vendorName">Vendor Name</label>
-    <input
-      type="text"
-      id="vendorName"
-      formControlName="vendorName"
-      class="form-control"
-      [ngClass]="{
+    <div class="form-group">
+        <label for="vendorName">Vendor Name</label>
+        <input type="text" id="vendorName" formControlName="vendorName" class="form-control" [ngClass]="{
         'is-invalid': submitted && f['vendorName'].errors,
         'disabled-input': selectedVendor !== null
-      }"
-      [disabled]="selectedVendor !== null"
-      [readonly]="selectedVendor !== null"
-    />
-    <div *ngIf="submitted && f['vendorName'].errors" class="invalid-feedback">
-      <div *ngIf="f['vendorName'].errors['required']">
-        Vendor Name is required
-      </div>
+      }" [disabled]="selectedVendor !== null" [readonly]="selectedVendor !== null" />
+        <div *ngIf="submitted && f['vendorName'].errors" class="invalid-feedback">
+            <div *ngIf="f['vendorName'].errors['required']">
+                Vendor Name is required
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <label for="vendorRegistration">Vendor Registration</label>
-    <input
-      type="text"
-      id="vendorRegistration"
-      formControlName="vendorRegistration"
-      class="form-control"
-      [ngClass]="{
+    <div class="form-group">
+        <label for="vendorRegistration">Vendor Registration</label>
+        <input type="text" id="vendorRegistration" formControlName="vendorRegistration" class="form-control" [ngClass]="{
         'is-invalid': submitted && f['vendorRegistration'].errors,
         'disabled-input': selectedVendor !== null
-      }"
-      [disabled]="selectedVendor !== null"
-      [readonly]="selectedVendor !== null"
-    />
-    <div
-      *ngIf="submitted && f['vendorRegistration'].errors"
-      class="invalid-feedback"
-    >
-      <div *ngIf="f['vendorRegistration'].errors['required']">
-        Vendor Registration is required
-      </div>
+      }" [disabled]="selectedVendor !== null" [readonly]="selectedVendor !== null" />
+        <div *ngIf="submitted && f['vendorRegistration'].errors" class="invalid-feedback">
+            <div *ngIf="f['vendorRegistration'].errors['required']">
+                Vendor Registration is required
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <label for="vendorAddress">Vendor Address</label>
-    <input
-      type="text"
-      id="vendorAddress"
-      formControlName="vendorAddress"
-      class="form-control"
-      [ngClass]="{
+    <div class="form-group">
+        <label for="vendorAddress">Vendor Address</label>
+        <input type="text" id="vendorAddress" formControlName="vendorAddress" class="form-control" [ngClass]="{
         'is-invalid': submitted && f['vendorAddress'].errors,
         'disabled-input': selectedVendor !== null
-      }"
-      [disabled]="selectedVendor !== null"
-      [readonly]="selectedVendor !== null"
-    />
-    <div
-      *ngIf="submitted && f['vendorAddress'].errors"
-      class="invalid-feedback"
-    >
-      <div *ngIf="f['vendorAddress'].errors['required']">
-        Vendor Address is required
-      </div>
+      }" [disabled]="selectedVendor !== null" [readonly]="selectedVendor !== null" />
+        <div *ngIf="submitted && f['vendorAddress'].errors" class="invalid-feedback">
+            <div *ngIf="f['vendorAddress'].errors['required']">
+                Vendor Address is required
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <label for="contactName">Contact Name</label>
-    <input
-      type="text"
-      id="contactName"
-      formControlName="contactName"
-      class="form-control"
-      [ngClass]="{ 'is-invalid': submitted && f['contactName'].errors }"
-    />
-    <div *ngIf="submitted && f['contactName'].errors" class="invalid-feedback">
-      <div *ngIf="f['contactName'].errors['required']">
-        Contact Name is required
-      </div>
+    <div class="form-group">
+        <label for="contactName">Contact Name</label>
+        <input type="text" id="contactName" formControlName="contactName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['contactName'].errors }" />
+        <div *ngIf="submitted && f['contactName'].errors" class="invalid-feedback">
+            <div *ngIf="f['contactName'].errors['required']">
+                Contact Name is required
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input
-      type="email"
-      id="email"
-      formControlName="email"
-      class="form-control"
-      [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
-    />
-    <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-      <div *ngIf="f['email'].errors['required']">Email is required</div>
-      <div *ngIf="f['email'].errors['email']">
-        Email must be a valid email address
-      </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
+        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+            <div *ngIf="f['email'].errors['required']">Email is required</div>
+            <div *ngIf="f['email'].errors['email']">
+                Email must be a valid email address
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <label for="contactNumber">Contact Number</label>
-    <input
-      type="tel"
-      id="contactNumber"
-      formControlName="contactNumber"
-      class="form-control"
-      [ngClass]="{ 'is-invalid': submitted && f['contactNumber'].errors }"
-    />
-    <div
-      *ngIf="submitted && f['contactNumber'].errors"
-      class="invalid-feedback"
-    >
-      <div *ngIf="f['contactNumber'].errors['required']">
-        Contact Number is required
-      </div>
-      <div *ngIf="f['contactNumber'].errors['invalidContactNumber']">
-        Contact Number must be of 10 digits
-      </div>
+    <div class="form-group">
+        <label for="contactNumber">Contact Number</label>
+        <input type="tel" id="contactNumber" formControlName="contactNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['contactNumber'].errors }" />
+        <div *ngIf="submitted && f['contactNumber'].errors" class="invalid-feedback">
+            <div *ngIf="f['contactNumber'].errors['required']">
+                Contact Number is required
+            </div>
+            <div *ngIf="f['contactNumber'].errors['invalidContactNumber']">
+                Contact Number must be of 10 digits
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <label for="categoryID">Category</label>
-    <select
-      id="categoryID"
-      formControlName="categoryID"
-      class="form-control"
-      [ngClass]="{
+    <div class="form-group">
+        <label for="categoryID">Category</label>
+        <select id="categoryID" formControlName="categoryID" class="form-control" [ngClass]="{
         'is-invalid': submitted && f['categoryID'].errors,
         'disabled-input': selectedVendor !== null
-      }"
-      [disabled]="selectedVendor !== null"
-    >
+      }" [disabled]="selectedVendor !== null">
       <option value="">Select Category</option>
       <option *ngFor="let category of categories" [value]="category.categoryID">
         {{ category.categoryName }}
       </option>
     </select>
-    <div *ngIf="submitted && f['categoryID'].errors" class="invalid-feedback">
-      <div *ngIf="f['categoryID'].errors['required']">Category is required</div>
+        <div *ngIf="submitted && f['categoryID'].errors" class="invalid-feedback">
+            <div *ngIf="f['categoryID'].errors['required']">Category is required</div>
+        </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <label for="tierID">Tier</label>
-    <select
-      id="tierID"
-      formControlName="tierID"
-      class="form-control"
-      [ngClass]="{
+    <div class="form-group">
+        <label for="tierID">Tier</label>
+        <select id="tierID" formControlName="tierID" class="form-control" [ngClass]="{
         'is-invalid': submitted && f['tierID'].errors,
         'disabled-input': selectedVendor !== null
-      }"
-      [disabled]="selectedVendor !== null"
-    >
+      }" [disabled]="selectedVendor !== null">
       <option value="">Select Tier</option>
       <option *ngFor="let tier of tiers" [value]="tier.tierId">
         {{ tier.tierName }}
       </option>
     </select>
-    <div *ngIf="submitted && f['tierID'].errors" class="invalid-feedback">
-      <div *ngIf="f['tierID'].errors['required']">Tier is required</div>
+        <div *ngIf="submitted && f['tierID'].errors" class="invalid-feedback">
+            <div *ngIf="f['tierID'].errors['required']">Tier is required</div>
+        </div>
     </div>
-  </div>
-  <!-- Add this div after the tierID select element -->
-  <div class="form-group" *ngIf="showParentVendorSelection">
-    <label>Parent Vendors</label>
-    <mat-form-field class="mat-form-field">
-      <div class="search-container">
-        <input
-          matInput
-          placeholder="Search vendors"
-          [(ngModel)]="searchQuery"
-          [ngModelOptions]="{ standalone: true }"
-          class="search-input"
-        />
-        <button class="search-button">
+    <!-- Add this div after the tierID select element -->
+    <div class="form-group" *ngIf="showParentVendorSelection">
+        <label>Parent Vendors</label>
+        <mat-form-field class="mat-form-field">
+            <div class="search-container">
+                <input matInput placeholder="Search vendors" [(ngModel)]="searchQuery" [ngModelOptions]="{ standalone: true }" class="search-input" />
+                <button class="search-button">
           <mat-icon svgIcon="searchIcon"></mat-icon>
         </button>
-      </div>
-    </mat-form-field>
-    <div class="vendor-list">
-      <div *ngFor="let vendor of filteredVendors" class="form-check">
-        <input
-          type="checkbox"
-          class="form-check-input"
-          [id]="vendor.vendorID"
-          [value]="vendor.vendorID"
-          (change)="toggleSelection(vendor.vendorID!, $event)"
-        />
-        <label class="form-check-label" [for]="vendor.vendorID">
+            </div>
+        </mat-form-field>
+        <div class="vendor-list">
+            <div *ngFor="let vendor of filteredVendors" class="form-check">
+                <input type="checkbox" class="form-check-input" [id]="vendor.vendorID" [value]="vendor.vendorID" (change)="toggleSelection(vendor.vendorID!, $event)" />
+                <label class="form-check-label" [for]="vendor.vendorID">
           {{ vendor.vendorName }}
         </label>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn btn-primary">
     {{ selectedVendor ? "Update" : "Add" }} Vendor
   </button>
 </form>
