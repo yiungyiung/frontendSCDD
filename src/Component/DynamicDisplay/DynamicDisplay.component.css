@@ -1,0 +1,27 @@
+.response-table-container {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.response-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.response-table th,
+.response-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.response-table th {
+    background-color: #f0f0f0;
+    color: #333;
+    text-align: center;
+}
+
+.response-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}

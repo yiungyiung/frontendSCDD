@@ -10,5 +10,7 @@ export interface QuestionnaireAssignment {
     assignmentDate?:Date;
     dueDate?:string;
     submissionDate?: Date;
+    vendor?:Vendor;
+    status?:Status;
 }
   

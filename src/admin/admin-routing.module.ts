@@ -10,6 +10,8 @@ import { AssignQuestionnaireComponent } from './AssignQuestionnaire/AssignQuesti
 import { AddQuestionComponent } from './AddQuestion/AddQuestion.component';
 import { CreateNewQuestionnaireComponent } from './CreateNewQuestionnaire/CreateNewQuestionnaire.component';
 import { SelectQuestionsComponent } from './SelectQuestions/SelectQuestions.component';
+import { ReportsComponent } from './Reports/Reports.component';
+import { DynamicReportsComponent } from './DynamicReports/DynamicReports.component';
 
 const routes: Routes = [
   {
@@ -50,6 +52,16 @@ const routes: Routes = [
         path: 'Add-question',
         component: AddQuestionComponent,
         data: { breadcrumb: 'Add Question' },
+      },
+      {
+        path: 'reports',
+        component: ReportsComponent,
+        data: { breadcrumb: 'Reports' },
+      },
+      {
+        path: 'dynamicReports',
+        component: DynamicReportsComponent,
+        data: { breadcrumb: 'Dynamic Reports' },
       },
       {
         path: 'select-questions',

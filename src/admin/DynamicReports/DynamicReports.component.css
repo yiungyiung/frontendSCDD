@@ -1,0 +1,19 @@
+.dynamic-reports-container {
+    display: flex;
+    flex-direction: row;
+    /* Change from column to row */
+}
+
+.column {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    /* Optional: to visualize the columns */
+    box-sizing: border-box;
+    /* Ensure padding doesn't affect width */
+}
+
+.column:not(:last-child) {
+    margin-right: 10px;
+    /* Optional: Add space between columns */
+}

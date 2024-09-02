@@ -25,6 +25,7 @@ import { PopupBoxModule } from '../../Component/popup-box/popup-box/popup-box.mo
 import { HighchartsChartModule } from 'highcharts-angular';
 import { StackedBarChartComponent } from '../../Component/stacked-bar-chart/stacked-bar-chart.component';
 import { PieChartComponent } from '../../Component/pie-chart/pie-chart.component';
+import { QuestionnaireListComponent } from '../../Component/QuestionnaireList/QuestionnaireList.component';
 
 @NgModule({
   declarations: [
@@ -35,8 +36,10 @@ import { PieChartComponent } from '../../Component/pie-chart/pie-chart.component
     ChangePasswordModalComponent,
     StackedBarChartComponent,
     PieChartComponent,
+    QuestionnaireListComponent,
   ],
   imports: [
+    
     HighchartsChartModule,
     FormsModule,
     CommonModule,
@@ -59,6 +62,7 @@ import { PieChartComponent } from '../../Component/pie-chart/pie-chart.component
     MatSlideToggleModule,
   ],
   exports: [
+    QuestionnaireListComponent,
     PieChartComponent,
     StackedBarChartComponent,
     NavItemComponent,

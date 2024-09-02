@@ -1,0 +1,3 @@
+<div *ngFor="let question of questions">
+    <input type="checkbox" [checked]="selectedQuestions.includes(question.questionID!)" (change)="onQuestionSelect(question.questionID!)"> {{ question.questionText }}
+</div>

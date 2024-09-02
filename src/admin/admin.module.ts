@@ -47,7 +47,13 @@ import { FrameworkSelectionComponent } from '../Component/FrameworkSelection/Fra
 import { SelectQuestionsComponent } from './SelectQuestions/SelectQuestions.component';
 import { SharedModule } from '../app/Shared/Shared.module';
 import { BreadcrumbComponent } from '../Component/breadcrumb/breadcrumb.component';
-
+import { ReportsComponent } from './Reports/Reports.component';
+import { DynamicReportsComponent } from './DynamicReports/DynamicReports.component';
+import { ResponseModalComponent } from '../Component/ResponseModal/ResponseModal.component';
+import { DynamicQuestionnairelistComponent } from '../Component/DynamicQuestionnairelist/DynamicQuestionnairelist.component';
+import { DynamicDisplayComponent } from '../Component/DynamicDisplay/DynamicDisplay.component';
+import { DynamicVendorListComponent } from '../Component/DynamicVendorList/DynamicVendorList.component';
+import { DynamicResponseListComponent } from '../Component/DynamicResponseList/DynamicResponseList.component';
 @NgModule({
   imports: [FormsModule],
 })
@@ -59,6 +65,13 @@ export class AppModule {}
     AdminRoutingModule,
   ],
   declarations: [
+    DynamicQuestionnairelistComponent,
+    DynamicReportsComponent,
+    DynamicDisplayComponent,
+    ResponseModalComponent,
+    DynamicResponseListComponent,
+    DynamicVendorListComponent,
+    ReportsComponent,
     AdminComponent,
     VendorHierarchyGraphComponent,
     AssignQuestionnaireComponent,

@@ -7,7 +7,8 @@ import * as Highcharts from 'highcharts';
 import { QuestionnaireAssignment } from '../../model/questionnaireAssignment';
 import { VendorService } from '../../services/VendorService/Vendor.service';
 import { ComplianceService } from '../../services/ComplainceService/Complaince.service';
-
+import { EntityService } from '../../services/EntityService/Entity.service';
+import { Status } from '../../model/entity';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -56,7 +57,8 @@ export class DashboardComponent implements OnInit {
     private authService: AuthService,
     private dataFetchService: DataFetchService,
     private vendorService: VendorService,
-    private complianceService: ComplianceService
+    private complianceService: ComplianceService,
+    private entityService:EntityService
   ) {}
 
   ngOnInit(): void {
@@ -98,32 +100,37 @@ export class DashboardComponent implements OnInit {
 
   loadComplianceData(): void {
     const token = this.authService.getToken();
-    this.complianceService.getComplianceData(token).subscribe(
-      (data: any) => {
-        const years = Object.keys(data);
-        this.chartLabels = years;
-
-        this.chartData = [
-          {
-            name: 'Complied',
-            data: years.map(year => data[year]['Complied']),
-            type: 'column',
+  
+    // Fetch all statuses first
+    this.entityService.getAllStatuses(token).subscribe(
+      (statuses: Status[]) => {
+        // Now, fetch the compliance data
+        this.complianceService.getComplianceData(token).subscribe(
+          (data: any) => {
+            const years = Object.keys(data);
+            this.chartLabels = years;
+  
+            // Dynamically create series based on fetched statuses
+            this.chartData = statuses.map(status => ({
+              name: status.statusName,
+              data: years.map(year => data[year][status.statusName]), // Fill in 0 if data is missing
+              type: 'column',
+            }));
+  
+            console.log(this.chartData);
+            console.log(this.chartLabels);
           },
-          {
-            name: 'Not-Complied',
-            data: years.map(year => data[year]['Not-Complied']),
-            type: 'column',
-          },
-        ];
-        console.log(this.chartData);
-        console.log(this.chartLabels);
+          (error) => {
+            console.error('Error loading compliance data:', error);
+          }
+        );
       },
       (error) => {
-        console.error('Error loading compliance data:', error);
+        console.error('Error loading statuses:', error);
       }
     );
   }
-
+  
   maximizeCard(event: MouseEvent, cardNumber: number): void {
     event.stopPropagation();
     this.isModal = true;

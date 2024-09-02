@@ -1,0 +1,4 @@
+<div *ngFor="let assignment of vendorAssignments">
+    <input type="checkbox" [checked]="isVendorSelected(assignment.vendorID ?? 0, assignment.assignmentID ?? 0)" (change)="onVendorSelect(assignment.vendorID ?? 0, assignment.assignmentID ?? 0,assignment.vendor?.vendorName ?? '' )" /> {{ assignment.vendor?.vendorName
+    || 'No Name' }}
+</div>

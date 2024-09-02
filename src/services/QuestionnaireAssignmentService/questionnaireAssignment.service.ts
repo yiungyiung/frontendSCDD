@@ -66,4 +66,18 @@ export class QuestionnaireAssignmentService {
       { headers }
     );
   }
+  getAssignmentsByQuestionnaireId(
+    questionnaireId: number,
+    token: string
+  ): Observable<QuestionnaireAssignment[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.get<QuestionnaireAssignment[]>(
+      `${this.apiUrl}/QuestionnaireAssignment/questionnaire/${questionnaireId}`,
+      { headers }
+    );
+  }
 }
