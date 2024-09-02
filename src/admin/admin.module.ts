@@ -40,6 +40,7 @@ import { VendorHierarchyGraphComponent } from '../Component/vendorHierarchyGraph
 import { AddQuestionComponent } from './AddQuestion/AddQuestion.component';
 import { UserFormComponent } from '../Component/userForm/userForm.component';
 import { VendorFormComponent } from '../Component/vendorForm/vendorForm.component';
+
 import { ChangePasswordModalComponent } from '../Component/change-password-modal/change-password-modal.component';
 import { CreateNewQuestionnaireComponent } from './CreateNewQuestionnaire/CreateNewQuestionnaire.component';
 import { VendorSelectionComponent } from '../Component/VendorSelection/VendorSelection.component';
@@ -71,6 +72,7 @@ export class AppModule {}
     DynamicVendorListComponent,
     ReportsComponent,
     AdminComponent,
+    AssignQuestionnaireComponent,
     VendorHierarchyGraphComponent,
     AssignQuestionnaireComponent,
     QuestionType_TextBoxComponent,

@@ -1,3 +1,362 @@
+.container-fluid{
+    margin-top:5.3vh ;
+}
+/* Left panel styling */
+.left-card {
+    padding: 10px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 4px rgba(7, 60, 90, 0.2);
+    height: 70vh;
+    overflow-y: auto;
+    width:50vw;
+  }
+  .box-container {
+    display: flex;
+    align-items: center;
+  }
+  .label {
+    font-size: 1.5vh;
+    color: #666;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+  .vendor-section {
+    margin-bottom: 10px;
+    color: #073c5a;
+    font-size: 2.25vh;
+  }
+  .category-title {
+    color: #073c5a;
+    font-size: 2.25vh;
+    font-weight: bold;
+}
+
+  /* Vendor card styling (unchanged) */
+.vendor-card {
+
+  font-size:2vh;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  transition: background-color 0.3s;
+}
+
+.vendor-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+  
+
+  
+  .accordion > div {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #e7f4f9;
+    border-bottom: 1px solid #ddd;
+    font-size: 1.8vh;
+    font-weight: bold;
+    color: #073c5a;
+  }
+  
+
+  input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #073c5a;
+    border-radius: 3px;
+    background-color: #fff;
+    cursor: pointer;
+    position: relative;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #ffb23b;
+    border-color: #ffb23b;
+}
+
+input[type="checkbox"]:checked::after {
+    content: '\2714'; /* Unicode for a tick symbol */
+    color: white;
+    font-size: 16px;
+    position: absolute;
+    top: -2px;
+    left: 3px;
+}
+
+
+
+  
+
+  
+  /* Custom checkbox styling */
+  .box-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .box {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #073c5a;
+    background-color: #fff;
+    cursor: pointer;
+    position: relative;
+    margin-right: 5px;
+  }
+  
+  .box.selected {
+    border: 2px solid #ffb23b;
+    background-color: #ffb23b;
+  }
+  
+  .box.selected::after {
+    content: "\2713"; 
+    font-size: 16px;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  
+  /* Select All checkbox styling */
+  .select-all {
+    margin-bottom: 10px;
+  }
+  
+
+.back-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2.5vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  background-color:#fff ;
+  height:73vh;
+  
+}
+.left-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width:36vw;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.5vh;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    background-color:#fff ;
+    height:73vh;
+    margin-right: 2vw;
+   
+  }
+.card-header-container {
+    display: flex;
+    align-items: center;
+    background-color: #e7f4f9;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 15px;
+    height: 9vh;
+  }
+  .vendor-header-container {
+    display: flex;
+    align-items: center;
+    background-color: #e7f4f9;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 15px;
+    width:37vw;
+    height: 9vh;
+    margin:-2vh;
+  }
+  .card-header {
+    font-size: 1.25vw;
+    font-weight: bold;
+    color: #073c5a;
+    background-color: transparent;
+    border: none;
+  }
+.custcard {
+    border: 1px solid #ddd;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 6vh;
+    width:auto;
+    margin-top: 2vh;
+    margin-left: 0.6vw;
+  }
+  
+  .mb-3{
+    margin-top: 2vh;
+  }
+  .card-body {
+    
+    border: 1px solid transparent;
+    padding: 15px;
+  }
+  
+  
+  .user-status {
+    position: relative;
+    width: 6vw;
+    top: -4vh;
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: white;
+    text-align: center;
+    display: inline-block;
+    font-size: 1.7vh;
+  }
+  
+
+  
+  .user-details {
+    display: grid;
+    grid-template-columns: repeat(4, 12vw 18vw 8vw 8vw);
+    text-align: center;
+  }
+  
+  .detail {
+    margin-top: -20px;
+    text-align: center;
+    font-size: 2vh;
+  }
+  
+  .detail small {
+    display: block;
+    font-size: 1.7vh;
+    color: gray;
+    text-align: center;
+  }
+  
+  .user-id-bg {
+    background-color: #e7f4f9;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  
+  .user-ids-bg {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    display: block;
+  }
+  .question-category-container {
+    display: flex;
+  }
+  
+  .category-list {
+    list-style-type: none; /* Removes bullets from list */
+    margin-right: 0;
+    padding: 0;
+    display: flex; /* Aligns list items horizontally */
+  }
+  
+  .category-list li {
+    margin-left: 8px; /* Adjust spacing between buttons */
+  }
+
+  
+  .btn-link {
+    color: #007bff;
+    font-size: 2.5vhvh;
+  }
+  
+  .btn-link:hover {
+    color: #0056b3;
+    text-decoration: none;
+  }
+  
+  .material-icons {
+    margin-top:1vh;
+    font-size: 4vh;
+  }
+  
+
+  .category-button {
+    background: none;
+    min-width:8vw;
+    max-width: 100%;
+    height:auto;
+    padding-top:0.8vw;
+    padding-bottom:0.8vw;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.7vh;
+    border-radius: 4px; 
+    white-space: nowrap;
+    position: relative; /* Ensure the span is positioned relative to the button */
+    overflow: visible;
+}
+  
+.category-button:hover {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+
+  .category-button.category-1 {
+    background-color: #DA3B00; /* Example color */
+  }
+  
+  .category-button.category-2 {
+    background-color: #fe9300; /* Example color */
+  }
+  
+  .category-button.category-3 {
+    background-color: #FEBB00; /* Example color */
+  }
+  
+  .category-button.category-4 {
+    background-color: #FFE400; /* Example color */
+  }
+  
+  .category-name {
+    color:#fff;
+    opacity: 1; 
+    transition: opacity 0.3s ease; 
+    position: absolute; 
+    
+    white-space: nowrap; 
+}
+  .category-count {
+    color:#fff;
+    opacity: 0; 
+    transition: opacity 0.3s ease; 
+    position: absolute; 
+    right: 10px; 
+    white-space: nowrap; 
+}
+
+.category-button:hover .category-count {
+    opacity: 1; 
+}
+.category-button:hover .category-name {
+    opacity: 0; 
+}
+
+
 .modal {
     position: fixed;
     top: 0;
