@@ -24,6 +24,7 @@ export class SelectQuestionsComponent implements OnInit {
   domainIDs: number[] = [];
   domainMap: { [id: number]: Domain } = {};
   categoryMap: { [id: number]: string } = {};
+  categoryPriority: { [id: number]: number } = {};
   isLoading: boolean = true;
   toggledSubParts: { [key: string]: boolean } = {};
   vendorID: number[] = [];
@@ -42,14 +43,15 @@ export class SelectQuestionsComponent implements OnInit {
     const state = history.state;
     this.frameworkID = state.frameworkID;
     this.vendorCategories = state.vendorCategories;
+    console.log(this.vendorCategories);
     this.vendorName = state.vendorName;
     this.frameworkName = state.frameworkName;
     this.vendorID=state.vendorID;
     console.log(this.frameworkName);
 
     if (this.frameworkID && this.vendorCategories.length > 0) {
+      this.loadCategories(); 
       this.loadDomains();
-      this.loadCategories();
       this.loadQuestions();
     }
   }
@@ -93,8 +95,10 @@ export class SelectQuestionsComponent implements OnInit {
   loadCategories(): void {
     const token = this.authService.getToken();
     this.entityService.GetAllCategory(token).subscribe((categories) => {
-      categories.forEach((category) => {
-        this.categoryMap[category.categoryID] = category.categoryName; // Map categoryID to categoryName
+      categories.forEach((category, index) => {
+        this.categoryMap[category.categoryID] = category.categoryName;
+        // Dynamically assign priority based on order from API or other criteria
+        this.categoryPriority[category.categoryID] = index + 1; 
       });
       this.cdr.detectChanges(); // Trigger change detection
     });
@@ -110,33 +114,34 @@ export class SelectQuestionsComponent implements OnInit {
             this.questionService
               .getQuestionById(id, token)
               .subscribe((question) => {
-                if (
-                  question.questionID !== undefined &&
-                  this.vendorCategories.includes(question.categoryID)
-                ) {
+                if (question.questionID !== undefined) {
                   if (!this.sortedQuestionsByDomain[question.domainID]) {
                     this.sortedQuestionsByDomain[question.domainID] = [];
                   }
-                  this.sortedQuestionsByDomain[question.domainID].push(
-                    question
-                  );
+                  this.sortedQuestionsByDomain[question.domainID].push(question);
+  
+                  // Auto-select questions based on the priority of the first vendor category
+                  const firstVendorCategoryID = this.vendorCategories[0];
+                  const firstVendorCategoryPriority = this.categoryPriority[firstVendorCategoryID];
+                  const questionCategoryPriority = this.categoryPriority[question.categoryID];
+  
+                  // Select the question if its priority is less than or equal to the priority of the first vendor category
+                  if (questionCategoryPriority >= firstVendorCategoryPriority) {
+                    this.selectedQuestions.push(question.questionID);
+                  }
                 }
                 resolve();
               });
           });
         });
-
+  
         Promise.all(questionLoadPromises).then(() => {
-          // Set domain IDs after all questions are loaded
-          this.domainIDs = Object.keys(this.sortedQuestionsByDomain).map(
-            (id) => +id
-          );
+          this.domainIDs = Object.keys(this.sortedQuestionsByDomain).map((id) => +id);
           this.isLoading = false;
           this.cdr.detectChanges(); // Trigger change detection after data is ready
         });
       });
   }
-
   getDomainName(domainID: number): string {
     return this.domainMap[domainID]?.domainName || 'Unknown Domain';
   }

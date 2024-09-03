@@ -105,7 +105,7 @@ export class AddQuestionComponent implements OnInit {
       description: this.helperText,
       orderIndex: 1, 
       domainID: this.selectedDomainID ? this.selectedDomainID : 0,
-      categoryID: 1,
+      categoryID: 3,
       options: this.collectOptions(),
       textboxes: this.collectTextboxes(),
       fileUploads: this.collectFileUploads(),

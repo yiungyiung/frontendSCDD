@@ -79,21 +79,21 @@ export class VendorFormComponent implements OnInit, OnChanges {
 
   initForm() {
     this.vendorForm = this.fb.group({
-      vendorName: ['', Validators.required],
-      vendorRegistration: ['', Validators.required],
-      vendorAddress: ['', Validators.required],
+      vendorName: [{ value: '', disabled: this.selectedVendor !== null }, Validators.required],
+      vendorRegistration: [{ value: '', disabled: this.selectedVendor !== null }, Validators.required],
+      vendorAddress: [{ value: '', disabled: this.selectedVendor !== null }, Validators.required],
       contactName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       contactNumber: ['', [Validators.required, this.contactNumberValidator]],
-      categoryID: ['', Validators.required],
-      tierID: ['', Validators.required],
+      categoryID: [{ value: '', disabled: this.selectedVendor !== null }, Validators.required],
+      tierID: [{ value: '', disabled: this.selectedVendor !== null }, Validators.required],
     });
-
+  
     this.vendorForm.get('tierID')?.valueChanges.subscribe((tierID) => {
       this.onTierChange(tierID);
     });
   }
-
+  
   contactNumberValidator(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
     const isValid = /^[0-9]{10}$/.test(value);
@@ -112,9 +112,18 @@ export class VendorFormComponent implements OnInit, OnChanges {
         categoryID: this.selectedVendor.categoryID,
         tierID: this.selectedVendor.tierID,
       });
+  
+      // Disable form controls
+      this.vendorForm.get('vendorName')?.disable();
+      this.vendorForm.get('vendorRegistration')?.disable();
+      this.vendorForm.get('vendorAddress')?.disable();
+      this.vendorForm.get('categoryID')?.disable();
+      this.vendorForm.get('tierID')?.disable();
+  
       this.onTierChange(this.selectedVendor.tierID);
     } else {
       this.vendorForm.reset();
+      this.vendorForm.enable(); // Enable all fields when there's no selected vendor
     }
   }
 
