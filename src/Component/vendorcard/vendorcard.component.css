@@ -1,170 +1,182 @@
+.tooltip-danger .mdc-tooltip__surface {
+    font-size: 14px !important;
+    color: red !important;
+    background-color: white !important;
+}
+
+::ng-deep .mdc-tooltip__surface {
+    background-color: red !important;
+}
+
 .custcard {
-  border: 1px solid #ddd;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 6vh;
-  width: 60vw;
-  margin-top: 3vh;
-  margin-left: 0.6vw;
+    border: 1px solid #ddd;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 6vh;
+    width: 60vw;
+    margin-top: 3vh;
+    margin-left: 0.6vw;
 }
+
 .card-body {
-  border: 1px solid transparent;
-  padding-bottom: 15px;
+    border: 1px solid transparent;
+    padding-bottom: 15px;
 }
+
 .custcard:hover {
-  border: 1px solid #f9a634;
+    border: 1px solid #f9a634;
 }
 
 .vendor-details {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  gap: 1vw;
-  text-align: center;
-  width: 100%;
-  background-color: #ffffff;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 1vw;
+    text-align: center;
+    width: 100%;
+    background-color: #ffffff;
 }
 
 .kaam {
-  display: grid;
-  gap: 1vw;
-  grid-template-columns: repeat(4, 1fr);
-  width: 100%;
+    display: grid;
+    gap: 1vw;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
 }
 
 .vendor-id-bg {
-  margin-top: 10px;
-  margin-left: 20px;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #e7f4f9;
-  border-radius: 8px;
+    margin-top: 10px;
+    margin-left: 20px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #e7f4f9;
+    border-radius: 8px;
 }
 
 .detail {
-  text-align: center;
-  font-size: 2vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    text-align: center;
+    font-size: 2vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .detail small,
 .detail .truncate {
-  display: block;
-  font-size: 1.7vh;
-  text-align: center;
+    display: block;
+    font-size: 1.7vh;
+    text-align: center;
 }
 
 .truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: block;
-  word-wrap: break-word;
-  word-break: break-all;
-  max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    word-wrap: break-word;
+    word-break: break-all;
+    max-width: 200px;
 }
 
 .truncate-container {
-  max-width: 150px;
-  display: block;
+    max-width: 150px;
+    display: block;
 }
 
 .user-status {
-  position: relative;
-  width: 6vw;
-  height: auto;
-  top: -2vh;
-  left: 10px;
-  padding: 5px 10px;
-  border-radius: 4px;
-  text-align: center;
-  display: inline-block;
-  font-size: 1.7vh;
-  margin-left: 10px;
-  color: #ffffff;
+    position: relative;
+    width: 6vw;
+    height: auto;
+    top: -2vh;
+    left: 10px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-align: center;
+    display: inline-block;
+    font-size: 1.7vh;
+    margin-left: 10px;
+    color: #ffffff;
 }
 
 .user-status.active {
-  background-color: #339a2d;
+    background-color: #339a2d;
 }
 
 .user-status.inactive {
-  background-color: #dc3545;
+    background-color: #dc3545;
 }
 
 .user-actions {
-  display: flex;
-  justify-content: flex-start;
-  gap: 10px;
-  padding: 0;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 0;
 }
 
 .action mat-icon {
-  padding-top: -10px;
+    padding-top: -10px;
 }
 
 .action {
-  text-align: center;
-  margin: 0;
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 4px;
+    text-align: center;
+    margin: 0;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 4px;
 }
 
 .action button {
-  align-items: center;
-  justify-content: center;
-  color: white;
-  border: none;
-  width: auto;
-  height: auto;
-  font-size: 1.5em;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border: none;
+    width: auto;
+    height: auto;
+    font-size: 1.5em;
 }
 
 .action button.btn-success {
-  background-color: #339a2d;
-  height: 5vh;
+    background-color: #339a2d;
+    height: 5vh;
 }
 
 .action button mat-icon {
-  height: auto;
+    height: auto;
 }
 
 .tab-critical {
-  background-color: #da3b00;
-  color: white;
+    background-color: #da3b00;
+    color: white;
 }
 
 .tab-non-critical {
-  background-color: #fe9300;
-  color: white;
+    background-color: #fe9300;
+    color: white;
 }
 
 .tab-others {
-  background-color: #ffe400;
-  color: white;
+    background-color: #ffe400;
+    color: white;
 }
 
 .a-status {
-  position: relative;
-  width: 8vw;
-  height: auto;
-  top: -2vh;
-  left: 10px;
-  padding: 5px 10px;
-  border-radius: 4px;
-  text-align: center;
-  display: inline-block;
-  font-size: 1.7vh;
-  margin-left: 10px;
-  color: #ffffff;
+    position: relative;
+    width: 8vw;
+    height: auto;
+    top: -2vh;
+    left: 10px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-align: center;
+    display: inline-block;
+    font-size: 1.7vh;
+    margin-left: 10px;
+    color: #ffffff;
 }
 
 .icon-small {
-  font-size: 1.1vw;
+    font-size: 1.1vw;
 }

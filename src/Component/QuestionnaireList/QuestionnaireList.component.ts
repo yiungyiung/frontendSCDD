@@ -8,9 +8,11 @@ import { AuthService } from '../../services/AuthService/auth.service';
 import { VendorService } from '../../services/VendorService/Vendor.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ResponseModalComponent } from '../ResponseModal/ResponseModal.component';
+import { QuestionnaireService } from '../../services/QuestionnaireService/Questionnaire.service';
 
 interface QuestionnaireAssignmentWithVendor extends QuestionnaireAssignment {
   vendorName: string;
+  questionnaireName: string;
 }
 
 @Component({
@@ -28,7 +30,8 @@ export class QuestionnaireListComponent implements OnInit {
     private entityService: EntityService,
     private authService: AuthService,
     private vendorService: VendorService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private questionnaireService: QuestionnaireService
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +48,6 @@ export class QuestionnaireListComponent implements OnInit {
       this.categorizeAssignments(assignments);
     });
   }
-
   categorizeAssignments(assignments: QuestionnaireAssignment[]): void {
     this.statuses.forEach(status => {
       this.questionnaires[status.statusName] = [];
@@ -53,17 +55,20 @@ export class QuestionnaireListComponent implements OnInit {
       assignments
         .filter(assignment => assignment.statusID === status.statusID)
         .forEach(assignment => {
-          this.vendorService.getVendorById(this.token, assignment.vendorID!).subscribe(vendor => {
+          forkJoin({
+            vendor: this.vendorService.getVendorById(this.token, assignment.vendorID!),
+            questionnaire: this.questionnaireService.getQuestionsByQuestionnaireId(assignment.questionnaireID!, this.token)
+          }).subscribe(({ vendor, questionnaire }) => {
             const assignmentWithVendor: QuestionnaireAssignmentWithVendor = {
               ...assignment,
-              vendorName: vendor.vendorName
+              vendorName: vendor.vendorName,
+              questionnaireName: questionnaire.name  // Assigning the questionnaire name
             };
             this.questionnaires[status.statusName].push(assignmentWithVendor);
           });
         });
     });
   }
-
   openResponseModal(assignmentID: number): void {
     const dialogRef = this.dialog.open(ResponseModalComponent, {
       width: '600px',
