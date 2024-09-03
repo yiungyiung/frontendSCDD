@@ -248,25 +248,17 @@ export class AssignQuestionnaireComponent implements OnInit {
     const category = this.categorizedVendors.find(cat => cat.categoryID === categoryID);
     if (category) {
       const allSelected = category.vendors.every((vendor: Vendor) => this.isVendorSelected(vendor.vendorID));
-      
       if (allSelected) {
-        // Unselect all vendors in this category
         category.vendors.forEach((vendor: Vendor) => this.selectedVendors.delete(vendor.vendorID!));
-        
-        // Clear disabled categories if no vendors are selected
         const selectedInCategory = Array.from(this.selectedVendors).some((id) => {
           const vendor = this.vendors?.find(v => v.vendorID === id);
           return vendor?.categoryID === categoryID;
         });
-        
         if (!selectedInCategory) {
           this.disabledCategories.clear();
         }
       } else {
-        // Select all vendors in this category
         category.vendors.forEach((vendor: Vendor) => this.selectedVendors.add(vendor.vendorID!));
-        
-        // Disable other categories
         this.disabledCategories.clear();
         this.allCategories.forEach((catID) => {
           if (catID !== categoryID) {
