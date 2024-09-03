@@ -11,7 +11,7 @@
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 2.5vh;
-  margin-top: 3vh;
+  margin-top: 2vh;
   overflow-y: scroll;
   scrollbar-width: none;
 }
@@ -24,7 +24,7 @@
 
 .back-card {
   background-color: #ffffff;
-  width: 63vw;
+  width: 65vw;
   margin-left: -19vw;
   height: 68vh;
 }
@@ -39,9 +39,9 @@
 
   .back-card {
     background-color: #ffffff;
-    width: 63vw;
+    width: 65vw;
     margin-left: -19vw;
-    height: 68vh;
+    height: 64vh;
   }
 }
 
@@ -141,5 +141,20 @@
   color: #12789e;
   font-size: 16px;
   border-radius: 5px;
+  margin-right:0;
   text-align: center;
+}
+
+.btn-primary {
+  background-color: #12789e;
+  height: 4vh;
+  align-items: center;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 2.5vh;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-bottom: 2vh;
+  display: block;
 }

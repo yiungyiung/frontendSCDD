@@ -4,7 +4,7 @@ import { AdminComponent } from './admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { AdminRoutingModule } from './admin-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms'; 
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { VendorManagementComponent } from './VendorManagement/VendorManagement.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -47,6 +47,7 @@ import { VendorSelectionComponent } from '../Component/VendorSelection/VendorSel
 import { FrameworkSelectionComponent } from '../Component/FrameworkSelection/FrameworkSelection.component';
 import { SelectQuestionsComponent } from './SelectQuestions/SelectQuestions.component';
 import { SharedModule } from '../app/Shared/Shared.module';
+
 import { ReportsComponent } from './Reports/Reports.component';
 import { DynamicReportsComponent } from './DynamicReports/DynamicReports.component';
 import { DynamicQuestionnairelistComponent } from '../Component/DynamicQuestionnairelist/DynamicQuestionnairelist.component';
@@ -59,7 +60,10 @@ import { DynamicResponseListComponent } from '../Component/DynamicResponseList/D
 export class AppModule {}
 
 @NgModule({
-  imports: [SharedModule, AdminRoutingModule],
+  imports: [
+    SharedModule,
+    AdminRoutingModule,
+  ],
   declarations: [
     DynamicQuestionnairelistComponent,
     DynamicReportsComponent,
@@ -94,6 +98,7 @@ export class AppModule {}
     UserFormComponent,
     SelectQuestionsComponent,
     VendorFormComponent,
+
   ],
 })
 export class AdminModule {}

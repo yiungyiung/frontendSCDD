@@ -27,7 +27,7 @@ import { StackedBarChartComponent } from '../../Component/stacked-bar-chart/stac
 import { PieChartComponent } from '../../Component/pie-chart/pie-chart.component';
 import { QuestionnaireListComponent } from '../../Component/QuestionnaireList/QuestionnaireList.component';
 import { ResponseModalComponent } from '../../Component/ResponseModal/ResponseModal.component';
-import { BreadcrumbComponent } from '../../Component/Breadcrumb/Breadcrumb.component';
+import { BreadcrumbComponent } from '../../Component/breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
