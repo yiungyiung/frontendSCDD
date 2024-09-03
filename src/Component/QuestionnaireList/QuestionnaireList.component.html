@@ -1,9 +1,55 @@
-<div *ngFor="let status of statuses">
-    <h2>{{ status.statusName }}</h2>
-    <ul>
-        <li *ngFor="let questionnaire of questionnaires[status.statusName]" (click)="openResponseModal(questionnaire.assignmentID!)">
-            Assignment ID: {{ questionnaire.assignmentID }} | Vendor Name: {{ questionnaire.vendorName }} | Questionnaire ID: {{ questionnaire.questionnaireID }} | Due Date: {{ questionnaire.dueDate }}|Questionnaire Name: {{ questionnaire.questionnaireName }} | Submission
-            Date: {{ questionnaire.submissionDate }}
+<div *ngFor="let status of statuses" class="status-container">
+    <div class="status-header">
+        <span class="status-label">{{ status.statusName }}</span>
+    </div>
+    <ul class="questionnaire-list">
+        <li *ngFor="let questionnaire of questionnaires[status.statusName]" 
+            class="questionnaire-card" 
+            (click)="openResponseModal(questionnaire.assignmentID!)">
+            
+            <div class="questionnaire-details grid-container">
+                <div class="grid-item">
+                    <div class="task-ids">
+                        <div class="task-id">
+                            <span class="title">Assignment ID:</span>
+                            <span class="value">{{ questionnaire.assignmentID }}</span>
+                        </div>
+                        <div class="task-id">
+                            <span class="title">Questionnaire ID:</span>
+                            <span class="value">{{ questionnaire.questionnaireID }}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid-item">
+                    
+                        <div class="task-id">
+                            <span class="title">Vendor Name:</span>
+                            <span class="value">{{ questionnaire.vendorName }}</span>
+                        </div>
+                    
+                    </div>
+                    <div class="grid-item">
+                    <div class="task-id">
+                            <span class="title">Questionnaire Name: </span>
+                            <span class="value">{{ questionnaire.questionnaireName }}</span>
+                        </div></div>
+                    
+                    <div class="grid-item">
+                        <div class="task-ids">
+                            <div class="task-id">
+                                <span class="title">Submission Date:</span>
+                                <span class="value">{{ questionnaire.submissionDate }}</span>
+                            </div>
+                            <div class="task-id">
+                                <span class="title">Due Date:</span>
+                                <span class="value"> {{ questionnaire.dueDate }}</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                
+            </div>
         </li>
     </ul>
 </div>

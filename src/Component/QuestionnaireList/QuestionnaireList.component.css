@@ -1,15 +1,102 @@
-h2 {
-    color: #007bff;
+.status-container {
+    margin-bottom: 16px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
 }
 
-ul {
+.status-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.status-label {
+    background-color: #ff4c4c;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.questionnaire-list {
     list-style-type: none;
     padding-left: 0;
+    margin: 0;
 }
 
-li {
-    padding: 8px;
-    margin-bottom: 4px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.questionnaire-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    margin-bottom: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+.questionnaire-card:hover {
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.questionnaire-details {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.left-section {
+    flex: 1;
+}
+
+
+
+.task-id, .unit-task-id {
+    margin-bottom: 8px; /* Adjusts spacing between the two lines */
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Creates 4 equal columns */
+    gap: 16px; /* Adds spacing between the grid items */
+    padding: 16px; /* Adds padding around the grid container */
+    
+}
+
+.grid-item {
+   
+    padding: 20px; /* Padding inside each grid item */
+    text-align: center; /* Center-aligns the content inside each grid item */
+    border-radius: 8px; /* Optional: Rounds the corners of each grid item */
+}
+
+
+.title {
+    font-size: 12px; /* Smaller font for the title */
+    display: block;
+}
+
+.value {
+    font-size: 16px;
+    font-weight: normal;
+    color:#063B58;
+}
+
+
+.right-section {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.right-section span {
+    font-size: 14px;
+    color: #555;
 }
