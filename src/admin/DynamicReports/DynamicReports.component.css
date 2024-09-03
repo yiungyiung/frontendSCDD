@@ -1,19 +1,93 @@
 .dynamic-reports-container {
-    display: flex;
-    flex-direction: row;
-    /* Change from column to row */
+  display: flex;
+  flex-direction: row;
 }
 
 .column {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    /* Optional: to visualize the columns */
-    box-sizing: border-box;
-    /* Ensure padding doesn't affect width */
+  padding: 10px;
+  height: 71vh;
+  box-sizing: border-box;
+}
+
+.questionnaire-column {
+  flex-basis: 23vw;
+  max-width: 23vw;
+  min-width: 23vw;
+}
+
+.vendors-column,
+.response-column {
+  flex-basis: 15vw;
+  max-width: 15vw;
+  min-width: 15vw;
+}
+
+.answers-column {
+  flex: 1;
+  max-width: unset;
+  height: 71vh;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
 .column:not(:last-child) {
-    margin-right: 10px;
-    /* Optional: Add space between columns */
+  margin-right: 10px;
+}
+
+.card-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #e7f4f9;
+  color: #073c5a;
+  padding: 5px 10px;
+  height: 9vh;
+}
+
+.card-header-container mat-icon {
+  width: 20px;
+  height: auto;
+}
+
+.card {
+  box-shadow: 0 0 4px rgba(7, 60, 90, 0.2);
+  height: 70vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  border-radius: 8px;
+  padding-top: 4vh;
+}
+
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  margin-top: 7vh;
+}
+
+.cancel-icon {
+  cursor: pointer;
+  float: right;
+}
+
+.restore-buttons-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.restore-button {
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-color: #ffffff;
+  border: 2px solid #12789e;
+  color: #12789e;
+}
+
+.restore-button mat-icon {
+  width: 20px;
+  height: auto;
 }

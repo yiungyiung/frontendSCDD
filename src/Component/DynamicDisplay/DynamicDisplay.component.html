@@ -1,29 +1,38 @@
 <div class="response-table-container">
-    <table class="response-table">
-        <thead>
-            <tr>
-                <th rowspan="2">Vendors</th>
-                <ng-container *ngFor="let question of responses[0]?.questions">
-                    <th [attr.colspan]="(question.optionResponses.length > 0 ? 1 : 0) + (question.textBoxResponses.length > 0 ? 1 : 0)">
-                        {{ question.questionText }}
-                    </th>
-                </ng-container>
-            </tr>
-            <tr>
-                <ng-container *ngFor="let question of responses[0]?.questions">
-                    <th *ngIf="question.optionResponses.length > 0">Option Selection</th>
-                    <th *ngIf="question.textBoxResponses.length > 0">Text Box Answer</th>
-                </ng-container>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let response of responses">
-                <td>Vendor {{ response.vendorName }}</td>
-                <ng-container *ngFor="let question of response.questions">
-                    <td *ngIf="question.optionResponses.length > 0">{{ question.optionResponses[0]?.optionText || '' }}</td>
-                    <td *ngIf="question.textBoxResponses.length > 0">{{ question.textBoxResponses[0]?.textValue || '' }}</td>
-                </ng-container>
-            </tr>
-        </tbody>
-    </table>
+  <table class="response-table">
+    <thead>
+      <tr class="table-row">
+        <th rowspan="2" class="table-header">Vendors</th>
+        <ng-container *ngFor="let question of responses[0]?.questions">
+          <th
+            [attr.colspan]="
+              (question.optionResponses.length > 0 ? 1 : 0) +
+              (question.textBoxResponses.length > 0 ? 1 : 0)
+            "
+          >
+            {{ question.questionText }}
+          </th>
+        </ng-container>
+      </tr>
+      <tr>
+        <ng-container *ngFor="let question of responses[0]?.questions">
+          <th *ngIf="question.optionResponses.length > 0">Option Selection</th>
+          <th *ngIf="question.textBoxResponses.length > 0">Text Box Answer</th>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let response of responses">
+        <td>Vendor {{ response.vendorName }}</td>
+        <ng-container *ngFor="let question of response.questions">
+          <td *ngIf="question.optionResponses.length > 0">
+            {{ question.optionResponses[0].optionText || "" }}
+          </td>
+          <td *ngIf="question.textBoxResponses.length > 0">
+            {{ question.textBoxResponses[0].textValue || "" }}
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
 </div>

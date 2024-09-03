@@ -352,6 +352,14 @@
   border-radius: 4px;
 }
 
+.submit-container {
+  display: flex;
+  justify-content: flex-end; /* Aligns items to the right */
+  padding-right: 2vw;
+  margin-top: 2vh;
+  margin-right: -8vh;
+}
+
 .btn-primary {
   background-color: #12789e;
   height: 4vh;

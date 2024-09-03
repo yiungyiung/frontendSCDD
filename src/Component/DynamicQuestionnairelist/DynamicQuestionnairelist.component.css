@@ -1,14 +1,35 @@
 ul {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
 li {
-    cursor: pointer;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  padding: 7px;
+  align-items: center;
+  justify-content: center;
 }
 
-li:hover {
-    background-color: #f0f0f0;
+.list-container {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  height: 60vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.card-body {
+  border: 1px solid #ddd;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 20vw;
+  margin-top: 3vh;
+  padding: 10px;
+}
+
+.card-body:hover {
+  border: 1px solid #f9a634;
+  border-radius: 8px;
 }

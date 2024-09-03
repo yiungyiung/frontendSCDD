@@ -9,6 +9,7 @@ import { QuestionnaireService } from '../../services/QuestionnaireService/Questi
 import { AuthService } from '../../services/AuthService/auth.service';
 import { ResponseDto, TextBoxResponseDto } from '../../model/ResponseDto';
 import { ResponseService } from '../../services/ResponseService/Response.service';
+import { PopupService } from '../../services/PopupService/popup.service';
 
 @Component({
   selector: 'app-QuestionnaireAnswering',
@@ -17,7 +18,7 @@ import { ResponseService } from '../../services/ResponseService/Response.service
 })
 export class QuestionnaireAnsweringComponent implements OnInit {
   selectedQuestionnaire: questionnaire | undefined;
-  selectedQuestion!: Question ;
+  selectedQuestion!: Question;
   domains: Domain[] = [];
   filteredDomains: Domain[] = [];
   questionsByDomain: { [key: number]: Question[] } = {};
@@ -39,7 +40,8 @@ export class QuestionnaireAnsweringComponent implements OnInit {
     private questionnaireService: QuestionnaireService,
     private authService: AuthService,
     private responseService: ResponseService,
-    private router: Router
+    private router: Router,
+    private popupService: PopupService
   ) {}
 
   ngOnInit(): void {
@@ -155,16 +157,27 @@ export class QuestionnaireAnsweringComponent implements OnInit {
   onSubmitAllResponses(): void {
     const allResponses = Object.values(this.responses);
 
-    if (allResponses.length !== this.selectedQuestionnaire?.questionIDs.length) {
+    if (
+      allResponses.length !== this.selectedQuestionnaire?.questionIDs.length
+    ) {
       console.warn('Not all questions have been answered.');
       return;
     }
 
     this.responseService.submitAllResponses(allResponses).subscribe(
       (result) => {
+        this.popupService.showPopup(
+          'All responses submitted successfully',
+          '#339a2d'
+        );
         console.log('All responses submitted successfully', result);
+        this.router.navigate(['/vendor/dashboard']);
       },
       (error) => {
+        this.popupService.showPopup(
+          'Error submitting all responses',
+          '#dc3545'
+        );
         console.error('Error submitting all responses', error);
       }
     );

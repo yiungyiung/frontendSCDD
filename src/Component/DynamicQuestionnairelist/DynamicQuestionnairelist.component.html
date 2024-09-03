@@ -1,5 +1,14 @@
-<ul>
-    <li *ngFor="let questionnaire of questionnaires" (click)="onSelectQuestionnaire(questionnaire.questionnaireID!)">
-        {{ questionnaire.name }} - {{ questionnaire.year }}
-    </li>
-</ul>
+<div class="list-container">
+  <ul>
+    <div class="custcard">
+      <li
+        *ngFor="let questionnaire of questionnaires"
+        (click)="onSelectQuestionnaire(questionnaire.questionnaireID!)"
+      >
+        <div class="card-body">
+          {{ questionnaire.name }} - {{ questionnaire.year }}
+        </div>
+      </li>
+    </div>
+  </ul>
+</div>

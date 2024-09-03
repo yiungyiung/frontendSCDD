@@ -9,6 +9,9 @@ import { questionnaire } from '../../model/questionnaire';
 import { QuestionnaireService } from '../../services/QuestionnaireService/Questionnaire.service';
 import { QuestionnaireAssignmentService } from '../../services/QuestionnaireAssignmentService/questionnaireAssignment.service';
 import { QuestionnaireAssignment } from '../../model/questionnaireAssignment';
+import { PopupService } from '../../services/PopupService/popup.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-SelectQuestions',
   templateUrl: './SelectQuestions.component.html',
@@ -36,7 +39,9 @@ export class SelectQuestionsComponent implements OnInit {
     private entityService: EntityService,
     private cdr: ChangeDetectorRef,
     private questionnaireService: QuestionnaireService,
-    private questionnaireAssignmentService:QuestionnaireAssignmentService
+    private questionnaireAssignmentService: QuestionnaireAssignmentService,
+    private popupService: PopupService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -46,11 +51,11 @@ export class SelectQuestionsComponent implements OnInit {
     console.log(this.vendorCategories);
     this.vendorName = state.vendorName;
     this.frameworkName = state.frameworkName;
-    this.vendorID=state.vendorID;
+    this.vendorID = state.vendorID;
     console.log(this.frameworkName);
 
     if (this.frameworkID && this.vendorCategories.length > 0) {
-      this.loadCategories(); 
+      this.loadCategories();
       this.loadDomains();
       this.loadQuestions();
     }
@@ -79,7 +84,7 @@ export class SelectQuestionsComponent implements OnInit {
       const firstCategoryID = this.vendorCategories[0];
       return this.getCategoryName(firstCategoryID);
     }
-    return 'No Categories Available'; // Default message if no categories are available
+    return 'No Categories Available';
   }
 
   loadDomains(): void {
@@ -88,7 +93,7 @@ export class SelectQuestionsComponent implements OnInit {
       domains.forEach((domain) => {
         this.domainMap[domain.domainID] = domain;
       });
-      this.cdr.detectChanges(); // Trigger change detection
+      this.cdr.detectChanges();
     });
   }
 
@@ -98,9 +103,9 @@ export class SelectQuestionsComponent implements OnInit {
       categories.forEach((category, index) => {
         this.categoryMap[category.categoryID] = category.categoryName;
         // Dynamically assign priority based on order from API or other criteria
-        this.categoryPriority[category.categoryID] = index + 1; 
+        this.categoryPriority[category.categoryID] = index + 1;
       });
-      this.cdr.detectChanges(); // Trigger change detection
+      this.cdr.detectChanges();
     });
   }
 
@@ -118,13 +123,17 @@ export class SelectQuestionsComponent implements OnInit {
                   if (!this.sortedQuestionsByDomain[question.domainID]) {
                     this.sortedQuestionsByDomain[question.domainID] = [];
                   }
-                  this.sortedQuestionsByDomain[question.domainID].push(question);
-  
+                  this.sortedQuestionsByDomain[question.domainID].push(
+                    question
+                  );
+
                   // Auto-select questions based on the priority of the first vendor category
                   const firstVendorCategoryID = this.vendorCategories[0];
-                  const firstVendorCategoryPriority = this.categoryPriority[firstVendorCategoryID];
-                  const questionCategoryPriority = this.categoryPriority[question.categoryID];
-  
+                  const firstVendorCategoryPriority =
+                    this.categoryPriority[firstVendorCategoryID];
+                  const questionCategoryPriority =
+                    this.categoryPriority[question.categoryID];
+
                   // Select the question if its priority is less than or equal to the priority of the first vendor category
                   if (questionCategoryPriority >= firstVendorCategoryPriority) {
                     this.selectedQuestions.push(question.questionID);
@@ -134,11 +143,13 @@ export class SelectQuestionsComponent implements OnInit {
               });
           });
         });
-  
+
         Promise.all(questionLoadPromises).then(() => {
-          this.domainIDs = Object.keys(this.sortedQuestionsByDomain).map((id) => +id);
+          this.domainIDs = Object.keys(this.sortedQuestionsByDomain).map(
+            (id) => +id
+          );
           this.isLoading = false;
-          this.cdr.detectChanges(); // Trigger change detection after data is ready
+          this.cdr.detectChanges();
         });
       });
   }
@@ -171,7 +182,7 @@ export class SelectQuestionsComponent implements OnInit {
         }
       });
     }
-    this.cdr.detectChanges(); // Trigger change detection to update UI
+    this.cdr.detectChanges();
   }
 
   onQuestionSelectionChange(questionID: number, event: Event): void {
@@ -191,43 +202,56 @@ export class SelectQuestionsComponent implements OnInit {
   onSubmit(): void {
     const newQuestionnaire: questionnaire = {
       name: this.questionnaireName,
-      year: new Date(this.deadline).getFullYear(), // Extract year from date string
+      year: new Date(this.deadline).getFullYear(),
       questionIDs: this.selectedQuestions,
     };
-
-    const token = this.authService.getToken(); // Assume you have a method to get the token
-
-    // Call the createQuestionnaire method from the service
-    this.questionnaireService.createQuestionnaire(newQuestionnaire, token)
+    const token = this.authService.getToken();
+    this.questionnaireService
+      .createQuestionnaire(newQuestionnaire, token)
       .subscribe({
         next: (response) => {
-          console.log('Newly created questionnaire:', response.questionnaireID); // Log the response
+          console.log('Newly created questionnaire:', response.questionnaireID);
           const dueDateObj = new Date(this.deadline);
-        const dueDateFormatted = dueDateObj.toISOString().split('.')[0]; 
+          const dueDateFormatted = dueDateObj.toISOString().split('.')[0];
           const newAssignment: QuestionnaireAssignment = {
             vendorIDs: this.vendorID,
             questionnaireID: response.questionnaireID,
-            statusID: 2, // Assuming statusID 2 means 'Assigned' or equivalent
+            statusID: 2,
             dueDate: dueDateFormatted,
           };
-
+          this.popupService.showPopup(
+            'Questionnaire created Sucessfully',
+            '#0F9D09'
+          );
           this.createQuestionnaireAssignment(newAssignment, token);
+          this.router.navigate(['/admin/dashboard']);
         },
         error: (error) => {
-          console.error('Error creating questionnaire:', error); // Log any errors
-        }
+          console.error('Error creating questionnaire:', error);
+          this.popupService.showPopup(
+            'Failed to create Questionnaire. Please try again.',
+            '#0F9D09'
+          );
+        },
       });
   }
-  createQuestionnaireAssignment(assignment: QuestionnaireAssignment, token: string): void {
+  createQuestionnaireAssignment(
+    assignment: QuestionnaireAssignment,
+    token: string
+  ): void {
     console.log(assignment);
-    this.questionnaireAssignmentService.createQuestionnaireAssignment(assignment, token)
+    this.questionnaireAssignmentService
+      .createQuestionnaireAssignment(assignment, token)
       .subscribe({
         next: (response) => {
-          console.log('Questionnaire assignment created successfully:', response);
+          console.log(
+            'Questionnaire assignment created successfully:',
+            response
+          );
         },
         error: (error) => {
           console.error('Error creating questionnaire assignment:', error);
-        }
+        },
       });
   }
 }

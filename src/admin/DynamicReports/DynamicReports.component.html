@@ -1,14 +1,75 @@
-<div class="dynamic-reports-container">
-    <div class="column">
-        <app-DynamicQuestionnairelist></app-DynamicQuestionnairelist>
+<div class="container">
+  <!-- Restore Buttons Container -->
+  <div class="restore-buttons-container">
+    <button
+      *ngIf="!isQuestionnaireVisible"
+      (click)="restoreColumn('questionnaire')"
+      class="restore-button"
+    >
+      <mat-icon svgIcon="addButton"></mat-icon> Questionnaire
+    </button>
+    <button
+      *ngIf="!isVendorsVisible"
+      (click)="restoreColumn('vendors')"
+      class="restore-button"
+    >
+      <mat-icon svgIcon="addButton"></mat-icon> Vendors
+    </button>
+    <button
+      *ngIf="!isResponseVisible"
+      (click)="restoreColumn('response')"
+      class="restore-button"
+    >
+      <mat-icon svgIcon="addButton"></mat-icon> Response
+    </button>
+  </div>
+
+  <!-- Dynamic Reports Container -->
+  <div class="dynamic-reports-container">
+    <div class="column questionnaire-column" *ngIf="isQuestionnaireVisible">
+      <div class="card-header-container">
+        <h5 class="card-header">Questionnaire</h5>
+        <mat-icon
+          class="cancel-icon"
+          (click)="collapseColumn('questionnaire')"
+          svgIcon="cancelButton"
+        ></mat-icon>
+      </div>
+      <app-DynamicQuestionnairelist></app-DynamicQuestionnairelist>
     </div>
-    <div class="column">
-        <app-DynamicVendorList></app-DynamicVendorList>
+    <div class="column vendors-column" *ngIf="isVendorsVisible">
+      <div class="card-header-container">
+        <h5 class="card-header">Vendors</h5>
+        <mat-icon
+          class="cancel-icon"
+          (click)="collapseColumn('vendors')"
+          svgIcon="cancelButton"
+        ></mat-icon>
+      </div>
+      <app-DynamicVendorList></app-DynamicVendorList>
     </div>
-    <div class="column">
-        <app-DynamicResponseList></app-DynamicResponseList>
+    <div class="column response-column" *ngIf="isResponseVisible">
+      <div class="card-header-container">
+        <h5 class="card-header">Response</h5>
+        <mat-icon
+          class="cancel-icon"
+          (click)="collapseColumn('response')"
+          svgIcon="cancelButton"
+        ></mat-icon>
+      </div>
+      <app-DynamicResponseList></app-DynamicResponseList>
     </div>
-    <div class="column">
-        <app-DynamicDisplay></app-DynamicDisplay>
+    <div
+      class="column answers-column"
+      [ngClass]="{
+        'full-width':
+          !isQuestionnaireVisible || !isVendorsVisible || !isResponseVisible
+      }"
+    >
+      <div class="card-header-container">
+        <h5 class="card-header">Answers</h5>
+      </div>
+      <app-DynamicDisplay></app-DynamicDisplay>
     </div>
+  </div>
 </div>

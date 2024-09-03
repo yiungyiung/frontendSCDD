@@ -1,3 +1,12 @@
-<div *ngFor="let question of questions">
-    <input type="checkbox" [checked]="selectedQuestions.includes(question.questionID!)" (change)="onQuestionSelect(question.questionID!)"> {{ question.questionText }}
+<div class="list-container">
+  <div class="list" *ngFor="let question of questions">
+    <div class="checkbox-option">
+      <input
+        type="checkbox"
+        [checked]="selectedQuestions.includes(question.questionID!)"
+        (change)="onQuestionSelect(question.questionID!)"
+      />
+      {{ question.questionText }}
+    </div>
+  </div>
 </div>
