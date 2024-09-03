@@ -38,53 +38,57 @@ export class DynamicReportsComponent implements OnInit {
   ngOnInit() {
     this.token = this.authService.getToken();
     this.loadQuestionnaires();
-    this.reportStateService.selectedQuestions$.subscribe((questionIds) => {
+  
+    // Subscribe to changes in selected questions, vendors, and questionnaire
+    this.reportStateService.selectedQuestions$.subscribe(() => {
       this.updateDisplay();
     });
-
+  
     this.reportStateService.selectedVendorAssignments$.subscribe(() => {
       this.updateDisplay();
     });
-
+  
     this.reportStateService.selectedQuestionnaire$.subscribe(() => {
-      this.responses = []; // Reset responses array on questionnaire change
+      this.responses = []; // Reset responses on questionnaire change
+      this.selectedQuestion = []; // Reset selected questions
     });
+    this.reportStateService.selectedQuestionnaire$.subscribe(() => {
+      this.clearData(); // Clear data when a new questionnaire is selected
+  });
   }
-
-  updateDisplay() {
-    const questionIds = this.reportStateService.selectedQuestionsValue;
-    const vendorAssignments =
-      this.reportStateService.selectedVendorAssignmentsValue;
-
-    if (vendorAssignments.length > 0) {
-      this.loadResponsesForAssignments(vendorAssignments, questionIds);
-    } else {
-      this.loadResponses(questionIds);
-    }
-  }
-
-  loadResponses(questionIds: number[]) {
-    const questionnaireId = this.reportStateService.selectedQuestionnaireValue;
-    if (!questionnaireId || questionIds.length === 0) return;
+  clearData() {
     this.responses = [];
-    this.responseService
-      .getAllResponsesForQuestionnaire(questionnaireId)
-      .subscribe((responses: QuestionnaireAssignmentResponseDto[]) => {
-        responses.forEach((response) => {
-          response.questions = response.questions.filter((q) =>
-            questionIds.includes(q.questionID)
-          );
-          response.questions.forEach((q) =>
-            this.loadQuestionById(q.questionID)
-          );
-          this.totalItems = this.responses.length;
-          this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-          this.currentPage = 1;
-          this.responses.push(response);
-          this.updatePagedResponses();
-        });
-      });
+    this.selectedQuestion = [];
+    this.pagedResponses = [];
+    this.currentPage = 1;
+    this.totalItems = 0;
+    this.totalPages = 0;
+}
+updateDisplay() {
+  this.clearData(); // Clear data before updating the display
+  const questionIds = this.reportStateService.selectedQuestionsValue;
+  const vendorAssignments = this.reportStateService.selectedVendorAssignmentsValue;
+
+  if (vendorAssignments.length > 0) {
+      this.loadResponsesForAssignments(vendorAssignments, questionIds);
+  } else {
+      this.loadResponses(questionIds);
   }
+}
+loadResponses(questionIds: number[]) {
+  const questionnaireId = this.reportStateService.selectedQuestionnaireValue;
+  if (!questionnaireId || questionIds.length === 0) return;
+
+  this.responseService.getAllResponsesForQuestionnaire(questionnaireId)
+      .subscribe((responses: QuestionnaireAssignmentResponseDto[]) => {
+          this.responses = responses.map(response => {
+              response.questions = response.questions.filter(q => questionIds.includes(q.questionID));
+              response.questions.forEach(q => this.loadQuestionById(q.questionID));
+              return response;
+          });
+          this.updatePagination();
+      });
+}
 
   loadResponsesForAssignments(
     vendorAssignments: {
@@ -139,27 +143,27 @@ export class DynamicReportsComponent implements OnInit {
     }
   }
 
-  updatePagedResponses() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.pagedResponses = this.responses.slice(startIndex, endIndex);
-    console.log('pagedResponses: ', this.pagedResponses);
-    console.log('this.itemsPerPage: ', this.itemsPerPage);
-    console.log('this.totalItems: ', this.totalItems);
-    console.log('this.totalPages: ', this.totalPages);
-  }
+  updatePagination() {
+    this.totalItems = this.responses.length;
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+    this.updatePagedResponses();
+}
 
   onPageChange(page: number) {
     this.currentPage = page;
     this.updatePagedResponses();
   }
-
-  onItemsPerPageChange(itemsPerPage: number) {
-    this.itemsPerPage = itemsPerPage;
-    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-    this.currentPage = 1;
-    this.updatePagedResponses();
-  }
+  updatePagedResponses() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.pagedResponses = this.responses.slice(startIndex, endIndex);
+}
+onItemsPerPageChange(itemsPerPage: number) {
+  this.itemsPerPage = itemsPerPage;
+  this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+  this.currentPage = 1;
+  this.updatePagedResponses();
+}
 
   loadQuestionnaires() {
     this.questionnaireService

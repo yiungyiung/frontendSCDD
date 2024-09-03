@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Vendor } from '../../model/vendor';
 import { AuthService } from '../../services/AuthService/auth.service';
 import { VendorService } from '../../services/VendorService/Vendor.service';
@@ -18,6 +18,7 @@ import { DataFetchService } from '../../services/DataFetchService/DataFetch.serv
   selector: 'app-VendorManagement',
   templateUrl: './VendorManagement.component.html',
   styleUrls: ['./VendorManagement.component.css'],
+ 
 })
 export class VendorManagementComponent implements OnInit {
   selectedVendor: Vendor | null = null;

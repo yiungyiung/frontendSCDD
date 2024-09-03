@@ -1,16 +1,10 @@
 <div>
-  <div class="form-group">
-    <div></div>
-    <div class="dropdown-container">
-      <h5>Questionnaire:</h5>
-      <div class="select-icon-container">
-        <select
-          id="role"
-          class="form-control"
-          name="role"
-          required
-          (change)="onSelectQuestionnaire($event)"
-        >
+    <div class="form-group">
+        <div></div>
+        <div class="dropdown-container">
+            <h5>Questionnaire:</h5>
+            <div class="select-icon-container">
+                <select id="role" class="form-control" name="role" required (change)="onSelectQuestionnaire($event)">
           <option
             *ngFor="let questionnaire of questionnaires"
             [value]="questionnaire.questionnaireID"
@@ -18,77 +12,48 @@
             {{ questionnaire.name }} - {{ questionnaire.year }}
           </option>
         </select>
-        <mat-icon class="select-icon" svgIcon="DropdownArrow"></mat-icon>
-      </div>
-    </div>
+                <mat-icon class="select-icon" svgIcon="DropdownArrow"></mat-icon>
+            </div>
+        </div>
 
-    <div class="form-actions">
-      <app-pagination
-        [currentPage]="currentPage"
-        [totalPages]="totalPages"
-        [itemsPerPage]="itemsPerPage"
-        [totalItems]="totalItems"
-        (pageChange)="onPageChange($event)"
-        (itemsPerPageChange)="onItemsPerPageChange($event)"
-      ></app-pagination>
+        <div class="form-actions">
+            <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" [itemsPerPage]="itemsPerPage" [totalItems]="totalItems" (pageChange)="onPageChange($event)" (itemsPerPageChange)="onItemsPerPageChange($event)"></app-pagination>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Restore Buttons Container -->
 <div class="restore-buttons-container">
-  <button
-    *ngIf="!isVendorsVisible"
-    (click)="restoreColumn('vendors')"
-    class="restore-button"
-  >
+    <button *ngIf="!isVendorsVisible" (click)="restoreColumn('vendors')" class="restore-button">
     <mat-icon svgIcon="addButton"></mat-icon> Vendors
   </button>
-  <button
-    *ngIf="!isResponseVisible"
-    (click)="restoreColumn('response')"
-    class="restore-button"
-  >
+    <button *ngIf="!isResponseVisible" (click)="restoreColumn('response')" class="restore-button">
     <mat-icon svgIcon="addButton"></mat-icon> Response
   </button>
 </div>
 
 <!-- Dynamic Reports Container -->
 <div class="dynamic-reports-container">
-  <div class="column vendors-column" *ngIf="isVendorsVisible">
-    <div class="card-header-container">
-      <h5 class="card-header">Vendors</h5>
-      <mat-icon
-        class="cancel-icon"
-        (click)="collapseColumn('vendors')"
-        svgIcon="cancelButton"
-      ></mat-icon>
+    <div class="column vendors-column" *ngIf="isVendorsVisible">
+        <div class="card-header-container">
+            <h5 class="card-header">Vendors</h5>
+            <mat-icon class="cancel-icon" (click)="collapseColumn('vendors')" svgIcon="cancelButton"></mat-icon>
+        </div>
+        <app-DynamicVendorList></app-DynamicVendorList>
     </div>
-    <app-DynamicVendorList></app-DynamicVendorList>
-  </div>
-  <div class="column response-column" *ngIf="isResponseVisible">
-    <div class="card-header-container">
-      <h5 class="card-header">Response</h5>
-      <mat-icon
-        class="cancel-icon"
-        (click)="collapseColumn('response')"
-        svgIcon="cancelButton"
-      ></mat-icon>
+    <div class="column response-column" *ngIf="isResponseVisible">
+        <div class="card-header-container">
+            <h5 class="card-header">Response</h5>
+            <mat-icon class="cancel-icon" (click)="collapseColumn('response')" svgIcon="cancelButton"></mat-icon>
+        </div>
+        <app-DynamicResponseList></app-DynamicResponseList>
     </div>
-    <app-DynamicResponseList></app-DynamicResponseList>
-  </div>
-  <div
-    class="column answers-column"
-    [ngClass]="{
+    <div class="column answers-column" [ngClass]="{
       'full-width': !isVendorsVisible || !isResponseVisible
-    }"
-  >
-    <div class="card-header-container">
-      <h5 class="card-header">Answers</h5>
+    }">
+        <div class="card-header-container">
+            <h5 class="card-header">Answers</h5>
+        </div>
+        <app-DynamicDisplay [responses]="responses" [selectedQuestion]="selectedQuestion"></app-DynamicDisplay>
     </div>
-    <app-DynamicDisplay
-      [responses]="responses"
-      [selectedQuestion]="selectedQuestion"
-    ></app-DynamicDisplay>
-  </div>
 </div>

@@ -1,13 +1,3 @@
-.tooltip-danger .mdc-tooltip__surface {
-    font-size: 14px !important;
-    color: red !important;
-    background-color: white !important;
-}
-
-::ng-deep .mdc-tooltip__surface {
-    background-color: red !important;
-}
-
 .custcard {
     border: 1px solid #ddd;
     background-color: #ffffff;

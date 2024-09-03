@@ -1,61 +1,44 @@
 <div class="response-table-container">
-  <table class="response-table">
-    <thead>
-      <tr class="table-row">
-        <th rowspan="2" class="table-header">Vendors</th>
-        <ng-container *ngFor="let question of responses[0]?.questions">
-          <th
-            [attr.colspan]="
+    <table class="response-table">
+        <thead>
+            <tr class="table-row">
+                <th rowspan="2" class="table-header">Vendors</th>
+                <ng-container *ngFor="let question of responses[0]?.questions; let i = index">
+                    <th [attr.colspan]="
               (question.optionResponses.length > 0 ? 1 : 0) +
-              (selectedQuestion.length > 0 ? 1 : 0)
-            "
-            matTooltip="{{ question.questionText }}"
-          >
-            {{ question.questionText }}
-          </th>
-        </ng-container>
-      </tr>
-      <tr>
-        <ng-container
-          *ngFor="let question of responses[0]?.questions; let i = index"
-        >
-          <th
-            *ngIf="question.optionResponses.length > 0"
-            matTooltip="Option Selection"
-          >
-            Option Selection
-          </th>
-          <th *ngIf="selectedQuestion[i].textboxes.length > 0">
-            <ng-container
-              *ngFor="let textbox of selectedQuestion[i]?.textboxes"
-              matTooltip="{{ textbox.label }}"
-            >
-              {{ textbox.label }}<br />
-            </ng-container>
-          </th>
-        </ng-container>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let response of responses">
-        <td>Vendor {{ response.vendorName }}</td>
-        <ng-container *ngFor="let question of response.questions">
-          <td
-            *ngIf="question.optionResponses.length > 0"
-            matTooltip="{{ question.optionResponses[0].optionText }}"
-          >
-            {{ question.optionResponses[0].optionText || "" }}
-          </td>
-          <td>
-            <ng-container
-              *ngIf="selectedQuestion[0].textboxes.length > 0"
-              matTooltip="{{ question.textBoxResponses[0].textValue }}"
-            >
-              {{ question.textBoxResponses[0].textValue || "" }}
-            </ng-container>
-          </td>
-        </ng-container>
-      </tr>
-    </tbody>
-  </table>
+              (selectedQuestion[i].textboxes.length! > 0 ? selectedQuestion[i].textboxes.length : 0)
+            " matTooltip="{{ question.questionText }}">
+                        {{ question.questionText }}
+                    </th>
+                </ng-container>
+            </tr>
+            <tr>
+                <ng-container *ngFor="let question of responses[0]?.questions; let i = index">
+                    <th *ngIf="question.optionResponses.length > 0" matTooltip="Option Selection">
+                        Option Selection
+                    </th>
+                    <ng-container *ngIf="selectedQuestion[i].textboxes.length > 0">
+                        <th *ngFor="let textbox of selectedQuestion[i]?.textboxes" matTooltip="{{ textbox.label }}">
+                            {{ textbox.label }}
+                        </th>
+                    </ng-container>
+                </ng-container>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let response of responses">
+                <td>Vendor {{ response.vendorName }}</td>
+                <ng-container *ngFor="let question of response.questions; let i = index">
+                    <td *ngIf="question.optionResponses.length > 0" matTooltip="{{ question.optionResponses[0].optionText }}">
+                        {{ question.optionResponses[0].optionText || "" }}
+                    </td>
+                    <ng-container *ngIf="selectedQuestion[i].textboxes.length > 0">
+                        <td *ngFor="let textboxResponse of question.textBoxResponses" matTooltip="{{ textboxResponse.textValue }}">
+                            {{ textboxResponse.textValue || "" }}
+                        </td>
+                    </ng-container>
+                </ng-container>
+            </tr>
+        </tbody>
+    </table>
 </div>
