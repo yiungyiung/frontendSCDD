@@ -16,6 +16,9 @@ export class ReportStateService {
 
   selectQuestionnaire(questionnaireId: number) {
     this.selectedQuestionnaireSubject.next(questionnaireId);
+    // Reset vendors and questions when changing questionnaire
+    this.selectedVendorAssignmentsSubject.next([]);
+    this.selectedQuestionsSubject.next([]);
   }
 
   selectVendorAssignments(vendorAssignments: { vendorID: number, assignmentID: number, vendorName: string }[]) {

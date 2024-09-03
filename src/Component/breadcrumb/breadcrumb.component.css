@@ -1,12 +1,16 @@
 nav {
-  font-size: 2vh;
+    font-size: 1rem;
+    line-height: 1.25rem;
+    color: #073c5a;
+    margin-top: 2.5vh;
+    margin-bottom: -2.5vh;
 }
 
-a {
-  text-decoration: none;
-  color: #157195;
+nav a {
+    color: #073c5a;
+    text-decoration: none;
 }
 
-nav::after {
-  content: " ";
+nav a:hover {
+    text-decoration: underline;
 }

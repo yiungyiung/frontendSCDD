@@ -21,42 +21,54 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
+        data: { breadcrumb: 'Dashboard' },
       },
       {
         path: 'user-management',
         component: UserManagementComponent,
+        data: { breadcrumb: 'User Management' },
       },
       {
         path: 'vendor-management',
         component: VendorManagementComponent,
+        data: { breadcrumb: 'VendorManagement' },
       },
       {
         path: 'Manage-question',
         component: ManageQuestionaireComponent,
+        data: { breadcrumb: 'ManageQuestions' },
       },
       {
         path: 'CreateNewQuestionnarie',
         component: CreateNewQuestionnaireComponent,
+        data: { breadcrumb: 'Create New Questionnaire' },
+        children: [
+          {
+            path: 'select-questions',
+            component: SelectQuestionsComponent,
+            data: { breadcrumb: 'Select Questions' },
+          }
+        ]
       },
       {
         path: 'AssignExistingQuestionnarie',
         component: AssignQuestionnaireComponent,
+        data: { breadcrumb: 'Assign Existing Questionnarie' },
       },
       {
         path: 'Add-question',
         component: AddQuestionComponent,
+        data: { breadcrumb: 'Add Question' },
       },
       {
         path: 'reports',
         component: ReportsComponent,
+        data: { breadcrumb: 'Reports' },
       },
       {
         path: 'dynamicReports',
         component: DynamicReportsComponent,
-      },
-      {
-        path: 'select-questions',
-        component: SelectQuestionsComponent,
+        data: { breadcrumb: 'Dynamic Reports' },
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],

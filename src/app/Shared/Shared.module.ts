@@ -27,6 +27,7 @@ import { StackedBarChartComponent } from '../../Component/stacked-bar-chart/stac
 import { PieChartComponent } from '../../Component/pie-chart/pie-chart.component';
 import { QuestionnaireListComponent } from '../../Component/QuestionnaireList/QuestionnaireList.component';
 import { ResponseModalComponent } from '../../Component/ResponseModal/ResponseModal.component';
+import { BreadcrumbComponent } from '../../Component/Breadcrumb/Breadcrumb.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ResponseModalComponent } from '../../Component/ResponseModal/ResponseMo
     PieChartComponent,
     QuestionnaireListComponent,
     ResponseModalComponent,
+    BreadcrumbComponent,
   ],
   imports: [
     
@@ -91,7 +93,8 @@ import { ResponseModalComponent } from '../../Component/ResponseModal/ResponseMo
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSlideToggleModule, // Export any shared Angular Material or other modules here
+    MatSlideToggleModule,
+    BreadcrumbComponent, // Export any shared Angular Material or other modules here
   ],
 })
 export class SharedModule {}

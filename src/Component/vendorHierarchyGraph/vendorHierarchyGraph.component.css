@@ -2,21 +2,28 @@
     text-align: center;
     position: relative;
     font-family: Arial, sans-serif;
-    padding: 20px;
+    padding: 10px;
+    /* Reduced padding for smaller aspect */
 }
 
 .company-button,
 .vendor-card {
     background-color: #ffffff;
     color: #333;
-    padding: 15px 25px;
-    font-size: 16px;
-    border-radius: 10px;
-    border: 2px solid #12789e;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 8px 15px;
+    /* Reduced padding */
+    font-size: 12px;
+    /* Smaller font size */
+    border-radius: 8px;
+    /* Slightly smaller border radius */
+    border: 1px solid #12789e;
+    /* Thinner border */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    /* Reduced shadow */
     text-align: center;
     display: inline-block;
-    min-width: 200px;
+    min-width: 100px;
+    /* Reduced minimum width */
     position: relative;
     z-index: 2;
     transition: all 0.3s ease-in-out;
@@ -27,34 +34,41 @@
     background-color: #4e79a7;
     color: white;
     border: none;
-    padding: 18px 30px;
-    font-size: 1.2em;
+    padding: 10px 20px;
+    /* Reduced padding */
+    font-size: 0.9em;
+    /* Reduced font size */
 }
 
 .company-button:hover {
     background-color: #3a5a80;
     transform: translateY(-3px);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    /* Reduced shadow */
 }
 
 .company-container {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    /* Reduced margin */
 }
 
 .tier {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 40px 0;
+    margin: 20px 0;
+    /* Reduced margin */
 }
 
 .vendor-wrapper {
-    margin: 10px 20px;
+    margin: 5px 10px;
+    /* Reduced margin */
 }
 
 .vendor-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    /* Reduced shadow */
 }
 
 .vendor-card {
@@ -64,13 +78,16 @@
 
 .vendor-card .vendor-name {
     font-weight: bold;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
+    /* Reduced margin */
 }
 
 .vendor-card .tier-label {
-    font-size: 14px;
+    font-size: 10px;
+    /* Smaller font size */
     color: #666;
-    margin-top: 5px;
+    margin-top: 2px;
+    /* Reduced margin */
 }
 
 .lines-container {
