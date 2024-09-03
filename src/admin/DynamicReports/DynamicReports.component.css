@@ -58,12 +58,6 @@
   padding-top: 4vh;
 }
 
-.container {
-  max-width: 100%;
-  margin: 0 auto;
-  margin-top: 7vh;
-}
-
 .cancel-icon {
   cursor: pointer;
   float: right;
@@ -90,4 +84,57 @@
 .restore-button mat-icon {
   width: 20px;
   height: auto;
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2vh;
+  font-weight: 600;
+  color: #073c5a;
+  margin-bottom: 2vh;
+}
+
+.form-control {
+  width: 20vw;
+  padding: 0.5vh; /* Reduced padding to decrease height */
+  font-size: 2vh;
+  border: 1px solid #073c5a84;
+  border-radius: 4px;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 1vw; /* Space between filter icon and pagination */
+}
+
+.form-actions mat-icon {
+  margin-top: 2.2vh;
+  height: auto;
+}
+
+.select-icon-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.select-icon-container select {
+  width: 100%;
+  padding-right: 30px; /* Adjust this if needed */
+}
+
+.select-icon {
+  position: absolute;
+  right: 0px;
+  height: 4.1vh;
+  width: auto;
+  margin-top: -4.1vh;
+}
+
+.dropdown-container {
+  display: flex;
+  gap: 1vh;
 }

@@ -12,19 +12,25 @@
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 3vh;
+  table-layout: fixed;
 }
 
 .response-table th,
 .response-table td {
   border-right: 1px solid #12789e;
+  color: #0a4357;
+  font-size: 2vh;
   padding: 10px;
   text-align: left;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .response-table th {
   background-color: #e7f4f9;
   color: #0a4357;
+  font-size: 2vh;
   text-align: center;
   margin: 0;
   padding: 10px;
