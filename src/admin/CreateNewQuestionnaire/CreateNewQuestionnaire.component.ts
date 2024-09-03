@@ -5,7 +5,7 @@ import { Framework } from '../../model/entity';
 import { VendorService } from '../../services/VendorService/Vendor.service';
 import { EntityService } from '../../services/EntityService/Entity.service';
 import { AuthService } from '../../services/AuthService/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { FilterService } from '../../services/FilterService/Filter.service';
 import { SubPart } from '../../Component/filter/filter.component';
 
@@ -25,20 +25,27 @@ export class CreateNewQuestionnaireComponent implements OnInit {
   disabledCategories: Set<number> = new Set<number>();
   toggledSubParts: { [key: string]: boolean } = {};
   isFilterVisible = false;
-
+  isChildRouteActive = false;
   constructor(
     private formBuilder: FormBuilder,
     private vendorService: VendorService,
     private entityService: EntityService,
     private authService: AuthService,
     private router: Router,
-    private filterService: FilterService
+    private filterService: FilterService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.initForm();
     this.getVendors();
     this.getFrameworks();
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+          // Check if the current route is the child route
+          this.isChildRouteActive = this.route.firstChild != null;
+      }
+  });
   }
 
   initForm() {
@@ -295,8 +302,7 @@ export class CreateNewQuestionnaireComponent implements OnInit {
       const frameworkName = selectedFramework?.frameworkName;
       console.log('Framework Name:', frameworkName);
       console.log('Selected Vendors:', selectedVendors);
-      this.router
-        .navigate(['/admin/select-questions'], {
+     this.router.navigate(['admin/CreateNewQuestionnarie/select-questions'], {
           state: {
             frameworkName: frameworkName,
             frameworkID: selectedFrameworkID,

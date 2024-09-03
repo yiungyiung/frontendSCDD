@@ -1,20 +1,19 @@
 <div class="container">
-  <div class="row">
-    <!-- Submit Button on the Right -->
-    <div class="submit-container">
-      <button type="submit" class="btn-primary" (click)="onSubmit()">
+    <div class="row">
+        <!-- Submit Button on the Right -->
+        <div class="submit-container">
+            <button type="submit" class="btn-primary" (click)="onSubmit()">
         Submit Questionnaire
       </button>
-    </div>
-    <div class="col-md-4">
-      <div class="card mb-3">
-        <div class="card-header-container">
-          <h5 class="card-header">Details</h5>
         </div>
-        <div class="card-body">
-          <div class="mb-3">
-            <label for="inputField" class="form-label"
-              >Name of Questionnaire</label
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-header-container">
+                    <h5 class="card-header">Details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="inputField" class="form-label">Name of Questionnaire</label
             >
             <input
               type="text"
@@ -23,24 +22,28 @@
               placeholder="Enter text here"
               [(ngModel)]="questionnaireName"
             />
+            <label for="inputField" class="form-label"
+              >Questionnaire Year</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="inputField"
+              placeholder="Enter text here"
+              [(ngModel)]="questionnaireYear"
+            />
           </div>
           <!-- Calendar -->
           <div class="mb-3">
             <label for="calendar" class="form-label">Select Deadline</label>
-            <div class="input-container">
-              <input
-                type="date"
-                class="form-control"
-                id="calendar"
-                [(ngModel)]="deadline"
-              />
-              <mat-icon svgIcon="calendar"></mat-icon>
-            </div>
-          </div>
-          <div class="deadline-divider"></div>
-          <div>
-            <label for="select_category" class="form-label"
-              >Selected Category:&nbsp;</label
+                        <div class="input-container">
+                            <input type="date" class="form-control" id="calendar" [(ngModel)]="deadline" />
+                            <mat-icon svgIcon="calendar"></mat-icon>
+                        </div>
+                    </div>
+                    <div class="deadline-divider"></div>
+                    <div>
+                        <label for="select_category" class="form-label">Selected Category:&nbsp;</label
             >
             <span>{{ getFirstCategoryName() }}</span>
           </div>

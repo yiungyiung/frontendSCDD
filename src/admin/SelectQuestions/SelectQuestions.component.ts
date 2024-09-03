@@ -33,6 +33,7 @@ export class SelectQuestionsComponent implements OnInit {
   vendorID: number[] = [];
   questionnaireName: string = '';
   deadline: string = '';
+questionnaireYear: number|undefined;
   constructor(
     private questionService: QuestionService,
     private authService: AuthService,
@@ -202,7 +203,7 @@ export class SelectQuestionsComponent implements OnInit {
   onSubmit(): void {
     const newQuestionnaire: questionnaire = {
       name: this.questionnaireName,
-      year: new Date(this.deadline).getFullYear(),
+      year: this.questionnaireYear!,
       questionIDs: this.selectedQuestions,
     };
     const token = this.authService.getToken();

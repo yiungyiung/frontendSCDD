@@ -1,11 +1,20 @@
-import { Component, Input, ElementRef, Renderer2, AfterViewInit,  ChangeDetectorRef} from '@angular/core';
+import {
+  Component,
+  Input,
+  ElementRef,
+  Renderer2,
+  AfterViewInit,
+  ChangeDetectorRef,
+  OnDestroy,
+} from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-item',
   templateUrl: './nav-item.component.html',
-  styleUrls: ['./nav-item.component.css']
+  styleUrls: ['./nav-item.component.css'],
 })
-export class NavItemComponent implements AfterViewInit {
+export class NavItemComponent implements AfterViewInit, OnDestroy {
   @Input() svgIcon!: string;
   @Input() text!: string;
   @Input() href!: string;
@@ -16,19 +25,24 @@ export class NavItemComponent implements AfterViewInit {
   constructor(
     private elementRef: ElementRef,
     private renderer: Renderer2,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
+  // Ensure the navigate method triggers route changes correctly
+  navigate() {
+    if (this.href) {
+      this.router.navigate([this.href]).then(() => {
+        // Force breadcrumb update after navigation
+        this.cdr.detectChanges();
+      });
+    }
+  }
   ngAfterViewInit() {
     if (this.hasSubPanel) {
-      // Force the sub-panel to be rendered
       this.showSubPanel = true;
       this.cdr.detectChanges();
-      
-      // Adjust the size
       this.adjustSubPanelSize();
-      
-      // Hide the sub-panel again
       this.showSubPanel = false;
       this.cdr.detectChanges();
     }

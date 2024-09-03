@@ -1,51 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { BreadcrumbService } from '../../services/BreadcrumbService/Breadcrumb.service';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-breadcrumb',
-  templateUrl: './breadcrumb.component.html',
-  styleUrls: ['./breadcrumb.component.css'],
+  selector: 'app-Breadcrumb',
+  templateUrl: './Breadcrumb.component.html',
+  styleUrls: ['./Breadcrumb.component.css']
 })
-export class BreadcrumbComponent implements OnInit {
-  breadcrumbs: { label: string; path: string }[] = [];
+export class BreadcrumbComponent implements OnInit, OnDestroy {
+  breadcrumbs: Array<{ label: string, url: string }> = [];
+  private breadcrumbSubscription: Subscription = new Subscription();
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private breadcrumbService: BreadcrumbService) { }
 
-  ngOnInit(): void {
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe(() => {
-        this.breadcrumbs = this.createBreadcrumbs(this.route.root);
-      });
+  ngOnInit() {
+    this.breadcrumbSubscription = this.breadcrumbService.breadcrumbs$.subscribe(breadcrumbs => {
+      this.breadcrumbs = breadcrumbs;
+    });
   }
 
-  private createBreadcrumbs(
-    route: ActivatedRoute,
-    url: string = '',
-    breadcrumbs: Array<{ label: string; path: string }> = []
-  ): Array<{ label: string; path: string }> {
-    const children: ActivatedRoute[] = route.children;
-
-    if (children.length === 0) {
-      return breadcrumbs;
-    }
-
-    for (const child of children) {
-      const routeURL: string[] = child.snapshot.url.map(
-        (segment) => segment.path
-      );
-      const breadcrumbLabel =
-        child.snapshot.data['breadcrumb'] || routeURL.join('/');
-
-      if (routeURL.length > 0) {
-        url += `/${routeURL.join('/')}`;
-        breadcrumbs.push({ label: breadcrumbLabel, path: url });
-      }
-
-      return this.createBreadcrumbs(child, url, breadcrumbs);
-    }
-
-    return breadcrumbs;
+  ngOnDestroy() {
+    this.breadcrumbSubscription.unsubscribe();
   }
 }

@@ -1,19 +1,10 @@
 <div class="nav-item-container" (click)="toggleSubPanel()">
-  <a
-    class="nav-link"
-    [routerLink]="href"
-    routerLinkActive="active"
-    tabindex="0"
-  >
-    <mat-icon class="nav-icon" [svgIcon]="svgIcon"></mat-icon>
-    <span class="nav-label">{{ text }}</span>
-  </a>
-  <!--Sub-menu -->
-  <div
-    class="sub-panel"
-    *ngIf="hasSubPanel"
-    [style.display]="showSubPanel ? 'flex' : 'none'"
-  >
-    <ng-content></ng-content>
-  </div>
+    <a class="nav-link" (click)="navigate()">
+        <mat-icon class="nav-icon" [svgIcon]="svgIcon"></mat-icon>
+        <span class="nav-label">{{ text }}</span>
+    </a>
+    <!--Sub-menu -->
+    <div class="sub-panel" *ngIf="hasSubPanel" [style.display]="showSubPanel ? 'flex' : 'none'">
+        <ng-content></ng-content>
+    </div>
 </div>
