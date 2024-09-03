@@ -1,55 +1,80 @@
-<div *ngFor="let status of statuses" class="status-container">
-    <div class="status-header">
-        <span class="status-label">{{ status.statusName }}</span>
-    </div>
-    <ul class="questionnaire-list">
-        <li *ngFor="let questionnaire of questionnaires[status.statusName]" 
-            class="questionnaire-card" 
-            (click)="openResponseModal(questionnaire.assignmentID!)">
-            
+<div class="main-container">
+    <div class="title-container">
+        <h1 class="title-text">Reports</h1>
+    </div><div *ngFor="let status of statuses" class="status-container">
+    <div *ngFor="let questionnaire of questionnaires[status.statusName] " class="questionnaire-wrapper">
+        <div class="status-label status-{{ status.statusID }}">
+            {{ status.statusName }}
+        </div>
+        <div class="questionnaire-card" (click)="openResponseModal(questionnaire.assignmentID!)">
             <div class="questionnaire-details grid-container">
                 <div class="grid-item">
                     <div class="task-ids">
                         <div class="task-id">
-                            <span class="title">Assignment ID:</span>
-                            <span class="value">{{ questionnaire.assignmentID }}</span>
+                            <span class="title" matTooltip="{{ questionnaire.assignmentID }}">
+                                Assignment ID:
+                            </span>
+                            <span class="value" matTooltip="{{ questionnaire.assignmentID }}">
+                                {{ questionnaire.assignmentID }}
+                            </span>
                         </div>
                         <div class="task-id">
-                            <span class="title">Questionnaire ID:</span>
-                            <span class="value">{{ questionnaire.questionnaireID }}</span>
+                            <span class="title" matTooltip="{{ questionnaire.questionnaireID }}">
+                                Questionnaire ID:
+                            </span>
+                            <span class="value" matTooltip="{{ questionnaire.questionnaireID }}">
+                                {{ questionnaire.questionnaireID }}
+                            </span>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="grid-item">
-                    
-                        <div class="task-id">
-                            <span class="title">Vendor Name:</span>
-                            <span class="value">{{ questionnaire.vendorName }}</span>
-                        </div>
-                    
-                    </div>
-                    <div class="grid-item">
                     <div class="task-id">
-                            <span class="title">Questionnaire Name: </span>
-                            <span class="value">{{ questionnaire.questionnaireName }}</span>
-                        </div></div>
-                    
-                    <div class="grid-item">
-                        <div class="task-ids">
-                            <div class="task-id">
-                                <span class="title">Submission Date:</span>
-                                <span class="value">{{ questionnaire.submissionDate }}</span>
-                            </div>
-                            <div class="task-id">
-                                <span class="title">Due Date:</span>
-                                <span class="value"> {{ questionnaire.dueDate }}</span>
-                            </div>
-                        </div>
-                        
+                        <span class="title" matTooltip="{{ questionnaire.vendorName }}">
+                            Vendor Name:
+                        </span>
+                        <span class="value" matTooltip="{{ questionnaire.vendorName }}">
+                            {{ questionnaire.vendorName }}
+                        </span>
                     </div>
-                
+                </div>
+
+                <div class="grid-item">
+                    <div class="task-id">
+                        <span class="title" matTooltip="{{ questionnaire.questionnaireName }}">
+                            Questionnaire Name:
+                        </span>
+                        <span class="value" matTooltip="{{ questionnaire.questionnaireName }}">
+                            {{ questionnaire.questionnaireName }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid-item">
+                    <div class="task-ids">
+                        <div class="task-id">
+                            <span class="title" matTooltip="{{ questionnaire.submissionDate }}">
+                                Submission Date:
+                            </span>
+                            <span class="value" matTooltip="{{ questionnaire.submissionDate }}">
+                                {{ questionnaire.submissionDate }}
+                            </span>
+                        </div>
+                        <div class="task-id">
+                            <span class="title" matTooltip="{{ questionnaire.dueDate }}">
+                                Due Date:
+                            </span>
+                            <span class="value" matTooltip="{{ questionnaire.dueDate }}">
+                                {{ questionnaire.dueDate }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </li>
-    </ul>
+        </div>
+    </div>
 </div>
+</div>
+
+

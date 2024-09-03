@@ -13,6 +13,7 @@ import { QuestionnaireService } from '../../services/QuestionnaireService/Questi
 interface QuestionnaireAssignmentWithVendor extends QuestionnaireAssignment {
   vendorName: string;
   questionnaireName: string;
+  questionnaireYear: number;
 }
 
 @Component({
@@ -62,7 +63,8 @@ export class QuestionnaireListComponent implements OnInit {
             const assignmentWithVendor: QuestionnaireAssignmentWithVendor = {
               ...assignment,
               vendorName: vendor.vendorName,
-              questionnaireName: questionnaire.name  // Assigning the questionnaire name
+              questionnaireName: questionnaire.name,
+              questionnaireYear: questionnaire.year,    // Assigning the questionnaire name
             };
             this.questionnaires[status.statusName].push(assignmentWithVendor);
           });
@@ -71,7 +73,7 @@ export class QuestionnaireListComponent implements OnInit {
   }
   openResponseModal(assignmentID: number): void {
     const dialogRef = this.dialog.open(ResponseModalComponent, {
-      width: '600px',
+      minWidth:'1000px',    
       data: { assignmentID }
     });
 

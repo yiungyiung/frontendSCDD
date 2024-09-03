@@ -1,102 +1,130 @@
-.status-container {
-    margin-bottom: 16px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 16px;
+.title-container {
+    background-color: #E7F4F9; 
+    height: 9vh; 
+    width: 100%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-color: #063B58;
+    border-width:0.5vh;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+
 }
 
-.status-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
+.title-text {
+    font-weight:bold ;
+    font-size: 3vh; /* Adjust as needed */
+    color: #063B58; /* Dark text color for contrast */
+    margin: 0; /* Remove default margin */
 }
 
 .status-label {
-    background-color: #ff4c4c;
-    color: white;
-    padding: 4px 8px;
+    position: relative;
+    width: auto;
+    bottom:-2vh;
+    left: 1vw;
+    padding: 5px 10px;
     border-radius: 4px;
-    font-size: 14px;
-    font-weight: bold;
+    color: white;
+    text-align: center;
+    display: inline-block;
+    font-size: 1.7vh;
 }
 
-.questionnaire-list {
-    list-style-type: none;
-    padding-left: 0;
-    margin: 0;
+/* Assign specific colors for each status */
+.status-1 {
+    background-color: #4caf50; /* Green */
+}
+
+.status-2 {
+    background-color: #ffa726; /* Orange */
+}
+
+.status-3 {
+    background-color: #f44336; /* Red */
+}
+
+.status-4 {
+    background-color: #2196f3; /* Blue */
+}
+.main-container{
+    height:72vh;
+    overflow-y: scroll;
+    scrollbar-width:none ;
+    background-color: #fff;
+    margin-top: 5.5vh;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+
+    border-radius: 8px;
+}
+
+
+.status-container {
+    padding:2vh;
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 5px; 
+    align-items: flex-start;   
+}
+
+.questionnaire-wrapper {
+    flex: 1 1 calc(50% - 16px); /* Responsive flex-grow, flex-shrink, and flex-basis to allow two cards per row */
+    width: 200px;
+    box-sizing: border-box;
 }
 
 .questionnaire-card {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: justify;
     padding: 12px;
-    margin-bottom: 8px;
     border: 1px solid #ddd;
     border-radius: 6px;
-    background-color: #f9f9f9;
+    background-color: #fff;
     cursor: pointer;
     transition: box-shadow 0.3s ease;
+    width:45vw
 }
 
 .questionnaire-card:hover {
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.questionnaire-details {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.left-section {
-    flex: 1;
-}
-
-
-
-.task-id, .unit-task-id {
-    margin-bottom: 8px; /* Adjusts spacing between the two lines */
-}
-
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Creates 4 equal columns */
-    gap: 16px; /* Adds spacing between the grid items */
-    padding: 16px; /* Adds padding around the grid container */
-    
+    grid-template-columns: repeat(4, 1fr); /* Adjust based on the number of grid items */
+    gap: 16px;
 }
 
 .grid-item {
-   
-    padding: 20px; /* Padding inside each grid item */
-    text-align: center; /* Center-aligns the content inside each grid item */
-    border-radius: 8px; /* Optional: Rounds the corners of each grid item */
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
 }
 
-
 .title {
-    font-size: 12px; /* Smaller font for the title */
+    font-size: 1.4vh;
     display: block;
 }
 
 .value {
-    font-size: 16px;
+    font-size: 1.8vh;
     font-weight: normal;
-    color:#063B58;
+    color: #063B58;
 }
 
-
-.right-section {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+.task-id{
+    height:6vh;
+}
+.title, .value {
+    white-space: nowrap; 
+    overflow: hidden;   
+    text-overflow: ellipsis; 
 }
 
-.right-section span {
-    font-size: 14px;
-    color: #555;
+.value {
+    display: inline-block;
+    max-width: 150px; 
+    vertical-align: middle;
 }
