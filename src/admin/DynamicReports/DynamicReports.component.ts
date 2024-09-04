@@ -38,23 +38,22 @@ export class DynamicReportsComponent implements OnInit {
   ngOnInit() {
     this.token = this.authService.getToken();
     this.loadQuestionnaires();
-  
-    // Subscribe to changes in selected questions, vendors, and questionnaire
+
     this.reportStateService.selectedQuestions$.subscribe(() => {
       this.updateDisplay();
     });
-  
+
     this.reportStateService.selectedVendorAssignments$.subscribe(() => {
       this.updateDisplay();
     });
-  
+
     this.reportStateService.selectedQuestionnaire$.subscribe(() => {
-      this.responses = []; // Reset responses on questionnaire change
-      this.selectedQuestion = []; // Reset selected questions
+      this.responses = [];
+      this.selectedQuestion = [];
     });
     this.reportStateService.selectedQuestionnaire$.subscribe(() => {
-      this.clearData(); // Clear data when a new questionnaire is selected
-  });
+      this.clearData();
+    });
   }
   clearData() {
     this.responses = [];
@@ -63,32 +62,44 @@ export class DynamicReportsComponent implements OnInit {
     this.currentPage = 1;
     this.totalItems = 0;
     this.totalPages = 0;
-}
-updateDisplay() {
-  this.clearData(); // Clear data before updating the display
-  const questionIds = this.reportStateService.selectedQuestionsValue;
-  const vendorAssignments = this.reportStateService.selectedVendorAssignmentsValue;
-
-  if (vendorAssignments.length > 0) {
-      this.loadResponsesForAssignments(vendorAssignments, questionIds);
-  } else {
-      this.loadResponses(questionIds);
   }
-}
-loadResponses(questionIds: number[]) {
-  const questionnaireId = this.reportStateService.selectedQuestionnaireValue;
-  if (!questionnaireId || questionIds.length === 0) return;
+  updateDisplay() {
+    this.clearData();
+    const questionIds = this.reportStateService.selectedQuestionsValue;
+    const vendorAssignments =
+      this.reportStateService.selectedVendorAssignmentsValue;
 
-  this.responseService.getAllResponsesForQuestionnaire(questionnaireId)
+    if (vendorAssignments.length > 0) {
+      this.loadResponsesForAssignments(vendorAssignments, questionIds);
+    } else {
+      this.loadResponses(questionIds);
+    }
+  }
+  loadResponses(questionIds: number[]) {
+    const questionnaireId = this.reportStateService.selectedQuestionnaireValue;
+    if (!questionnaireId || questionIds.length === 0) return;
+
+    this.responseService
+      .getAllResponsesForQuestionnaire(questionnaireId)
       .subscribe((responses: QuestionnaireAssignmentResponseDto[]) => {
-          this.responses = responses.map(response => {
-              response.questions = response.questions.filter(q => questionIds.includes(q.questionID));
-              response.questions.forEach(q => this.loadQuestionById(q.questionID));
-              return response;
-          });
-          this.updatePagination();
+        this.responses = responses.map((response) => {
+          // Filter questions that match the selected question IDs
+          response.questions = response.questions.filter((q) =>
+            questionIds.includes(q.questionID)
+          );
+          return response;
+        });
+
+        // Ensure that selectedQuestion aligns with the filtered responses
+        this.selectedQuestion = [];
+        for (let response of this.responses) {
+          for (let question of response.questions) {
+            this.loadQuestionById(question.questionID);
+          }
+        }
+        this.updatePagination();
       });
-}
+  }
 
   loadResponsesForAssignments(
     vendorAssignments: {
@@ -102,6 +113,7 @@ loadResponses(questionIds: number[]) {
     this.responses = [];
     let responsesCount = 0;
     const totalResponses = vendorAssignments.length;
+
     for (const { assignmentID, vendorName } of vendorAssignments) {
       this.responseService
         .getResponsesForAssignment(assignmentID)
@@ -109,17 +121,18 @@ loadResponses(questionIds: number[]) {
           response.questions = response.questions.filter((q) =>
             questionIds.includes(q.questionID)
           );
-          response.questions.forEach((q) =>
-            this.loadQuestionById(q.questionID)
-          );
+
           this.responses.push({ ...response, vendorName });
           responsesCount++;
-          console.log('selected', this.responses);
+
           if (responsesCount === totalResponses) {
-            this.totalItems = this.responses.length;
-            this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-            this.currentPage = 1;
-            this.updatePagedResponses();
+            this.selectedQuestion = [];
+            for (let response of this.responses) {
+              for (let question of response.questions) {
+                this.loadQuestionById(question.questionID);
+              }
+            }
+            this.updatePagination();
           }
         });
     }
@@ -127,27 +140,37 @@ loadResponses(questionIds: number[]) {
 
   loadQuestionById(id: number) {
     const token = this.authService.getToken();
-    if (!this.selectedQuestion.some((q) => q.questionID === id)) {
-      this.questionService.getQuestionById(id, token).subscribe(
-        (question) => {
-          this.selectedQuestion.push(question);
-          console.log('Question added:', question);
-          console.log('fucking jerks', this.selectedQuestion);
-        },
-        (error) => {
-          console.error('Error loading question:', error);
-        }
-      );
-    } else {
-      console.log('Question already exists in selectedQuestion:', id);
+    const existingIndex = this.selectedQuestion.findIndex(
+      (q) => q.questionID === id
+    );
+
+    if (existingIndex !== -1) {
+      this.selectedQuestion.splice(existingIndex, 1);
     }
+
+    this.questionService.getQuestionById(id, token).subscribe(
+      (question) => {
+        this.selectedQuestion.push(question);
+        this.selectedQuestion.sort((a, b) => {
+          if (a.questionID === undefined) return 1; // Place undefined IDs at the end
+          if (b.questionID === undefined) return -1; // Place undefined IDs at the end
+          return a.questionID - b.questionID;
+        });
+
+        console.log('Question added:', question);
+        console.log('Updated selectedQuestion:', this.selectedQuestion);
+      },
+      (error) => {
+        console.error('Error loading question:', error);
+      }
+    );
   }
 
   updatePagination() {
     this.totalItems = this.responses.length;
     this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
     this.updatePagedResponses();
-}
+  }
 
   onPageChange(page: number) {
     this.currentPage = page;
@@ -157,13 +180,13 @@ loadResponses(questionIds: number[]) {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedResponses = this.responses.slice(startIndex, endIndex);
-}
-onItemsPerPageChange(itemsPerPage: number) {
-  this.itemsPerPage = itemsPerPage;
-  this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-  this.currentPage = 1;
-  this.updatePagedResponses();
-}
+  }
+  onItemsPerPageChange(itemsPerPage: number) {
+    this.itemsPerPage = itemsPerPage;
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+    this.currentPage = 1;
+    this.updatePagedResponses();
+  }
 
   loadQuestionnaires() {
     this.questionnaireService

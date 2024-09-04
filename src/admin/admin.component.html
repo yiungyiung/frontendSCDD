@@ -1,21 +1,30 @@
 <!-- admin.component.html -->
 <div>
-    <div class="custom-padded-content">
-        <app-TopBar></app-TopBar>
-        <nav class="custom-navbar">
-            <app-nav-item svgIcon="dashboard" text="Dashboard" href="/admin/dashboard">
-            </app-nav-item>
-            <app-nav-item svgIcon="framework" text="Framework"> </app-nav-item>
-            <app-nav-item svgIcon="vendors" text="Manage Vendors" href="/admin/vendor-management">
-            </app-nav-item>
-            <app-nav-item svgIcon="ques" text="Questionnaire" [hasSubPanel]="true">
-                <a class="nav-text-container" href="/admin/AssignExistingQuestionnarie"><button class="nav-text">Assign Existing Questionnaire</button></a
+  <div class="custom-padded-content">
+    <app-TopBar></app-TopBar>
+    <nav class="custom-navbar">
+      <app-nav-item
+        svgIcon="dashboard"
+        text="Dashboard"
+        href="/admin/dashboard"
+      >
+      </app-nav-item>
+      <app-nav-item
+        svgIcon="vendors"
+        text="Manage Vendors"
+        href="/admin/vendor-management"
+      >
+      </app-nav-item>
+      <app-nav-item svgIcon="ques" text="Questionnaire" [hasSubPanel]="true">
+        <a class="nav-text-container" href="/admin/AssignExistingQuestionnarie"
+          ><button class="nav-text">Assign Existing Questionnaire</button></a
         >
 
         <a class="nav-text-container" href="/admin/CreateNewQuestionnarie">
           <button class="nav-text">Assign New Questionnaire</button>
         </a>
-                <a class="nav-text-container" href="/admin/Add-question"><button class="nav-text">Add Question</button></a
+        <a class="nav-text-container" href="/admin/Add-question"
+          ><button class="nav-text">Add Question</button></a
         >
       </app-nav-item>
       <app-nav-item svgIcon="users" text="Users" href="/admin/user-management">

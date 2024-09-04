@@ -6,6 +6,7 @@ import {
   EventEmitter,
   OnChanges,
   SimpleChanges,
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -27,6 +28,7 @@ import { User } from '../../model/user';
   selector: 'app-vendorForm',
   templateUrl: './vendorForm.component.html',
   styleUrls: ['./vendorForm.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class VendorFormComponent implements OnInit, OnChanges {
   @Input() categories: Category[] = [];
@@ -79,21 +81,36 @@ export class VendorFormComponent implements OnInit, OnChanges {
 
   initForm() {
     this.vendorForm = this.fb.group({
-      vendorName: [{ value: '', disabled: this.selectedVendor !== null }, Validators.required],
-      vendorRegistration: [{ value: '', disabled: this.selectedVendor !== null }, Validators.required],
-      vendorAddress: [{ value: '', disabled: this.selectedVendor !== null }, Validators.required],
+      vendorName: [
+        { value: '', disabled: this.selectedVendor !== null },
+        Validators.required,
+      ],
+      vendorRegistration: [
+        { value: '', disabled: this.selectedVendor !== null },
+        Validators.required,
+      ],
+      vendorAddress: [
+        { value: '', disabled: this.selectedVendor !== null },
+        Validators.required,
+      ],
       contactName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       contactNumber: ['', [Validators.required, this.contactNumberValidator]],
-      categoryID: [{ value: '', disabled: this.selectedVendor !== null }, Validators.required],
-      tierID: [{ value: '', disabled: this.selectedVendor !== null }, Validators.required],
+      categoryID: [
+        { value: '', disabled: this.selectedVendor !== null },
+        Validators.required,
+      ],
+      tierID: [
+        { value: '', disabled: this.selectedVendor !== null },
+        Validators.required,
+      ],
     });
-  
+
     this.vendorForm.get('tierID')?.valueChanges.subscribe((tierID) => {
       this.onTierChange(tierID);
     });
   }
-  
+
   contactNumberValidator(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
     const isValid = /^[0-9]{10}$/.test(value);
@@ -112,14 +129,14 @@ export class VendorFormComponent implements OnInit, OnChanges {
         categoryID: this.selectedVendor.categoryID,
         tierID: this.selectedVendor.tierID,
       });
-  
+
       // Disable form controls
       this.vendorForm.get('vendorName')?.disable();
       this.vendorForm.get('vendorRegistration')?.disable();
       this.vendorForm.get('vendorAddress')?.disable();
       this.vendorForm.get('categoryID')?.disable();
       this.vendorForm.get('tierID')?.disable();
-  
+
       this.onTierChange(this.selectedVendor.tierID);
     } else {
       this.vendorForm.reset();

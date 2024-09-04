@@ -1,140 +1,136 @@
 /* Base styles */
 
 .navbar {
-    position: relative;
+  position: relative;
 }
 
 .nav-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    text-decoration: none;
-    color: #e7f4f9;
-    transition: color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: #e7f4f9;
+  transition: color 0.3s;
 }
 
 .nav-icon {
-    width: 2.75vh;
-    height: auto;
-    fill: #e7f4f9;
-    transition: fill 0.3s;
+  width: 2.75vh;
+  height: auto;
+  fill: #e7f4f9;
+  transition: fill 0.3s;
 }
 
 .nav-label {
-    font-size: 2.75vh;
-    transition: color 0.1s;
+  font-size: 2.75vh;
+  transition: color 0.1s;
 }
-
 
 /* Hover effects */
 
 .nav-link:hover .nav-icon {
-    fill: #f9a634;
+  fill: #f9a634;
 }
 
 .nav-link:hover .nav-label {
-    color: #f9a634;
+  color: #f9a634;
 }
 
 .nav-link:hover {
-    color: #f9a634;
+  color: #f9a634;
 }
-
 
 /* Active nav item styles */
 
 .nav-link.active {
-    background-color: #12789e;
-    color: #f9a634;
+  background-color: #12789e;
+  color: #f9a634;
 }
 
 .nav-link.active .nav-icon {
-    fill: #f9a634;
+  fill: #f9a634;
 }
 
 .nav-link.active .nav-label {
-    color: #f9a634;
+  color: #f9a634;
 }
-
 
 /* Responsive styles for smaller screens */
 
 @media (max-width: 992px) {
-    .nav-icon {
-        width: 3vw;
-        height: 3vw;
-    }
+  .nav-icon {
+    width: 3vw;
+    height: 3vw;
+  }
 }
-
 
 /* Further reduce sizes if screensize is <= 992px width and 576px height (16:9) */
 
 @media (max-width: 992px) and (max-height: 576px) {
-    .nav-icon {
-        width: 2vw;
-        height: auto;
-    }
-    .nav-label {
-        font-size: 1rem;
-    }
+  .nav-icon {
+    width: 2vw;
+    height: auto;
+  }
+  .nav-label {
+    font-size: 1rem;
+  }
 }
 
 .nav-item-container {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 }
 
 .sub-panel {
-    position: absolute;
-    top: 100%;
-    background-color: #EAF4F8;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    margin-top: 15px;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    /*margin-top: 30px; */
+  position: absolute;
+  top: 100%;
+  background-color: #eaf4f8;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  margin-top: 15px;
+  padding: 10px 20px;
+  display: grid; /* Changed from flex to grid */
+  grid-template-columns: repeat(
+    3,
+    1fr
+  ); /* Four equal columns and one flexible column */
+  gap: 35vh; /* Optional: to add spacing between the grid items */
 }
-
 
 /* Styling each sub-panel item */
 
 .sub-menu-link {
-    font-size: 1rem;
-    padding: 0.5vh 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    text-decoration: none;
-    color: #e7f4f9;
-    transition: color 0.3s;
+  font-size: 1rem;
+  padding: 0.5vh 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: #e7f4f9;
+  transition: color 0.3s;
 }
-
 
 /* Hover effect for sub-panel items */
 
 .sub-menu-link:hover {
-    color: #000000;
-    font-weight: bold;
-    text-decoration-line: underline;
-    /* Change text color on hover */
+  color: #000000;
+  font-weight: bold;
+  text-decoration-line: underline;
+  /* Change text color on hover */
 }
-
 
 /* Sub-panel link text */
 
 .sub-menu-link .sub-menu-label {
-    color: inherit;
-    font-weight: normal;
-    text-decoration: none;
-    transition: color 0.3s, font-weight 0.3s, text-decoration 0.3s;
+  color: inherit;
+  font-weight: normal;
+  text-decoration: none;
+  transition: color 0.3s, font-weight 0.3s, text-decoration 0.3s;
 }
 
 .sub-menu-link .sub-menu-label:hover {
-    color: #000000;
-    font-weight: bold;
-    text-decoration-line: underline;
+  color: #000000;
+  font-weight: bold;
+  text-decoration-line: underline;
 }

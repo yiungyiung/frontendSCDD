@@ -16,7 +16,7 @@ export class StackedBarChartComponent implements OnChanges {
       type: 'column', // Changed from 'bar' to 'column' for vertical bars
     },
     title: {
-      text: 'Vertical Stacked Bar Chart',
+      text: 'SCDD Overall Status',
     },
     xAxis: {
       categories: this.chartLabels,

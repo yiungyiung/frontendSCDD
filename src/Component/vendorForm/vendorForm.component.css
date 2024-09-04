@@ -1,206 +1,173 @@
 /* Container styles */
 
 .form-group {
-    font-size: 2vh;
-    font-weight: 600;
-    color: #073c5a;
-    margin-bottom: 2.5vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  font-size: 2vh;
+  font-weight: 600;
+  color: #073c5a;
+  margin-bottom: 2.5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
-
 
 /* Label styles */
-
-.form-group label {
-    align-self: flex-start;
-    width: 80%;
-    margin-bottom: 0.5vh;
-    padding-left: 2.2vh;
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-disabled,
+::ng-deep .mat-form-field-outline {
+  opacity: 0;
 }
-
+.form-group label {
+  align-self: flex-start;
+  width: 80%;
+  margin-bottom: 0.5vh;
+  padding-left: 2.2vh;
+}
 
 /* Invalid feedback styles */
 
 .invalid-feedback {
-    margin-left: 50px;
+  margin-left: 50px;
 }
-
 
 /* Invalid input border styles */
 
 .form-control.is-invalid {
-    border-color: #dc3545;
+  border-color: #dc3545;
 }
-
 
 /* Input field styles */
 
 .form-control {
-    width: 90%;
-    padding: 1.5vh;
-    font-size: 2vh;
-    border: 1px solid #073c5a84;
-    border-radius: 4px;
-    background-color: transparent;
-    /* Ensure input background is transparent */
-    color: #073c5a;
-    /* Text color matching the theme */
+  width: 90%;
+  padding: 1.5vh;
+  font-size: 2vh;
+  border: 1px solid #073c5a84;
+  border-radius: 4px;
+  background-color: transparent;
+  /* Ensure input background is transparent */
+  color: #073c5a;
+  /* Text color matching the theme */
 }
-
 
 /* Dropdown icon styles */
 
 .dropdownIcon {
-    position: absolute;
-    right: 5px;
-    pointer-events: none;
-    font-size: 18px;
-    color: #073c5a;
+  position: absolute;
+  right: 5px;
+  pointer-events: none;
+  font-size: 18px;
+  color: #073c5a;
 }
-
 
 /* Primary button styles */
 
 .btn-primary {
-    margin-top: 4vh;
-    background-color: #12789e;
-    border-color: #12789e;
-    color: white;
-    width: 100%;
+  margin-top: 4vh;
+  background-color: #12789e;
+  border-color: #12789e;
+  color: white;
+  width: 100%;
 }
 
 .btn-primary:hover {
-    background-color: #0a4357;
-    border-color: #0a4357;
+  background-color: #0a4357;
+  border-color: #0a4357;
 }
-
 
 /* Secondary button styles */
 
 .btn-secondary {
-    position: absolute;
-    bottom: 0;
-    background-color: #12789e;
-    border-color: #12789e;
-    color: white;
-    width: 100%;
-    height: 10%;
+  position: absolute;
+  bottom: 0;
+  background-color: #12789e;
+  border-color: #12789e;
+  color: white;
+  width: 100%;
+  height: 10%;
 }
-
 
 /* Disabled input styles */
 
 .disabled-input {
-    background-color: #e9ecef;
-    cursor: not-allowed;
+  background-color: #e9ecef;
+  cursor: not-allowed;
 }
-
 
 /* Search container styles */
 
 .search-container {
-    background-color: transparent !important;
-    /* Fully transparent background */
-    border: 1px solid #073c5a84;
-    /* Matches the theme */
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    padding: 1vh;
-    width: 90%;
-    /* Adjust width to match the input fields */
-    margin: auto;
-    /* Center the container */
+  display: flex;
+  align-items: center;
+  border: 1px solid #004366; /* Adjust border color if needed */
+  border-radius: 4px; /* Adjust border radius if needed */
+  overflow: hidden;
 }
-
-
-/* Search input field styles */
 
 .search-input {
-    flex: 1;
-    /* Input field takes up the remaining space */
-    border: none;
-    outline: none;
-    font-size: 2vh;
-    color: #073c5a;
-    /* Text color matching the theme */
-    background-color: transparent !important;
-    /* Transparent input field */
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+  flex: 1;
 }
-
-
-/* Search input placeholder styles */
-
-.search-input::placeholder {
-    color: #073c5a84;
-    /* Placeholder color matching the theme */
-    opacity: 1;
-    /* Ensure visibility of the placeholder */
-}
-
-
-/* Search button styles */
 
 .search-button {
-    background-color: transparent;
-    /* Fully transparent button */
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    /* Remove extra padding */
+  background-color: #004366; /* Adjust button background color */
+  border: none;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.search-button mat-icon {
+  fill: #ffffff;
+  height: auto;
+}
+
+.search-button:focus,
+.search-input:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .mat-form-field {
-    background-color: transparent !important;
-    color: transparent !important;
-    /* Make mat-form-field transparent */
-    border: none !important;
-    width: 100%;
+  background-color: transparent !important;
+  color: transparent !important;
+  /* Make mat-form-field transparent */
+  border: none !important;
+  width: 100%;
 }
-
 
 /* mat-form-field label styling */
 
 .mat-form-field-label {
-    color: #073c5a !important;
-    /* Label color */
+  color: #073c5a !important;
+  /* Label color */
 }
-
-
-/* Search button icon styles */
-
-.search-button mat-icon {
-    fill: #073c5a;
-    /* Icon color matching the theme */
-}
-
 
 /* Vendor list styles */
 
 .vendor-list {
-    margin-top: 1.5vh;
-    max-height: 30vh;
-    overflow-y: auto;
-    width: 90%;
-    /* Matches the input width */
-    margin: auto;
+  margin-top: 1.5vh;
+  max-height: 30vh;
+  overflow-y: auto;
+  width: 90%;
+  /* Matches the input width */
+  margin: auto;
 }
-
 
 /* Checkbox input styles */
 
 .form-check-input {
-    margin-right: 10px;
+  margin-right: 10px;
 }
-
 
 /* Checkbox label styles */
 
 .form-check-label {
-    font-size: 1.8vh;
-    color: #073c5a;
-    /* Text color matching the theme */
+  font-size: 1.8vh;
+  color: #073c5a;
+  /* Text color matching the theme */
 }
