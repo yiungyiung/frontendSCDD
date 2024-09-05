@@ -125,21 +125,28 @@
 
   <div class="form-group">
     <label for="categoryID">Category</label>
-    <select
-      id="categoryID"
-      formControlName="categoryID"
-      class="form-control"
-      [ngClass]="{
-        'is-invalid': submitted && f['categoryID'].errors,
-        'disabled-input': selectedVendor !== null
-      }"
-      [disabled]="selectedVendor !== null"
-    >
-      <option value="">Select Category</option>
-      <option *ngFor="let category of categories" [value]="category.categoryID">
-        {{ category.categoryName }}
-      </option>
-    </select>
+    <div class="select-icon-container">
+      <select
+        id="categoryID"
+        formControlName="categoryID"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': submitted && f['categoryID'].errors,
+          'disabled-input': selectedVendor !== null
+        }"
+        [disabled]="selectedVendor !== null"
+      >
+        <option value="">Select Category</option>
+        <option
+          *ngFor="let category of categories"
+          [value]="category.categoryID"
+        >
+          {{ category.categoryName }}
+        </option>
+      </select>
+      <mat-icon class="select-icon" svgIcon="DropdownArrow"></mat-icon>
+    </div>
+
     <div *ngIf="submitted && f['categoryID'].errors" class="invalid-feedback">
       <div *ngIf="f['categoryID'].errors['required']">Category is required</div>
     </div>
@@ -147,21 +154,25 @@
 
   <div class="form-group">
     <label for="tierID">Tier</label>
-    <select
-      id="tierID"
-      formControlName="tierID"
-      class="form-control"
-      [ngClass]="{
-        'is-invalid': submitted && f['tierID'].errors,
-        'disabled-input': selectedVendor !== null
-      }"
-      [disabled]="selectedVendor !== null"
-    >
-      <option value="">Select Tier</option>
-      <option *ngFor="let tier of tiers" [value]="tier.tierId">
-        {{ tier.tierName }}
-      </option>
-    </select>
+    <div class="select-icon-container">
+      <select
+        id="tierID"
+        formControlName="tierID"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': submitted && f['tierID'].errors,
+          'disabled-input': selectedVendor !== null
+        }"
+        [disabled]="selectedVendor !== null"
+      >
+        <option value="">Select Tier</option>
+        <option *ngFor="let tier of tiers" [value]="tier.tierId">
+          {{ tier.tierName }}
+        </option>
+      </select>
+      <mat-icon class="select-icon" svgIcon="DropdownArrow"></mat-icon>
+    </div>
+
     <div *ngIf="submitted && f['tierID'].errors" class="invalid-feedback">
       <div *ngIf="f['tierID'].errors['required']">Tier is required</div>
     </div>

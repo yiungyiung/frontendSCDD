@@ -1,11 +1,8 @@
 <div class="container">
-  <button class="btn-primary" (click)="onSubmit()">Create Questionnaire</button>
+  <button class="btn-primary" (click)="onSubmit()">Add Question</button>
   <div class="row">
-    
     <div class="col-md-6">
-      <div>
-        
-      </div>
+      <div></div>
       <div class="card mb-3">
         <div class="addusertitle">
           <h4 class="card-header">Add New Question</h4>
@@ -62,16 +59,19 @@
 
         <div class="form-group">
           <label for="domain">Domain</label>
-          <select
-            id="domain"
-            class="form-control"
-            [(ngModel)]="selectedDomainID"
-          >
-            <option value="">Select Domain</option>
-            <option *ngFor="let domain of Domain" [value]="domain.domainID">
-              {{ domain.domainName }}
-            </option>
-          </select>
+          <div class="select-icon-container">
+            <select
+              id="domain"
+              class="form-control"
+              [(ngModel)]="selectedDomainID"
+            >
+              <option value="">Select Domain</option>
+              <option *ngFor="let domain of Domain" [value]="domain.domainID">
+                {{ domain.domainName }}
+              </option>
+            </select>
+            <mat-icon class="select-icon" svgIcon="DropdownArrow"></mat-icon>
+          </div>
         </div>
 
         <div class="button-group">
@@ -86,8 +86,6 @@
           </button>
           <button (click)="addComponent(questionTypes.DATE)">Date</button>
         </div>
-
-        
       </div>
     </div>
 

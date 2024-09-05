@@ -66,3 +66,22 @@
   background-color: #0a4357;
   border-color: #0a4357;
 }
+
+.select-icon-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.select-icon-container select {
+  width: 100%;
+  padding-right: 30px; /* Adjust this if needed */
+}
+
+.select-icon {
+  position: absolute;
+  right: 0px;
+  height: 6.2vh;
+  width: auto;
+  margin-top: -6.2vh;
+}

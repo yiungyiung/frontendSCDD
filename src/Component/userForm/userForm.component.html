@@ -102,19 +102,23 @@
       </div>
       <div class="form-group">
         <label for="role">Role</label>
-        <select
-          id="role"
-          class="form-control"
-          [(ngModel)]="role"
-          name="role"
-          required
-          #roleField="ngModel"
-          [ngClass]="{ 'is-invalid': roleField.invalid && roleField.touched }"
-        >
-          <option *ngFor="let roleOption of roles" [ngValue]="roleOption">
-            {{ roleOption }}
-          </option>
-        </select>
+        <div class="select-icon-container">
+          <select
+            id="role"
+            class="form-control"
+            [(ngModel)]="role"
+            name="role"
+            required
+            #roleField="ngModel"
+            [ngClass]="{ 'is-invalid': roleField.invalid && roleField.touched }"
+          >
+            <option *ngFor="let roleOption of roles" [ngValue]="roleOption">
+              {{ roleOption }}
+            </option>
+          </select>
+          <mat-icon class="select-icon" svgIcon="DropdownArrow"></mat-icon>
+        </div>
+
         <div
           *ngIf="roleField.invalid && roleField.touched"
           class="invalid-feedback"
