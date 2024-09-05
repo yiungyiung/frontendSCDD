@@ -62,13 +62,13 @@
 }
 
 .detail-item small {
-  font-size: 1vh; /* Adjusted */
+  font-size: 1.7vh; /* Adjusted */
   color: #666;
   margin-bottom: 2px;
 }
 
 .detail-item span {
-  font-size: 1.3vh; /* Adjusted */
+  font-size: 2vh; /* Adjusted */
 }
 
 .card-header-container {
@@ -91,6 +91,6 @@
   font-size: 2.5vh; /* Adjusted */
   font-weight: 500; /* Make the text semi-bold */
   text-align: center; /* Center the text */
-  margin-top: 20px; /* Add some space from the top */
-  padding: 10px; /* Add padding around the text */
+  margin-top: 20px;
+  padding: 10px; 
 }

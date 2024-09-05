@@ -113,7 +113,7 @@ export class VendorDashboardComponent implements OnInit {
   }
   openResponseModal(assignmentID: number|undefined): void {
     this.dialog.open(ResponseModalComponent, {
-      width: '600px', // Customize the width if needed
+      width: '600px', 
       data: { assignmentID } // Pass the questionnaireID as data to the modal
     });
   }

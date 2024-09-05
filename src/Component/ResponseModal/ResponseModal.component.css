@@ -12,8 +12,7 @@
     height:auto;
   }
 
-  .modal-content {
-   
+  .modal-content { 
     font-size: 1rem; /* 16px */
     color: #073c5a;
     padding: 0.625rem 1.25rem; /* 10px 20px */

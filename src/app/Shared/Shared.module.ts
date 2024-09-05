@@ -28,6 +28,7 @@ import { PieChartComponent } from '../../Component/pie-chart/pie-chart.component
 import { QuestionnaireListComponent } from '../../Component/QuestionnaireList/QuestionnaireList.component';
 import { ResponseModalComponent } from '../../Component/ResponseModal/ResponseModal.component';
 import { BreadcrumbComponent } from '../../Component/breadcrumb/breadcrumb.component';
+import { ResponsePageComponent } from '../../Component/ResponsePage/ResponsePage.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { BreadcrumbComponent } from '../../Component/breadcrumb/breadcrumb.compo
     QuestionnaireListComponent,
     ResponseModalComponent,
     BreadcrumbComponent,
+    ResponsePageComponent,
   ],
   imports: [
     
@@ -94,7 +96,8 @@ import { BreadcrumbComponent } from '../../Component/breadcrumb/breadcrumb.compo
     MatDatepickerModule,
     MatNativeDateModule,
     MatSlideToggleModule,
-    BreadcrumbComponent, // Export any shared Angular Material or other modules here
+    BreadcrumbComponent,
+    ResponsePageComponent ,
   ],
 })
 export class SharedModule {}

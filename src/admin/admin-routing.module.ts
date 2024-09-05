@@ -12,6 +12,8 @@ import { CreateNewQuestionnaireComponent } from './CreateNewQuestionnaire/Create
 import { SelectQuestionsComponent } from './SelectQuestions/SelectQuestions.component';
 import { ReportsComponent } from './Reports/Reports.component';
 import { DynamicReportsComponent } from './DynamicReports/DynamicReports.component';
+import { ResponsePageComponent } from '../Component/ResponsePage/ResponsePage.component';
+
 
 const routes: Routes = [
   {
@@ -64,6 +66,13 @@ const routes: Routes = [
         path: 'reports',
         component: ReportsComponent,
         data: { breadcrumb: 'Reports' },
+        children: [
+          {
+            path: 'response-page',
+            component: ResponsePageComponent,
+            data: { breadcrumb: 'Response' },
+          }
+        ]
       },
       {
         path: 'dynamicReports',
