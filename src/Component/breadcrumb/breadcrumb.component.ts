@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-Breadcrumb',
   templateUrl: './Breadcrumb.component.html',
-  styleUrls: ['./Breadcrumb.component.css']
+  styleUrls: ['./Breadcrumb.component.scss']
 })
 export class BreadcrumbComponent implements OnInit, OnDestroy {
   breadcrumbs: Array<{ label: string, url: string }> = [];

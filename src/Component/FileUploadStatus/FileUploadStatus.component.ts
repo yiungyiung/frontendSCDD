@@ -4,7 +4,7 @@ import { EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-FileUploadStatus',
   templateUrl: './FileUploadStatus.component.html',
-  styleUrls: ['./FileUploadStatus.component.css']
+  styleUrls: ['./FileUploadStatus.component.scss']
 })
 export class FileUploadStatusComponent implements OnInit {
   @Input() failedUsers: string[] = [];

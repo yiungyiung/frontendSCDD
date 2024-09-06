@@ -1,0 +1,83 @@
+// Common Variables
+$color-primary: #12789e;
+$color-secondary: #0a4357;
+$color-background: #fff;
+$color-header: #e7f4f9;
+$box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+$border-radius: 8px;
+$font-size: 2vh;
+$padding: 10px;
+$margin-bottom: 3vh;
+
+.response-table-container {
+  overflow-x: auto;
+  scrollbar-width: none;
+  background-color: $color-background;
+  border-radius: $border-radius;
+  height: 60vh;
+  overflow-y: scroll;
+  padding: 0 3vh;
+}
+
+.response-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 1vh;
+  table-layout: fixed;
+}
+
+.response-table th,
+.response-table td {
+  border-right: 1px solid $color-primary;
+  color: $color-secondary;
+  font-size: $font-size;
+  padding: $padding;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.response-table th {
+  background-color: $color-header;
+  color: $color-secondary;
+  font-size: $font-size;
+  text-align: center;
+  margin: 0;
+  padding: $padding;
+  border-right: 1px solid $color-primary;
+  box-shadow: $box-shadow;
+}
+
+.response-table thead th:first-child {
+  border-top-left-radius: $border-radius;
+  border-bottom-left-radius: $border-radius;
+}
+
+.response-table thead th:last-child {
+  border-top-right-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
+  border-right: none;
+}
+
+.response-table tbody tr {
+  background-color: $color-background;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  margin-bottom: $margin-bottom;
+}
+
+.response-table tbody tr:first-child td:first-child {
+  border-top-left-radius: $border-radius;
+}
+
+.response-table tbody tr:first-child td:last-child,
+.response-table tbody tr:last-child td:last-child {
+  border-right: none;
+  border-top-right-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
+}
+
+.response-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: $border-radius;
+}

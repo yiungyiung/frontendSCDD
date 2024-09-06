@@ -1,12 +1,42 @@
+// Common Variables
+$spacing-small: 2vh;
+$spacing-medium: 4vh;
+$spacing-large: 6vh;
+$icon-width-small: 20px;
+$icon-width-large: 30px;
+$color-primary: #073c5a;
+$color-secondary: #e7f4f9;
+$color-accent: #f9a634;
+$color-success: #339a2d;
+$color-danger: #da3b00;
+$color-warning: #fe9300;
+$color-info: #ffe400;
+$color-background: #ffffff;
+$color-border: #ddd;
+$color-dark: #0a4357;
+$color-light: #ffb23b;
+$color-hover-dark: #105a7e;
+$color-active-dark: #0d4a61;
+$font-size-small: 1.7vh;
+$font-size-medium: 2vh;
+$font-size-large: 2.5vh;
+$border-radius: 8px;
+$border-width: 2px;
+$tooltip-width: 250px;
+$box-size: 2vh;
+
+// Updated Color with Opacity
+$color-primary-border: rgba($color-primary, 0.5); // Adjust the opacity as needed
+
 .card-header-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #e7f4f9;
-  border-bottom: 1px solid #ddd;
+  background-color: $color-secondary;
+  border-bottom: 1px solid $color-border;
   padding: 5px 10px;
   height: 9vh;
-  margin-top: -4vh;
+  margin-top: -$spacing-medium;
 }
 
 .card {
@@ -14,13 +44,13 @@
   height: 70vh;
   overflow-y: scroll;
   scrollbar-width: none;
-  border-radius: 8px;
-  padding-top: 4vh;
+  border-radius: $border-radius;
+  padding-top: $spacing-medium;
 }
 
 .mb-0 {
-  font-size: 2vh;
-  color: #073c5a;
+  font-size: $font-size-medium;
+  color: $color-primary;
   font-weight: bold;
 }
 
@@ -34,88 +64,90 @@
 
 .card-header-container mat-icon {
   margin-right: 20px;
-  width: 30px;
+  width: $icon-width-large;
   height: auto;
 }
 
 .card-header {
-  font-size: 2.5vh;
+  font-size: $font-size-large;
   font-weight: bold;
-  color: #073c5a;
+  color: $color-primary;
   background-color: transparent;
   border: none;
 }
 
 .domain-header {
-  margin-top: 1vh;
-  font-size: 2.5vh;
-  color: #073c5a;
+  margin-top: $spacing-small;
+  font-size: $font-size-large;
+  color: $color-primary;
   background-color: transparent;
   border: none;
 }
 
-.divider {
-  border-top: 1px solid rgba(0, 0, 0, 0.25);
-  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.25);
-  margin: 20px 0;
-  margin-left: 4vh;
-  width: 57vw;
-}
+.divider,
 .deadline-divider {
   border-top: 1px solid rgba(0, 0, 0, 0.25);
   box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.25);
   margin: 20px 0;
+}
+
+.divider {
+  margin-left: $spacing-medium;
+  width: 57vw;
+}
+
+.deadline-divider {
   margin-left: 2vh;
   width: 60vh;
 }
 
 .custcard {
-  background-color: #ffffff;
-  border-radius: 8px;
-  margin-bottom: 6vh;
-  margin-left: 4vh;
+  background-color: $color-background;
+  border-radius: $border-radius;
+  margin-bottom: $spacing-large;
+  margin-left: $spacing-medium;
   width: 57vw;
-  margin-top: 3vh;
+  margin-top: $spacing-small;
   align-items: right;
 }
 
 .card-body {
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  border: 1px solid $color-border;
+  border-radius: $border-radius;
   padding: 15px;
 }
 
 .card-body:hover {
-  border: 1px solid #f9a634;
-  border-radius: 8px;
+  border: 1px solid $color-accent;
+  border-radius: $border-radius;
 }
 
 .user-status {
   position: relative;
   width: 6vw;
   left: 10px;
-  top: -4vh;
+  top: -$spacing-medium;
   padding: 5px 10px;
   border-radius: 4px;
   color: white;
   text-align: center;
   display: inline-block;
-  font-size: 1.7vh;
-  background-color: #339a2d;
+  font-size: $font-size-small;
+  background-color: $color-success;
 }
 
 .tab-critical {
-  background-color: #da3b00;
+  background-color: $color-danger;
   color: white;
 }
 
 .tab-non-critical {
-  background-color: #fe9300;
+  background-color: $color-warning;
   color: white;
 }
 
 .tab-others {
-  background-color: #ffe400;
+  background-color: $color-info;
   color: white;
 }
 
@@ -123,7 +155,7 @@
   display: grid;
   grid-template-columns: 1fr 3fr 0.5fr;
   align-items: center;
-  margin-top: -3vh;
+  margin-top: -$spacing-small;
 }
 
 .mcq-option {
@@ -160,27 +192,25 @@
 
 .detail {
   margin-top: -20px;
-  font-size: 2vh;
+  font-size: $font-size-medium;
 }
 
 .detail small {
   display: block;
-  font-size: 1.7vh;
+  font-size: $font-size-small;
   color: gray;
   text-align: center;
 }
 
 .user-id-bg {
-  background-color: #e7f4f9;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 5px;
+  background-color: $color-secondary;
+  padding: 10px 5px;
   border-radius: 4px;
   margin-left: 30px;
 }
 
 .user-ids-bg {
-  background-color: #fff;
+  background-color: $color-background;
   padding: 10px;
   border-radius: 4px;
 }
@@ -200,7 +230,7 @@
 }
 
 .truncate mat-icon {
-  fill: #073c5a;
+  fill: $color-primary;
 }
 
 .checkbox-option {
@@ -209,26 +239,26 @@
 }
 
 .checkbox-option input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  border: 2px solid #0a4357; /* Default border color */
-  accent-color: #f9a634; /* The color of the checkbox checkmark */
+  width: $box-size;
+  height: $box-size;
+  border: $border-width solid $color-dark;
+  accent-color: $color-accent;
   appearance: none;
-  background-color: #fff;
+  background-color: $color-background;
   cursor: pointer;
 }
 
 .checkbox-option input[type="checkbox"]:checked {
-  background-color: #f9a634; /* Orange background for checked state */
-  border-color: #f9a634;
+  background-color: $color-accent;
+  border-color: $color-accent;
   position: relative;
 }
 
 .checkbox-option input[type="checkbox"]:checked::after {
-  content: "✔"; /* Unicode for checkmark */
-  color: #fff; /* White color for the tick */
+  content: "✔";
+  color: $color-background;
   position: absolute;
-  font-size: 14px; /* Adjust font size for the checkmark */
+  font-size: 14px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -244,26 +274,26 @@
 }
 
 .box {
-  width: 2vh;
-  height: 2vh;
-  border: 2px solid #073c5a;
-  background-color: #fff;
+  width: $box-size;
+  height: $box-size;
+  border: $border-width solid $color-primary;
+  background-color: $color-background;
   cursor: pointer;
 }
 
 .box.selected {
-  border: 2px solid #ffb23b;
-  background-color: #ffb23b;
+  border: $border-width solid $color-light;
+  background-color: $color-light;
 }
 
 .box.selected::after {
-  content: "\2713"; /* Unicode for tick mark */
-  font-size: 16px; /* Adjust size as needed */
-  color: #fff; /* Color of the tick mark */
+  content: "\2713";
+  font-size: 16px;
+  color: $color-background;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Center the tick mark */
+  transform: translate(-50%, -50%);
 }
 
 .helper-icon {
@@ -274,31 +304,31 @@
 
 .helper-icon .tooltip-text {
   visibility: hidden;
-  width: 250px; /* Set a larger width for the tooltip */
-  background-color: #073c5a;
-  color: #fff;
+  width: $tooltip-width;
+  background-color: $color-primary;
+  color: $color-background;
   text-align: center;
   border-radius: 6px;
   padding: 10px;
   position: absolute;
-  bottom: 130%; /* Adjust to position above the mat-icon */
+  bottom: 130%;
   left: 50%;
   transform: translateX(-50%);
   opacity: 0;
   transition: opacity 0.3s;
   z-index: 1;
-  white-space: normal; /* Allow text to wrap */
+  white-space: normal;
 }
 
 .helper-icon .tooltip-text::after {
   content: "";
   position: absolute;
-  top: 100%; /* Position arrow below the tooltip */
+  top: 100%;
   left: 50%;
   margin-left: -10px;
   border-width: 10px;
   border-style: solid;
-  border-color: #073c5a transparent transparent transparent; /* Arrow color */
+  border-color: $color-primary transparent transparent transparent;
 }
 
 .helper-icon:hover .tooltip-text {
@@ -322,10 +352,10 @@
 .bubble {
   margin: 5px;
   padding: 10px 20px;
-  border: 2px solid #073c5a;
+  border: $border-width solid $color-primary;
   border-radius: 25px;
-  background-color: #fff;
-  color: #073c5a;
+  background-color: $color-background;
+  color: $color-primary;
   font-size: 16px;
   text-align: center;
   width: 45%;
@@ -339,7 +369,7 @@
 .form-label {
   font-size: 15px;
   font-weight: bold;
-  color: #073c5a;
+  color: $color-primary;
   margin-left: 1vw;
 }
 
@@ -347,16 +377,16 @@
   margin-left: 1vw;
   width: 90%;
   padding: 1.5vh;
-  font-size: 2vh;
-  border: 1px solid #073c5a84;
+  font-size: $font-size-medium;
+  border: 1px solid $color-primary-border;
   border-radius: 4px;
 }
 
 .submit-container {
   display: flex;
-  justify-content: flex-end; /* Aligns items to the right */
+  justify-content: flex-end;
   padding-right: 2vw;
-  margin-top: 2vh;
+  margin-top: $spacing-small;
   margin-right: -8vh;
 }
 
@@ -364,24 +394,24 @@
   background-color: #12789e;
   height: 4vh;
   align-items: center;
-  color: #ffffff;
+  color: $color-background;
   border: none;
   cursor: pointer;
-  font-size: 2.5vh;
+  font-size: $font-size-large;
   border-radius: 5px;
   margin-left: auto;
-  margin-bottom: 2vh;
+  margin-bottom: $spacing-small;
   display: block;
 }
 
 .btn-primary:hover {
-  background-color: #105a7e; /* Darker shade for hover effect */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+  background-color: $color-hover-dark;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-primary:active {
-  background-color: #0d4a61; /* Even darker shade for active effect */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Smaller shadow on click */
+  background-color: $color-active-dark;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .input-container {

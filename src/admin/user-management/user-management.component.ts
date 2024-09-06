@@ -13,7 +13,7 @@ import { DataFetchService } from '../../services/DataFetchService/DataFetch.serv
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
-  styleUrls: ['./user-management.component.css'],
+  styleUrls: ['./user-management.component.scss'],
 })
 export class UserManagementComponent implements OnInit {
   users: User[] = [];

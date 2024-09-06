@@ -7,7 +7,7 @@ import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-change-password-modal',
   templateUrl: './change-password-modal.component.html',
-  styleUrls: ['./change-password-modal.component.css']
+  styleUrls: ['./change-password-modal.component.scss']
 })
 export class ChangePasswordModalComponent {
   @Input() isOpen: boolean = true;

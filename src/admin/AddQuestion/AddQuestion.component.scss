@@ -1,0 +1,209 @@
+// Common variables
+$card-border-color: #ddd;
+$card-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+$card-margin-bottom: 2.5vh;
+$card-margin-top: 2vh;
+$card-background-color: #ffffff;
+$card-width-large: 25vw;
+$card-width-small: 22vw;
+$card-width-back-large: 65vw;
+$card-width-back-small: 65vw;
+$card-margin-left-large: -0.9vw;
+$card-margin-left-small: 0.9vw;
+$card-margin-left-back: -19vw;
+$card-height: 68vh;
+$card-height-small: 64vh;
+$form-group-color: #073c5a;
+$input-border-color: #073c5a;
+$input-border-color-light: #073c5a84;
+$button-bg-color: #ffffff;
+$button-border-color: #12789e;
+$button-text-color: #12789e;
+$btn-primary-bg-color: #12789e;
+$btn-primary-text-color: #ffffff;
+$select-icon-height: 6.2vh;
+
+// Container styles
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+// Card styles
+.card,
+.back-card {
+  border: 1px solid $card-border-color;
+  border-radius: 8px;
+  box-shadow: $card-box-shadow;
+  margin-bottom: $card-margin-bottom;
+  margin-top: $card-margin-top;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.card {
+  width: $card-width-large;
+  margin-left: $card-margin-left-large;
+  height: $card-height;
+}
+
+.back-card {
+  background-color: $card-background-color;
+  width: $card-width-back-large;
+  margin-left: $card-margin-left-back;
+  height: $card-height;
+}
+
+// Adjust card widths for smaller screens
+@media (max-width: 993px) {
+  .card {
+    width: $card-width-small;
+    margin-left: $card-margin-left-small;
+    height: $card-height;
+  }
+
+  .back-card {
+    background-color: $card-background-color;
+    width: $card-width-back-small;
+    margin-left: $card-margin-left-back;
+    height: $card-height-small;
+  }
+}
+
+// Maintain width ratio for larger screens
+@media (min-width: 993px) {
+  .card {
+    width: $card-width-large;
+    margin-left: $card-margin-left-large;
+    height: $card-height;
+  }
+
+  .back-card {
+    background-color: $card-background-color;
+    width: $card-width-back-large;
+    margin-left: $card-margin-left-back;
+    height: $card-height;
+  }
+}
+
+// Add user title
+.addusertitle {
+  background-color: #e7f4f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.addusertitle mat-icon {
+  margin-right: 20px;
+  width: 30px;
+  height: auto;
+}
+
+// Card header
+.card-header {
+  font-size: 18px;
+  font-weight: bold;
+  color: $form-group-color;
+  background-color: transparent;
+  border: none;
+}
+
+// Form styles
+.form-group {
+  font-size: 2vh;
+  font-weight: 600;
+  color: $form-group-color;
+  margin-bottom: 2vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form-group label {
+  align-self: flex-start;
+  width: 80%;
+  margin-bottom: 0.5vh;
+  padding-left: 2.2vh;
+}
+
+.form-control,
+.custom-select {
+  width: 100%;
+  padding: 0.5vh;
+  font-size: 1vh;
+  border: 1px solid $input-border-color;
+  border-radius: 4px;
+}
+
+.form-control {
+  width: 90%;
+  padding: 1.5vh;
+  font-size: 2vh;
+  border: 1px solid $input-border-color-light;
+  border-radius: 4px;
+}
+
+// Input row
+.input-row {
+  display: flex;
+  gap: 10px;
+}
+
+.input-row .form-group {
+  flex: 1;
+}
+
+// Button group
+.button-group {
+  margin: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.button-group button {
+  background-color: $button-bg-color;
+  border: 2px solid $button-border-color;
+  color: $button-border-color;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-right: 0;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: $btn-primary-bg-color;
+  height: 4vh;
+  align-items: center;
+  color: $btn-primary-text-color;
+  border: none;
+  cursor: pointer;
+  font-size: 2.5vh;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-bottom: 2vh;
+  display: block;
+}
+
+// Select icon container
+.select-icon-container {
+  position: relative;
+  display: inline-block;
+  width: 90%;
+}
+
+.select-icon-container select {
+  width: 100%;
+  padding-right: 30px;
+}
+
+.select-icon {
+  position: absolute;
+  right: 0;
+  height: $select-icon-height;
+  width: auto;
+  margin-top: -$select-icon-height;
+}

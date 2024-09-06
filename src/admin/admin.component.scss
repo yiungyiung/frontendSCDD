@@ -1,0 +1,64 @@
+// Common variables
+$navbar-bg-color: #12789e;
+$navbar-text-color: #e7f4f9;
+$navbar-hover-color: #073c5a;
+$navbar-active-color: #f9a634;
+$padding-horizontal: 30px;
+$padded-content-left-right: 3vw;
+$font-size-normal: 1rem;
+$border-radius: 8px;
+$hover-border-bottom: 2.5px solid $navbar-hover-color;
+
+.custom-navbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 8vh;
+  background-color: $navbar-bg-color;
+  color: $navbar-text-color;
+  padding: 0 $padding-horizontal;
+  border-radius: $border-radius;
+  width: 100%;
+
+  .active {
+    background-color: $navbar-bg-color;
+    color: $navbar-active-color;
+  }
+}
+
+.nav-text-container {
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.nav-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: $navbar-hover-color;
+  font-size: $font-size-normal;
+  transition: color 0.1s;
+  background-color: transparent;
+  border-color: transparent;
+
+  &:hover {
+    font-size: $font-size-normal;
+    color: $navbar-hover-color;
+    font-weight: bold;
+    border-bottom: $hover-border-bottom;
+  }
+}
+
+.nav-item-wrapper {
+  flex: 1;
+}
+
+.custom-padded-content {
+  padding-left: $padded-content-left-right;
+  padding-right: $padded-content-left-right;
+}

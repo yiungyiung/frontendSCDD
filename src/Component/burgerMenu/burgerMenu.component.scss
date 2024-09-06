@@ -1,0 +1,114 @@
+// Common variables
+$menu-bg-color: #e7f4f9;
+$menu-text-color: #073c5a;
+$header-bg-color: #157195;
+$header-text-color: #eaf4f8;
+$body-text-color: #000;
+$shadow-color: rgba(0, 0, 0, 0.5);
+$box-shadow-color: rgba(0, 0, 0, 0.16);
+$font-family: 'Montserrat, sans-serif';
+$font-size-large: 1.25rem;
+$font-size-normal: 1rem;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$line-height-large: 1.5rem;
+$line-height-normal: 1.25rem;
+$hover-link-color: #fbef7f;
+$border-color: rgba(112, 112, 112, 0.5);
+$divider-border: 1px solid #ddd;
+$padding-sides: 35px;
+$padding-top-bottom: 15px;
+$margin-list-item: 30px 0 20px 0;
+$cancel-btn-size: 24px;
+$transition-time: 0.3s;
+
+.burger-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 30%;
+  height: 100%;
+  background-color: $menu-bg-color;
+  box-shadow: -2px 0 5px $shadow-color;
+  transform: translateX(100%);
+  transition: transform $transition-time ease-in-out;
+  z-index: 1001;
+  color: $body-text-color; // Adjust text color for the body
+  padding: 0; // Remove padding to ensure full width
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  ul {
+    list-style: none;
+    padding: 0 20px;
+    margin: 0;
+  }
+
+  li {
+    margin: $margin-list-item;
+  }
+
+  a {
+    display: block;
+    font-size: $font-size-large;
+    font-family: $font-family !important;
+    font-weight: $font-weight-normal;
+    line-height: $line-height-large;
+    color: $menu-text-color;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 1.5rem 0 1rem;
+    border-bottom: 0.063rem solid $border-color;
+
+    &:hover {
+      color: $hover-link-color;
+      text-decoration: none;
+    }
+
+    &:first-child {
+      padding: 0 1.5rem 1rem 0;
+    }
+  }
+}
+
+.profile-settings-header {
+  background-color: $header-bg-color;
+  height: 4rem;
+  box-shadow: 0 0.188rem 0.375rem $box-shadow-color;
+  font-family: $font-family !important;
+  font-size: $font-size-large;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-normal;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  z-index: 10;
+  padding: $padding-top-bottom $padding-sides;
+  color: $header-text-color; // Adjust text color for the header
+}
+
+.user-details {
+  padding: $padding-top-bottom $padding-sides;
+  background-color: $menu-bg-color;
+  border-bottom: $divider-border;
+
+  p {
+    margin: 0;
+    font-size: $font-size-normal;
+    font-family: $font-family !important;
+    color: $menu-text-color;
+    padding: 5px 0;
+  }
+}
+
+#cancelButton {
+  cursor: pointer;
+  width: $cancel-btn-size;
+  height: $cancel-btn-size;
+  background: url('/cancelButton.svg') no-repeat center center;
+  background-size: contain;
+  filter: brightness(0) invert(1); // Apply filter to make the icon white
+}

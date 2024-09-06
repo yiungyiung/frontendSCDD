@@ -1,16 +1,35 @@
-/* Container Styles */
+// Common Variables
+$color-primary: #12789e;
+$color-secondary: #073c5a;
+$color-light: #e7f4f9;
+$color-white: #ffffff;
+$color-gray: #ddd;
+$color-orange: #f9a634;
+$color-green: #339a2d;
+$color-red: #dc3545;
+$color-text-gray: gray;
+$font-size-small: 1.7vh;
+$font-size-medium: 2vh;
+$font-size-large: 1.25vw;
+$border-radius: 8px;
+$box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+// Opacity Variants
+$color-secondary84: rgba($color-secondary, 0.84);
+
+// Container Styles
 .container {
   max-width: 100%;
   margin: 0 auto;
   margin-top: 3.3vh;
 }
 
-/* Card Styles */
+// Card Styles
 .card,
 .back-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid $color-gray;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
   margin-bottom: 2.5vh;
   margin-top: 3vh;
   overflow-y: scroll;
@@ -24,31 +43,19 @@
 }
 
 .back-card {
-  background-color: #ffffff;
+  background-color: $color-white;
   width: 63vw;
   margin-left: -19vw;
   height: 71vh;
 }
 
-.addusertitle {
-  background-color: #e7f4f9;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px;
-}
-
-.addusertitle mat-icon {
-  margin-right: 20px;
-  width: 30px;
-  height: auto;
-}
+// Card Header Styles
 .card-header-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #e7f4f9;
-  border-bottom: 1px solid #ddd;
+  background-color: $color-light;
+  border-bottom: 1px solid $color-gray;
   padding: 10px 15px;
   height: 9vh;
 }
@@ -58,27 +65,27 @@
 }
 
 .card-header {
-  font-size: 1.25vw;
+  font-size: $font-size-large;
   font-weight: bold;
-  color: #073c5a;
+  color: $color-secondary;
   background-color: transparent;
   border: none;
 }
 
-/* Form Styles */
+// Form Styles
 .form-group {
-  font-size: 2vh;
+  font-size: $font-size-medium;
   font-weight: 600;
-  color: #073c5a;
-  margin-bottom: 2vh;
+  color: $color-secondary;
+  margin-bottom: $font-size-medium;
 }
 
 .form-control,
 .custom-select {
   width: 100%;
   padding: 1.5vh;
-  font-size: 2vh;
-  border: 1px solid #073c5a84;
+  font-size: $font-size-medium;
+  border: 1px solid $color-secondary84;
   border-radius: 4px;
 }
 
@@ -97,23 +104,23 @@
   right: 5px;
   pointer-events: none;
   font-size: 18px;
-  color: #073c5a;
+  color: $color-secondary;
 }
 
 .btn-primary {
   margin-top: 6vh;
-  background-color: #12789e;
-  border-color: #12789e;
+  background-color: $color-primary;
+  border-color: $color-primary;
   color: white;
   width: 100%;
 }
 
 .btn-primary:hover {
-  background-color: #0a4357;
-  border-color: #0a4357;
+  background-color: darken($color-primary, 10%);
+  border-color: darken($color-primary, 10%);
 }
 
-/* Icon Container Styles */
+// Icon Container Styles
 .icon-container {
   padding-right: 20px;
   padding-bottom: 20px;
@@ -127,14 +134,14 @@
   margin-right: 10px;
   width: 3vh;
   height: auto;
-  color: #073c5a;
+  color: $color-secondary;
 }
 
 .icon-container mat-icon.filter-applied {
-  color: #f9a634;
+  color: $color-orange;
 }
 
-/* User Status Styles */
+// User Status Styles
 .user-status {
   position: relative;
   width: 6vw;
@@ -145,18 +152,18 @@
   color: white;
   text-align: center;
   display: inline-block;
-  font-size: 1.7vh;
+  font-size: $font-size-small;
+
+  &.active {
+    background-color: $color-green;
+  }
+
+  &.inactive {
+    background-color: $color-red;
+  }
 }
 
-.user-status.active {
-  background-color: #339a2d;
-}
-
-.user-status.inactive {
-  background-color: #dc3545;
-}
-
-/* User Details Styles */
+// User Details Styles
 .user-details {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(7vw, 1fr));
@@ -167,20 +174,20 @@
 .detail {
   margin-top: -20px;
   text-align: center;
-  font-size: 2vh;
+  font-size: $font-size-medium;
+
+  small {
+    display: block;
+    font-size: $font-size-small;
+    color: $color-text-gray;
+    text-align: center;
+  }
 }
 
-.detail small {
-  display: block;
-  font-size: 1.7vh;
-  color: gray;
-  text-align: center;
-}
-
-/* Other Styles */
+// Other Styles
 .user-id-bg,
 .user-ids-bg {
-  background-color: #e7f4f9;
+  background-color: $color-light;
   padding: 10px;
   border-radius: 4px;
 }
@@ -193,14 +200,14 @@
   display: block;
 }
 
-/* parent.component.css */
+// File Upload Wrapper Styles
 .file-upload-wrapper {
-  position: absolute; /* Or fixed, depending on your requirement */
+  position: absolute; // Or fixed, depending on your requirement
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1000; /* Adjust as needed */
-  background: white; /* Ensure the background is visible */
+  z-index: 1000; // Adjust as needed
+  background: $color-white; // Ensure the background is visible
   padding: 20px;
   border: 1px solid #ccc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

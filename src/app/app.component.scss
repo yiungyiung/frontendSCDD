@@ -1,0 +1,9 @@
+// Common variables
+$tooltip-text-color: white;
+$tooltip-background-color: #073c5a;
+
+// Tooltip styles
+.mdc-tooltip__surface {
+    color: $tooltip-text-color !important;
+    background: $tooltip-background-color !important;
+}

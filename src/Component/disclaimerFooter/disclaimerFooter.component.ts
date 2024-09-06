@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-disclaimerFooter',
   templateUrl: './disclaimerFooter.component.html',
-  styleUrls: ['./disclaimerFooter.component.css']
+  styleUrls: ['./disclaimerFooter.component.scss']
 })
 export class DisclaimerFooterComponent {
   @ViewChild('disclaimerModal') disclaimerModal?: TemplateRef<any>;

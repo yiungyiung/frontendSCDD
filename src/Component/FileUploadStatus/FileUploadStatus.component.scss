@@ -1,0 +1,32 @@
+// Common Variables
+$notification-bg-color: #e7f4f9;
+$notification-text-color: #0a4357;
+$notification-padding: 15px;
+$notification-border-radius: 5px;
+$notification-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+$notification-max-width: 300px;
+$notification-z-index: 1000;
+
+// Notification Styles
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: $notification-bg-color;
+  color: $notification-text-color;
+  padding: $notification-padding;
+  border-radius: $notification-border-radius;
+  max-width: $notification-max-width;
+  box-shadow: $notification-box-shadow;
+  z-index: $notification-z-index;
+
+  h4 {
+    margin-top: 0;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+}

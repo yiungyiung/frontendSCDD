@@ -7,7 +7,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-burger-menu',
   templateUrl: './burgerMenu.component.html',
-  styleUrls: ['./burgerMenu.component.css']
+  styleUrls: ['./burgerMenu.component.scss']
 })
 export class BurgerMenuComponent implements OnInit {
   @Input() isOpen: boolean = false;

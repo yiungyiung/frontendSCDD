@@ -7,7 +7,7 @@ import { QuestionnaireAssignment } from '../../model/questionnaireAssignment';
 @Component({
   selector: 'app-DynamicVendorList',
   templateUrl: './DynamicVendorList.component.html',
-  styleUrls: ['./DynamicVendorList.component.css']
+  styleUrls: ['./DynamicVendorList.component.scss']
 })
 export class DynamicVendorListComponent implements OnInit {
   vendorAssignments: QuestionnaireAssignment[] = [];

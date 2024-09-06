@@ -12,7 +12,7 @@ import { QuestionnaireAssignmentResponseDto } from '../../model/QuestionOptionRe
 @Component({
   selector: 'app-DynamicReports',
   templateUrl: './DynamicReports.component.html',
-  styleUrls: ['./DynamicReports.component.css'],
+  styleUrls: ['./DynamicReports.component.scss'],
 })
 export class DynamicReportsComponent implements OnInit {
   questionnaires: questionnaire[] = [];

@@ -14,7 +14,7 @@ import { SubPart } from '../../Component/filter/filter.component';
 @Component({
   selector: 'app-AssignQuestionnaire',
   templateUrl: './AssignQuestionnaire.component.html',
-  styleUrls: ['./AssignQuestionnaire.component.css']
+  styleUrls: ['./AssignQuestionnaire.component.scss']
 })
 export class AssignQuestionnaireComponent implements OnInit {
   

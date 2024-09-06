@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class TopBarComponent implements OnInit {
   isSidenavOpen = false;
   showBurgerMenu = false;
+  isNotificationOpen = false;  // Add this property
 
   constructor() {}
 
@@ -23,5 +24,13 @@ export class TopBarComponent implements OnInit {
 
   toggleBurgerMenu() {
     this.showBurgerMenu = !this.showBurgerMenu;
+  }
+
+  openNotificationSidebar() {
+    this.isNotificationOpen = true;
+  }
+
+  closeNotificationSidebar() {
+    this.isNotificationOpen = false;
   }
 }

@@ -32,7 +32,7 @@ import { ResponsePageComponent } from '../../Component/ResponsePage/ResponsePage
 import { QuestionnaireTableComponent } from '../../Component/QuestionnaireTable/QuestionnaireTable.component';
 import { ExportDialogBoxComponent } from '../../Component/exportDialogBox/exportDialogBox.component';
 import { PaginationComponent } from '../../Component/Pagination/pagination/pagination.component';
-
+import { NotificationSidebarComponent } from '../../Component/Notification/notification.component';
 @NgModule({
   declarations: [
     PaginationComponent,
@@ -49,6 +49,7 @@ import { PaginationComponent } from '../../Component/Pagination/pagination/pagin
     BreadcrumbComponent,
     ResponsePageComponent,
     ExportDialogBoxComponent,
+    NotificationSidebarComponent,
   ],
   imports: [
     HighchartsChartModule,
@@ -106,6 +107,7 @@ import { PaginationComponent } from '../../Component/Pagination/pagination/pagin
     MatSlideToggleModule,
     BreadcrumbComponent,
     ResponsePageComponent,
+    NotificationSidebarComponent,
   ],
 })
 export class SharedModule {}

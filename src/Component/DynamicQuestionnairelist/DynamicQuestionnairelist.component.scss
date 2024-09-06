@@ -1,0 +1,45 @@
+// Common Variables
+$color-background: #fff;
+$color-border: #ddd;
+$color-border-hover: #f9a634;
+$color-shadow: rgba(0, 0, 0, 0.1);
+$border-radius: 8px;
+$box-shadow: 0 2px 5px $color-shadow;
+$padding: 10px;
+$margin-top: 3vh;
+$font-size: 1rem; // Adjust if needed for consistency
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  cursor: pointer;
+  padding: 7px;
+  align-items: center;
+  justify-content: center;
+}
+
+.list-container {
+  background-color: $color-background;
+  border: 1px solid $color-border;
+  border-radius: $border-radius;
+  height: 60vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.card-body {
+  border: 1px solid $color-border;
+  background-color: $color-background;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  width: 20vw;
+  margin-top: $margin-top;
+  padding: $padding;
+}
+
+.card-body:hover {
+  border: 1px solid $color-border-hover;
+}

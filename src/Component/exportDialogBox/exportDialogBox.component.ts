@@ -7,7 +7,7 @@ import 'jspdf-autotable';
 @Component({
   selector: 'app-exportDialogBox',
   templateUrl: './exportDialogBox.component.html',
-  styleUrls: ['./exportDialogBox.component.css']
+  styleUrls: ['./exportDialogBox.component.scss']
 })
 export class ExportDialogBoxComponent implements OnInit {
   @Input() allColumns: string[] = [];

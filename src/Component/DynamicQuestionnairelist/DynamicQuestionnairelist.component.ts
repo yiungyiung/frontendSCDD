@@ -7,7 +7,7 @@ import { AuthService } from '../../services/AuthService/auth.service';
 @Component({
   selector: 'app-DynamicQuestionnairelist',
   templateUrl: './DynamicQuestionnairelist.component.html',
-  styleUrls: ['./DynamicQuestionnairelist.component.css']
+  styleUrls: ['./DynamicQuestionnairelist.component.scss']
 })
 export class DynamicQuestionnairelistComponent implements OnInit {
   questionnaires: questionnaire[] = [];

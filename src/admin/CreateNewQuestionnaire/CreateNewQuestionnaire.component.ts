@@ -12,7 +12,7 @@ import { SubPart } from '../../Component/filter/filter.component';
 @Component({
   selector: 'app-CreateNewQuestionnaire',
   templateUrl: './CreateNewQuestionnaire.component.html',
-  styleUrls: ['./CreateNewQuestionnaire.component.css'],
+  styleUrls: ['./CreateNewQuestionnaire.component.scss'],
 })
 export class CreateNewQuestionnaireComponent implements OnInit {
   questionnaireForm!: FormGroup;

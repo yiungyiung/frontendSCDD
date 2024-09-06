@@ -1,0 +1,11 @@
+<div class="notification-sidebar" [class.open]="isNotificationOpen">
+    <div class="notification-header">
+      Notifications
+      <!-- Use the same cancel button -->
+      <div id="closeNotification" (click)="closeSidebar()"></div>
+    </div>
+    <div class="notification-item" *ngFor="let notification of notifications">
+      <p>{{ notification.message }}</p>
+    </div>
+  </div>
+  

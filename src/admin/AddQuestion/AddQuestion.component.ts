@@ -15,7 +15,7 @@ enum QuestionType {
 @Component({
   selector: 'app-AddQuestion',
   templateUrl: './AddQuestion.component.html',
-  styleUrls: ['./AddQuestion.component.css']
+  styleUrls: ['./AddQuestion.component.scss']
 })
 export class AddQuestionComponent implements OnInit {
   Framework: Framework[] = [];

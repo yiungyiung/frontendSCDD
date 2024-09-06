@@ -10,7 +10,7 @@ export interface ExtendedQuestionnaireAssignmentResponseDto
 @Component({
   selector: 'app-DynamicDisplay',
   templateUrl: './DynamicDisplay.component.html',
-  styleUrls: ['./DynamicDisplay.component.css'],
+  styleUrls: ['./DynamicDisplay.component.scss'],
 })
 export class DynamicDisplayComponent implements OnInit {
   @Input() responses: ExtendedQuestionnaireAssignmentResponseDto[] = [];

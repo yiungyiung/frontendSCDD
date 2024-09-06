@@ -1,0 +1,17 @@
+// Common Variables
+$spacing-small: 2vh;
+$icon-width: 2vw;
+
+// Header Styles
+.header {
+  display: flex;
+  justify-content: flex-end; // Aligns everything to the right
+  margin-right: $spacing-small; // Adds space from the right side
+  position: relative;
+}
+
+.header mat-icon {
+  height: auto;
+  width: $icon-width;
+  margin-left: auto; // Ensures mat-icon stays at the right
+}

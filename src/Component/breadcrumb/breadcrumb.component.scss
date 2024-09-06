@@ -1,0 +1,26 @@
+// Common variables
+$nav-font-size: 1rem;
+$nav-line-height: 1.25rem;
+$nav-text-color: #073c5a;
+$nav-margin-top: 2.5vh;
+$nav-margin-bottom: -2.5vh;
+
+// Nav styles
+nav {
+    font-size: $nav-font-size;
+    line-height: $nav-line-height;
+    color: $nav-text-color;
+    margin-top: $nav-margin-top;
+    margin-bottom: $nav-margin-bottom;
+}
+
+// Nav links styles
+nav a {
+    color: $nav-text-color;
+    text-decoration: none;
+}
+
+// Nav links hover styles
+nav a:hover {
+    text-decoration: underline;
+}

@@ -5,7 +5,7 @@ import { NgxCsvParser, NgxCSVParserError } from 'ngx-csv-parser';
 @Component({
   selector: 'app-fileUpload',
   templateUrl: './fileUpload.component.html',
-  styleUrls: ['./fileUpload.component.css']
+  styleUrls: ['./fileUpload.component.scss']
 })
 export class FileUploadComponent {
   @Output() fileParsed: EventEmitter<any[]> = new EventEmitter<any[]>();

@@ -4,7 +4,7 @@
       <span>Company LOGO</span>
     </div>
     <div class="icons">
-      <mat-icon class="icon" svgIcon="notification" (click)="openSidenav()">notifications</mat-icon>
+      <mat-icon class="icon" svgIcon="notification" (click)="openNotificationSidebar()">notifications</mat-icon>
       <mat-icon class="icon" svgIcon="userIcon" (click)="toggleBurgerMenu()">account_circle</mat-icon>
 
       <img
@@ -16,5 +16,13 @@
       />
     </div>
   </header>
+  
+  <!-- Burger Menu Component -->
   <app-burger-menu [isOpen]="showBurgerMenu" (close)="toggleBurgerMenu()"></app-burger-menu>
+
+  <!-- Notification Sidebar Component -->
+  <app-notification-sidebar
+    [isNotificationOpen]="isNotificationOpen"
+    (closeNotification)="closeNotificationSidebar()">
+  </app-notification-sidebar>
 </div>

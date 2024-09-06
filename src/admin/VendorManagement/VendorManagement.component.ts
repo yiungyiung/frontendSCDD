@@ -17,7 +17,7 @@ import { DataFetchService } from '../../services/DataFetchService/DataFetch.serv
 @Component({
   selector: 'app-VendorManagement',
   templateUrl: './VendorManagement.component.html',
-  styleUrls: ['./VendorManagement.component.css'],
+  styleUrls: ['./VendorManagement.component.scss'],
  
 })
 export class VendorManagementComponent implements OnInit {

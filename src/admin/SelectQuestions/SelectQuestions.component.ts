@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-SelectQuestions',
   templateUrl: './SelectQuestions.component.html',
-  styleUrls: ['./SelectQuestions.component.css'],
+  styleUrls: ['./SelectQuestions.component.scss'],
 })
 export class SelectQuestionsComponent implements OnInit {
   frameworkID!: number;

@@ -1,0 +1,59 @@
+// Common Variables
+$color-background: #fff;
+$color-border: #ddd;
+$color-accent: #f9a634;
+$color-checkmark: #fff;
+$color-border-checkbox: #0a4357;
+$border-radius: 8px;
+$checkbox-size: 20px;
+$checkbox-border-width: 2px;
+$font-size-checkmark: 14px;
+
+.list-container {
+  background-color: $color-background;
+  border: 1px solid $color-border;
+  border-radius: $border-radius;
+  height: 60vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.list {
+  cursor: pointer;
+  padding: 7px;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkbox-option {
+  justify-items: center;
+}
+
+.checkbox-option input[type="checkbox"] {
+  width: $checkbox-size;
+  height: $checkbox-size;
+  border: $checkbox-border-width solid $color-border-checkbox;
+  accent-color: $color-accent;
+  appearance: none;
+  background-color: $color-background;
+  cursor: pointer;
+}
+
+.checkbox-option input[type="checkbox"]:checked {
+  background-color: $color-accent;
+  border-color: $color-accent;
+  position: relative;
+}
+
+.checkbox-option input[type="checkbox"]:checked::after {
+  content: "✔";
+  color: $color-checkmark;
+  position: absolute;
+  font-size: $font-size-checkmark;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

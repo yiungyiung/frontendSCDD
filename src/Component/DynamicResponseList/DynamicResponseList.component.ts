@@ -9,7 +9,7 @@ import { AuthService } from '../../services/AuthService/auth.service';
 @Component({
   selector: 'app-DynamicResponseList',
   templateUrl: './DynamicResponseList.component.html',
-  styleUrls: ['./DynamicResponseList.component.css']
+  styleUrls: ['./DynamicResponseList.component.scss']
 })
 export class DynamicResponseListComponent implements OnInit {
   questions: Question[] = [];
