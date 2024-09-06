@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-Reports',
   templateUrl: './Reports.component.html',
-  styleUrls: ['./Reports.component.css']
+  styleUrls: ['./Reports.component.css'],
 })
 export class ReportsComponent implements OnInit {
-
-  constructor() { }
-
+  constructor(private router: Router, private route: ActivatedRoute) {}
+  isChildRouteActive = false;
   ngOnInit() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Check if the current route is the child route
+        this.isChildRouteActive = this.route.firstChild != null;
+      }
+    });
   }
-
 }

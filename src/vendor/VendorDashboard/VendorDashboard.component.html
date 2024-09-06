@@ -1,40 +1,41 @@
-<div class="status-container">
+<div class="status-container" *ngIf="!isChildRouteActive">
     <div class="status-card" *ngFor="let status of getStatusKeys()">
-      <div class="card-header-container">{{ status }}</div>
-      
-      <ng-container *ngIf="assignmentsByStatus[status].length > 0; else noAssignments">
-        <div *ngFor="let assignment of assignmentsByStatus[status]" (click)="onAssignmentClick(assignment)">
-          <div class="assignment-card">
-            <div class="assignment-details">
-              <div class="detail-item">
-                <small>Assignment ID</small>
-                <span>{{ assignment.assignmentID }}</span>
-              </div>
-              <div class="detail-item">
-                <small>Questionnaire ID</small>
-                <span>{{ assignment.questionnaireID }}</span>
-              </div>
-              <div class="detail-item">
-                <small>Questionnaire Name</small>
-                <span>{{ getQuestionnaireDetails(assignment.questionnaireID)?.name }}</span>
-              </div>
-              <div class="detail-item">
-                <small>Year</small>
-                <span>{{ getQuestionnaireDetails(assignment.questionnaireID)?.year }}</span>
-              </div>
-              <div class="detail-item">
-                <small>Submission Date</small>
-                <span>{{ assignment.submissionDate | date:'shortDate' }}</span>
-              </div>
+        <div class="card-header-container">{{ status }}</div>
+
+        <ng-container *ngIf="assignmentsByStatus[status].length > 0; else noAssignments">
+            <div *ngFor="let assignment of assignmentsByStatus[status]" (click)="onAssignmentClick(assignment)">
+                <div class="assignment-card">
+                    <div class="assignment-details">
+                        <div class="detail-item">
+                            <small>Assignment ID</small>
+                            <span>{{ assignment.assignmentID }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <small>Questionnaire ID</small>
+                            <span>{{ assignment.questionnaireID }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <small>Questionnaire Name</small>
+                            <span>{{ getQuestionnaireDetails(assignment.questionnaireID)?.name }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <small>Year</small>
+                            <span>{{ getQuestionnaireDetails(assignment.questionnaireID)?.year }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <small>Submission Date</small>
+                            <span>{{ assignment.submissionDate | date:'shortDate' }}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </ng-container>
-      
-      <ng-template #noAssignments>
-        <div class="no-assignments">
-          No pending assignments
-        </div>
-      </ng-template>
+        </ng-container>
+
+        <ng-template #noAssignments>
+            <div class="no-assignments">
+                No pending assignments
+            </div>
+        </ng-template>
     </div>
-  </div>
+</div>
+<router-outlet></router-outlet>

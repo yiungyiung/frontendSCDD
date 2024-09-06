@@ -19,6 +19,7 @@ const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
+    data: { breadcrumb: 'admin' },
     children: [
       {
         path: 'dashboard',

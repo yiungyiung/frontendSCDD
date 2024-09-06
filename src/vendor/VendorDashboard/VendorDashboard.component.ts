@@ -6,7 +6,7 @@ import { AuthService } from '../../services/AuthService/auth.service';
 import { VendorService } from '../../services/VendorService/Vendor.service';
 import { EntityService } from '../../services/EntityService/Entity.service';
 import { QuestionnaireService } from '../../services/QuestionnaireService/Questionnaire.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ResponseModalComponent } from '../../Component/ResponseModal/ResponseModal.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -27,6 +27,7 @@ export class VendorDashboardComponent implements OnInit {
   assignmentsByStatus: { [key: string]: QuestionnaireAssignment[] } = {};
   statuses: Status[] = [];
   questionnaireDetails: { [key: number]: Questionnaire } = {};
+  isChildRouteActive = false;
 
   constructor(
     private router: Router,
@@ -35,10 +36,18 @@ export class VendorDashboardComponent implements OnInit {
     private vendorService: VendorService,
     private entityService: EntityService,
     private questionnaireService: QuestionnaireService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+   
   ) { }
 
   ngOnInit() {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+          // Check if the current route is the child route
+          this.isChildRouteActive = this.route.firstChild != null;
+      }
+  });
     this.loadStatusesAndAssignments();
   }
 
@@ -112,9 +121,10 @@ export class VendorDashboardComponent implements OnInit {
     }});
   }
   openResponseModal(assignmentID: number|undefined): void {
-    this.dialog.open(ResponseModalComponent, {
-      width: '600px', 
-      data: { assignmentID } // Pass the questionnaireID as data to the modal
+    this.router.navigate(['vendor/dashboard/response-page'], {
+      state: {
+        assignmentID: assignmentID
+      }
     });
   }
 }

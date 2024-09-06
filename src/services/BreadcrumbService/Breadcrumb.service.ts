@@ -24,21 +24,30 @@ export class BreadcrumbService {
     url: string = '',
     breadcrumbs: Array<{ label: string, url: string }> = []
   ): Array<{ label: string, url: string }> {
-    if (route.snapshot.data['breadcrumb']) {
+    const routeData = route.snapshot.data;
+
+    if (routeData['breadcrumb']) {
       const routeURL: string = route.snapshot.url.map(segment => segment.path).join('/');
       if (routeURL !== '') {
         url += `/${routeURL}`;
       }
-      breadcrumbs.push({ label: route.snapshot.data['breadcrumb'], url: url });
+
+      // Store the breadcrumb URLs but conditionally hide labels
+      breadcrumbs.push({
+        label: routeData['breadcrumb'] !== 'admin' && routeData['breadcrumb'] !== 'vendor'
+          ? routeData['breadcrumb']
+          : '', // Hide labels for 'admin'/'vendor'
+        url: url
+      });
     }
 
-    // Recursively process children routes
     if (route.children.length > 0) {
       for (const child of route.children) {
         this.createBreadcrumbs(child, url, breadcrumbs);
       }
     }
 
-    return breadcrumbs;
+    // Remove breadcrumbs with empty labels from display
+    return breadcrumbs.filter(breadcrumb => breadcrumb.label !== '');
   }
 }

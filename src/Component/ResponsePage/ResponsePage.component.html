@@ -1,3 +1,39 @@
-<p>
-  ResponsePage works!
-</p>
+<div class="response-page">
+    <h2 class="page-title">Questionnaire Responses</h2>
+
+    <!-- Show assignment information if responses exist -->
+    <div *ngIf="responses; else noData" class="response-content">
+        <div class="assignment-info">
+            <div class="bubble">
+                <span class="label">Assignment ID:</span>
+                <span class="info-value">{{ assignmentID }}</span>
+            </div>
+            <div class="bubble">
+                <span class="label">Questionnaire ID:</span>
+                <span class="info-value">{{ responses.questionnaireID }}</span>
+            </div>
+        </div>
+
+        <!-- Loop through each question and display the options and text responses -->
+        <div *ngFor="let question of responses.questions" class="question-card">
+            <h4 class="question-title">{{ question.questionText }}</h4>
+            <hr class="divider" />
+
+            <div *ngFor="let option of question.optionResponses" class="response-option">
+                <p><strong>Option:</strong> {{ option.optionText }}</p>
+            </div>
+
+            <div *ngFor="let textBox of question.textBoxResponses" class="response-textbox">
+                <p><strong>{{ textBox.label }}:</strong> {{ textBox.textValue }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fallback in case there are no responses -->
+    <ng-template #noData>
+        <p class="no-data">No responses available for this assignment.</p>
+    </ng-template>
+
+    <!-- Button to navigate back to the previous page -->
+    <button mat-button (click)="goBack()">Go Back</button>
+</div>

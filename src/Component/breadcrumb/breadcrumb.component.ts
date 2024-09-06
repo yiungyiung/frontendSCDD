@@ -22,4 +22,8 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.breadcrumbSubscription.unsubscribe();
   }
+  GoTo(url:string)
+  {
+    console.log(url);
+  }
 }

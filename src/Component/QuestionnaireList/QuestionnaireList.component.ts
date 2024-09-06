@@ -9,7 +9,7 @@ import { VendorService } from '../../services/VendorService/Vendor.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ResponseModalComponent } from '../ResponseModal/ResponseModal.component';
 import { QuestionnaireService } from '../../services/QuestionnaireService/Questionnaire.service';
-
+import { Router } from '@angular/router';
 interface QuestionnaireAssignmentWithVendor extends QuestionnaireAssignment {
   vendorName: string;
   questionnaireName: string;
@@ -32,7 +32,8 @@ export class QuestionnaireListComponent implements OnInit {
     private authService: AuthService,
     private vendorService: VendorService,
     private dialog: MatDialog,
-    private questionnaireService: QuestionnaireService
+    private questionnaireService: QuestionnaireService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -72,13 +73,11 @@ export class QuestionnaireListComponent implements OnInit {
     });
   }
   openResponseModal(assignmentID: number): void {
-    const dialogRef = this.dialog.open(ResponseModalComponent, {
-      minWidth:'1000px',    
-      data: { assignmentID }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    console.log(assignmentID);
+    this.router.navigate(['admin/reports/response-page'], {
+      state: {
+        assignmentID: assignmentID
+      }
     });
   }
 }
