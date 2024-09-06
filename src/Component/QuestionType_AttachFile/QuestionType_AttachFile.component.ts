@@ -4,7 +4,7 @@ import { FileUpload } from '../../model/question';
 @Component({
   selector: 'app-QuestionType_AttachFile',
   templateUrl: './QuestionType_AttachFile.component.html',
-  styleUrls: ['./QuestionType_AttachFile.component.css']
+  styleUrls: ['./QuestionType_AttachFile.component.scss'],
 })
 export class QuestionType_AttachFileComponent implements OnInit {
   @Input() id!: number;
@@ -13,7 +13,7 @@ export class QuestionType_AttachFileComponent implements OnInit {
 
   label: string = '';
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     this.emitFileUpload();
@@ -30,7 +30,7 @@ export class QuestionType_AttachFileComponent implements OnInit {
   private emitFileUpload() {
     const fileUpload: FileUpload = {
       label: this.label,
-      orderIndex: 0 // You might want to handle this differently based on your requirements
+      orderIndex: 0, // You might want to handle this differently based on your requirements
     };
     this.fileUploadChange.emit(fileUpload);
   }

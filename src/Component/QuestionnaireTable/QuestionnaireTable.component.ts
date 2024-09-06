@@ -7,7 +7,6 @@ import { EntityService } from '../../services/EntityService/Entity.service';
 import { AuthService } from '../../services/AuthService/auth.service';
 import { VendorService } from '../../services/VendorService/Vendor.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ResponseModalComponent } from '../ResponseModal/ResponseModal.component';
 
 import { ExportModalServiceService } from '../../services/ExportModalService/ExportModalService.service';
 import { QuestionnaireService } from '../../services/QuestionnaireService/Questionnaire.service';
@@ -21,7 +20,7 @@ interface QuestionnaireAssignmentWithVendor extends QuestionnaireAssignment {
 @Component({
   selector: 'app-QuestionnaireTable',
   templateUrl: './QuestionnaireTable.component.html',
-  styleUrls: ['./QuestionnaireTable.component.css'],
+  styleUrls: ['./QuestionnaireTable.component.scss'],
 })
 export class QuestionnaireTableComponent implements OnInit {
   questionnaires: { [key: string]: QuestionnaireAssignmentWithVendor[] } = {};

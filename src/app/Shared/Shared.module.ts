@@ -26,16 +26,17 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { StackedBarChartComponent } from '../../Component/stacked-bar-chart/stacked-bar-chart.component';
 import { PieChartComponent } from '../../Component/pie-chart/pie-chart.component';
 import { QuestionnaireListComponent } from '../../Component/QuestionnaireList/QuestionnaireList.component';
-import { ResponseModalComponent } from '../../Component/ResponseModal/ResponseModal.component';
 import { BreadcrumbComponent } from '../../Component/breadcrumb/breadcrumb.component';
 import { ResponsePageComponent } from '../../Component/ResponsePage/ResponsePage.component';
 import { QuestionnaireTableComponent } from '../../Component/QuestionnaireTable/QuestionnaireTable.component';
 import { ExportDialogBoxComponent } from '../../Component/exportDialogBox/exportDialogBox.component';
 import { PaginationComponent } from '../../Component/Pagination/pagination/pagination.component';
+import { AssignmentCardComponent } from '../../Component/AssignmentCard/AssignmentCard.component';
 import { NotificationSidebarComponent } from '../../Component/Notification/notification.component';
 @NgModule({
   declarations: [
     PaginationComponent,
+    AssignmentCardComponent,
     NavItemComponent,
     TopBarComponent,
     DisclaimerFooterComponent,
@@ -45,7 +46,6 @@ import { NotificationSidebarComponent } from '../../Component/Notification/notif
     PieChartComponent,
     QuestionnaireListComponent,
     QuestionnaireTableComponent,
-    ResponseModalComponent,
     BreadcrumbComponent,
     ResponsePageComponent,
     ExportDialogBoxComponent,
@@ -75,8 +75,8 @@ import { NotificationSidebarComponent } from '../../Component/Notification/notif
   ],
   exports: [
     PaginationComponent,
+    AssignmentCardComponent,
     ExportDialogBoxComponent,
-    ResponseModalComponent,
     QuestionnaireTableComponent,
     QuestionnaireListComponent,
     PieChartComponent,

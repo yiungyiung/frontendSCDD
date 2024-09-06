@@ -5,7 +5,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { AdminComponent } from './admin.component';
 import { VendorManagementComponent } from './VendorManagement/VendorManagement.component';
-import { ManageQuestionaireComponent } from './ManageQuestionaire/ManageQuestionaire.component';
 import { AssignQuestionnaireComponent } from './AssignQuestionnaire/AssignQuestionnaire.component';
 import { AddQuestionComponent } from './AddQuestion/AddQuestion.component';
 import { CreateNewQuestionnaireComponent } from './CreateNewQuestionnaire/CreateNewQuestionnaire.component';
@@ -13,7 +12,6 @@ import { SelectQuestionsComponent } from './SelectQuestions/SelectQuestions.comp
 import { ReportsComponent } from './Reports/Reports.component';
 import { DynamicReportsComponent } from './DynamicReports/DynamicReports.component';
 import { ResponsePageComponent } from '../Component/ResponsePage/ResponsePage.component';
-
 
 const routes: Routes = [
   {
@@ -37,11 +35,6 @@ const routes: Routes = [
         data: { breadcrumb: 'VendorManagement' },
       },
       {
-        path: 'Manage-question',
-        component: ManageQuestionaireComponent,
-        data: { breadcrumb: 'ManageQuestions' },
-      },
-      {
         path: 'CreateNewQuestionnarie',
         component: CreateNewQuestionnaireComponent,
         data: { breadcrumb: 'Create New Questionnaire' },
@@ -50,8 +43,8 @@ const routes: Routes = [
             path: 'select-questions',
             component: SelectQuestionsComponent,
             data: { breadcrumb: 'Select Questions' },
-          }
-        ]
+          },
+        ],
       },
       {
         path: 'AssignExistingQuestionnarie',
@@ -72,8 +65,8 @@ const routes: Routes = [
             path: 'response-page',
             component: ResponsePageComponent,
             data: { breadcrumb: 'Response' },
-          }
-        ]
+          },
+        ],
       },
       {
         path: 'dynamicReports',

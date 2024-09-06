@@ -3,7 +3,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
-  styleUrls: ['./pagination.component.css']
+  styleUrls: ['./pagination.component.scss'],
 })
 export class PaginationComponent implements OnInit {
   @Input() currentPage: number = 1;
@@ -11,7 +11,8 @@ export class PaginationComponent implements OnInit {
   @Input() itemsPerPage: number = 10;
   @Input() totalItems: number = 0;
   @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
-  @Output() itemsPerPageChange: EventEmitter<number> = new EventEmitter<number>();
+  @Output() itemsPerPageChange: EventEmitter<number> =
+    new EventEmitter<number>();
 
   itemsPerPageOptions: number[] = [5, 10, 20, 50];
 

@@ -11,18 +11,12 @@ import { Router, RouterModule } from '@angular/router';
 import { SharedModule } from '../app/Shared/Shared.module';
 import { QuestionnaireAnsweringComponent } from './QuestionnaireAnswering/QuestionnaireAnswering.component';
 
-
 @NgModule({
   declarations: [
     VendorComponent,
     VendorDashboardComponent,
-    QuestionnaireAnsweringComponent
+    QuestionnaireAnsweringComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule, 
-    VendorRoutingModule,
-    SharedModule
-  ]
+  imports: [CommonModule, RouterModule, VendorRoutingModule, SharedModule],
 })
-export class VendorModule { }
+export class VendorModule {}

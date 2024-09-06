@@ -19,7 +19,7 @@ interface Vendor {
 @Component({
   selector: 'app-vendorHierarchyGraph',
   templateUrl: './vendorHierarchyGraph.component.html',
-  styleUrls: ['./vendorHierarchyGraph.component.css'],
+  styleUrls: ['./vendorHierarchyGraph.component.scss'],
 })
 export class VendorHierarchyGraphComponent implements OnInit, AfterViewInit {
   @ViewChildren('vendorCard', { read: ElementRef })
@@ -78,14 +78,21 @@ export class VendorHierarchyGraphComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (!this.linesContainer || !this.vendorCards || !this.vendorCards.length || !this.companyButton) {
-      console.error('Lines container, vendor cards, or company button are not available.');
+    if (
+      !this.linesContainer ||
+      !this.vendorCards ||
+      !this.vendorCards.length ||
+      !this.companyButton
+    ) {
+      console.error(
+        'Lines container, vendor cards, or company button are not available.'
+      );
       return;
     }
-  
+
     const svg = this.linesContainer.nativeElement;
     svg.innerHTML = ''; // Clear previous lines
-  
+
     // Check if parentElement exists before proceeding
     if (svg.parentElement) {
       const containerRect = svg.parentElement.getBoundingClientRect();
@@ -95,10 +102,10 @@ export class VendorHierarchyGraphComponent implements OnInit, AfterViewInit {
       console.error('Parent element of the SVG is not available.');
       return;
     }
-  
+
     const vendorCenterMap = new Map<number, { x: number; y: number }>();
     const svgRect = svg.getBoundingClientRect();
-  
+
     // Calculate the center of each vendor card
     this.vendorCards.forEach((card) => {
       const rect = card.nativeElement.getBoundingClientRect();
@@ -108,15 +115,15 @@ export class VendorHierarchyGraphComponent implements OnInit, AfterViewInit {
         const cardName = card.nativeElement.textContent?.trim();
         return vendor.vendorName === cardName;
       })?.vendorID;
-  
+
       if (vendorID !== undefined) {
         vendorCenterMap.set(vendorID, { x: centerX, y: centerY });
       }
     });
-  
+
     // Draw lines from the "Company" button to Tier 1 nodes only
     this.drawLinesFromCompanyButton(vendorCenterMap);
-  
+
     // Draw lines between parent and child nodes, ensuring no duplicates
     this.drawLinesBetweenNodes(vendorCenterMap);
   }
@@ -128,7 +135,9 @@ export class VendorHierarchyGraphComponent implements OnInit, AfterViewInit {
 
   hideAllLines() {
     const svg = this.linesContainer.nativeElement;
-    const paths = svg.querySelectorAll('.connection-line') as NodeListOf<SVGPathElement>;
+    const paths = svg.querySelectorAll(
+      '.connection-line'
+    ) as NodeListOf<SVGPathElement>;
     paths.forEach((path: SVGPathElement) => {
       path.style.opacity = '0.1';
       path.style.transition = 'opacity 0.3s ease-in-out';
@@ -144,8 +153,10 @@ export class VendorHierarchyGraphComponent implements OnInit, AfterViewInit {
     const allVendors = this.vendorTiers.flat();
     if (this.selectedVendorID === null) {
       // Enable all vendors when no vendor is selected
-      allVendors.forEach(vendor => {
-        const element = document.querySelector(`button[data-vendor-id="${vendor.vendorID}"]`) as HTMLElement;
+      allVendors.forEach((vendor) => {
+        const element = document.querySelector(
+          `button[data-vendor-id="${vendor.vendorID}"]`
+        ) as HTMLElement;
         if (element) {
           element.style.opacity = '1';
           element.style.pointerEvents = 'auto';
@@ -155,9 +166,11 @@ export class VendorHierarchyGraphComponent implements OnInit, AfterViewInit {
       const selectedVendor = this.findVendorById(this.selectedVendorID);
       if (selectedVendor) {
         const relatedVendors = this.getAllRelatedVendors(selectedVendor);
-        
-        allVendors.forEach(vendor => {
-          const element = document.querySelector(`button[data-vendor-id="${vendor.vendorID}"]`) as HTMLElement;
+
+        allVendors.forEach((vendor) => {
+          const element = document.querySelector(
+            `button[data-vendor-id="${vendor.vendorID}"]`
+          ) as HTMLElement;
           if (element) {
             if (relatedVendors.has(vendor.vendorID)) {
               element.style.opacity = '1';
@@ -173,7 +186,7 @@ export class VendorHierarchyGraphComponent implements OnInit, AfterViewInit {
   }
   getAllRelatedVendors(vendor: Vendor): Set<number> {
     const relatedVendors = new Set<number>();
-    
+
     const addParents = (v: Vendor) => {
       const parent = this.findParentVendor(v);
       if (parent) {
@@ -181,40 +194,42 @@ export class VendorHierarchyGraphComponent implements OnInit, AfterViewInit {
         addParents(parent);
       }
     };
-    
+
     const addChildren = (v: Vendor) => {
-      v.children.forEach(child => {
+      v.children.forEach((child) => {
         relatedVendors.add(child.vendorID);
         addChildren(child);
       });
     };
-    
+
     relatedVendors.add(vendor.vendorID);
     addParents(vendor);
     addChildren(vendor);
-    
+
     return relatedVendors;
   }
   getRelevantVendors(vendor: Vendor, relevantVendors: Set<number>) {
     relevantVendors.add(vendor.vendorID);
-    
+
     // Add parent
     const parent = this.findParentVendor(vendor);
     if (parent) {
       relevantVendors.add(parent.vendorID);
       this.getRelevantVendors(parent, relevantVendors);
     }
-    
+
     // Add children
-    vendor.children.forEach(child => {
+    vendor.children.forEach((child) => {
       relevantVendors.add(child.vendorID);
       this.getRelevantVendors(child, relevantVendors);
     });
   }
   showRelevantConnections() {
     const svg = this.linesContainer.nativeElement;
-    const paths = svg.querySelectorAll('.connection-line') as NodeListOf<SVGPathElement>;
-  
+    const paths = svg.querySelectorAll(
+      '.connection-line'
+    ) as NodeListOf<SVGPathElement>;
+
     if (this.selectedVendorID === null) {
       paths.forEach((path: SVGPathElement) => {
         path.style.opacity = '1';
@@ -224,10 +239,12 @@ export class VendorHierarchyGraphComponent implements OnInit, AfterViewInit {
       if (selectedVendor) {
         const relatedVendors = this.getAllRelatedVendors(selectedVendor);
         paths.forEach((path: SVGPathElement) => {
-          const [startID, endID] = path.getAttribute('data-connection')?.split('-') || [];
+          const [startID, endID] =
+            path.getAttribute('data-connection')?.split('-') || [];
           if (
             (startID === 'company' && relatedVendors.has(parseInt(endID))) ||
-            (relatedVendors.has(parseInt(startID)) && relatedVendors.has(parseInt(endID)))
+            (relatedVendors.has(parseInt(startID)) &&
+              relatedVendors.has(parseInt(endID)))
           ) {
             path.style.opacity = '1';
           } else {
@@ -240,11 +257,13 @@ export class VendorHierarchyGraphComponent implements OnInit, AfterViewInit {
   showConnectionsForVendor(vendor: Vendor, paths: NodeListOf<SVGPathElement>) {
     const parentVendor = this.findParentVendor(vendor);
     paths.forEach((path: SVGPathElement) => {
-      const [startID, endID] = path.getAttribute('data-connection')?.split('-') || [];
+      const [startID, endID] =
+        path.getAttribute('data-connection')?.split('-') || [];
       if (
         (startID === 'company' && vendor.tierID === 1) ||
-        (startID === parentVendor?.vendorID.toString() && endID === vendor.vendorID.toString()) ||
-        (startID === vendor.vendorID.toString())
+        (startID === parentVendor?.vendorID.toString() &&
+          endID === vendor.vendorID.toString()) ||
+        startID === vendor.vendorID.toString()
       ) {
         path.style.opacity = '1';
       }
@@ -270,12 +289,17 @@ export class VendorHierarchyGraphComponent implements OnInit, AfterViewInit {
     return undefined;
   }
 
-  drawLinesFromCompanyButton(vendorCenterMap: Map<number, { x: number; y: number }>) {
+  drawLinesFromCompanyButton(
+    vendorCenterMap: Map<number, { x: number; y: number }>
+  ) {
     const svg = this.linesContainer.nativeElement;
-    const companyButtonRect = this.companyButton.nativeElement.getBoundingClientRect();
+    const companyButtonRect =
+      this.companyButton.nativeElement.getBoundingClientRect();
     const svgRect = svg.getBoundingClientRect();
-    const companyCenterX = companyButtonRect.left + companyButtonRect.width / 2 - svgRect.left;
-    const companyCenterY = companyButtonRect.top + companyButtonRect.height - svgRect.top;
+    const companyCenterX =
+      companyButtonRect.left + companyButtonRect.width / 2 - svgRect.left;
+    const companyCenterY =
+      companyButtonRect.top + companyButtonRect.height - svgRect.top;
 
     const tier1Vendors = this.vendorTiers[0] || [];
 
@@ -283,7 +307,10 @@ export class VendorHierarchyGraphComponent implements OnInit, AfterViewInit {
       const vendorCenter = vendorCenterMap.get(vendor.vendorID);
 
       if (vendorCenter) {
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const path = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'path'
+        );
         const d = this.createCurvedPath(
           companyCenterX,
           companyCenterY,
@@ -303,7 +330,9 @@ export class VendorHierarchyGraphComponent implements OnInit, AfterViewInit {
     });
   }
 
-  drawLinesBetweenNodes(vendorCenterMap: Map<number, { x: number; y: number }>) {
+  drawLinesBetweenNodes(
+    vendorCenterMap: Map<number, { x: number; y: number }>
+  ) {
     const svg = this.linesContainer.nativeElement;
 
     this.vendorTiers.forEach((tier, index) => {
@@ -315,7 +344,10 @@ export class VendorHierarchyGraphComponent implements OnInit, AfterViewInit {
             const childCenter = vendorCenterMap.get(child.vendorID);
 
             if (parentCenter && childCenter) {
-              const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+              const path = document.createElementNS(
+                'http://www.w3.org/2000/svg',
+                'path'
+              );
               const d = this.createCurvedPath(
                 parentCenter.x,
                 parentCenter.y + 20,
@@ -326,11 +358,18 @@ export class VendorHierarchyGraphComponent implements OnInit, AfterViewInit {
               path.setAttribute('fill', 'none');
               path.setAttribute('stroke', this.tierColors[index]);
               path.setAttribute('stroke-width', '2');
-              path.setAttribute('data-connection', `${parent.vendorID}-${child.vendorID}`);
+              path.setAttribute(
+                'data-connection',
+                `${parent.vendorID}-${child.vendorID}`
+              );
               path.setAttribute('class', 'connection-line');
               svg.appendChild(path);
             } else {
-              console.error('Parent or child center not found:', parent.vendorName, child.vendorName);
+              console.error(
+                'Parent or child center not found:',
+                parent.vendorName,
+                child.vendorName
+              );
             }
           });
         });

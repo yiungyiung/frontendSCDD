@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   width: 92vw;
-  height:69vh;
+  height: 69vh;
   margin-left: -2.5vw;
   gap: 20px;
 }
@@ -29,7 +29,7 @@
   width: auto;
   margin-top: 2vh;
   margin-left: 0.6vw;
-  margin-right:0.6vw;
+  margin-right: 0.6vw;
   padding: 15px;
 }
 
@@ -54,7 +54,7 @@
   display: flex;
   flex-direction: column;
   margin-right: 10px;
-  color:#073C5A;
+  color: #073c5a;
   margin-bottom: 5px;
   text-align: center; /* Center align the text */
   justify-content: center; /* Center the content vertically */
@@ -80,17 +80,17 @@
   padding: 10px 15px; /* Padding for spacing */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   font-weight: bold; /* Bold text */
-  height:8vh;
-  width: 46vw; 
+  height: 8vh;
+  width: 46vw;
   font-size: 2.5vh;
-  color:#073C5A;
+  color: #073c5a;
 }
 
 .no-assignments {
-  color: #073C5A; /* Your existing color */
+  color: #073c5a; /* Your existing color */
   font-size: 2.5vh; /* Adjusted */
   font-weight: 500; /* Make the text semi-bold */
   text-align: center; /* Center the text */
   margin-top: 20px;
-  padding: 10px; 
+  padding: 10px;
 }

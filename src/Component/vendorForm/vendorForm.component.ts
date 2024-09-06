@@ -27,7 +27,7 @@ import { User } from '../../model/user';
 @Component({
   selector: 'app-vendorForm',
   templateUrl: './vendorForm.component.html',
-  styleUrls: ['./vendorForm.component.css'],
+  styleUrls: ['./vendorForm.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class VendorFormComponent implements OnInit, OnChanges {

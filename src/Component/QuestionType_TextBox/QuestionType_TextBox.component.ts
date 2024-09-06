@@ -7,20 +7,29 @@ import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-QuestionType_TextBox',
   templateUrl: './QuestionType_TextBox.component.html',
-  styleUrls: ['./QuestionType_TextBox.component.css']
+  styleUrls: ['./QuestionType_TextBox.component.scss'],
 })
 export class QuestionType_TextBoxComponent implements OnInit {
   @Input() id!: number;
-  @Output() textboxChange = new EventEmitter<{ textbox: string, uomID: number }>();
+  @Output() textboxChange = new EventEmitter<{
+    textbox: string;
+    uomID: number;
+  }>();
   @Output() remove = new EventEmitter<void>();
- UnitOfMeasurement:UnitOfMeasurement[] = [];
+  UnitOfMeasurement: UnitOfMeasurement[] = [];
 
   textbox: string = '';
-  selectedUomId: number | undefined = undefined; 
+  selectedUomId: number | undefined = undefined;
 
-  constructor(private entityService: EntityService, private authService: AuthService, private cdr: ChangeDetectorRef) { }
+  constructor(
+    private entityService: EntityService,
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
-  ngOnInit() {this.loadunitofmeasurement(); }
+  ngOnInit() {
+    this.loadunitofmeasurement();
+  }
 
   loadunitofmeasurement() {
     const token = this.authService.getToken();
@@ -29,10 +38,9 @@ export class QuestionType_TextBoxComponent implements OnInit {
         this.UnitOfMeasurement = unitOfMeasurement;
         console.log('Loaded uom:', this.UnitOfMeasurement);
       },
-      error => console.error('Error loading uom:', error)
+      (error) => console.error('Error loading uom:', error)
     );
   }
-
 
   removeComponent() {
     this.remove.emit();
@@ -43,17 +51,19 @@ export class QuestionType_TextBoxComponent implements OnInit {
   }
 
   onUnitChange() {
-    console.log("yash");
+    console.log('yash');
     console.log('Selected UOM ID:', this.selectedUomId);
     this.emitData();
   }
-  
 
   private emitData() {
-    const uomID = this.selectedUomId !== null && this.selectedUomId !== undefined ? this.selectedUomId : -1;
+    const uomID =
+      this.selectedUomId !== null && this.selectedUomId !== undefined
+        ? this.selectedUomId
+        : -1;
     this.textboxChange.emit({
       textbox: this.textbox,
-      uomID: uomID
+      uomID: uomID,
     });
   }
 }

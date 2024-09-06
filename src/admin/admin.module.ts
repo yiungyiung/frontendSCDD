@@ -10,7 +10,6 @@ import { UsercardComponent } from '../Component/usercard/usercard.component';
 import { FilterComponent } from '../Component/filter/filter.component';
 import { FileUploadComponent } from '../Component/fileUpload/fileUpload.component';
 import { FileUploadStatusComponent } from '../Component/FileUploadStatus/FileUploadStatus.component';
-import { ManageQuestionaireComponent } from './ManageQuestionaire/ManageQuestionaire.component';
 import { QuestionType_SelectOneOptionComponent } from '../Component/QuestionType_SelectOneOption/QuestionType_SelectOneOption.component';
 import { QuestionType_SelectMultipleOptionComponent } from '../Component/QuestionType_SelectMultipleOption/QuestionType_SelectMultipleOption.component';
 import { QuestionType_TextBoxComponent } from '../Component/QuestionType_TextBox/QuestionType_TextBox.component';
@@ -56,7 +55,6 @@ export class AppModule {}
     QuestionType_SelectMultipleOptionComponent,
     FileUploadStatusComponent,
     QuestionType_SelectOneOptionComponent,
-    ManageQuestionaireComponent,
     AddQuestionComponent,
     FileUploadComponent,
     FilterComponent,

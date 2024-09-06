@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-nav-item',
   templateUrl: './nav-item.component.html',
-  styleUrls: ['./nav-item.component.css'],
+  styleUrls: ['./nav-item.component.scss'],
 })
 export class NavItemComponent implements AfterViewInit, OnDestroy {
   @Input() svgIcon!: string;
@@ -59,25 +59,35 @@ export class NavItemComponent implements AfterViewInit, OnDestroy {
   }
 
   private adjustSubPanelSize() {
-    const navbarElement = this.elementRef.nativeElement.closest('.custom-navbar');
-    const subPanelElement = this.elementRef.nativeElement.querySelector('.sub-panel');
+    const navbarElement =
+      this.elementRef.nativeElement.closest('.custom-navbar');
+    const subPanelElement =
+      this.elementRef.nativeElement.querySelector('.sub-panel');
     if (navbarElement && subPanelElement) {
       const navbarRect = navbarElement.getBoundingClientRect();
       const navItemRect = this.elementRef.nativeElement.getBoundingClientRect();
       this.renderer.setStyle(subPanelElement, 'width', `${navbarRect.width}px`);
-      this.renderer.setStyle(subPanelElement, 'left', `${navbarRect.left - navItemRect.left}px`);
+      this.renderer.setStyle(
+        subPanelElement,
+        'left',
+        `${navbarRect.left - navItemRect.left}px`
+      );
     }
   }
 
   private attachClickListener() {
     if (!this.clickListener) {
-      this.clickListener = this.renderer.listen('document', 'click', (event: Event) => {
-        if (!this.elementRef.nativeElement.contains(event.target)) {
-          this.showSubPanel = false;
-          this.cdr.detectChanges();
-          this.detachClickListener();
+      this.clickListener = this.renderer.listen(
+        'document',
+        'click',
+        (event: Event) => {
+          if (!this.elementRef.nativeElement.contains(event.target)) {
+            this.showSubPanel = false;
+            this.cdr.detectChanges();
+            this.detachClickListener();
+          }
         }
-      });
+      );
     }
   }
 

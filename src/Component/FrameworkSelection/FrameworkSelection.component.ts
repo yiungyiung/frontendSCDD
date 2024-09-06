@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Framework } from '../../model/entity';
 
 @Component({
   selector: 'app-FrameworkSelection',
   templateUrl: './FrameworkSelection.component.html',
-  styleUrls: ['./FrameworkSelection.component.css']
+  styleUrls: ['./FrameworkSelection.component.scss'],
 })
 export class FrameworkSelectionComponent {
   @Input() frameworks?: Framework[];

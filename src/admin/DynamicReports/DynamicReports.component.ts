@@ -152,8 +152,8 @@ export class DynamicReportsComponent implements OnInit {
       (question) => {
         this.selectedQuestion.push(question);
         this.selectedQuestion.sort((a, b) => {
-          if (a.questionID === undefined) return 1; // Place undefined IDs at the end
-          if (b.questionID === undefined) return -1; // Place undefined IDs at the end
+          if (a.questionID === undefined) return 1; 
+          if (b.questionID === undefined) return -1; 
           return a.questionID - b.questionID;
         });
 
@@ -172,21 +172,41 @@ export class DynamicReportsComponent implements OnInit {
     this.updatePagedResponses();
   }
 
-  onPageChange(page: number) {
+  // In your pagination or data update logic
+onPageChange(page: number) {
+  if (page >= 1 && page <= this.totalPages) {
     this.currentPage = page;
     this.updatePagedResponses();
   }
-  updatePagedResponses() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.pagedResponses = this.responses.slice(startIndex, endIndex);
-  }
-  onItemsPerPageChange(itemsPerPage: number) {
-    this.itemsPerPage = itemsPerPage;
-    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-    this.currentPage = 1;
-    this.updatePagedResponses();
-  }
+}
+
+onItemsPerPageChange(itemsPerPage: number) {
+  this.itemsPerPage = itemsPerPage;
+  this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+  this.currentPage = 1;
+  this.updatePagedResponses();
+}
+updatePagedResponses() {
+  const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  const endIndex = startIndex + this.itemsPerPage;
+  
+  this.pagedResponses = this.responses.slice(startIndex, endIndex);
+
+  // Send only the paginated data to other components
+  this.sendPaginatedData();
+}
+sendPaginatedData() {
+  const paginatedData = this.pagedResponses.map((response) => {
+    const filteredQuestions = response.questions.filter((q) =>
+      this.selectedQuestion.some((sq) => sq.questionID === q.questionID)
+    );
+    return { ...response, questions: filteredQuestions };
+  });
+
+  // Send paginatedData to other components or files
+  // Example: this.someService.sendData(paginatedData);
+}
+
 
   loadQuestionnaires() {
     this.questionnaireService

@@ -12,10 +12,9 @@ export interface SubPart {
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.css']
+  styleUrls: ['./filter.component.scss'],
 })
 export class FilterComponent implements OnInit {
-
   @Input() subParts: SubPart[] = [];
   @Output() close = new EventEmitter<void>();
   @Output() filterChange = new EventEmitter<SubPart[]>();
@@ -24,7 +23,7 @@ export class FilterComponent implements OnInit {
 
   ngOnInit() {
     // Initialize the toggledSubParts state
-    this.subParts.forEach(subPart => {
+    this.subParts.forEach((subPart) => {
       this.toggledSubParts[subPart.name] = false;
     });
   }
@@ -63,7 +62,7 @@ export class FilterComponent implements OnInit {
   }
 
   resetFilter(): void {
-    this.subParts.forEach(subPart => {
+    this.subParts.forEach((subPart) => {
       if (subPart.type === 'MCQ') {
         subPart.selectedOption = '';
       } else if (subPart.type === 'checkbox') {

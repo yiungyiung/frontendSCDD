@@ -9,7 +9,7 @@ import { Vendor } from '../../model/vendor';
 @Component({
   selector: 'app-vendorcard',
   templateUrl: './vendorcard.component.html',
-  styleUrls: ['./vendorcard.component.css'],
+  styleUrls: ['./vendorcard.component.scss'],
 })
 export class VendorcardComponent implements OnInit {
   constructor(

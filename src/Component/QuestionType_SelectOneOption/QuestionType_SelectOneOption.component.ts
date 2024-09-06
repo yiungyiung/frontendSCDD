@@ -3,18 +3,21 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 @Component({
   selector: 'app-QuestionType_SelectOneOption',
   templateUrl: './QuestionType_SelectOneOption.component.html',
-  styleUrls: ['./QuestionType_SelectOneOption.component.css']
+  styleUrls: ['./QuestionType_SelectOneOption.component.scss'],
 })
 export class QuestionType_SelectOneOptionComponent implements OnInit {
   @Input() id!: number;
   @Output() remove = new EventEmitter<void>();
-  @Output() optionsChange = new EventEmitter<{subQuestion: string, options: string[]}>();
+  @Output() optionsChange = new EventEmitter<{
+    subQuestion: string;
+    options: string[];
+  }>();
 
   subQuestion: string = '';
   options: string[] = ['Option 1'];
   newOption: string = '';
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     this.emitOptions();
@@ -49,7 +52,7 @@ export class QuestionType_SelectOneOptionComponent implements OnInit {
   private emitOptions() {
     const dataToEmit = {
       subQuestion: this.subQuestion,
-      options: this.options
+      options: this.options,
     };
     this.optionsChange.emit(dataToEmit);
   }

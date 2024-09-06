@@ -1,16 +1,14 @@
-import { Component, OnInit , Input} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-usercard',
   templateUrl: './usercard.component.html',
-  styleUrls: ['./usercard.component.css']
+  styleUrls: ['./usercard.component.scss'],
 })
 export class UsercardComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
   @Input() user: any;
-  @Input() toggleUserStatus: (user: any) => void = () => {}; 
+  @Input() toggleUserStatus: (user: any) => void = () => {};
 }

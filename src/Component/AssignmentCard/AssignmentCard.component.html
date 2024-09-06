@@ -1,0 +1,34 @@
+<div class="assignment-card" (click)="onAssignmentClick()">
+  <div class="assignment-details">
+    <div class="detail-item">
+      <small>Assignment ID</small>
+      <span matTooltip="{{ assignment.assignmentID }}">{{
+        assignment.assignmentID
+      }}</span>
+    </div>
+    <div class="detail-item">
+      <small>Questionnaire ID</small>
+      <span matTooltip="{{ assignment.questionnaireID }}">{{
+        assignment.questionnaireID
+      }}</span>
+    </div>
+    <div class="detail-item">
+      <small>Questionnaire Name</small>
+      <span matTooltip="{{ questionnaireDetails?.name }}">{{
+        questionnaireDetails?.name || "Unknown"
+      }}</span>
+    </div>
+    <div class="detail-item">
+      <small>Year</small>
+      <span matTooltip="{{ questionnaireDetails?.year }}">{{
+        questionnaireDetails?.year || "Unknown"
+      }}</span>
+    </div>
+    <div class="detail-item">
+      <small>Submission Date</small>
+      <span matTooltip="{{ assignment.submissionDate }}">{{
+        assignment.submissionDate | date : "shortDate"
+      }}</span>
+    </div>
+  </div>
+</div>

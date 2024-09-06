@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-TopBar',
   templateUrl: './TopBar.component.html',
-  styleUrls: ['./TopBar.component.css']
+  styleUrls: ['./TopBar.component.scss'],
 })
 export class TopBarComponent implements OnInit {
   isSidenavOpen = false;

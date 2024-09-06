@@ -14,9 +14,10 @@ import { PopupService } from '../../services/PopupService/popup.service';
 @Component({
   selector: 'app-QuestionnaireAnswering',
   templateUrl: './QuestionnaireAnswering.component.html',
-  styleUrls: ['./QuestionnaireAnswering.component.css'],
+  styleUrls: ['./QuestionnaireAnswering.component.scss'],
 })
 export class QuestionnaireAnsweringComponent implements OnInit {
+  // Variables for storing questionnaire, domains, and responses
   selectedQuestionnaire: questionnaire | undefined;
   selectedQuestion!: Question;
   domains: Domain[] = [];
@@ -25,9 +26,9 @@ export class QuestionnaireAnsweringComponent implements OnInit {
   toggledSubParts: { [key: string]: boolean } = {};
   selectedDomainID: number | null = null;
 
-  // Store responses temporarily
+  // Responses and state tracking for the questionnaire
   responses: { [questionID: number]: ResponseDto } = {};
-  answeredQuestions = new Set<number>(); // Track answered question IDs
+  answeredQuestions = new Set<number>();
   selectedOption: number | null = null;
   textboxResponses: { [key: number]: string } = {};
   assignmentID: number | null = null;
@@ -44,29 +45,33 @@ export class QuestionnaireAnsweringComponent implements OnInit {
     private popupService: PopupService
   ) {}
 
+  // Initialize the component and load the questionnaire and domain data
   ngOnInit(): void {
     const state = history.state;
     this.assignmentID = state.assignmentID;
     this.questionnaireID = state.questionnaireID;
     const token = this.authService.getToken();
+
+    // Load questionnaire and domains if questionnaire ID is present
     if (this.questionnaireID) {
       console.log('Received assignmentID:', this.assignmentID);
       console.log('Received questionnaireID:', this.questionnaireID);
-      if (this.questionnaireID) {
-        this.loadQuestionnaire(this.questionnaireID, token);
-        this.loadDomains(token);
-      }
+      this.loadQuestionnaire(this.questionnaireID, token);
+      this.loadDomains(token);
     }
   }
 
+  // Toggle the visibility of sub-parts for a given domain
   toggleSubPart(categoryID: number): void {
     this.toggledSubParts[categoryID] = !this.toggledSubParts[categoryID];
   }
 
+  // Check if a sub-part is toggled
   isSubPartToggled(categoryID: number): boolean {
     return !!this.toggledSubParts[categoryID];
   }
 
+  // Load the questionnaire by ID and retrieve its questions
   loadQuestionnaire(questionnaireID: number, token: string): void {
     this.questionnaireService
       .getQuestionsByQuestionnaireId(questionnaireID, token)
@@ -76,12 +81,14 @@ export class QuestionnaireAnsweringComponent implements OnInit {
       });
   }
 
+  // Load all domains
   loadDomains(token: string): void {
     this.entityService.GetAllDomains(token).subscribe((domains) => {
       this.domains = domains;
     });
   }
 
+  // Load questions for the selected questionnaire
   loadQuestions(token: string): void {
     if (this.selectedQuestionnaire) {
       this.selectedQuestionnaire.questionIDs.forEach((questionID) => {
@@ -98,6 +105,7 @@ export class QuestionnaireAnsweringComponent implements OnInit {
     }
   }
 
+  // Filter domains to only show those with available questions
   updateFilteredDomains(): void {
     this.filteredDomains = this.domains.filter(
       (domain) =>
@@ -106,15 +114,17 @@ export class QuestionnaireAnsweringComponent implements OnInit {
     );
   }
 
+  // Get all questions for a specific domain
   getQuestionsByDomain(domainID: number): Question[] {
     return this.questionsByDomain[domainID] || [];
   }
 
+  // Handle a question click and load saved responses if available
   onQuestionClick(question: Question): void {
     this.selectedQuestion = question;
-
-    // Retrieve stored response data for this question, if available
     const storedResponse = this.responses[question.questionID!];
+
+    // Populate selected options and textbox responses if already answered
     if (storedResponse) {
       this.selectedOption = storedResponse.optionID ?? null;
       this.textboxResponses = {};
@@ -127,36 +137,64 @@ export class QuestionnaireAnsweringComponent implements OnInit {
     }
   }
 
+  // Save the current response to the question
   saveCurrentResponse(): void {
     if (!this.selectedQuestion) return;
 
     const response: ResponseDto = {
-      assignmentID: this.assignmentID!, // Replace with actual assignment ID
+      assignmentID: this.assignmentID!,
       questionID: this.selectedQuestion.questionID!,
       optionID: this.selectedOption ?? undefined,
       textBoxResponses: this.getTextBoxResponses(),
     };
 
-    // Save response to local storage
     this.responses[this.selectedQuestion.questionID!] = response;
-    this.answeredQuestions.add(this.selectedQuestion.questionID!); // Mark question as answered
+    this.answeredQuestions.add(this.selectedQuestion.questionID!);
+    this.moveToNextQuestion();
   }
 
+  // Move to the next unanswered question in the list
+  moveToNextQuestion(): void {
+    if (!this.selectedQuestionnaire) return;
+
+    const currentIndex = this.selectedQuestionnaire.questionIDs.indexOf(
+      this.selectedQuestion.questionID!
+    );
+
+    // Loop through the remaining questions to find the next unanswered one
+    for (
+      let i = currentIndex + 1;
+      i < this.selectedQuestionnaire.questionIDs.length;
+      i++
+    ) {
+      const nextQuestionID = this.selectedQuestionnaire.questionIDs[i];
+      if (!this.answeredQuestions.has(nextQuestionID)) {
+        const nextQuestion = this.questionsByDomain[
+          this.selectedQuestion.domainID
+        ].find((q) => q.questionID === nextQuestionID);
+        if (nextQuestion) {
+          this.onQuestionClick(nextQuestion);
+        }
+        return;
+      }
+    }
+  }
+
+  // Reset the current response and remove it from storage
   resetCurrentResponse(): void {
     if (!this.selectedQuestion) return;
 
-    // Reset local state
     this.selectedOption = null;
     this.textboxResponses = {};
-
-    // Remove the stored response for the current question
     delete this.responses[this.selectedQuestion.questionID!];
-    this.answeredQuestions.delete(this.selectedQuestion.questionID!); // Mark question as unanswered
+    this.answeredQuestions.delete(this.selectedQuestion.questionID!);
   }
 
+  // Submit all responses to the backend service
   onSubmitAllResponses(): void {
     const allResponses = Object.values(this.responses);
 
+    // Check if all questions have been answered
     if (
       allResponses.length !== this.selectedQuestionnaire?.questionIDs.length
     ) {
@@ -164,6 +202,7 @@ export class QuestionnaireAnsweringComponent implements OnInit {
       return;
     }
 
+    // Submit all the responses
     this.responseService.submitAllResponses(allResponses).subscribe(
       (result) => {
         this.popupService.showPopup(
@@ -183,8 +222,11 @@ export class QuestionnaireAnsweringComponent implements OnInit {
     );
   }
 
+  // Get responses for all textboxes
   getTextBoxResponses(): TextBoxResponseDto[] {
     const textBoxResponses: TextBoxResponseDto[] = [];
+
+    // Map over textbox responses and prepare the response DTOs
     for (const textBoxID in this.textboxResponses) {
       if (this.textboxResponses.hasOwnProperty(textBoxID)) {
         textBoxResponses.push({
@@ -196,6 +238,7 @@ export class QuestionnaireAnsweringComponent implements OnInit {
     return textBoxResponses;
   }
 
+  // Check if a specific question has already been answered
   isQuestionAnswered(questionID: number): boolean {
     return this.answeredQuestions.has(questionID);
   }

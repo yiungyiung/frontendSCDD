@@ -1,0 +1,78 @@
+// Define variables for common values
+$border-color: #ddd;
+$background-color: #fff;
+$border-radius: 8px;
+$box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+$text-color: #666;
+$hover-bg-color: #f0f0f0;
+$header-bg-color: #e7f4f9;
+$header-border-color: #cbd2d6;
+$font-color: #073C5A;
+$font-size-small: 1.2vh;
+$font-size-medium: 2.5vh;
+
+// Styles
+.status-container {
+  margin-top: 7vh;
+  display: flex;
+  justify-content: space-between;
+  width: 92vw;
+  height: 69vh;
+  margin-left: -2.5vw;
+  gap: 20px;
+}
+
+.status-card {
+  flex: 1;
+  border: 1px solid #ccc;
+  background-color: $background-color;
+  border-radius: $border-radius;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow-x: hidden;
+  overflow-y: auto; 
+  scrollbar-width: none; 
+
+}
+
+.assignment-card {
+  border: 1px solid $border-color;
+  background-color: $background-color;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  margin: 2vh 0.6vw;
+  padding: 15px;
+
+  &:hover {
+    background-color: $hover-bg-color;
+  }
+}
+
+.assignment-title {
+  font-size: $font-size-small;
+  color: $text-color;
+  margin-bottom: 10px;
+}
+
+.card-header-container {
+  display: flex;
+  align-items: center;
+  background-color: $header-bg-color;
+  border: 1px solid $header-border-color;
+  border-radius: $border-radius;
+  padding: 10px 15px;
+  box-shadow: $box-shadow;
+  font-weight: bold;
+  height: 8vh;
+  width: 46vw;
+  font-size: $font-size-medium;
+  color: $font-color;
+}
+
+.no-assignments {
+  color: $font-color;
+  font-size: $font-size-medium;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 20px;
+  padding: 10px;
+}
