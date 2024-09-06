@@ -1,6 +1,8 @@
 export interface QuestionOptionResponseDto {
+  
     optionID: number;
     optionText: string;
+    domainID:number;
   }
   
   export interface QuestionTextBoxResponseDto {
@@ -11,6 +13,7 @@ export interface QuestionOptionResponseDto {
   
   export interface QuestionResponseDto {
     questionID: number;
+    domainID:number;
     questionText: string;
     optionResponses: QuestionOptionResponseDto[];
     textBoxResponses: QuestionTextBoxResponseDto[];
