@@ -49,6 +49,8 @@ export class IconService {
     this.registerIcon('Calendar', 'Calendar.svg');
     this.registerIcon('Maximize', 'Maximize.svg');
     this.registerIcon('DropdownArrow', 'DropdownArrow.svg');
+    this.registerIcon('TableIcon', 'TableIcon.svg');
+    this.registerIcon('ExportIcon', 'ExportIcon.svg');
     // Add any other icons here
   }
 

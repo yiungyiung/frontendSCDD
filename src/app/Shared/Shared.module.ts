@@ -29,9 +29,13 @@ import { QuestionnaireListComponent } from '../../Component/QuestionnaireList/Qu
 import { ResponseModalComponent } from '../../Component/ResponseModal/ResponseModal.component';
 import { BreadcrumbComponent } from '../../Component/breadcrumb/breadcrumb.component';
 import { ResponsePageComponent } from '../../Component/ResponsePage/ResponsePage.component';
+import { QuestionnaireTableComponent } from '../../Component/QuestionnaireTable/QuestionnaireTable.component';
+import { ExportDialogBoxComponent } from '../../Component/exportDialogBox/exportDialogBox.component';
+import { PaginationComponent } from '../../Component/Pagination/pagination/pagination.component';
 
 @NgModule({
   declarations: [
+    PaginationComponent,
     NavItemComponent,
     TopBarComponent,
     DisclaimerFooterComponent,
@@ -40,12 +44,13 @@ import { ResponsePageComponent } from '../../Component/ResponsePage/ResponsePage
     StackedBarChartComponent,
     PieChartComponent,
     QuestionnaireListComponent,
+    QuestionnaireTableComponent,
     ResponseModalComponent,
     BreadcrumbComponent,
     ResponsePageComponent,
+    ExportDialogBoxComponent,
   ],
   imports: [
-    
     HighchartsChartModule,
     FormsModule,
     CommonModule,
@@ -68,7 +73,10 @@ import { ResponsePageComponent } from '../../Component/ResponsePage/ResponsePage
     MatSlideToggleModule,
   ],
   exports: [
+    PaginationComponent,
+    ExportDialogBoxComponent,
     ResponseModalComponent,
+    QuestionnaireTableComponent,
     QuestionnaireListComponent,
     PieChartComponent,
     StackedBarChartComponent,
@@ -97,7 +105,7 @@ import { ResponsePageComponent } from '../../Component/ResponsePage/ResponsePage
     MatNativeDateModule,
     MatSlideToggleModule,
     BreadcrumbComponent,
-    ResponsePageComponent ,
+    ResponsePageComponent,
   ],
 })
 export class SharedModule {}

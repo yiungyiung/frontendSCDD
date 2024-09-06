@@ -1,2 +1,13 @@
-<app-QuestionnaireList *ngIf="!isChildRouteActive"></app-QuestionnaireList>
+<div class="header">
+  <mat-icon svgIcon="TableIcon" (click)="toggleView()"></mat-icon>
+</div>
+
+<!-- Show QuestionnaireList or QuestionnaireTable based on the value of isTableView -->
+<app-QuestionnaireList
+  *ngIf="!isChildRouteActive && !isTableView"
+></app-QuestionnaireList>
+<app-QuestionnaireTable
+  *ngIf="!isChildRouteActive && isTableView"
+></app-QuestionnaireTable>
+
 <router-outlet></router-outlet>

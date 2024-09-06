@@ -17,4 +17,11 @@ export class ReportsComponent implements OnInit {
       }
     });
   }
+
+  isTableView: boolean = false;
+
+  // Toggle the view between the list and table
+  toggleView() {
+    this.isTableView = !this.isTableView;
+  }
 }

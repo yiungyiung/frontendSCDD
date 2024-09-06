@@ -1,0 +1,67 @@
+/* Assignment Info */
+.assignment-info {
+  display: flex;
+  margin: 2vh;
+  gap: 1rem; /* Space between bubbles */
+}
+
+.bubble {
+  background-color: #e7f4f9; /* Light blue background */
+  border-radius: 12px; /* Rounded corners */
+  padding: 0.5rem 1rem; /* Padding inside bubbles */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for better appearance */
+}
+
+.label {
+  font-weight: bold;
+}
+
+.info-value {
+  display: block;
+  margin-top: 0.2rem; /* Space between label and value */
+}
+
+/* Question Card */
+.question-card {
+  box-shadow: 0 0 4px rgba(7, 60, 90, 0.2);
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+/* Question Card Title */
+.question-card-title {
+  font-size: 1.2rem; /* Adjusted for better visibility */
+  color: #073c5a;
+  margin-bottom: 10px;
+}
+
+/* Divider */
+.divider {
+  margin-top: 20px;
+  border: 1px solid #ddd;
+}
+
+/* Response Options and Textboxes */
+.response-option,
+.response-textbox {
+  margin-bottom: 10px;
+}
+
+/* Dialog Actions */
+.dialog-actions {
+  padding: 10px;
+  text-align: left;
+}
+
+.close-button {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+}

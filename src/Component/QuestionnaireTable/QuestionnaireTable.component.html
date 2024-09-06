@@ -1,0 +1,66 @@
+<div class="main-container">
+  <div class="title-container">
+    <h1 class="title-text">Reports</h1>
+    <app-pagination
+      [currentPage]="currentPage"
+      [totalPages]="totalPages"
+      [itemsPerPage]="itemsPerPage"
+      [totalItems]="totalItems"
+      (pageChange)="onPageChange($event)"
+      (itemsPerPageChange)="onItemsPerPageChange($event)"
+    ></app-pagination>
+    <mat-icon svgIcon="ExportIcon" (click)="openExportModal()"></mat-icon>
+  </div>
+  <app-exportDialogBox
+    [selectedColumns]="selectedColumns"
+    [allColumns]="allColumns"
+  ></app-exportDialogBox>
+  <div class="response-table-container">
+    <table class="response-table">
+      <thead>
+        <tr>
+          <th>Assignment ID</th>
+          <th>Questionnaire ID</th>
+          <th>Vendor Name</th>
+          <th>Questionnaire Name</th>
+          <th>Submission Date</th>
+          <th>Due Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Outer loop for statuses -->
+        <ng-container *ngFor="let status of statuses">
+          <tr
+            *ngFor="let questionnaire of pagedQuestionnaires[status.statusName]"
+          >
+            <td
+              (click)="openResponseModal(questionnaire.assignmentID!)"
+              matTooltip="{{ questionnaire.assignmentID }}"
+            >
+              {{ questionnaire.assignmentID }}
+            </td>
+            <td matTooltip="{{ questionnaire.questionnaireID }}">
+              {{ questionnaire.questionnaireID }}
+            </td>
+            <td matTooltip="{{ questionnaire.vendorName }}">
+              {{ questionnaire.vendorName }}
+            </td>
+            <td matTooltip="{{ questionnaire.questionnaireName }}">
+              {{ questionnaire.questionnaireName }}
+            </td>
+            <td matTooltip="{{ questionnaire.submissionDate }}">
+              {{ questionnaire.submissionDate }}
+            </td>
+            <td matTooltip="{{ questionnaire.dueDate }}">
+              {{ questionnaire.dueDate }}
+            </td>
+            <td matTooltip="{{ status.statusName }}">
+              {{ status.statusName }}
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>

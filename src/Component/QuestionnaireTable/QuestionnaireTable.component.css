@@ -1,3 +1,38 @@
+.main-container {
+  height: 72vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  background-color: #fff;
+  margin-top: 5.5vh;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+
+  border-radius: 8px;
+}
+
+.title-container {
+  background-color: #e7f4f9;
+  height: 9vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-color: #063b58;
+  border-width: 0.5vh;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.title-container mat-icon {
+  height: auto;
+  width: 2vw;
+}
+
+.title-text {
+  font-weight: bold;
+  font-size: 3vh; /* Adjust as needed */
+  color: #063b58; /* Dark text color for contrast */
+  margin: 0; /* Remove default margin */
+}
+
 .response-table-container {
   overflow-x: auto;
   scrollbar-width: none;

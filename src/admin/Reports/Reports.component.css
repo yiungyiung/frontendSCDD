@@ -1,0 +1,12 @@
+.header {
+  display: flex;
+  justify-content: flex-end; /* Aligns everything to the right */
+  margin-right: 2vh; /* Adds space from the right side */
+  position: relative;
+}
+
+.header mat-icon {
+  height: auto;
+  width: 2vw;
+  margin-left: auto; /* Ensures mat-icon stays at the right */
+}

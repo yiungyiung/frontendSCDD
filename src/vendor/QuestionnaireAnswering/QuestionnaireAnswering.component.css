@@ -1,305 +1,305 @@
 .answering-container {
-    position: relative;
-    /* To position the button relative to this container */
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    height: 70vh;
-    gap: 2vw;
-    margin-top: 7vh;
+  position: relative;
+  /* To position the button relative to this container */
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  height: 70vh;
+  gap: 2vw;
+  margin-top: 7vh;
 }
 
 .top-right-button-container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: -6vh;
-    margin-right: -3.3vh;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: -6vh;
+  margin-right: -3.3vh;
 }
 
 .button-top {
-    background-color: #12789e;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    padding: 1vh 2vh;
-    /* Adjusted padding */
-    font-size: 2vh;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    outline: none;
+  background-color: #12789e;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 1vh 2vh;
+  /* Adjusted padding */
+  font-size: 2vh;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  outline: none;
 }
 
 .button-top:hover {
-    background-color: #032b42;
-    transform: translateY(-2px);
+  background-color: #032b42;
+  transform: translateY(-2px);
 }
 
 .questionnaire-details {
-    float: left;
-    margin-left: -3vw;
-    width: 30vw;
-    flex-shrink: 0;
-    background-color: #ffffff;
-    border-right: 1px solid #e3f2fd;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-    height: 68vh;
-    padding-left: 1vw;
-    padding-right: 1vw;
-    overflow-y: scroll;
-    scrollbar-width: none;
+  float: left;
+  margin-left: -3vw;
+  width: 30vw;
+  flex-shrink: 0;
+  background-color: #ffffff;
+  border-right: 1px solid #e3f2fd;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  height: 68vh;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 
 .question-details {
-    flex-grow: 1;
-    /* Take up remaining space */
-    background-color: #ffffff;
-    padding: 2vh;
-    /* Converted to vh */
-    overflow-y: auto;
-    height: 68vh;
-    margin-right: -3vw;
-    background-color: #ffffff;
-    border-right: 1px solid #e3f2fd;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    overflow-y: scroll;
-    scrollbar-width: none;
+  flex-grow: 1;
+  /* Take up remaining space */
+  background-color: #ffffff;
+  padding: 2vh;
+  /* Converted to vh */
+  overflow-y: auto;
+  height: 68vh;
+  margin-right: -3vw;
+  background-color: #ffffff;
+  border-right: 1px solid #e3f2fd;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 
 .card-header-container {
-    margin-left: -1vw;
-    margin-right: -1vw;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #e7f4f9;
-    border-bottom: 1px solid #ddd;
-    height: 7vh;
+  margin-left: -1vw;
+  margin-right: -1vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #e7f4f9;
+  border-bottom: 1px solid #ddd;
+  height: 7vh;
 }
 
 .card-header {
-    padding-left: 1vw;
-    padding-top: 5vh;
-    font-size: 2vh;
-    /* Converted to vh */
-    font-weight: bold;
-    color: #073c5a;
-    background-color: transparent;
-    border: none;
+  padding-left: 1vw;
+  padding-top: 5vh;
+  font-size: 2vh;
+  /* Converted to vh */
+  font-weight: bold;
+  color: #073c5a;
+  background-color: transparent;
+  border: none;
 }
 
 .form-label {
-    font-size: 2vh;
-    font-weight: bold;
-    color: #073c5a;
+  font-size: 2vh;
+  font-weight: bold;
+  color: #073c5a;
 }
 
 .card-header-container-question {
-    margin-left: -1.5vw;
-    margin-right: -1.5vw;
-    margin-top: -1.5vw;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #e7f4f9;
-    border-bottom: 1px solid #ddd;
-    height: 7vh;
+  margin-left: -1.5vw;
+  margin-right: -1.5vw;
+  margin-top: -1.5vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #e7f4f9;
+  border-bottom: 1px solid #ddd;
+  height: 7vh;
 }
 
 .card-header-question {
-    padding-left: 1vw;
-    padding-top: 5vh;
-    font-size: 2vh;
-    /* Converted to vh */
-    font-weight: bold;
-    color: #073c5a;
-    background-color: transparent;
-    border: none;
+  padding-left: 1vw;
+  padding-top: 5vh;
+  font-size: 2vh;
+  /* Converted to vh */
+  font-weight: bold;
+  color: #073c5a;
+  background-color: transparent;
+  border: none;
 }
 
 h2 {
-    color: #12789e;
-    border-bottom: 2px solid #e3f2fd;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    font-size: 2vh;
-    /* Converted to vh */
+  color: #12789e;
+  border-bottom: 2px solid #e3f2fd;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  font-size: 2vh;
+  /* Converted to vh */
 }
 
 .questionnaire-info,
 .question-content {
-    margin-top: 1vh;
+  margin-top: 1vh;
 }
 
 .questionnaire-info span {
-    color: #073C5A;
-    line-height: 1.6;
-    margin-bottom: 10px;
-    font-size: 1.8vh;
+  color: #073c5a;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  font-size: 1.8vh;
 }
 
 .questionnaire-info p,
 .question-text,
 .question-description {
-    color: #073C5A;
-    line-height: 1.6;
-    margin-bottom: 10px;
-    font-size: 1.8vh;
-    /* Converted to vh */
+  color: #073c5a;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  font-size: 1.8vh;
+  /* Converted to vh */
 }
 
 .domains-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .domain-card {
-    background-color: #f8fdff;
-    border: 1px solid #e3f2fd;
-    border-radius: 6px;
-    overflow: hidden;
+  background-color: #f8fdff;
+  border: 1px solid #e3f2fd;
+  border-radius: 6px;
+  overflow: hidden;
 }
 
 .domain-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #e7f4f9;
-    padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e7f4f9;
+  padding: 8px 12px;
 }
 
 .domain-header h3 {
-    color: #12789e;
-    margin: 0;
-    font-size: 2vh;
-    /* Converted to vh */
+  color: #12789e;
+  margin: 0;
+  font-size: 2vh;
+  /* Converted to vh */
 }
 
 .toggle-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #12789e;
-    padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #12789e;
+  padding: 0;
 }
 
 .domain-questions {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
 }
 
 .question-button {
-    display: block;
-    width: 100%;
-    padding: 2vh;
-    /* Converted to vh */
-    margin-bottom: 10px;
-    cursor: pointer;
-    text-align: left;
-    background-color: white;
-    border: 2px solid #ddd;
-    color: #12789e;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    font-size: 1.8vh;
-    /* Converted to vh */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: all 0.3s ease;
+  display: block;
+  width: 100%;
+  padding: 2vh;
+  /* Converted to vh */
+  margin-bottom: 10px;
+  cursor: pointer;
+  text-align: left;
+  background-color: white;
+  border: 2px solid #ddd;
+  color: #12789e;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  font-size: 1.8vh;
+  /* Converted to vh */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.3s ease;
 }
 
 .question-button:hover {
-    border: 2px solid #f9a634;
+  border: 2px solid #f9a634;
 }
 
 .options-container,
 .textboxes-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
 }
 
 .option,
 .textbox {
-    display: flex;
-    align-items: center;
-    border: 1px solid #12789e;
-    border-radius: 4px;
-    padding: 2vh;
-    /* Converted to vh */
+  display: flex;
+  align-items: center;
+  border: 1px solid #12789e;
+  border-radius: 4px;
+  padding: 2vh;
+  /* Converted to vh */
 }
 
 .option-text,
 .textbox-label {
-    margin-left: 10px;
-    color: #333;
-    font-size: 1.8vh;
-    /* Converted to vh */
+  margin-left: 10px;
+  color: #333;
+  font-size: 1.8vh;
+  /* Converted to vh */
 }
 
 input[type="radio"] {
-    accent-color: #12789e;
+  accent-color: #12789e;
 }
 
 .textbox-input {
-    flex-grow: 1;
-    border: 1px solid #bbdefb;
-    border-radius: 4px;
-    padding: 2vh;
-    /* Converted to vh */
-    margin-left: 10px;
-    font-size: 1.8vh;
-    /* Converted to vh */
+  flex-grow: 1;
+  border: 1px solid #bbdefb;
+  border-radius: 4px;
+  padding: 2vh;
+  /* Converted to vh */
+  margin-left: 10px;
+  font-size: 1.8vh;
+  /* Converted to vh */
 }
 
 .textbox-input:focus {
-    outline: none;
-    border-color: #12789e;
-    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+  outline: none;
+  border-color: #12789e;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
 }
 
 .button-down {
-    margin: 2vw;
-    background-color: #12789e;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    padding: 1vh;
-    /* Converted to vh */
-    font-size: 2vh;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    outline: none;
+  margin: 2vw;
+  background-color: #12789e;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 1vh;
+  /* Converted to vh */
+  font-size: 2vh;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  outline: none;
 }
 
 .button-down:hover {
-    background-color: #032b42;
-    transform: translateY(-2px);
+  background-color: #032b42;
+  transform: translateY(-2px);
 }
 
 .question-button.answered {
-    background-color: green;
-    color: white;
+  background-color: #339a2d;
+  color: white;
 }
 
 .question-button.unanswered {
-    background-color: red;
-    color: white;
+  background-color: #dc3545;
+  color: white;
 }
 
 .button-top:disabled {
-    background-color: gray;
-    cursor: not-allowed;
+  background-color: gray;
+  cursor: not-allowed;
 }

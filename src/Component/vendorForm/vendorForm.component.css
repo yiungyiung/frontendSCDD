@@ -171,3 +171,22 @@
   color: #073c5a;
   /* Text color matching the theme */
 }
+
+.select-icon-container {
+  position: relative;
+  display: inline-block;
+  width: 90%;
+}
+
+.select-icon-container select {
+  width: 100%;
+  padding-right: 30px; /* Adjust this if needed */
+}
+
+.select-icon {
+  position: absolute;
+  right: 0px;
+  height: 6.1vh;
+  width: auto;
+  margin-top: -6.1vh;
+}
