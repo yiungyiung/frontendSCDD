@@ -33,6 +33,9 @@ import { ExportDialogBoxComponent } from '../../Component/exportDialogBox/export
 import { PaginationComponent } from '../../Component/Pagination/pagination/pagination.component';
 import { AssignmentCardComponent } from '../../Component/AssignmentCard/AssignmentCard.component';
 import { NotificationSidebarComponent } from '../../Component/Notification/notification.component';
+import { ProgressBarComponent } from '../../Component/ProgressBar/ProgressBar.component';
+import { FilterComponent } from '../../Component/filter/filter.component';
+
 @NgModule({
   declarations: [
     PaginationComponent,
@@ -50,6 +53,8 @@ import { NotificationSidebarComponent } from '../../Component/Notification/notif
     ResponsePageComponent,
     ExportDialogBoxComponent,
     NotificationSidebarComponent,
+    ProgressBarComponent,
+    FilterComponent,
   ],
   imports: [
     HighchartsChartModule,
@@ -108,6 +113,8 @@ import { NotificationSidebarComponent } from '../../Component/Notification/notif
     BreadcrumbComponent,
     ResponsePageComponent,
     NotificationSidebarComponent,
+    ProgressBarComponent,
+    FilterComponent,
   ],
 })
 export class SharedModule {}

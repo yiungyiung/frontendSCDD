@@ -7,7 +7,13 @@ import { ResponseService } from '../../services/ResponseService/Response.service
 import { ExtendedQuestionnaireAssignmentResponseDto } from '../../Component/DynamicDisplay/DynamicDisplay.component';
 import { Question } from '../../model/question';
 import { QuestionService } from '../../services/QuestionService/Question.service';
-import { QuestionnaireAssignmentResponseDto } from '../../model/QuestionOptionResponseDto';
+import { Option } from '../../model/question';
+import {
+  QuestionnaireAssignmentResponseDto,
+  QuestionOptionResponseDto,
+  QuestionTextBoxResponseDto,
+} from '../../model/QuestionOptionResponseDto';
+import { ExportModalServiceService } from '../../services/ExportModalService/ExportModalService.service';
 
 @Component({
   selector: 'app-DynamicReports',
@@ -26,13 +32,27 @@ export class DynamicReportsComponent implements OnInit {
   itemsPerPage: number = 10;
   totalItems: number = 0;
   totalPages: number = 0;
+  users: ExtendedQuestionnaireAssignmentResponseDto[] = [];
+  selectedColumns: string[] = [
+    'Vendor',
+    'Question',
+    'textboxAnswer',
+    'optionAnswer',
+  ];
+  allColumns: string[] = [
+    'Vendor',
+    'Question',
+    'textboxAnswer',
+    'optionAnswer',
+  ];
 
   constructor(
     private responseService: ResponseService,
     private reportStateService: ReportStateService,
     private authService: AuthService,
     private questionnaireService: QuestionnaireService,
-    private questionService: QuestionService
+    private questionService: QuestionService,
+    private modalService: ExportModalServiceService
   ) {}
 
   ngOnInit() {
@@ -55,6 +75,62 @@ export class DynamicReportsComponent implements OnInit {
       this.clearData();
     });
   }
+  openExportModal() {
+    const exportData: any[] = [];
+
+    // Iterate over responses to structure the data
+    this.responses.forEach((response) => {
+      const vendorName = response.vendorName;
+
+      response.questions.forEach((question) => {
+        const selectedQ = this.selectedQuestion.find(
+          (q) => q.questionID === question.questionID
+        );
+        if (selectedQ) {
+          // Prepare separate columns for different response types
+          let textboxAnswer = '';
+          let optionAnswer = '';
+          // Handle option responses
+          if (question.optionResponses && question.optionResponses.length > 0) {
+            // Flatten the array of option answers into a comma-separated string
+            optionAnswer = question.optionResponses
+              .map((opt) => opt.optionText)
+              .join(', ');
+          } else {
+            optionAnswer = 'NA';
+          }
+          // Handle textbox responses (adjusted to extract `textValue`)
+          if (
+            question.textBoxResponses &&
+            question.textBoxResponses.length > 0
+          ) {
+            // Extract and join the `textValue` from each textbox response
+            textboxAnswer = question.textBoxResponses
+              .map((txt) => txt.textValue) // Extract textValue from each object
+              .join(', '); // Join multiple values with a comma
+          } else {
+            textboxAnswer = 'NA';
+          }
+          console.log('tetx', question.textBoxResponses);
+          // Add the question and formatted responses to the export data
+          exportData.push({
+            Vendor: vendorName, // Vendor Name in the left column
+            Question: selectedQ.questionText, // The selected question text
+            textboxAnswer, // Textbox answer
+            optionAnswer, // Date answer
+          });
+        }
+      });
+    });
+    console.log(exportData);
+    // Define the columns for the export data
+    const columns = ['Vendor', 'Question', 'textboxAnswer', 'optionAnswer'];
+
+    // Pass the structured data to the modal service for export
+    this.modalService.setDataAndColumns(exportData, this.selectedColumns);
+    this.modalService.showExportModal();
+  }
+
   clearData() {
     this.responses = [];
     this.selectedQuestion = [];
@@ -152,8 +228,8 @@ export class DynamicReportsComponent implements OnInit {
       (question) => {
         this.selectedQuestion.push(question);
         this.selectedQuestion.sort((a, b) => {
-          if (a.questionID === undefined) return 1; 
-          if (b.questionID === undefined) return -1; 
+          if (a.questionID === undefined) return 1;
+          if (b.questionID === undefined) return -1;
           return a.questionID - b.questionID;
         });
 
@@ -173,40 +249,39 @@ export class DynamicReportsComponent implements OnInit {
   }
 
   // In your pagination or data update logic
-onPageChange(page: number) {
-  if (page >= 1 && page <= this.totalPages) {
-    this.currentPage = page;
+  onPageChange(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.updatePagedResponses();
+    }
+  }
+
+  onItemsPerPageChange(itemsPerPage: number) {
+    this.itemsPerPage = itemsPerPage;
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+    this.currentPage = 1;
     this.updatePagedResponses();
   }
-}
+  updatePagedResponses() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
 
-onItemsPerPageChange(itemsPerPage: number) {
-  this.itemsPerPage = itemsPerPage;
-  this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-  this.currentPage = 1;
-  this.updatePagedResponses();
-}
-updatePagedResponses() {
-  const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-  const endIndex = startIndex + this.itemsPerPage;
-  
-  this.pagedResponses = this.responses.slice(startIndex, endIndex);
+    this.pagedResponses = this.responses.slice(startIndex, endIndex);
 
-  // Send only the paginated data to other components
-  this.sendPaginatedData();
-}
-sendPaginatedData() {
-  const paginatedData = this.pagedResponses.map((response) => {
-    const filteredQuestions = response.questions.filter((q) =>
-      this.selectedQuestion.some((sq) => sq.questionID === q.questionID)
-    );
-    return { ...response, questions: filteredQuestions };
-  });
+    // Send only the paginated data to other components
+    this.sendPaginatedData();
+  }
+  sendPaginatedData() {
+    const paginatedData = this.pagedResponses.map((response) => {
+      const filteredQuestions = response.questions.filter((q) =>
+        this.selectedQuestion.some((sq) => sq.questionID === q.questionID)
+      );
+      return { ...response, questions: filteredQuestions };
+    });
 
-  // Send paginatedData to other components or files
-  // Example: this.someService.sendData(paginatedData);
-}
-
+    // Send paginatedData to other components or files
+    // Example: this.someService.sendData(paginatedData);
+  }
 
   loadQuestionnaires() {
     this.questionnaireService

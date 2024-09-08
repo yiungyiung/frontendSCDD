@@ -1,62 +1,92 @@
 <div class="answering-container">
-    <!-- Left Panel: Questionnaire Details -->
-    <div class="top-right-button-container">
-        <button class="button-top" (click)="onSubmitAllResponses()" [disabled]="answeredQuestions.size !== (selectedQuestionnaire?.questionIDs?.length) || 0">
-    Submit All Responses
-  </button>
+  <!-- Left Panel: Questionnaire Details -->
+  <div class="top-right-button-container">
+    <div class="progress-bar-wrapper">
+      <app-ProgressBar
+        [totalQuestions]="selectedQuestionnaire?.questionIDs?.length || 0"
+        [answeredQuestions]="answeredQuestions.size"
+      ></app-ProgressBar>
     </div>
-    <div class="questionnaire-details">
-        <div class="card-header-container">
-            <h2 class="card-header">Questionnaire Details</h2>
-        </div>
-        <div class="questionnaire-info" *ngIf="selectedQuestionnaire">
-            <div>
-                <label class="form-label">Name : </label>
-                <span>{{ selectedQuestionnaire.name }}</span>
-            </div>
+    <button
+      class="button-top"
+      (click)="onSubmitAllResponses()"
+      [disabled]="
+        answeredQuestions.size !== selectedQuestionnaire?.questionIDs?.length ||
+        0
+      "
+    >
+      Submit All Responses
+    </button>
+  </div>
 
-            <div>
-                <label class="form-label">ID : </label>
-                <span>{{ selectedQuestionnaire.questionnaireID }}</span>
-            </div>
-        </div>
-        <div class="domains-container" *ngIf="filteredDomains && filteredDomains.length > 0">
-            <div class="domain-card" *ngFor="let domain of filteredDomains">
-                <div class="domain-header">
-                    <h3>{{ domain.domainName }}</h3>
-                    <button class="toggle-button" (click)="toggleSubPart(domain.domainID)">
+  <div class="questionnaire-details">
+    <div class="card-header-container">
+      <h2 class="card-header">Questionnaire Details</h2>
+    </div>
+    <div class="questionnaire-info" *ngIf="selectedQuestionnaire">
+      <div>
+        <label class="form-label">Name : </label>
+        <span>{{ selectedQuestionnaire.name }}</span>
+      </div>
+
+      <div>
+        <label class="form-label">ID : </label>
+        <span>{{ selectedQuestionnaire.questionnaireID }}</span>
+      </div>
+    </div>
+    <div
+      class="domains-container"
+      *ngIf="filteredDomains && filteredDomains.length > 0"
+    >
+      <div class="domain-card" *ngFor="let domain of filteredDomains">
+        <div class="domain-header">
+          <h3>{{ domain.domainName }}</h3>
+          <button
+            class="toggle-button"
+            (click)="toggleSubPart(domain.domainID)"
+          >
             <mat-icon
               [svgIcon]="
                 isSubPartToggled(domain.domainID) ? 'upArrow' : 'downArrow'
               "
             ></mat-icon>
           </button>
-                </div>
-                <div class="domain-questions" *ngIf="isSubPartToggled(domain.domainID)">
-                    <button *ngFor="let question of getQuestionsByDomain(domain.domainID)" (click)="onQuestionClick(question)" class="question-button" [ngClass]="{'answered': isQuestionAnswered(question.questionID!), 'unanswered': !isQuestionAnswered(question.questionID!)}">
+        </div>
+        <div class="domain-questions" *ngIf="isSubPartToggled(domain.domainID)">
+          <button
+            *ngFor="let question of getQuestionsByDomain(domain.domainID)"
+            (click)="onQuestionClick(question)"
+            class="question-button"
+            [ngClass]="{
+              answered: isQuestionAnswered(question.questionID!),
+              unanswered: !isQuestionAnswered(question.questionID!)
+            }"
+          >
             {{ question.questionText }}
           </button>
-                </div>
-
-            </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Panel: Question Details -->
+  <div class="question-details" *ngIf="selectedQuestion">
+    <div class="card-header-container-question">
+      <h2 class="card-header-question">Answer the Question</h2>
+    </div>
+    <div class="question-content">
+      <p class="question-text">
+        <strong>Question:</strong> {{ selectedQuestion.questionText }}
+      </p>
+      <p class="question-description">{{ selectedQuestion.description }}</p>
     </div>
 
-    <!-- Right Panel: Question Details -->
-    <div class="question-details" *ngIf="selectedQuestion">
-        <div class="card-header-container-question">
-            <h2 class="card-header-question">Answer the Question</h2>
-        </div>
-        <div class="question-content">
-            <p class="question-text">
-                <strong>Question:</strong> {{ selectedQuestion.questionText }}
-            </p>
-            <p class="question-description">{{ selectedQuestion.description }}</p>
-        </div>
-
-        <!-- Options for the question -->
-        <div class="options-container" *ngIf="selectedQuestion.options && selectedQuestion.options.length">
-            <label *ngFor="let option of selectedQuestion.options" class="option">
+    <!-- Options for the question -->
+    <div
+      class="options-container"
+      *ngIf="selectedQuestion.options && selectedQuestion.options.length"
+    >
+      <label *ngFor="let option of selectedQuestion.options" class="option">
         <input
           type="radio"
           name="option"
@@ -65,11 +95,14 @@
         />
         <span class="option-text">{{ option.optionText }}</span>
       </label>
-        </div>
+    </div>
 
-        <!-- Textboxes for the question -->
-        <div class="textboxes-container" *ngIf="selectedQuestion.textboxes && selectedQuestion.textboxes.length">
-            <label *ngFor="let textbox of selectedQuestion.textboxes" class="textbox">
+    <!-- Textboxes for the question -->
+    <div
+      class="textboxes-container"
+      *ngIf="selectedQuestion.textboxes && selectedQuestion.textboxes.length"
+    >
+      <label *ngFor="let textbox of selectedQuestion.textboxes" class="textbox">
         <span class="textbox-label">{{ textbox.label }}</span>
         <input
           type="text"
@@ -77,13 +110,14 @@
           [(ngModel)]="textboxResponses[textbox.textBoxID!]"
         />
       </label>
-        </div>
-
-        <!-- Buttons for saving, resetting, and submitting responses -->
-        <button class="button-down" (click)="saveCurrentResponse()">Save Response</button>
-        <button class="button-down" (click)="resetCurrentResponse()">Reset Response</button>
     </div>
 
-
-
+    <!-- Buttons for saving, resetting, and submitting responses -->
+    <button class="button-down" (click)="saveCurrentResponse()">
+      Save Response
+    </button>
+    <button class="button-down" (click)="resetCurrentResponse()">
+      Reset Response
+    </button>
+  </div>
 </div>

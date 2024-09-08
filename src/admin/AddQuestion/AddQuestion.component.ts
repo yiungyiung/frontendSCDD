@@ -4,18 +4,20 @@ import { Question, Textbox, FileUpload, Option } from '../../model/question';
 import { EntityService } from '../../services/EntityService/Entity.service';
 import { AuthService } from '../../services/AuthService/auth.service';
 import { QuestionService } from '../../services/QuestionService/Question.service';
+import { PopupService } from '../../services/PopupService/popup.service';
+import { Router } from '@angular/router';
 
 enum QuestionType {
   SELECT_ONE = 'SELECT_ONE',
   TEXT_BOX = 'TEXT_BOX',
   ATTACH_FILE = 'ATTACH_FILE',
-  DATE = 'DATE'
+  DATE = 'DATE',
 }
 
 @Component({
   selector: 'app-AddQuestion',
   templateUrl: './AddQuestion.component.html',
-  styleUrls: ['./AddQuestion.component.scss']
+  styleUrls: ['./AddQuestion.component.scss'],
 })
 export class AddQuestionComponent implements OnInit {
   Framework: Framework[] = [];
@@ -28,11 +30,24 @@ export class AddQuestionComponent implements OnInit {
   questionText: string = '';
   helperText: string = '';
   selectedDomainID: number | null = null;
-  questionTypes = QuestionType; // Enum for referencing in the template
-  selectedComponents: { type: QuestionType, id: number, options?: Option[], textboxes?: Textbox[], fileUploads?: FileUpload[] }[] = []; // To track added components
-  private componentId = 0; // Unique ID for each added component
+  questionTypes = QuestionType;
+  selectedComponents: {
+    type: QuestionType;
+    id: number;
+    options?: Option[];
+    textboxes?: Textbox[];
+    fileUploads?: FileUpload[];
+  }[] = [];
+  private componentId = 0;
 
-  constructor(private questionService:QuestionService,private entityService: EntityService, private authService: AuthService, private cdr: ChangeDetectorRef) { }
+  constructor(
+    private popupService: PopupService,
+    private questionService: QuestionService,
+    private entityService: EntityService,
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.loadFrameworks();
@@ -46,7 +61,7 @@ export class AddQuestionComponent implements OnInit {
         this.Domain = Domains;
         console.log('Loaded Domains:', this.Domain);
       },
-      error => console.error('Error loading Domains:', error)
+      (error) => console.error('Error loading Domains:', error)
     );
   }
 
@@ -56,7 +71,7 @@ export class AddQuestionComponent implements OnInit {
       (Frameworks) => {
         this.Framework = Frameworks;
       },
-      error => {
+      (error) => {
         console.error('Error loading Frameworks:', error);
       }
     );
@@ -67,7 +82,9 @@ export class AddQuestionComponent implements OnInit {
   }
 
   removeComponent(id: number) {
-    this.selectedComponents = this.selectedComponents.filter(component => component.id !== id);
+    this.selectedComponents = this.selectedComponents.filter(
+      (component) => component.id !== id
+    );
   }
 
   toggleDropdown() {
@@ -103,74 +120,99 @@ export class AddQuestionComponent implements OnInit {
     const newQuestion: Question = {
       questionText: this.questionText,
       description: this.helperText,
-      orderIndex: 1, 
+      orderIndex: 1,
       domainID: this.selectedDomainID ? this.selectedDomainID : 0,
       categoryID: 3,
       options: this.collectOptions(),
       textboxes: this.collectTextboxes(),
       fileUploads: this.collectFileUploads(),
-      frameworkIDs: this.selectedFrameworks
+      frameworkIDs: this.selectedFrameworks,
     };
-    
+
     // Handle the submission, e.g., send to the server
     const token: string = this.authService.getToken();
-    
+
     this.questionService.addQuestion(newQuestion, token).subscribe(
       (response) => {
-        console.log("Response:", response);
+        console.log('Response:', response);
+        this.popupService.showPopup(
+          'New Question added sucessfully',
+          '#339a2d'
+        );
+        this.router.navigate(['/admin/dashboard']);
       },
       (error) => {
-        console.error("Error:", error);
+        console.error('Error:', error);
+        this.popupService.showPopup(
+          'There was an error while adding new question. Please try again',
+          '#dc3545'
+        );
       }
     );
   }
 
-  handleOptionsChange(data: { subQuestion: string; options: string[]; }, componentId: number) {
-    const component = this.selectedComponents.find(comp => comp.id === componentId);
+  handleOptionsChange(
+    data: { subQuestion: string; options: string[] },
+    componentId: number
+  ) {
+    const component = this.selectedComponents.find(
+      (comp) => comp.id === componentId
+    );
     if (component) {
       component.options = data.options.map((option, index) => ({
         optionText: option,
-        orderIndex: index // You might need a different approach to set the order index
+        orderIndex: index, // You might need a different approach to set the order index
       }));
     }
   }
 
-  handleTextboxChange(data: { textbox: string; uomID: number }, componentId: number) {
-    const component = this.selectedComponents.find(comp => comp.id === componentId);
+  handleTextboxChange(
+    data: { textbox: string; uomID: number },
+    componentId: number
+  ) {
+    const component = this.selectedComponents.find(
+      (comp) => comp.id === componentId
+    );
     if (component) {
-      component.textboxes = [{
-        label: data.textbox,
-        uomid: data.uomID,
-        orderIndex: 0
-      }];
+      component.textboxes = [
+        {
+          label: data.textbox,
+          uomid: data.uomID,
+          orderIndex: 0,
+        },
+      ];
     }
   }
-  
-  handleFileUploadChange(fileUpload: FileUpload, componentId: number){
-    const component = this.selectedComponents.find(comp => comp.id === componentId);
+
+  handleFileUploadChange(fileUpload: FileUpload, componentId: number) {
+    const component = this.selectedComponents.find(
+      (comp) => comp.id === componentId
+    );
     if (component) {
-      component.fileUploads = [{
-        label: fileUpload.label,
-        orderIndex: 0
-      }];
+      component.fileUploads = [
+        {
+          label: fileUpload.label,
+          orderIndex: 0,
+        },
+      ];
     }
   }
 
   collectOptions(): Option[] {
     let options: Option[] = [];
-    this.selectedComponents.forEach(component => {
-      if (component.type === this.questionTypes.SELECT_ONE ) {
+    this.selectedComponents.forEach((component) => {
+      if (component.type === this.questionTypes.SELECT_ONE) {
         if (component.options) {
-          options = options.concat(component.options); 
+          options = options.concat(component.options);
         }
       }
     });
     return options;
   }
-  
+
   collectTextboxes(): Textbox[] {
     let textboxes: Textbox[] = [];
-    this.selectedComponents.forEach(component => {
+    this.selectedComponents.forEach((component) => {
       if (component.type === this.questionTypes.TEXT_BOX) {
         if (component.textboxes) {
           textboxes = textboxes.concat(component.textboxes);
@@ -179,10 +221,10 @@ export class AddQuestionComponent implements OnInit {
     });
     return textboxes;
   }
-  
+
   collectFileUploads(): FileUpload[] {
     let fileUploads: FileUpload[] = [];
-    this.selectedComponents.forEach(component => {
+    this.selectedComponents.forEach((component) => {
       if (component.type === this.questionTypes.ATTACH_FILE) {
         if (component.fileUploads) {
           fileUploads = fileUploads.concat(component.fileUploads);

@@ -8,6 +8,7 @@ import { AuthService } from '../../services/AuthService/auth.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { FilterService } from '../../services/FilterService/Filter.service';
 import { SubPart } from '../../Component/filter/filter.component';
+import { DataFetchService } from '../../services/DataFetchService/DataFetch.service';
 
 @Component({
   selector: 'app-CreateNewQuestionnaire',
@@ -26,6 +27,8 @@ export class CreateNewQuestionnaireComponent implements OnInit {
   toggledSubParts: { [key: string]: boolean } = {};
   isFilterVisible = false;
   isChildRouteActive = false;
+  filteredVendors: Vendor[] = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private vendorService: VendorService,
@@ -33,28 +36,26 @@ export class CreateNewQuestionnaireComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private filterService: FilterService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dataFetchService: DataFetchService
   ) {}
-
   ngOnInit() {
     this.initForm();
-    this.getVendors();
-    this.getFrameworks();
-    this.router.events.subscribe(event => {
+    this.loadVendors();
+    this.loadFrameworks();
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-          // Check if the current route is the child route
-          this.isChildRouteActive = this.route.firstChild != null;
+        // Check if the current route is the child route
+        this.isChildRouteActive = this.route.firstChild != null;
       }
-  });
+    });
   }
-
   initForm() {
     this.questionnaireForm = this.formBuilder.group({
       framework: ['', Validators.required],
       vendors: this.formBuilder.array([], Validators.required), // Ensure at least one vendor is selected
     });
   }
-
   filterSubParts: SubPart[] = [
     {
       name: 'Search By',
@@ -67,7 +68,6 @@ export class CreateNewQuestionnaireComponent implements OnInit {
       keyword: '',
     },
   ];
-
   toggleFilterVisibility() {
     this.isFilterVisible = !this.isFilterVisible;
   }
@@ -85,17 +85,56 @@ export class CreateNewQuestionnaireComponent implements OnInit {
   }
 
   onFilterChange(event: any) {
-    const filteredVendors = this.filterService.applyFilter(
-      this.vendors ?? [],
-      this.filterSubParts,
-      {
-        'Vendor Id': (vendor) => vendor.vendorID,
-        'Vendor Name': (vendor) => vendor.vendorName,
-        'Email Id': (vendor) => vendor.user.email,
-        'User Id': (vendor) => vendor.userID,
-      }
+    const filters = this.prepareFilters();
+    this.filteredVendors = this.filterService.applyFilter(
+      this.vendors!,
+      filters
     );
-    this.categorizeFilteredVendors(filteredVendors);
+    this.categorizeFilteredVendors(this.filteredVendors);
+  }
+
+  prepareFilters() {
+    const filters: {
+      partName: string;
+      value: string;
+      column: keyof Vendor | ((vendor: Vendor) => any);
+      exactMatch?: boolean;
+    }[] = [];
+
+    const searchBySubPart = this.filterSubParts.find(
+      (part) => part.name === 'Search By'
+    );
+    const searchKeywordSubPart = this.filterSubParts.find(
+      (part) => part.name === 'Search Keyword'
+    );
+
+    // Map the selected option to actual Vendor object keys
+    const searchByColumnMap: {
+      [key: string]: keyof Vendor | ((vendor: Vendor) => any);
+    } = {
+      'Vendor Id': 'vendorID',
+      'Vendor Name': 'vendorName',
+      'Email Id': (vendor: Vendor) => vendor.user?.email ?? '',
+      'User Id': 'userID',
+    };
+
+    if (
+      searchBySubPart &&
+      searchKeywordSubPart &&
+      searchBySubPart.selectedOption
+    ) {
+      const column = searchByColumnMap[searchBySubPart.selectedOption];
+      if (column) {
+        filters.push({
+          partName: 'Search By',
+          value: searchKeywordSubPart.keyword || '',
+          column,
+          exactMatch: false,
+        });
+      }
+    }
+
+    return filters;
   }
 
   categorizeFilteredVendors(filteredVendors: Vendor[]) {
@@ -116,31 +155,22 @@ export class CreateNewQuestionnaireComponent implements OnInit {
         categoriesMap.get(vendor.categoryID)?.vendors.push(vendor);
       }
     });
-
-    // Update the categorized vendors list
     this.categorizedVendors = Array.from(categoriesMap.values());
   }
-
   get vendorsFormArray() {
-    return this.questionnaireForm.get('vendors') as FormArray;
+    return this.dataFetchService.getVendorsFormArray(this.questionnaireForm);
   }
-
-  getVendors() {
-    const token = this.authService.getToken();
-    this.vendorService.getAllVendors(token).subscribe((vendors: Vendor[]) => {
+  loadVendors() {
+    this.dataFetchService.getVendors().subscribe((vendors: Vendor[]) => {
       this.vendors = vendors;
       this.categorizeVendors();
     });
   }
-
-  getFrameworks() {
-    const token = this.authService.getToken();
-    this.entityService
-      .GetAllFrameworks(token)
+  loadFrameworks() {
+    this.dataFetchService
+      .getFrameworks()
       .subscribe((frameworks: Framework[]) => {
         this.frameworks = frameworks;
-
-        // Set the first framework as the default value if frameworks exist
         if (this.frameworks && this.frameworks.length > 0) {
           this.questionnaireForm.patchValue({
             framework: this.frameworks[0].frameworkID,
@@ -148,44 +178,22 @@ export class CreateNewQuestionnaireComponent implements OnInit {
         }
       });
   }
-
   categorizeVendors() {
-    if (!this.vendors) return;
-
-    const categoriesMap = new Map<
-      number,
-      { categoryID: number; categoryName: string; vendors: Vendor[] }
-    >();
-
-    this.vendors.forEach((vendor: Vendor) => {
-      if (vendor.categoryID !== undefined) {
-        if (!categoriesMap.has(vendor.categoryID)) {
-          categoriesMap.set(vendor.categoryID, {
-            categoryID: vendor.categoryID,
-            categoryName: vendor.category?.categoryName || 'Unknown',
-            vendors: [],
-          });
-        }
-        categoriesMap.get(vendor.categoryID)?.vendors.push(vendor);
-      }
-    });
-
-    this.categorizedVendors = Array.from(categoriesMap.values());
+    this.categorizedVendors = this.dataFetchService.categorizeVendors(
+      this.vendors!
+    );
   }
-
   isVendorSelected(vendorID: number | undefined): boolean {
     return vendorID !== undefined && this.selectedVendors.has(vendorID);
   }
 
   onVendorSelect(vendorID: number | undefined): void {
     if (vendorID === undefined) return;
-
     if (this.isVendorSelected(vendorID)) {
       this.selectedVendors.delete(vendorID);
     } else {
       this.selectedVendors.add(vendorID);
     }
-
     this.updateSelectedCategory();
     this.updateVendorsFormArray(); // Synchronize FormArray with selected vendors
   }
@@ -193,7 +201,6 @@ export class CreateNewQuestionnaireComponent implements OnInit {
   updateVendorsFormArray() {
     const formArray = this.vendorsFormArray;
     formArray.clear(); // Clear the form array
-
     this.selectedVendors.forEach((vendorID) => {
       formArray.push(this.formBuilder.control(vendorID)); // Add each selected vendor to the form array
     });
@@ -302,13 +309,14 @@ export class CreateNewQuestionnaireComponent implements OnInit {
       const frameworkName = selectedFramework?.frameworkName;
       console.log('Framework Name:', frameworkName);
       console.log('Selected Vendors:', selectedVendors);
-     this.router.navigate(['admin/CreateNewQuestionnarie/select-questions'], {
+      this.router
+        .navigate(['admin/CreateNewQuestionnarie/select-questions'], {
           state: {
             frameworkName: frameworkName,
             frameworkID: selectedFrameworkID,
             vendorCategories: selectedVendors.map((v: Vendor) => v.categoryID),
             vendorName: selectedVendors.map((v: Vendor) => v.vendorName),
-            vendorID: selectedVendors.map((v: Vendor) => v.vendorID)
+            vendorID: selectedVendors.map((v: Vendor) => v.vendorID),
           },
         })
         .then((success) => {

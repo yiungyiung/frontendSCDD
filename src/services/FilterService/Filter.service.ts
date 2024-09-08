@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { SubPart } from '../../Component/filter/filter.component';
 
 @Injectable({
   providedIn: 'root',
@@ -7,65 +6,68 @@ import { SubPart } from '../../Component/filter/filter.component';
 export class FilterService {
   applyFilter<T>(
     data: T[],
-    subParts: SubPart[],
-    searchByFields: { [key: string]: (item: T) => any }
+    filters: {
+      partName: string;
+      value: string | string[]; // Allow value to be either a string or an array of strings
+      column: keyof T | ((item: T) => any);
+      exactMatch?: boolean; // Optional flag for exact matching
+    }[]
   ): T[] {
-    let searchBy = '';
-    let searchKeyword = '';
-    let selectedStatuses: string[] = [];
-    let selectedCategoriesOrRoles: string[] = [];
-
-    const searchBySubPart = subParts.find((part) => part.name === 'Search By');
-    const searchKeywordSubPart = subParts.find(
-      (part) => part.name === 'Search Keyword'
-    );
-    const statusSubPart = subParts.find(
-      (part) => part.name === 'Vendor Status' || part.name === 'User Status'
-    );
-    const categoryOrRoleSubPart = subParts.find(
-      (part) =>
-        part.name === 'Category' || part.name === 'Role' || part.name === 'Tier'
-    );
-
-    if (searchBySubPart && searchKeywordSubPart) {
-      searchBy = searchBySubPart.selectedOption || '';
-      searchKeyword = searchKeywordSubPart.keyword || '';
-    }
-
-    if (statusSubPart) {
-      selectedStatuses = statusSubPart.selectedOptions || [];
-    }
-
-    if (categoryOrRoleSubPart) {
-      selectedCategoriesOrRoles = categoryOrRoleSubPart.selectedOptions || [];
+    // If no filters are applied, return all data
+    if (filters.length === 0) {
+      return data;
     }
 
     return data.filter((item) => {
-      let matchesSearch = true;
-      let matchesStatus = true;
-      let matchesCategoryOrRole = true;
+      return filters.every((filter) => {
+        const fieldValue =
+          typeof filter.column === 'function'
+            ? filter.column(item)
+            : item[filter.column];
 
-      if (searchBy && searchKeyword) {
-        const searchField = searchByFields[searchBy];
-        const fieldValue = searchField(item)?.toString().toLowerCase();
-        matchesSearch = fieldValue?.includes(searchKeyword.toLowerCase());
-      }
+        const exactMatch =
+          filter.exactMatch !== undefined ? filter.exactMatch : true;
 
-      if (selectedStatuses.length > 0) {
-        const isActive = (item as any).isActive ? 'Active' : 'Inactive';
-        matchesStatus = selectedStatuses.includes(isActive);
-      }
+        // If filter value is null, empty string, or empty array, return true to include all data
+        if (
+          filter.value === null ||
+          (Array.isArray(filter.value) && filter.value.length === 0) ||
+          filter.value === ''
+        ) {
+          return true;
+        }
 
-      if (selectedCategoriesOrRoles.length > 0) {
-        const categoryOrRole =
-          (item as any).category?.categoryName ||
-          (item as any).role ||
-          (item as any).tier;
-        matchesCategoryOrRole =
-          selectedCategoriesOrRoles.includes(categoryOrRole);
-      }
-
-      return matchesSearch && matchesStatus && matchesCategoryOrRole;
+        // Handle the case where filter value is an array of selected values (e.g., multiple categories)
+        if (Array.isArray(filter.value)) {
+          return filter.value.some((filterVal) =>
+            this.checkFieldValue(fieldValue, filterVal, exactMatch)
+          );
+        } else {
+          // For single-value filter
+          return this.checkFieldValue(fieldValue, filter.value, exactMatch);
+        }
+      });
     });
+  }
+
+  private checkFieldValue(
+    fieldValue: any,
+    filterValue: string,
+    exactMatch: boolean
+  ): boolean {
+    if (Array.isArray(fieldValue)) {
+      return fieldValue.some((value) =>
+        exactMatch
+          ? value.toString().toLowerCase() === filterValue.toLowerCase()
+          : value.toString().toLowerCase().includes(filterValue.toLowerCase())
+      );
+    } else {
+      return exactMatch
+        ? fieldValue?.toString().toLowerCase() === filterValue.toLowerCase()
+        : fieldValue
+            ?.toString()
+            .toLowerCase()
+            .includes(filterValue.toLowerCase());
+    }
   }
 }

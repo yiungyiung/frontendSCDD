@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
 import { VendorManagementComponent } from './VendorManagement/VendorManagement.component';
 import { VendorcardComponent } from '../Component/vendorcard/vendorcard.component';
 import { UsercardComponent } from '../Component/usercard/usercard.component';
-import { FilterComponent } from '../Component/filter/filter.component';
 import { FileUploadComponent } from '../Component/fileUpload/fileUpload.component';
 import { FileUploadStatusComponent } from '../Component/FileUploadStatus/FileUploadStatus.component';
 import { QuestionType_SelectOneOptionComponent } from '../Component/QuestionType_SelectOneOption/QuestionType_SelectOneOption.component';
@@ -57,7 +56,6 @@ export class AppModule {}
     QuestionType_SelectOneOptionComponent,
     AddQuestionComponent,
     FileUploadComponent,
-    FilterComponent,
     UsercardComponent,
     VendorcardComponent,
     DashboardComponent,

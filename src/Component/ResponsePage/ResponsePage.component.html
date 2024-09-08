@@ -24,20 +24,37 @@
     <div class="domain-card-container">
       <div *ngFor="let domainID of domains" class="domain-card">
         <div class="domain-card-header">
-          Domain: {{ domainNames.get(domainID) || 'Loading...' }}
+          Domain: {{ domainNames.get(domainID) }}
+          <mat-icon
+            svgIcon="{{ isSubPartToggled(domainID) ? 'upArrow' : 'downArrow' }}"
+            (click)="toggleSubPart(domainID)"
+          ></mat-icon>
         </div>
 
-        <!-- Loop through questions for the current domain -->
-        <div *ngFor="let question of getQuestionsByDomain(domainID)" class="question-card">
-          <div class="question-card-title">{{ question.questionText }}</div>
-          <hr class="divider" />
+        <!-- Loop through questions for the current domain, toggled based on domain visibility -->
+        <div *ngIf="isSubPartToggled(domainID)">
+          <div
+            *ngFor="let question of getQuestionsByDomain(domainID)"
+            class="question-card"
+          >
+            <div class="question-card-title">{{ question.questionText }}</div>
+            <hr class="divider" />
 
-          <div *ngFor="let option of question.optionResponses" class="response-option">
-            <p><strong>Option:</strong> {{ option.optionText }}</p>
-          </div>
+            <div
+              *ngFor="let option of question.optionResponses"
+              class="response-option"
+            >
+              <p><strong>Option:</strong> {{ option.optionText }}</p>
+            </div>
 
-          <div *ngFor="let textBox of question.textBoxResponses" class="response-textbox">
-            <p><strong>{{ textBox.label }}:</strong> {{ textBox.textValue }}</p>
+            <div
+              *ngFor="let textBox of question.textBoxResponses"
+              class="response-textbox"
+            >
+              <p>
+                <strong>{{ textBox.label }}:</strong> {{ textBox.textValue }}
+              </p>
+            </div>
           </div>
         </div>
       </div>

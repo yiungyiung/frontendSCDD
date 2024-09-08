@@ -71,6 +71,8 @@ export class FilterComponent implements OnInit {
         subPart.keyword = '';
       }
     });
+
+    console.log('suhiuj', this.subParts);
     this.filterChange.emit(this.subParts);
   }
 

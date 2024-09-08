@@ -2,22 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ResponseService } from '../../services/ResponseService/Response.service';
 import { EntityService } from '../../services/EntityService/Entity.service';
-import { QuestionnaireAssignmentResponseDto, QuestionResponseDto } from '../../model/QuestionOptionResponseDto';
+import {
+  QuestionnaireAssignmentResponseDto,
+  QuestionResponseDto,
+} from '../../model/QuestionOptionResponseDto';
 import { Location } from '@angular/common';
 import { Domain } from '../../model/entity';
 
 @Component({
   selector: 'app-ResponsePage',
   templateUrl: './ResponsePage.component.html',
-  styleUrls: ['./ResponsePage.component.css'],
+  styleUrls: ['./ResponsePage.component.scss'],
 })
 export class ResponsePageComponent implements OnInit {
   assignmentID: number | undefined;
   responses: QuestionnaireAssignmentResponseDto | undefined;
-  domains: Set<number> = new Set(); // Store unique domain IDs
-  domainNames: Map<number, string> = new Map(); // Store domain names by ID
+  domains: Set<number> = new Set();
+  domainNames: Map<number, string> = new Map();
   selectedDomain: number | undefined;
   filteredQuestions: QuestionResponseDto[] = [];
+  toggledSubParts: { [key: string]: boolean } = {};
 
   constructor(
     private router: Router,
@@ -48,10 +52,18 @@ export class ResponsePageComponent implements OnInit {
       );
   }
 
+  toggleSubPart(categoryID: number): void {
+    this.toggledSubParts[categoryID] = !this.toggledSubParts[categoryID];
+  }
+
+  isSubPartToggled(categoryID: number): boolean {
+    return !!this.toggledSubParts[categoryID];
+  }
+
   extractDomains(): void {
     if (this.responses) {
       // Extract unique domain IDs
-      this.responses.questions.forEach(question => {
+      this.responses.questions.forEach((question) => {
         this.domains.add(question.domainID);
       });
 
@@ -62,9 +74,9 @@ export class ResponsePageComponent implements OnInit {
 
   fetchDomainNames(): void {
     // Assuming you have a way to get the token, replace 'yourToken' with the actual token
-    const token = 'yourToken'; 
+    const token = 'yourToken';
 
-    this.domains.forEach(domainID => {
+    this.domains.forEach((domainID) => {
       this.entityService.GetDomainById(domainID, token).subscribe(
         (domain: Domain) => {
           this.domainNames.set(domain.domainID, domain.domainName);
@@ -77,7 +89,11 @@ export class ResponsePageComponent implements OnInit {
   }
 
   getQuestionsByDomain(domainID: number): QuestionResponseDto[] {
-    return this.responses?.questions.filter(question => question.domainID === domainID) || [];
+    return (
+      this.responses?.questions.filter(
+        (question) => question.domainID === domainID
+      ) || []
+    );
   }
 
   goBack(): void {

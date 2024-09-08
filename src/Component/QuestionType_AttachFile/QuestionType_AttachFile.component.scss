@@ -1,90 +1,115 @@
+// Common variables
+$border-color: #e6e6e6;
+$border-radius: 10px;
+$background-color: #ffffff;
+$box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+$padding: 10px;
+$text-border-color: #ccc;
+$delete-btn-color: #ff5c5c;
+$add-option-bg-color: #f0f7fb;
+$add-option-text-color: #333;
+$font-size-add-option-btn: 14px;
+$font-size-delete-btn: 18px;
+$margin-bottom-form: 6vh;
+$margin-top-form: 3vh;
+$margin-left-form: 0.6vw;
+$max-width-text: 400px;
+$option-padding: 10px;
+$option-border-radius: 5px;
+$icon-height: auto;
+
+// Form section
 .form-section {
   padding: 15px;
-  border: 1px solid #e6e6e6;
-  border-radius: 10px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 6vh;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  background-color: $background-color;
+  box-shadow: $box-shadow;
+  margin-bottom: $margin-bottom-form;
   width: 60vw;
-  margin-top: 3vh;
-  margin-left: 0.6vw;
+  margin-top: $margin-top-form;
+  margin-left: $margin-left-form;
 }
 
+// Header
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* This will push the icon to the right */
+  justify-content: space-between; // This will push the icon to the right
   margin-bottom: 10px;
 }
 
+// Title
 .title {
   display: flex;
   grid-column: auto;
+  
+  h5 {
+    font-weight: bold;
+  }
+  
+  mat-icon {
+    height: $icon-height;
+  }
 }
 
-.title h5 {
-  font-weight: bold;
-}
-.title mat-icon {
-  height: auto;
-}
-
+// Delete icon
 .delete-icon {
-  height: auto;
+  height: $icon-height;
 }
 
-.form-group input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 10px;
+// Form group
+.form-group {
+  input[type="text"] {
+    width: 100%;
+    padding: $padding;
+    border: 1px solid $text-border-color;
+    border-radius: $option-border-radius;
+    margin-bottom: 10px;
+  }
 }
 
+// Option group
 .option-group {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  
+  input[type="text"] {
+    flex: 1;
+    max-width: $max-width-text;
+    margin-right: 10px;
+    padding: $padding;
+    border: 1px solid $text-border-color;
+    border-radius: $option-border-radius;
+  }
+  
+  input[type="radio"] {
+    margin-right: 10px;
+  }
+  
+  mat-icon {
+    height: $icon-height;
+  }
 }
 
-.option-group input[type="text"] {
-  flex: 1;
-  margin-right: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
+// Delete button
 .delete-btn {
   background: none;
   border: none;
-  font-size: 18px;
+  font-size: $font-size-delete-btn;
   cursor: pointer;
-  color: #ff5c5c;
+  color: $delete-btn-color;
 }
 
+// Add option button
 .add-option-btn {
-  background-color: #f0f7fb;
+  background-color: $add-option-bg-color;
   border: none;
-  color: #333;
-  padding: 10px 15px;
-  border-radius: 5px;
+  color: $add-option-text-color;
+  padding: $padding 15px;
+  border-radius: $option-border-radius;
   cursor: pointer;
-  font-size: 14px;
+  font-size: $font-size-add-option-btn;
   display: inline-block;
-}
-.option-group input[type="radio"] {
-  margin-right: 10px;
-}
-
-.option-group input[type="text"] {
-  flex: 1;
-  max-width: 400px;
-  margin-right: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-.option-group mat-icon {
-  height: auto;
 }

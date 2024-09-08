@@ -1,16 +1,26 @@
 <div class="main-container">
   <div class="title-container">
-    <h1 class="title-text">Reports</h1>
-    <app-pagination
-      [currentPage]="currentPage"
-      [totalPages]="totalPages"
-      [itemsPerPage]="itemsPerPage"
-      [totalItems]="totalItems"
-      (pageChange)="onPageChange($event)"
-      (itemsPerPageChange)="onItemsPerPageChange($event)"
-    ></app-pagination>
-    <mat-icon svgIcon="ExportIcon" (click)="openExportModal()"></mat-icon>
+    <div class="reports-section">
+      <h1 class="title-text">Reports</h1>
+    </div>
+    <div class="controls-section">
+      <app-pagination
+        [currentPage]="currentPage"
+        [totalPages]="totalPages"
+        [itemsPerPage]="itemsPerPage"
+        [totalItems]="totalItems"
+        (pageChange)="onPageChange($event)"
+        (itemsPerPageChange)="onItemsPerPageChange($event)"
+      ></app-pagination>
+      <mat-icon svgIcon="ExportIcon" (click)="openExportModal()"></mat-icon>
+      <mat-icon
+        [ngClass]="{ 'filter-applied': isFilterApplied() }"
+        svgIcon="filterIcon"
+        (click)="toggleFilterVisibility()"
+      ></mat-icon>
+    </div>
   </div>
+
   <app-exportDialogBox
     [selectedColumns]="selectedColumns"
     [allColumns]="allColumns"
@@ -29,38 +39,42 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Outer loop for statuses -->
-        <ng-container *ngFor="let status of statuses">
-          <tr
-            *ngFor="let questionnaire of pagedQuestionnaires[status.statusName]"
-          >
+        <ng-container>
+          <tr *ngFor="let questionnaire of pagedQuestionnaires">
             <td
               (click)="openResponseModal(questionnaire.assignmentID!)"
-              matTooltip="{{ questionnaire.assignmentID }}"
+              matTooltip="{{ questionnaire.assignmentID || 'N/A' }}"
             >
-              {{ questionnaire.assignmentID }}
+              {{ questionnaire.assignmentID || "N/A" }}
             </td>
-            <td matTooltip="{{ questionnaire.questionnaireID }}">
-              {{ questionnaire.questionnaireID }}
+            <td matTooltip="{{ questionnaire.questionnaireID || 'N/A' }}">
+              {{ questionnaire.questionnaireID || "N/A" }}
             </td>
-            <td matTooltip="{{ questionnaire.vendorName }}">
-              {{ questionnaire.vendorName }}
+            <td matTooltip="{{ questionnaire.vendorName || 'N/A' }}">
+              {{ questionnaire.vendorName || "N/A" }}
             </td>
-            <td matTooltip="{{ questionnaire.questionnaireName }}">
-              {{ questionnaire.questionnaireName }}
+            <td matTooltip="{{ questionnaire.questionnaireName || 'N/A' }}">
+              {{ questionnaire.questionnaireName || "N/A" }}
             </td>
-            <td matTooltip="{{ questionnaire.submissionDate }}">
-              {{ questionnaire.submissionDate }}
+            <td matTooltip="{{ questionnaire.submissionDate || 'N/A' }}">
+              {{ questionnaire.submissionDate || "N/A" }}
             </td>
-            <td matTooltip="{{ questionnaire.dueDate }}">
-              {{ questionnaire.dueDate }}
+            <td matTooltip="{{ questionnaire.dueDate || 'N/A' }}">
+              {{ questionnaire.dueDate || "N/A" }}
             </td>
-            <td matTooltip="{{ status.statusName }}">
-              {{ status.statusName }}
+            <td matTooltip="{{ questionnaire.status?.statusName || 'N/A' }}">
+              {{ questionnaire.status?.statusName || "N/A" }}
             </td>
           </tr>
         </ng-container>
       </tbody>
     </table>
+  </div>
+  <div *ngIf="isFilterVisible">
+    <app-filter
+      [subParts]="filterSubParts"
+      (close)="closeFilter()"
+      (filterChange)="onFilterChange($event)"
+    ></app-filter>
   </div>
 </div>

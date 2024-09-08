@@ -68,6 +68,27 @@ $color-primary-border: rgba($color-primary, 0.5); // Adjust the opacity as neede
   height: auto;
 }
 
+// Icon Container Styles
+.icon-container {
+  padding-right: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.icon-container mat-icon {
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 3vh;
+  height: auto;
+  color: $color-primary;
+}
+
+.icon-container mat-icon.filter-applied {
+  color: black;
+}
+
 .card-header {
   font-size: $font-size-large;
   font-weight: bold;

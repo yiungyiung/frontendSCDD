@@ -1,80 +1,136 @@
 <div class="main-container">
-    <div class="title-container">
-        <h1 class="title-text">Reports</h1>
-    </div><div *ngFor="let status of statuses" class="status-container">
-    <div *ngFor="let questionnaire of questionnaires[status.statusName] " class="questionnaire-wrapper">
-        <div class="status-label status-{{ status.statusID }}">
-            {{ status.statusName }}
-        </div>
-        <div class="questionnaire-card" (click)="openResponseModal(questionnaire.assignmentID!)">
-            <div class="questionnaire-details grid-container">
-                <div class="grid-item">
-                    <div class="task-ids">
-                        <div class="task-id">
-                            <span class="title" matTooltip="{{ questionnaire.assignmentID }}">
-                                Assignment ID:
-                            </span>
-                            <span class="value" matTooltip="{{ questionnaire.assignmentID }}">
-                                {{ questionnaire.assignmentID }}
-                            </span>
-                        </div>
-                        <div class="task-id">
-                            <span class="title" matTooltip="{{ questionnaire.questionnaireID }}">
-                                Questionnaire ID:
-                            </span>
-                            <span class="value" matTooltip="{{ questionnaire.questionnaireID }}">
-                                {{ questionnaire.questionnaireID }}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid-item">
-                    <div class="task-id">
-                        <span class="title" matTooltip="{{ questionnaire.vendorName }}">
-                            Vendor Name:
-                        </span>
-                        <span class="value" matTooltip="{{ questionnaire.vendorName }}">
-                            {{ questionnaire.vendorName }}
-                        </span>
-                    </div>
-                </div>
-
-                <div class="grid-item">
-                    <div class="task-id">
-                        <span class="title" matTooltip="{{ questionnaire.questionnaireName }}">
-                            Questionnaire Name:
-                        </span>
-                        <span class="value" matTooltip="{{ questionnaire.questionnaireName }}">
-                            {{ questionnaire.questionnaireName }}
-                        </span>
-                    </div>
-                </div>
-
-                <div class="grid-item">
-                    <div class="task-ids">
-                        <div class="task-id">
-                            <span class="title" matTooltip="{{ questionnaire.submissionDate }}">
-                                Submission Date:
-                            </span>
-                            <span class="value" matTooltip="{{ questionnaire.submissionDate }}">
-                                {{ questionnaire.submissionDate }}
-                            </span>
-                        </div>
-                        <div class="task-id">
-                            <span class="title" matTooltip="{{ questionnaire.dueDate }}">
-                                Due Date:
-                            </span>
-                            <span class="value" matTooltip="{{ questionnaire.dueDate }}">
-                                {{ questionnaire.dueDate }}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="title-container">
+    <h1 class="title-text">Reports</h1>
+    <div class="controls-section">
+      <app-pagination
+        [currentPage]="currentPage"
+        [totalPages]="totalPages"
+        [itemsPerPage]="itemsPerPage"
+        [totalItems]="totalItems"
+        (pageChange)="onPageChange($event)"
+        (itemsPerPageChange)="onItemsPerPageChange($event)"
+      ></app-pagination>
+      <mat-icon svgIcon="ExportIcon" (click)="openExportModal()"></mat-icon>
+      <app-exportDialogBox
+        [selectedColumns]="selectedColumns"
+        [allColumns]="allColumns"
+      ></app-exportDialogBox>
+      <mat-icon
+        [ngClass]="{ 'filter-applied': isFilterApplied() }"
+        svgIcon="filterIcon"
+        (click)="toggleFilterVisibility()"
+      ></mat-icon>
     </div>
-</div>
-</div>
+  </div>
+  <div class="cards-container">
+    <div
+      *ngFor="let questionnaire of pagedQuestionnaires"
+      class="questionnaire-wrapper"
+    >
+      <div class="status-label status-{{ questionnaire.statusID }}">
+        {{ questionnaire.status?.statusName }}
+      </div>
+      <div
+        class="questionnaire-card"
+        (click)="openResponseModal(questionnaire.assignmentID!)"
+      >
+        <div class="questionnaire-details grid-container">
+          <div class="grid-item">
+            <div class="task-ids">
+              <div class="task-id">
+                <span
+                  class="title"
+                  matTooltip="{{ questionnaire.assignmentID }}"
+                >
+                  Assignment ID:
+                </span>
+                <span
+                  class="value"
+                  matTooltip="{{ questionnaire.assignmentID }}"
+                >
+                  {{ questionnaire.assignmentID }}
+                </span>
+              </div>
+              <div class="task-id">
+                <span
+                  class="title"
+                  matTooltip="{{ questionnaire.questionnaireID }}"
+                >
+                  Questionnaire ID:
+                </span>
+                <span
+                  class="value"
+                  matTooltip="{{ questionnaire.questionnaireID }}"
+                >
+                  {{ questionnaire.questionnaireID }}
+                </span>
+              </div>
+            </div>
+          </div>
 
+          <div class="grid-item">
+            <div class="task-id">
+              <span class="title" matTooltip="{{ questionnaire.vendorName }}">
+                Vendor Name:
+              </span>
+              <span class="value" matTooltip="{{ questionnaire.vendorName }}">
+                {{ questionnaire.vendorName }}
+              </span>
+            </div>
+          </div>
 
+          <div class="grid-item">
+            <div class="task-id">
+              <span
+                class="title"
+                matTooltip="{{ questionnaire.questionnaireName }}"
+              >
+                Questionnaire Name:
+              </span>
+              <span
+                class="value"
+                matTooltip="{{ questionnaire.questionnaireName }}"
+              >
+                {{ questionnaire.questionnaireName }}
+              </span>
+            </div>
+          </div>
+
+          <div class="grid-item">
+            <div class="task-ids">
+              <div class="task-id">
+                <span
+                  class="title"
+                  matTooltip="{{ questionnaire.submissionDate }}"
+                >
+                  Submission Date:
+                </span>
+                <span
+                  class="value"
+                  matTooltip="{{ questionnaire.submissionDate }}"
+                >
+                  {{ questionnaire.submissionDate }}
+                </span>
+              </div>
+              <div class="task-id">
+                <span class="title" matTooltip="{{ questionnaire.dueDate }}">
+                  Due Date:
+                </span>
+                <span class="value" matTooltip="{{ questionnaire.dueDate }}">
+                  {{ questionnaire.dueDate }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isFilterVisible">
+    <app-filter
+      [subParts]="filterSubParts"
+      (close)="closeFilter()"
+      (filterChange)="onFilterChange($event)"
+    ></app-filter>
+  </div>
+</div>

@@ -1,130 +1,173 @@
+// Common variables
+$background-color: #fff;
+$highlight-color: #E7F4F9;
+$border-color: #063B58;
+$box-shadow-color: rgba(0, 0, 0, 0.2);
+$border-radius: 8px;
+$border-width: 0.5vh;
+$font-size-title: 3vh;
+$font-size-status-label: 1.7vh;
+$font-size-title-small: 1.4vh;
+$font-size-value: 1.8vh;
+$status-color-1: #4caf50; // Green
+$status-color-2: #ffa726; // Orange
+$status-color-3: #f44336; // Red
+$status-color-4: #2196f3; // Blue
+$transition-duration: 0.3s;
+$box-shadow-hover: 0px 4px 12px rgba(0, 0, 0, 0.15);
+$padding: 12px;
+$padding-status-label: 5px 10px;
+$max-width-value: 150px;
+$gap: 5px;
+$shadow-color: rgba(0, 0, 0, 0.2);
+$small-box-shadow: 2px 2px 2px $shadow-color;
+
+.main-container {
+  height: 72vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  background-color: $background-color;
+  margin-top: 5.5vh;
+  box-shadow: 4px 4px 8px $shadow-color;
+  border-radius: $border-radius;
+}
+
+// Title container
+// Title container
 .title-container {
-    background-color: #E7F4F9; 
-    height: 9vh; 
-    width: 100%; 
+  background-color: $highlight-color;
+  height: 9vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2vw; 
+  box-shadow: $small-box-shadow;
+
+  .reports-section {
+    flex: 1;
     display: flex;
     align-items: center;
-    justify-content: center;
-    border-color: #063B58;
-    border-width:0.5vh;
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  }
 
+  .controls-section {
+    display: flex;
+    align-items: center;
+    gap: 2vw; // Space between pagination and export icon
+  }
+
+  mat-icon {
+    height: auto;
+    width: 2vw;
+  }
 }
 
+// Title text
 .title-text {
-    font-weight:bold ;
-    font-size: 3vh; /* Adjust as needed */
-    color: #063B58; /* Dark text color for contrast */
-    margin: 0; /* Remove default margin */
+  font-weight: bold;
+  font-size: $font-size-title;
+  color: $border-color;
+  margin: 0; // Remove default margin
 }
 
+
+// Status label
 .status-label {
-    position: relative;
-    width: auto;
-    bottom:-2vh;
-    left: 1vw;
-    padding: 5px 10px;
-    border-radius: 4px;
-    color: white;
-    text-align: center;
-    display: inline-block;
-    font-size: 1.7vh;
+  position: relative;
+  width: auto;
+  bottom: -2vh;
+  left: 1vw;
+  padding: $padding-status-label;
+  border-radius: 4px;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: $font-size-status-label;
+  
+  // Specific colors for each status
+  &.status-1 { background-color: $status-color-1; }
+  &.status-2 { background-color: $status-color-2; }
+  &.status-3 { background-color: $status-color-3; }
+  &.status-4 { background-color: $status-color-4; }
 }
 
-/* Assign specific colors for each status */
-.status-1 {
-    background-color: #4caf50; /* Green */
-}
-
-.status-2 {
-    background-color: #ffa726; /* Orange */
-}
-
-.status-3 {
-    background-color: #f44336; /* Red */
-}
-
-.status-4 {
-    background-color: #2196f3; /* Blue */
-}
-.main-container{
-    height:72vh;
-    overflow-y: scroll;
-    scrollbar-width:none ;
-    background-color: #fff;
-    margin-top: 5.5vh;
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
-
-    border-radius: 8px;
-}
-
-
+// Status container
 .status-container {
-    padding:2vh;
-    display: flex;
-    flex-wrap: wrap; 
-    gap: 5px; 
-    align-items: flex-start;   
+  padding: 0; // Remove extra padding
+  display: flex;
+  flex-wrap: wrap;
+  gap: $gap; // Maintain gap between cards
+  justify-content: space-between; // Ensure cards spread evenly across the row
+  align-items: flex-start;
 }
 
+
+// Container for the cards
+.cards-container {
+  margin: 2vh;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between; // Ensures two cards fit side by side
+}
+
+// Adjust the questionnaire wrapper for two cards per row
 .questionnaire-wrapper {
-    flex: 1 1 calc(50% - 16px); /* Responsive flex-grow, flex-shrink, and flex-basis to allow two cards per row */
-    width: 200px;
-    box-sizing: border-box;
+  flex: 1 1 calc(50% - 16px); // Each card takes 50% of the row, minus the gap
+  max-width: calc(50% - 16px);
+  margin-bottom: 16px;
 }
 
+// Questionnaire card styling
 .questionnaire-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: justify;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    background-color: #fff;
-    cursor: pointer;
-    transition: box-shadow 0.3s ease;
-    width:45vw
+  padding: $padding;
+  background-color: $background-color;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: box-shadow $transition-duration ease;
+  box-shadow: $box-shadow-hover;
+  &:hover {
+    box-shadow: $box-shadow-hover;
+  }
 }
 
-.questionnaire-card:hover {
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+// Grid container
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); // Adjust based on the number of grid items
+  gap: 16px;
 }
 
 .grid-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Adjust based on the number of grid items */
-    gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); // Adjust columns for better layout
+  gap: 16px;
 }
 
-.grid-item {
-    padding: 20px;
-    text-align: center;
-    border-radius: 8px;
-}
-
+// Title and value
 .title {
-    font-size: 1.4vh;
-    display: block;
+  font-size: $font-size-title-small;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .value {
-    font-size: 1.8vh;
-    font-weight: normal;
-    color: #063B58;
+  font-size: $font-size-value;
+  font-weight: normal;
+  color: $border-color;
+  display: inline-block;
+  max-width: $max-width-value;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.task-id{
-    height:6vh;
-}
-.title, .value {
-    white-space: nowrap; 
-    overflow: hidden;   
-    text-overflow: ellipsis; 
-}
-
-.value {
-    display: inline-block;
-    max-width: 150px; 
-    vertical-align: middle;
+// Adjust the height and spacing for the task id
+.task-id {
+  height: auto;
+  padding: 5px 0;
 }

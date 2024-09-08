@@ -1,8 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0;
-    background-color: #E7F4F9 !important;
-     font-family:'Montserrat'!important; }
-
-     
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background-color: #e7f4f9 !important;
+  font-family: "Montserrat" !important;
+}

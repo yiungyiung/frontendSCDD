@@ -1,4 +1,17 @@
-/* Pagination Container Styles */
+// Common variables
+$color-primary: #073c5a;
+$color-disabled: #ccc;
+$color-background: #fff;
+$color-border: #ccc;
+$color-dropdown-icon: #073c5a;
+$font-size-base: 16px;
+$font-size-small: 14px;
+$border-radius: 4px;
+$padding-select: 5px 30px 5px 10px;
+$dropdown-icon-size: 18px;
+$margin-base: 10px;
+
+// Pagination container
 .pagination-container {
   display: flex;
   justify-content: space-between;
@@ -6,62 +19,61 @@
   margin-top: 20px;
 }
 
-/* Pagination Controls Styles */
+// Pagination controls
 .pagination-controls {
   display: flex;
   align-items: center;
-  font-size: 14px;
-  color: #073c5a;
+  font-size: $font-size-small;
+  color: $color-primary;
 }
 
-/* Pagination Button Styles */
+// Pagination buttons
 .pagination-controls button {
   background: none;
   border: none;
-  font-size: 16px;
-  color: #073c5a;
+  font-size: $font-size-base;
+  color: $color-primary;
   cursor: pointer;
+
+  &:disabled {
+    color: $color-disabled;
+    cursor: not-allowed;
+  }
 }
 
-/* Disabled Button Styles */
-.pagination-controls button:disabled {
-  color: #ccc;
-  cursor: not-allowed;
-}
-
-/* Pagination Text Styles */
+// Pagination text
 .pagination-controls span {
-  margin: 0 10px;
+  margin: 0 $margin-base;
 }
 
-/* Items Per Page Select Wrapper Styles */
+// Items per page select wrapper
 .items-per-page-select-wrapper {
   position: relative;
   display: inline-block;
 }
 
-/* Items Per Page Select Styles */
+// Items per page select
 .items-per-page-select {
   appearance: none;
-  padding: 5px 30px 5px 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background: white;
-  font-size: 16px;
+  padding: $padding-select;
+  border: 1px solid $color-border;
+  border-radius: $border-radius;
+  background: $color-background;
+  font-size: $font-size-base;
+
+  // Hide default dropdown icon in IE
+  &::-ms-expand {
+    display: none;
+  }
 }
 
-/* Hide Default Dropdown Icon in IE */
-.items-per-page-select::-ms-expand {
-  display: none;
-}
-
-/* Dropdown Icon Styles */
+// Dropdown icon
 .dropdown-icon {
   position: absolute;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
-  font-size: 18px;
-  color: #073c5a;
+  font-size: $dropdown-icon-size;
+  color: $color-dropdown-icon;
 }

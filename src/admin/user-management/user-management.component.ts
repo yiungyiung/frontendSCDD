@@ -57,7 +57,6 @@ export class UserManagementComponent implements OnInit {
   searchKeyword = '';
   selectedRoleIds: string[] = [];
   selectedUserStatus: string[] = [];
-
   constructor(
     private fb: FormBuilder,
     private adminService: AdminService,
@@ -68,11 +67,9 @@ export class UserManagementComponent implements OnInit {
     private filterService: FilterService,
     private dataFetchService: DataFetchService
   ) {}
-
   ngOnInit() {
     this.loadUsers();
   }
-
   filterSubParts: SubPart[] = [
     {
       name: 'Search By',
@@ -95,76 +92,140 @@ export class UserManagementComponent implements OnInit {
       options: ['Active', 'Inactive'],
     },
   ];
-
   toggleFilterVisibility() {
     this.isFilterVisible = !this.isFilterVisible;
   }
-
   closeFilter(): void {
     this.isFilterVisible = false;
   }
 
   onFilterChange(event: any) {
-    this.filteredUsers = this.filterService.applyFilter(
-      this.users,
-      this.filterSubParts,
-      {
-        'User Id': (user) => user.userId,
-        'User Name': (user) => user.name,
-        'Email Id': (user) => user.email,
-      }
+    console.log(
+      'User Data:',
+      this.users.map((user) => ({
+        id: user.userId,
+        isActive: user.isActive,
+      }))
     );
+
+    const filters = this.prepareFilters();
+    this.filteredUsers = this.filterService.applyFilter(this.users, filters);
     this.totalItems = this.filteredUsers.length;
     this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
     this.currentPage = 1;
     this.updatePagedUsers();
   }
 
+  prepareFilters() {
+    const filters: {
+      partName: string;
+      value: string | string[];
+      column: keyof User | ((user: User) => any);
+      exactMatch?: boolean;
+    }[] = [];
+
+    const searchBySubPart = this.filterSubParts.find(
+      (part) => part.name === 'Search By'
+    );
+    const searchKeywordSubPart = this.filterSubParts.find(
+      (part) => part.name === 'Search Keyword'
+    );
+    const roleSubPart = this.filterSubParts.find(
+      (part) => part.name === 'Role'
+    );
+    const userStatusSubPart = this.filterSubParts.find(
+      (part) => part.name === 'User Status'
+    );
+
+    const searchByColumnMap: {
+      [key: string]: keyof User | ((user: User) => any);
+    } = {
+      'User Id': 'userId',
+      'User Name': 'name',
+      'Email Id': 'email',
+    };
+
+    if (
+      searchBySubPart &&
+      searchKeywordSubPart &&
+      searchBySubPart.selectedOption
+    ) {
+      const column = searchByColumnMap[searchBySubPart.selectedOption];
+      if (column) {
+        filters.push({
+          partName: 'Search By',
+          value: searchKeywordSubPart.keyword || '',
+          column,
+          exactMatch: false,
+        });
+      }
+    }
+    if (
+      userStatusSubPart &&
+      userStatusSubPart.selectedOptions &&
+      userStatusSubPart.selectedOptions.length > 0
+    ) {
+      filters.push({
+        partName: 'User Status', // Ensure this matches the correct name for user management
+        value: userStatusSubPart.selectedOptions,
+        column: (user: User) => (user.isActive ? 'Active' : 'Inactive'),
+      });
+    }
+    if (
+      roleSubPart &&
+      roleSubPart.selectedOptions &&
+      roleSubPart.selectedOptions.length > 0
+    ) {
+      filters.push({
+        partName: 'Role',
+        value: roleSubPart.selectedOptions,
+        column: (user: User) => user.role || '',
+      });
+    }
+    return filters;
+  }
   loadUsers() {
     const token = this.authService.getToken();
     this.adminService.getAllUsers(token).subscribe((serverUsers: User[]) => {
       this.users = serverUsers
-        .filter((user) => user.roleId !== this.getRoleId(Role.Vendor))
-        .map((user) => this.mapServerUserToUser(user));
+        .filter(
+          (user) => user.roleId !== this.dataFetchService.getRoleId(Role.Vendor)
+        )
+        .map((user) => this.dataFetchService.mapServerUserToUser(user));
       this.filteredUsers = this.users;
       this.totalItems = this.users.length;
       this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
       this.updatePagedUsers();
     });
   }
-
   onPageChange(page: number) {
     this.currentPage = page;
     this.updatePagedUsers();
   }
-
   onItemsPerPageChange(itemsPerPage: number) {
     this.itemsPerPage = itemsPerPage;
     this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
     this.currentPage = 1;
     this.updatePagedUsers();
   }
-
   updatePagedUsers() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedUsers = this.filteredUsers.slice(startIndex, endIndex);
   }
-
   onFileUploadTriggered() {
     this.showFileUpload = true;
   }
-
   onUserAdded(newUser: User) {
     const token = this.authService.getToken();
     const userToAdd = {
       ...newUser,
-      roleId: this.getRoleId(newUser.role!),
+      roleId: this.dataFetchService.getRoleId(newUser.role!),
       isActive: true,
     };
     this.adminService.addUser(userToAdd, token).subscribe(
       (serverUser) => {
-        this.users.push(this.mapServerUserToUser(serverUser));
+        this.users.push(this.dataFetchService.mapServerUserToUser(serverUser));
         this.loadUsers();
         this.popupService.showPopup('User added successfully', '#0F9D09');
       },
@@ -177,18 +238,18 @@ export class UserManagementComponent implements OnInit {
       }
     );
   }
-
   onUserUpdated(updatedUser: User) {
     const token = this.authService.getToken();
     const userToUpdate = {
       ...updatedUser,
-      roleId: this.getRoleId(updatedUser.role!),
+      roleId: this.dataFetchService.getRoleId(updatedUser.role!),
     };
     this.adminService.updateUser(userToUpdate, token).subscribe(
       (response) => {
         const index = this.users.findIndex((u) => u.userId === response.userId);
         if (index !== -1) {
-          this.users[index] = this.mapServerUserToUser(response);
+          this.users[index] =
+            this.dataFetchService.mapServerUserToUser(response);
           this.updatePagedUsers();
           this.resetSelectedUser();
           this.popupService.showPopup('User updated successfully', '#0F9D09');
@@ -203,49 +264,6 @@ export class UserManagementComponent implements OnInit {
       }
     );
   }
-
-  private getRoleId(role: string): number {
-    const normalizedRole = role.toLowerCase();
-    switch (normalizedRole) {
-      case 'admin':
-        return 1;
-      case 'manager':
-        return 2;
-      case 'analyst':
-        return 3;
-      case 'vendor':
-        return 4;
-      default:
-        throw new Error(`Invalid role: ${role}`);
-    }
-  }
-
-  private mapServerUserToUser(serverUser: any): User {
-    return {
-      userId: serverUser.userId,
-      email: serverUser.email,
-      role: this.getRoleFromRoleId(serverUser.roleId),
-      name: serverUser.name,
-      contact_Number: serverUser.contact_Number,
-      isActive: serverUser.isActive,
-    };
-  }
-
-  private getRoleFromRoleId(roleId: number): Role {
-    switch (roleId) {
-      case 1:
-        return Role.Admin;
-      case 2:
-        return Role.Manager;
-      case 3:
-        return Role.Analyst;
-      case 4:
-        return Role.Vendor;
-      default:
-        throw new Error('Invalid role ID');
-    }
-  }
-
   resetNewUser() {
     this.newUser = {
       email: '',
@@ -255,26 +273,24 @@ export class UserManagementComponent implements OnInit {
       isActive: true,
     };
   }
-
   resetSelectedUser() {
     this.selectedUser = null;
     this.resetNewUser();
   }
-
   toggleUserStatus(user: User) {
     const newStatus = !user.isActive;
     const token = this.authService.getToken();
     const updatedUser = {
       ...user,
       isActive: newStatus,
-      roleId: this.getRoleId(user.role!),
+      roleId: this.dataFetchService.getRoleId(user.role!),
     };
-
     this.adminService.updateUser(updatedUser, token).subscribe(
       (response) => {
         const index = this.users.findIndex((u) => u.userId === response.userId);
         if (index !== -1) {
-          this.users[index] = this.mapServerUserToUser(response);
+          this.users[index] =
+            this.dataFetchService.mapServerUserToUser(response);
           this.updatePagedUsers();
           this.cdr.detectChanges();
         }
@@ -287,13 +303,6 @@ export class UserManagementComponent implements OnInit {
       }
     );
   }
-
-  paginationText(): string {
-    const start = (this.currentPage - 1) * this.itemsPerPage + 1;
-    const end = Math.min(this.currentPage * this.itemsPerPage, this.totalItems);
-    return `${start} - ${end} of ${this.totalItems}`;
-  }
-
   openExportModal() {
     const data = this.users.map((user) => ({
       'User ID': user.userId,
@@ -303,19 +312,15 @@ export class UserManagementComponent implements OnInit {
       Role: user.role,
       'Is Active': user.isActive,
     }));
-
     this.modalService.setDataAndColumns(data, this.selectedColumns);
     this.modalService.showExportModal();
   }
-
   selectUserForUpdate(user: User) {
     this.selectedUser = { ...user };
   }
-
   toggleFileUpload(): void {
     this.showFileUpload = !this.showFileUpload;
   }
-
   onFileParsed(parsedData: any[]): void {
     this.showFileUpload = false;
     const token = this.authService.getToken();
@@ -324,11 +329,14 @@ export class UserManagementComponent implements OnInit {
     this.failedUsersUpload = [];
     parsedData.forEach((userData, index) => {
       try {
-        const newUser = this.mapServerUserToUserForFileUpload(userData);
-        newUser.roleId = this.getRoleId(userData['Role']);
+        const newUser =
+          this.dataFetchService.mapServerUserToUserForFileUpload(userData);
+        newUser.roleId = this.dataFetchService.getRoleId(userData['Role']);
         this.adminService.addUser(newUser, token).subscribe(
           (response) => {
-            this.users.push(this.mapServerUserToUser(response));
+            this.users.push(
+              this.dataFetchService.mapServerUserToUser(response)
+            );
             successCount++;
             this.loadUsers();
             if (index === parsedData.length - 1) {
@@ -361,27 +369,13 @@ export class UserManagementComponent implements OnInit {
       }
     });
   }
-
   private showSummaryPopup(successCount: number, failureCount: number): void {
     const message = `${successCount} users added successfully, ${failureCount} could not be added.`;
     this.popupService.showPopup(message, '#0F9D09');
   }
-
   onCancelFileUpload(): void {
     this.showFileUpload = false;
   }
-
-  mapServerUserToUserForFileUpload(userData: any): User {
-    return {
-      userId: userData['User ID'],
-      email: userData['Email'],
-      name: userData['Name'],
-      contact_Number: userData['Contact Number'],
-      role: userData['Role'],
-      isActive: userData['Is Active'] === 'true',
-    };
-  }
-
   isFilterApplied(): boolean {
     const searchBySubPart = this.filterSubParts.find(
       (part) => part.name === 'Search By'

@@ -1,0 +1,10 @@
+<div class="Container">
+  <span class="progress-text"
+    >{{ progressPercentage.toFixed(0) }}% ({{ answeredQuestions }}/{{
+      totalQuestions
+    }})</span
+  >
+  <div class="progress-container">
+    <div class="progress-bar" [style.width.%]="progressPercentage"></div>
+  </div>
+</div>

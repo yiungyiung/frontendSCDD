@@ -1,70 +1,79 @@
+// Common variables
+$background-color: #e7f4f9;
+$card-background: #ffffff;
+$card-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+$button-background: #3f85a0;
+$button-hover: #165167;
+$icon-background: #e0e0e0;
+$icon-color: #555;
+$border-color: #ccc;
+$focus-border-color: #a2a2a2;
+$text-color: #165167;
+
+// Base styles
 .b {
-    background-color: #E7F4F9;
-    min-height: 100vh;
+  background-color: $background-color;
+  min-height: 100vh;
 }
 
 .custom-navbar {
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
 }
 
 .body-center {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - 84px);
-    /* Subtracting navbar height and padding */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 84px); // Subtracting navbar height and padding
 }
 
 .cards-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .card {
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 300px;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.card h2,
-.card h3 {
+  background-color: $card-background;
+  border-radius: 8px;
+  box-shadow: $card-shadow;
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  margin-bottom: 20px;
+  
+  h2, h3 {
     margin-top: 0;
-}
-
-.card label {
+  }
+  
+  label {
     display: block;
     margin: 15px 0;
-}
-
-.card input[type="text"],
-.card input[type="password"] {
+  }
+  
+  input[type="text"],
+  input[type="password"] {
     width: calc(100% - 20px);
     padding: 8px;
     margin-top: 5px;
     border: 0;
     margin-left: 10px;
-}
 
-.card input[type="text"]:focus,
-.card input[type="password"]:focus {
-    outline: none;
-    border-color: #A2A2A2;
-    border-width: 0;
-}
-
-.card button {
-    background-color: #3F85A0;
+    &:focus {
+      outline: none;
+      border-color: $focus-border-color;
+      border-width: 0;
+    }
+  }
+  
+  button {
+    background-color: $button-background;
     border: none;
     color: white;
     padding: 10px 20px;
@@ -75,60 +84,58 @@
     margin: 10px 0;
     cursor: pointer;
     border-radius: 4px;
-}
 
-.card button:hover {
-    background-color: #165167;
+    &:hover {
+      background-color: $button-hover;
+    }
+  }
 }
 
 .additional-options {
-    margin-top: 20px;
-    font-size: 14px;
-}
-
-.additional-options a {
-    color: #165167;
+  margin-top: 20px;
+  font-size: 14px;
+  
+  a {
+    color: $text-color;
     text-decoration: none;
-}
 
-.additional-options a:hover {
-    text-decoration: underline;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .input-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    overflow: hidden;
-    /* Ensure the border-radius applies to the whole container */
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .icon-container {
-    background-color: #e0e0e0;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+  background-color: $icon-background;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-.icon-container i {
+  i {
     font-size: 1.2em;
-    color: #555;
-    /* Icon color */
+    color: $icon-color;
+  }
 }
 
 .input-container .form-control {
-    flex: 1;
-    border: none;
-    padding: 10px;
-    border-radius: 0;
-    /* Remove border-radius from individual inputs */
-    margin-left: -1px;
-}
+  flex: 1;
+  border: none;
+  padding: 10px;
+  border-radius: 0;
+  margin-left: -1px;
 
-.input-container .form-control:focus {
+  &:focus {
     outline: none;
     box-shadow: none;
+  }
 }

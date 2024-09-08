@@ -13,12 +13,10 @@ import { SubPart } from '../../Component/filter/filter.component';
 import { FormGroup } from '@angular/forms';
 import { FilterService } from '../../services/FilterService/Filter.service';
 import { DataFetchService } from '../../services/DataFetchService/DataFetch.service';
-
 @Component({
   selector: 'app-VendorManagement',
   templateUrl: './VendorManagement.component.html',
   styleUrls: ['./VendorManagement.component.scss'],
- 
 })
 export class VendorManagementComponent implements OnInit {
   selectedVendor: Vendor | null = null;
@@ -39,6 +37,8 @@ export class VendorManagementComponent implements OnInit {
   showFileUpload: boolean = false;
   failedUsersUpload: string[] = [];
   vendorForExport: Vendor[] = [];
+  selectedTierId: number | undefined;
+  selectedCategoryId: number | undefined;
   selectedColumns: string[] = [
     'Vendor ID',
     'Vendor Name',
@@ -126,7 +126,7 @@ export class VendorManagementComponent implements OnInit {
     {
       name: 'Category',
       type: 'checkbox',
-      options: ['Critical', 'Non-Critical', 'Others'],
+      options: [],
     },
   ];
   handleUpdatedVendor(vendor: Vendor): void {
@@ -151,7 +151,6 @@ export class VendorManagementComponent implements OnInit {
     const vendorCategorySubPart = this.filterSubParts.find(
       (part) => part.name === 'Category'
     );
-
     return (
       !!(searchBySubPart && searchBySubPart.selectedOption) ||
       !!(
@@ -172,20 +171,79 @@ export class VendorManagementComponent implements OnInit {
     );
   }
   onFilterChange(event: any) {
-    this.filteredVendor = this.filterService.applyFilter(
-      this.vendors,
-      this.filterSubParts,
-      {
-        'Vendor Id': (vendor) => vendor.vendorID,
-        'Vendor Name': (vendor) => vendor.vendorName,
-        'Email Id': (vendor) => vendor.user.email,
-        'User Id': (vendor) => vendor.userID,
-      }
+    console.log(
+      'Vendor Data:',
+      this.vendors.map((vendor) => ({
+        id: vendor.vendorID, // Or any other identifier
+        isActive: vendor.user.isActive,
+      }))
     );
+    const filters = this.prepareFilters();
+    this.filteredVendor = this.filterService.applyFilter(this.vendors, filters);
     this.totalItems = this.filteredVendor.length;
     this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
     this.currentPage = 1;
     this.updatePagedUsers();
+  }
+  prepareFilters() {
+    const filters: {
+      partName: string;
+      value: string | string[];
+      column: (vendor: Vendor) => any;
+      exactMatch?: boolean;
+    }[] = [];
+    const searchBySubPart = this.filterSubParts.find(
+      (part) => part.name === 'Search By'
+    );
+    const searchKeywordSubPart = this.filterSubParts.find(
+      (part) => part.name === 'Search Keyword'
+    );
+    const statusSubPart = this.filterSubParts.find(
+      (part) => part.name === 'Vendor Status'
+    );
+    const categorySubPart = this.filterSubParts.find(
+      (part) => part.name === 'Category'
+    );
+    const searchByColumnMap: { [key: string]: (vendor: Vendor) => any } = {
+      'Vendor Id': (vendor) => vendor.vendorID,
+      'Vendor Name': (vendor) => vendor.vendorName,
+      'Email Id': (vendor) => vendor.user?.email, // Handling nested property
+      'User Id': (vendor) => vendor.userID,
+    };
+    if (
+      searchBySubPart &&
+      searchKeywordSubPart &&
+      searchBySubPart.selectedOption
+    ) {
+      const columnFn = searchByColumnMap[searchBySubPart.selectedOption];
+      if (columnFn) {
+        filters.push({
+          partName: 'Search By',
+          value: searchKeywordSubPart.keyword || '',
+          column: columnFn,
+          exactMatch: false,
+        });
+      }
+    }
+    if (statusSubPart && statusSubPart.selectedOptions) {
+      filters.push({
+        partName: 'Vendor Status',
+        value: statusSubPart.selectedOptions, // Pass the array of selected status strings
+        column: (vendor) => (vendor.user?.isActive ? 'Active' : 'Inactive'), // Map boolean to string
+      });
+    }
+    if (
+      categorySubPart &&
+      categorySubPart.selectedOptions &&
+      categorySubPart.selectedOptions.length > 0
+    ) {
+      filters.push({
+        partName: 'Category',
+        value: categorySubPart.selectedOptions, // Join categories
+        column: (vendor) => vendor.category?.categoryName ?? '', // Get vendor category name
+      });
+    }
+    return filters;
   }
   selectVendorForUpdate(vendor: Vendor) {
     this.selectedVendor = { ...vendor };
@@ -198,7 +256,6 @@ export class VendorManagementComponent implements OnInit {
   toggleSelection(vendorID: number, event: Event) {
     const inputElement = event.target as HTMLInputElement;
     const isChecked = inputElement.checked;
-
     if (isChecked) {
       if (!this.newVendor.parentVendorIDs!.includes(vendorID)) {
         this.newVendor.parentVendorIDs!.push(vendorID);
@@ -211,15 +268,6 @@ export class VendorManagementComponent implements OnInit {
     }
   }
   toggleVendorStatus(vendor: Vendor) {
-    if (!this.authService) {
-      console.error('AuthService is not initialized.');
-      return;
-    }
-    if (this.authService) {
-      const token = this.authService.getToken();
-    } else {
-      console.error('AuthService is not available.');
-    }
     if (!vendor || !vendor.user) {
       console.error('Vendor or vendor.user is undefined.');
       return;
@@ -258,7 +306,7 @@ export class VendorManagementComponent implements OnInit {
     this.dataFetchService.loadVendors().subscribe(
       (vendors) => {
         this.vendors = vendors.map((vendor) =>
-          this.mapServerUserToUser(vendor)
+          this.dataFetchService.mapServerVendorToVendor(vendor)
         );
         this.filteredVendor = this.vendors;
         this.totalItems = this.vendors.length;
@@ -285,7 +333,17 @@ export class VendorManagementComponent implements OnInit {
   }
   loadCategories() {
     this.dataFetchService.loadCategories().subscribe(
-      (categories) => (this.categories = categories),
+      (categories) => {
+        this.categories = categories;
+        const categoryFilter = this.filterSubParts.find(
+          (part) => part.name === 'Category'
+        );
+        if (categoryFilter) {
+          categoryFilter.options = this.categories.map(
+            (category) => category.categoryName
+          );
+        }
+      },
       (error) => console.error('Error loading categories:', error)
     );
   }
@@ -321,28 +379,8 @@ export class VendorManagementComponent implements OnInit {
       'Contact Email': vendor.user?.email,
       'Contact Number': vendor.user?.contact_Number,
     }));
-
     this.modalService.setDataAndColumns(data, this.selectedColumns);
     this.modalService.showExportModal();
-  }
-  private mapServerUserToUser(serverUser: any): Vendor {
-    return {
-      vendorID: serverUser.vendorID,
-      vendorName: serverUser.vendorName,
-      vendorAddress: serverUser.vendorAddress,
-      tierID: serverUser.tierID,
-      categoryID: serverUser.categoryID,
-      vendorRegistration: serverUser.vendorRegistration,
-      userID: serverUser.userID, // Use the correct property name
-      user: {
-        userId: serverUser.user.userId, // Use the correct property name
-        isActive: serverUser.user.isActive,
-        email: serverUser.user.email,
-        name: serverUser.user.name,
-        contact_Number: serverUser.user.contact_Number,
-        roleId: serverUser.user.roleId,
-      },
-    };
   }
   resetNewVendor() {
     this.newVendor = {
@@ -371,7 +409,6 @@ export class VendorManagementComponent implements OnInit {
   }
   onFileParsed(parsedData: any[]): void {
     this.showFileUpload = false;
-    console.log('Parsed data received:', parsedData);
     const token = this.authService.getToken();
     this.failedUsersUpload = [];
     let successCount = 0;
@@ -393,12 +430,15 @@ export class VendorManagementComponent implements OnInit {
     token: string
   ): Promise<void> {
     try {
-      const newVendor = await this.mapServerUserToUserForFileUpload(vendorData);
+      const newVendor =
+        await this.dataFetchService.mapServerVendorToVendorForFileUpload(
+          vendorData
+        );
       await this.vendorService.addVendor(token, newVendor).toPromise();
       this.vendors.push(newVendor);
     } catch (error) {
       console.error('Error adding vendor from file:', error);
-      this.failedUsersUpload.push(vendorData['Name'] || 'Unknown Vendor');
+      this.failedUsersUpload.push(vendorData['Name']);
     }
   }
   private showSummaryPopup(successCount: number, failureCount: number): void {
@@ -407,73 +447,5 @@ export class VendorManagementComponent implements OnInit {
   }
   onCancelFileUpload(): void {
     this.showFileUpload = false;
-  }
-  async getTierIdFromName(tierName: string): Promise<number> {
-    const token = this.authService.getToken();
-    try {
-      const tiers = await this.vendorService.getTiers(token).toPromise();
-      if (!tiers) {
-        throw new Error('Tiers data is undefined');
-      }
-      const matchedTier = tiers.find(
-        (tier) => tier.tierName.toLowerCase() === tierName.toLowerCase()
-      );
-      if (matchedTier) {
-        return matchedTier.tierId;
-      } else {
-        throw new Error('Tier not found');
-      }
-    } catch (error) {
-      console.error('Error loading tiers:', error);
-      throw error;
-    }
-  }
-  async getCategoryIdFromName(categoryName: string): Promise<number> {
-    const token = this.authService.getToken();
-    try {
-      const categories = await this.vendorService
-        .getCategories(token)
-        .toPromise();
-      if (!categories) {
-        throw new Error('Categories data is undefined');
-      }
-      const matchedCategory = categories.find(
-        (category) =>
-          category.categoryName.toLowerCase() === categoryName.toLowerCase()
-      );
-      if (matchedCategory) {
-        return matchedCategory.categoryID;
-      } else {
-        throw new Error('Category not found');
-      }
-    } catch (error) {
-      console.error('Error loading categories:', error);
-      throw error;
-    }
-  }
-  async mapServerUserToUserForFileUpload(userData: any): Promise<Vendor> {
-    try {
-      const tierID = await this.getTierIdFromName(userData['Tier']);
-      const categoryID = await this.getCategoryIdFromName(userData['Category']);
-
-      return {
-        vendorName: userData['Vendor Name'],
-        vendorAddress: userData['Vendor Address'],
-        tierID: tierID,
-        categoryID: categoryID,
-        vendorRegistration: userData['vendor Registration'],
-        parentVendorIDs: this.newVendor.parentVendorIDs!.map(Number),
-        user: {
-          isActive: this.newVendor.user.isActive,
-          email: userData['Contact Email'],
-          name: userData['Contact Name'],
-          contact_Number: userData['Contact Number'],
-          roleId: 4,
-        },
-      };
-    } catch (error) {
-      console.error('Error processing user data:', error);
-      throw error;
-    }
   }
 }

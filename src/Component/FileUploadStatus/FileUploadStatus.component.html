@@ -1,7 +1,15 @@
 <div *ngIf="failedUsers.length > 0" class="notification">
   <h4>Failed User Uploads:</h4>
-  <mat-icon svgIcon="cancelButton" (click)="onCancel()"></mat-icon>
+  <mat-icon svgIcon="cancelButton" (click)="hideComponent()"></mat-icon>
   <ul>
     <li *ngFor="let user of failedUsers">{{ user }}</li>
+  </ul>
+</div>
+
+<div *ngIf="failedUsers.length === 0" class="user-list">
+  <h4>All Users:</h4>
+  <mat-icon svgIcon="cancelButton" (click)="hideComponent()"></mat-icon>
+  <ul>
+    <li>All Users added</li>
   </ul>
 </div>

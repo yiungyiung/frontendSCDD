@@ -1,5 +1,22 @@
-/* Base styles */
+// Common variables
+$color-primary: #e7f4f9;
+$color-hover: #f9a634;
+$color-active-background: #12789e;
+$color-active-text: #f9a634;
+$color-sub-menu-background: #eaf4f8;
+$color-sub-menu-text: #e7f4f9;
+$color-sub-menu-hover: #000000;
+$font-size-base: 2.75vh;
+$font-size-small: 1rem;
+$padding-base: 0.5vh;
+$transition-time: 0.3s;
+$box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+$nav-icon-size: 2.75vh;
+$nav-icon-size-responsive: 3vw;
+$nav-icon-size-small: 2vw;
+$gap: 35vh;
 
+// Base styles
 .navbar {
   position: relative;
 }
@@ -10,72 +27,69 @@
   justify-content: center;
   cursor: pointer;
   text-decoration: none;
-  color: #e7f4f9;
-  transition: color 0.3s;
+  color: $color-primary;
+  transition: color $transition-time;
 }
 
 .nav-icon {
-  width: 2.75vh;
+  width: $nav-icon-size;
   height: auto;
-  fill: #e7f4f9;
-  transition: fill 0.3s;
+  fill: $color-primary;
+  transition: fill $transition-time;
 }
 
 .nav-label {
-  font-size: 2.75vh;
+  font-size: $font-size-base;
   transition: color 0.1s;
 }
 
-/* Hover effects */
-
-.nav-link:hover .nav-icon {
-  fill: #f9a634;
-}
-
-.nav-link:hover .nav-label {
-  color: #f9a634;
-}
-
+// Hover effects
 .nav-link:hover {
-  color: #f9a634;
-}
+  color: $color-hover;
 
-/* Active nav item styles */
-
-.nav-link.active {
-  background-color: #12789e;
-  color: #f9a634;
-}
-
-.nav-link.active .nav-icon {
-  fill: #f9a634;
-}
-
-.nav-link.active .nav-label {
-  color: #f9a634;
-}
-
-/* Responsive styles for smaller screens */
-
-@media (max-width: 992px) {
   .nav-icon {
-    width: 3vw;
-    height: 3vw;
+    fill: $color-hover;
+  }
+
+  .nav-label {
+    color: $color-hover;
   }
 }
 
-/* Further reduce sizes if screensize is <= 992px width and 576px height (16:9) */
+// Active nav item styles
+.nav-link.active {
+  background-color: $color-active-background;
+  color: $color-active-text;
+
+  .nav-icon {
+    fill: $color-active-text;
+  }
+
+  .nav-label {
+    color: $color-active-text;
+  }
+}
+
+// Responsive styles for smaller screens
+@media (max-width: 992px) {
+  .nav-icon {
+    width: $nav-icon-size-responsive;
+    height: $nav-icon-size-responsive;
+  }
+}
 
 @media (max-width: 992px) and (max-height: 576px) {
   .nav-icon {
-    width: 2vw;
+    width: $nav-icon-size-small;
     height: auto;
   }
+
   .nav-label {
-    font-size: 1rem;
+    font-size: $font-size-small;
   }
 }
 
+// Sub-panel styles
 .nav-item-container {
   position: relative;
   width: 100%;
@@ -84,53 +98,46 @@
 .sub-panel {
   position: absolute;
   top: 100%;
-  background-color: #eaf4f8;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: $color-sub-menu-background;
+  box-shadow: $box-shadow;
   z-index: 1000;
   margin-top: 15px;
   padding: 10px 20px;
-  display: grid; /* Changed from flex to grid */
-  grid-template-columns: repeat(
-    3,
-    1fr
-  ); /* Four equal columns and one flexible column */
-  gap: 35vh; /* Optional: to add spacing between the grid items */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $gap;
 }
 
-/* Styling each sub-panel item */
-
+// Styling each sub-panel item
 .sub-menu-link {
-  font-size: 1rem;
-  padding: 0.5vh 0;
+  font-size: $font-size-small;
+  padding: $padding-base 0;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   text-decoration: none;
-  color: #e7f4f9;
-  transition: color 0.3s;
+  color: $color-sub-menu-text;
+  transition: color $transition-time;
 }
 
-/* Hover effect for sub-panel items */
-
+// Hover effect for sub-panel items
 .sub-menu-link:hover {
-  color: #000000;
+  color: $color-sub-menu-hover;
   font-weight: bold;
   text-decoration-line: underline;
-  /* Change text color on hover */
 }
 
-/* Sub-panel link text */
-
+// Sub-panel link text
 .sub-menu-link .sub-menu-label {
   color: inherit;
   font-weight: normal;
   text-decoration: none;
-  transition: color 0.3s, font-weight 0.3s, text-decoration 0.3s;
+  transition: color $transition-time, font-weight $transition-time, text-decoration $transition-time;
 }
 
 .sub-menu-link .sub-menu-label:hover {
-  color: #000000;
+  color: $color-sub-menu-hover;
   font-weight: bold;
   text-decoration-line: underline;
 }

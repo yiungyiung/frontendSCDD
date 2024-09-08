@@ -14,10 +14,13 @@
   <div class="form-group">
     <input type="text" placeholder="Add Sub Question" />
   </div>
-  <mat-form-field appearance="fill">
-    <mat-label>Choose Date</mat-label>
-    <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" />
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+  <div class="input-container">
+    <input
+      type="date"
+      class="form-control"
+      id="calendar"
+      [(ngModel)]="selectedDate"
+    />
+    <mat-icon svgIcon="calendar"></mat-icon>
+  </div>
 </div>

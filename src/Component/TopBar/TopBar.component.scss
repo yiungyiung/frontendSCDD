@@ -1,23 +1,47 @@
+// Common Variables
+$background-color-header: #e7f4f9;
+$background-color-logo: #e9ecef;
+$icon-color: #073c5a;
+$icon-hover-color: #f9a634;
+$header-height: 8vh;
+$logo-height: 3.5vh;
+$sidenav-width: 20vw;
+$z-index-header: 1000;
+$z-index-sidenav: 1001;
+
+// Common Mixins
+@mixin header-style {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $background-color-header;
+  padding: 2vh 0.5vw;
+  height: $header-height;
+}
+
+@mixin icon-style($color, $hover-color) {
+  fill: $color;
+  
+  &:hover {
+    fill: $hover-color;
+  }
+}
+
+// Styles
 .header-container {
   width: 100%;
   position: sticky;
-  z-index: 1000;
+  z-index: $z-index-header;
   top: 0;
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #e7f4f9;
-  padding: 2vh 0.5vw;
-  height: 8vh;
-
+  @include header-style;
 }
 
 .logo {
   font-weight: bold;
-  background-color: #e9ecef;
+  background-color: $background-color-logo;
   padding: 0.5vh 0vw;
 }
 
@@ -29,33 +53,26 @@
 
 .icon {
   margin-right: 1.5vw;
-  fill: #073c5a;
+  @include icon-style($icon-color, $icon-hover-color);
   height: auto;
-}
-
-.icon:hover {
-  fill: #f9a634;
 }
 
 .legatrix-logo {
   margin-left: 3vw;
-  height: 3.5vh;
+  height: $logo-height;
 }
 
 .sidenav-container {
   width: 100%;
   position: relative;
-  z-index: 1001;
+  z-index: $z-index-sidenav;
 }
 
 .sidenav {
-  width: 20vw;
-  background-color: #e7f4f9;
+  width: $sidenav-width;
+  background-color: $background-color-header;
   color: white;
-  z-index: 1001;
+  z-index: $z-index-sidenav;
   position: fixed;
   top: 0;
 }
-
-
-

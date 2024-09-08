@@ -19,7 +19,6 @@ export class VendorcardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('vendorrrcarddddd', this.vendor);
     this.getTierName(this.vendor.tierID);
     this.getCategoryName(this.vendor.categoryID);
     if (this.vendor) {
@@ -48,7 +47,6 @@ export class VendorcardComponent implements OnInit {
         vendor.category = category;
         this.isLoading = false;
         this.vendorUpdated.emit(vendor);
-        console.log('Vendor Data with Tier and Category:', vendor);
       })
       .catch((error: any) => {
         console.error('Error loading vendor data:', error);

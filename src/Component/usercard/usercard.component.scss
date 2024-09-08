@@ -1,8 +1,35 @@
+// Common Variables
+$border-color-light: #ddd;
+$border-color-hover: #f9a634;
+$background-color-white: #ffffff;
+$background-color-success: #339a2d;
+$background-color-inactive: #dc3545;
+$background-color-primary: #e7f4f9;
+$background-color-secondary: #fff;
+$btn-success-color: #dc3545;
+$btn-danger-color: #28a745;
+$box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+$border-radius: 8px;
+$font-size-small: 1.7vh;
+$font-size-medium: 2vh;
+
+// Common Mixins
+@mixin card-style {
+  border: 1px solid $border-color-light;
+  background-color: $background-color-white;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+}
+
+@mixin btn-style($color) {
+  background-color: $color;
+  border-color: $color;
+  color: white;
+}
+
+// Styles
 .custcard {
-  border: 1px solid #ddd;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  @include card-style;
   margin-bottom: 6vh;
   width: 60vw;
   margin-top: 3vh;
@@ -10,12 +37,13 @@
 }
 
 .card-body {
-  border: 1px solid transparent ;
+  border: 1px solid transparent;
   padding: 15px;
-}
-.card-body:hover {
-  border: 1px solid #f9a634;
-  border-radius: 8px;
+  
+  &:hover {
+    border: 1px solid $border-color-hover;
+    border-radius: $border-radius;
+  }
 }
 
 .user-status {
@@ -28,15 +56,15 @@
   color: white;
   text-align: center;
   display: inline-block;
-  font-size: 1.7vh;
-}
+  font-size: $font-size-small;
+  
+  &.active {
+    background-color: $background-color-success;
+  }
 
-.user-status.active {
-  background-color: #339a2d;
-}
-
-.user-status.inactive {
-  background-color: #dc3545;
+  &.inactive {
+    background-color: $background-color-inactive;
+  }
 }
 
 .user-details {
@@ -50,30 +78,30 @@
 .detail {
   margin-top: -20px;
   text-align: center;
-  font-size: 2vh;
-}
-
-.detail small {
-  display: block;
-  font-size: 1.7vh;
-  color: gray;
-  text-align: center;
+  font-size: $font-size-medium;
+  
+  small {
+    display: block;
+    font-size: $font-size-small;
+    color: gray;
+    text-align: center;
+  }
 }
 
 .user-id-bg {
-  background-color: #e7f4f9;
+  background-color: $background-color-primary;
   padding: 10px;
   border-radius: 4px;
 }
 
 .user-ids-bg {
-  background-color: #fff;
+  background-color: $background-color-secondary;
   padding: 10px;
   border-radius: 4px;
-}
-
-.user-ids-bg mat-icon {
-  padding-top: -10px;
+  
+  mat-icon {
+    padding-top: -10px;
+  }
 }
 
 .truncate {
@@ -85,13 +113,9 @@
 }
 
 .btn-success {
-  background-color: #dc3545;
-  border-color: #dc3545;
-  color: white;
+  @include btn-style($btn-success-color);
 }
 
 .btn-danger {
-  background-color: #28a745;
-  border-color: #28a745;
-  color: white;
+  @include btn-style($btn-danger-color);
 }

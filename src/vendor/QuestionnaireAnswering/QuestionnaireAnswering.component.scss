@@ -1,6 +1,21 @@
+// Define common variables
+$primary-color: #12789e;
+$secondary-color: #073c5a;
+$hover-color: #032b42;
+$background-color: #ffffff;
+$border-color: #ddd;
+$border-radius: 8px;
+$box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+$text-color: #333;
+$font-color: #12789e;
+$highlight-color: #f9a634;
+$button-padding: 1vh 2vh;
+$font-size-small: 1.8vh;
+$font-size-medium: 2vh;
+
+// Answering Container
 .answering-container {
   position: relative;
-  /* To position the button relative to this container */
   width: 100%;
   margin: 0 auto;
   display: flex;
@@ -10,65 +25,54 @@
 }
 
 .top-right-button-container {
+  display: flex;   
+  align-items: center; 
+  justify-content: flex-end; 
+  gap: 20px;           
   position: absolute;
   top: 0;
   right: 0;
   margin-top: -6vh;
-  margin-right: -3.3vh;
+  margin-right: -3.3vh;  
 }
 
 .button-top {
-  background-color: #12789e;
+  background-color: $primary-color;
   color: #ffffff;
   border: none;
   border-radius: 4px;
-  padding: 1vh 2vh;
-  /* Adjusted padding */
-  font-size: 2vh;
+  padding: $button-padding;
+  font-size: $font-size-medium;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
   outline: none;
+
+  &:hover {
+    background-color: $hover-color;
+    transform: translateY(-2px);
+  }
+
+  &:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+  }
 }
 
-.button-top:hover {
-  background-color: #032b42;
-  transform: translateY(-2px);
-}
-
+// Questionnaire Details
 .questionnaire-details {
   float: left;
   margin-left: -3vw;
   width: 30vw;
   flex-shrink: 0;
-  background-color: #ffffff;
+  background-color: $background-color;
   border-right: 1px solid #e3f2fd;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
   overflow-y: auto;
   height: 68vh;
-  padding-left: 1vw;
-  padding-right: 1vw;
-  overflow-y: scroll;
-  scrollbar-width: none;
-}
-
-.question-details {
-  flex-grow: 1;
-  /* Take up remaining space */
-  background-color: #ffffff;
-  padding: 2vh;
-  /* Converted to vh */
-  overflow-y: auto;
-  height: 68vh;
-  margin-right: -3vw;
-  background-color: #ffffff;
-  border-right: 1px solid #e3f2fd;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  overflow-y: scroll;
+  padding: 1vw;
   scrollbar-width: none;
 }
 
@@ -79,25 +83,33 @@
   align-items: center;
   justify-content: space-between;
   background-color: #e7f4f9;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $border-color;
   height: 7vh;
 }
 
 .card-header {
   padding-left: 1vw;
   padding-top: 5vh;
-  font-size: 2vh;
-  /* Converted to vh */
+  font-size: $font-size-medium;
   font-weight: bold;
-  color: #073c5a;
+  color: $secondary-color;
   background-color: transparent;
   border: none;
 }
 
-.form-label {
-  font-size: 2vh;
-  font-weight: bold;
-  color: #073c5a;
+// Question Details
+.question-details {
+  flex-grow: 1;
+  background-color: $background-color;
+  padding: 2vh;
+  overflow-y: auto;
+  height: 68vh;
+  margin-right: -3vw;
+  border-right: 1px solid #e3f2fd;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  scrollbar-width: none;
 }
 
 .card-header-container-question {
@@ -108,52 +120,45 @@
   align-items: center;
   justify-content: space-between;
   background-color: #e7f4f9;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $border-color;
   height: 7vh;
 }
 
 .card-header-question {
   padding-left: 1vw;
   padding-top: 5vh;
-  font-size: 2vh;
-  /* Converted to vh */
+  font-size: $font-size-medium;
   font-weight: bold;
-  color: #073c5a;
+  color: $secondary-color;
   background-color: transparent;
   border: none;
 }
 
 h2 {
-  color: #12789e;
+  color: $primary-color;
   border-bottom: 2px solid #e3f2fd;
   padding-bottom: 10px;
   margin-bottom: 20px;
-  font-size: 2vh;
-  /* Converted to vh */
+  font-size: $font-size-medium;
 }
 
+// Questionnaire Info and Question Content
 .questionnaire-info,
 .question-content {
   margin-top: 1vh;
 }
 
-.questionnaire-info span {
-  color: #073c5a;
-  line-height: 1.6;
-  margin-bottom: 10px;
-  font-size: 1.8vh;
-}
-
+.questionnaire-info span,
 .questionnaire-info p,
 .question-text,
 .question-description {
-  color: #073c5a;
+  color: $secondary-color;
   line-height: 1.6;
   margin-bottom: 10px;
-  font-size: 1.8vh;
-  /* Converted to vh */
+  font-size: $font-size-small;
 }
 
+// Domains and Domain Cards
 .domains-container {
   display: flex;
   flex-direction: column;
@@ -176,17 +181,16 @@ h2 {
 }
 
 .domain-header h3 {
-  color: #12789e;
+  color: $primary-color;
   margin: 0;
-  font-size: 2vh;
-  /* Converted to vh */
+  font-size: $font-size-medium;
 }
 
 .toggle-button {
   background: none;
   border: none;
   cursor: pointer;
-  color: #12789e;
+  color: $primary-color;
   padding: 0;
 }
 
@@ -197,31 +201,41 @@ h2 {
   padding: 12px;
 }
 
+// Question Button
 .question-button {
   display: block;
   width: 100%;
   padding: 2vh;
-  /* Converted to vh */
   margin-bottom: 10px;
   cursor: pointer;
   text-align: left;
-  background-color: white;
-  border: 2px solid #ddd;
-  color: #12789e;
+  background-color: $background-color;
+  border: 2px solid $border-color;
+  color: $primary-color;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  font-size: 1.8vh;
-  /* Converted to vh */
+  font-size: $font-size-small;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   transition: all 0.3s ease;
+
+  &:hover {
+    border: 2px solid $highlight-color;
+  }
+
+  &.answered {
+    background-color: #339a2d;
+    color: white;
+  }
+
+  &.unanswered {
+    background-color: #dc3545;
+    color: white;
+  }
 }
 
-.question-button:hover {
-  border: 2px solid #f9a634;
-}
-
+// Options and Textboxes
 .options-container,
 .textboxes-container {
   display: flex;
@@ -234,22 +248,20 @@ h2 {
 .textbox {
   display: flex;
   align-items: center;
-  border: 1px solid #12789e;
+  border: 1px solid $primary-color;
   border-radius: 4px;
   padding: 2vh;
-  /* Converted to vh */
 }
 
 .option-text,
 .textbox-label {
   margin-left: 10px;
-  color: #333;
-  font-size: 1.8vh;
-  /* Converted to vh */
+  color: $text-color;
+  font-size: $font-size-small;
 }
 
 input[type="radio"] {
-  accent-color: #12789e;
+  accent-color: $primary-color;
 }
 
 .textbox-input {
@@ -257,49 +269,32 @@ input[type="radio"] {
   border: 1px solid #bbdefb;
   border-radius: 4px;
   padding: 2vh;
-  /* Converted to vh */
   margin-left: 10px;
-  font-size: 1.8vh;
-  /* Converted to vh */
+  font-size: $font-size-small;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+  }
 }
 
-.textbox-input:focus {
-  outline: none;
-  border-color: #12789e;
-  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
-}
-
+// Buttons
 .button-down {
   margin: 2vw;
-  background-color: #12789e;
+  background-color: $primary-color;
   color: #ffffff;
   border: none;
   border-radius: 4px;
-  padding: 1vh;
-  /* Converted to vh */
-  font-size: 2vh;
+  padding: $button-padding;
+  font-size: $font-size-medium;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
   outline: none;
-}
 
-.button-down:hover {
-  background-color: #032b42;
-  transform: translateY(-2px);
-}
-
-.question-button.answered {
-  background-color: #339a2d;
-  color: white;
-}
-
-.question-button.unanswered {
-  background-color: #dc3545;
-  color: white;
-}
-
-.button-top:disabled {
-  background-color: gray;
-  cursor: not-allowed;
+  &:hover {
+    background-color: $hover-color;
+    transform: translateY(-2px);
+  }
 }

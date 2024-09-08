@@ -11,6 +11,8 @@ import { QuestionnaireAssignmentService } from '../../services/QuestionnaireAssi
 import { QuestionnaireAssignment } from '../../model/questionnaireAssignment';
 import { PopupService } from '../../services/PopupService/popup.service';
 import { Router } from '@angular/router';
+import { SubPart } from '../../Component/filter/filter.component';
+import { FilterService } from '../../services/FilterService/Filter.service';
 
 @Component({
   selector: 'app-SelectQuestions',
@@ -23,6 +25,7 @@ export class SelectQuestionsComponent implements OnInit {
   vendorName: string[] = [];
   frameworkName!: string;
   sortedQuestionsByDomain: { [domainID: number]: Question[] } = {};
+  originalSortedQuestionsByDomain: { [domainID: number]: Question[] } = {};
   selectedQuestions: number[] = [];
   domainIDs: number[] = [];
   domainMap: { [id: number]: Domain } = {};
@@ -33,7 +36,9 @@ export class SelectQuestionsComponent implements OnInit {
   vendorID: number[] = [];
   questionnaireName: string = '';
   deadline: string = '';
-questionnaireYear: number|undefined;
+  isFilterVisible = false;
+  questions: Question[] = [];
+  questionnaireYear: number | undefined;
   constructor(
     private questionService: QuestionService,
     private authService: AuthService,
@@ -42,7 +47,8 @@ questionnaireYear: number|undefined;
     private questionnaireService: QuestionnaireService,
     private questionnaireAssignmentService: QuestionnaireAssignmentService,
     private popupService: PopupService,
-    private router: Router
+    private router: Router,
+    private filterService: FilterService
   ) {}
 
   ngOnInit(): void {
@@ -60,6 +66,111 @@ questionnaireYear: number|undefined;
       this.loadDomains();
       this.loadQuestions();
     }
+  }
+
+  filterSubParts: SubPart[] = [
+    {
+      name: 'Search By',
+      type: 'MCQ',
+      options: ['Question ID', 'Question'],
+    },
+    {
+      name: 'Search Keyword',
+      type: 'searchBar',
+      keyword: '',
+    },
+  ];
+
+  toggleFilterVisibility() {
+    this.isFilterVisible = !this.isFilterVisible;
+  }
+
+  closeFilter(): void {
+    this.isFilterVisible = false;
+  }
+
+  isFilterApplied(): boolean {
+    const searchBySubPart = this.filterSubParts.find(
+      (part) => part.name === 'Search By'
+    );
+    return !!(searchBySubPart && searchBySubPart.selectedOption);
+  }
+
+  onFilterChange(event: any) {
+    const filters = this.prepareFilters();
+
+    if (this.isFilterApplied()) {
+      // Apply filters
+      const filteredQuestionsByDomain: { [domainID: number]: Question[] } = {};
+
+      for (const domainID in this.sortedQuestionsByDomain) {
+        if (this.sortedQuestionsByDomain.hasOwnProperty(domainID)) {
+          const questions = this.sortedQuestionsByDomain[domainID];
+          const filteredQuestions = this.filterService.applyFilter(
+            questions,
+            filters
+          );
+
+          if (filteredQuestions.length > 0) {
+            filteredQuestionsByDomain[+domainID] = filteredQuestions;
+          }
+        }
+      }
+
+      // Update the filtered questions by domain
+      this.sortedQuestionsByDomain = filteredQuestionsByDomain;
+    } else {
+      // No filters applied, restore original questions
+      this.sortedQuestionsByDomain = {
+        ...this.originalSortedQuestionsByDomain,
+      };
+    }
+
+    // Update the view or trigger change detection if necessary
+    this.cdr.detectChanges();
+  }
+
+  // Prepare filters based on selected options in filterSubParts
+  prepareFilters() {
+    const filters: {
+      partName: string;
+      value: string | string[];
+      column: keyof Question | ((item: Question) => any);
+      exactMatch?: boolean;
+    }[] = [];
+
+    const searchBySubPart = this.filterSubParts.find(
+      (part) => part.name === 'Search By'
+    );
+    const searchKeywordSubPart = this.filterSubParts.find(
+      (part) => part.name === 'Search Keyword'
+    );
+
+    // Map the selected option to actual Question object keys
+    const searchByColumnMap: {
+      [key: string]: keyof Question | ((item: Question) => any);
+    } = {
+      'Question ID': (question) => question.questionID,
+      Question: (question) => question.questionText,
+    };
+
+    if (
+      searchBySubPart &&
+      searchKeywordSubPart &&
+      searchBySubPart.selectedOption
+    ) {
+      const column = searchByColumnMap[searchBySubPart.selectedOption];
+      if (column) {
+        filters.push({
+          partName: 'Search By',
+          value: searchKeywordSubPart.keyword || '',
+          column,
+          exactMatch: false,
+        });
+      }
+    }
+
+    return filters;
   }
 
   toggleSubPart(domainID: number): void {
@@ -127,6 +238,18 @@ questionnaireYear: number|undefined;
                   this.sortedQuestionsByDomain[question.domainID].push(
                     question
                   );
+                  this.questions.push(question);
+
+                  // Save to original data
+                  if (
+                    !this.originalSortedQuestionsByDomain[question.domainID]
+                  ) {
+                    this.originalSortedQuestionsByDomain[question.domainID] =
+                      [];
+                  }
+                  this.originalSortedQuestionsByDomain[question.domainID].push(
+                    question
+                  );
 
                   // Auto-select questions based on the priority of the first vendor category
                   const firstVendorCategoryID = this.vendorCategories[0];
@@ -154,6 +277,7 @@ questionnaireYear: number|undefined;
         });
       });
   }
+
   getDomainName(domainID: number): string {
     return this.domainMap[domainID]?.domainName || 'Unknown Domain';
   }

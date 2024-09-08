@@ -153,7 +153,6 @@ export class QuestionnaireAnsweringComponent implements OnInit {
     this.moveToNextQuestion();
   }
 
-  // Move to the next unanswered question in the list
   moveToNextQuestion(): void {
     if (!this.selectedQuestionnaire) return;
 
@@ -161,23 +160,52 @@ export class QuestionnaireAnsweringComponent implements OnInit {
       this.selectedQuestion.questionID!
     );
 
-    // Loop through the remaining questions to find the next unanswered one
-    for (
-      let i = currentIndex + 1;
-      i < this.selectedQuestionnaire.questionIDs.length;
-      i++
-    ) {
-      const nextQuestionID = this.selectedQuestionnaire.questionIDs[i];
-      if (!this.answeredQuestions.has(nextQuestionID)) {
-        const nextQuestion = this.questionsByDomain[
-          this.selectedQuestion.domainID
-        ].find((q) => q.questionID === nextQuestionID);
-        if (nextQuestion) {
-          this.onQuestionClick(nextQuestion);
+    // First, check if there are any unanswered questions in the current domain
+    const unansweredQuestionInCurrentDomain = this.questionsByDomain[
+      this.selectedQuestion.domainID
+    ].find((q) => !this.answeredQuestions.has(q.questionID!));
+
+    if (unansweredQuestionInCurrentDomain) {
+      // If there is an unanswered question in the current domain, navigate to it
+      this.onQuestionClick(unansweredQuestionInCurrentDomain);
+      return;
+    }
+
+    // If all questions in the current domain are answered, move to the next domain
+    const allQuestionsInDomain =
+      this.questionsByDomain[this.selectedQuestion.domainID];
+    const allAnsweredInDomain = allQuestionsInDomain.every((q) =>
+      this.answeredQuestions.has(q.questionID!)
+    );
+
+    if (allAnsweredInDomain) {
+      const nextDomainID = this.getNextDomainID(this.selectedQuestion.domainID);
+      if (nextDomainID) {
+        const unansweredQuestionInNextDomain = this.questionsByDomain[
+          nextDomainID
+        ].find((q) => !this.answeredQuestions.has(q.questionID!));
+
+        if (unansweredQuestionInNextDomain) {
+          this.onQuestionClick(unansweredQuestionInNextDomain);
         }
-        return;
       }
     }
+  }
+
+  // Helper function to get the next domain ID
+  getNextDomainID(currentDomainID: number): number | undefined {
+    const domainIDs = Object.keys(this.questionsByDomain).map((id) =>
+      parseInt(id)
+    );
+    const currentIndex = domainIDs.indexOf(currentDomainID);
+
+    // Check if there is a next domain
+    if (currentIndex >= 0 && currentIndex + 1 < domainIDs.length) {
+      return domainIDs[currentIndex + 1];
+    }
+
+    // No next domain found
+    return undefined;
   }
 
   // Reset the current response and remove it from storage

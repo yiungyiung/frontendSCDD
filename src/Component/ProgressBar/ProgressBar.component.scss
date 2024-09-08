@@ -1,0 +1,25 @@
+$text-color-primary: #073c5a;
+.container{
+    z-index: 1001;
+}
+.progress-container {
+    width: 12rem;
+    height: 1rem;
+    border-radius: 15px;
+    background-color: transparent;
+    border: 1px solid rgba($text-color-primary, 0.52);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    border-radius: 15px;
+    background-color: #4caf50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+  }
+  

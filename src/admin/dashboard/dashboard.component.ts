@@ -31,7 +31,6 @@ export class DashboardComponent implements OnInit {
       data: [2, 2, 3, 2, 1],
       type: 'column',
     },
-
   ];
 
   assignments: QuestionnaireAssignment[] = [];
@@ -58,7 +57,7 @@ export class DashboardComponent implements OnInit {
     private dataFetchService: DataFetchService,
     private vendorService: VendorService,
     private complianceService: ComplianceService,
-    private entityService:EntityService
+    private entityService: EntityService
   ) {}
 
   ngOnInit(): void {
@@ -88,7 +87,10 @@ export class DashboardComponent implements OnInit {
           {
             name: 'Vendors',
             type: 'pie',
-            data: data.map(item => ({ name: item.categoryName, y: item.vendorCount })),
+            data: data.map((item) => ({
+              name: item.categoryName,
+              y: item.vendorCount,
+            })),
           },
         ];
       },
@@ -100,7 +102,7 @@ export class DashboardComponent implements OnInit {
 
   loadComplianceData(): void {
     const token = this.authService.getToken();
-  
+
     // Fetch all statuses first
     this.entityService.getAllStatuses(token).subscribe(
       (statuses: Status[]) => {
@@ -109,14 +111,14 @@ export class DashboardComponent implements OnInit {
           (data: any) => {
             const years = Object.keys(data);
             this.chartLabels = years;
-  
+
             // Dynamically create series based on fetched statuses
-            this.chartData = statuses.map(status => ({
+            this.chartData = statuses.map((status) => ({
               name: status.statusName,
-              data: years.map(year => data[year][status.statusName]), // Fill in 0 if data is missing
+              data: years.map((year) => data[year][status.statusName]), // Fill in 0 if data is missing
               type: 'column',
             }));
-  
+
             console.log(this.chartData);
             console.log(this.chartLabels);
           },
@@ -130,7 +132,7 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
-  
+
   maximizeCard(event: MouseEvent, cardNumber: number): void {
     event.stopPropagation();
     this.isModal = true;
