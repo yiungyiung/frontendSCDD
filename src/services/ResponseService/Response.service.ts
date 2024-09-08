@@ -30,4 +30,10 @@ getAllResponsesForQuestionnaire(questionnaireId: number): Observable<Questionnai
 getResponseForAssignmentAndQuestion(assignmentId: number, questionId: number): Observable<QuestionResponseDto> {
   return this.http.get<QuestionResponseDto>(`${this.apiUrl}/assignment/${assignmentId}/question/${questionId}`);
 }
+
+uploadFile(file: File): Observable<any> {
+  const formData = new FormData();
+  formData.append('file', file, file.name);
+  return this.http.post(`${this.apiUrl}/upload`, formData);
+}
 }

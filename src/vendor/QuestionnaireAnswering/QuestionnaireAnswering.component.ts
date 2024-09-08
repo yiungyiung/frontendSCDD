@@ -7,7 +7,7 @@ import { EntityService } from '../../services/EntityService/Entity.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionnaireService } from '../../services/QuestionnaireService/Questionnaire.service';
 import { AuthService } from '../../services/AuthService/auth.service';
-import { ResponseDto, TextBoxResponseDto } from '../../model/ResponseDto';
+import { FileUploadResponseDto, ResponseDto, TextBoxResponseDto } from '../../model/ResponseDto';
 import { ResponseService } from '../../services/ResponseService/Response.service';
 import { PopupService } from '../../services/PopupService/popup.service';
 
@@ -31,6 +31,7 @@ export class QuestionnaireAnsweringComponent implements OnInit {
   answeredQuestions = new Set<number>();
   selectedOption: number | null = null;
   textboxResponses: { [key: number]: string } = {};
+  fileUploadresponses: { [key: number]: FileUploadResponseDto } = {};
   assignmentID: number | null = null;
   questionnaireID: number | null = null;
 
@@ -61,7 +62,28 @@ export class QuestionnaireAnsweringComponent implements OnInit {
     }
   }
 
-  // Toggle the visibility of sub-parts for a given domain
+  onFileChange(event: any, fileUploadID: number): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.uploadFile(file, fileUploadID);
+    }
+  }
+  uploadFile(file: File, fileUploadID: number): void {
+    this.responseService.uploadFile(file).subscribe(
+      (response) => {
+        // Update the fileUploadResponses with the file name and path
+        this.fileUploadresponses[fileUploadID] = {
+          fileUploadID: fileUploadID,
+          fileName: response.fileName,
+          filePath: response.filePath,
+        };
+        console.log('File uploaded successfully', response);
+      },
+      (error) => {
+        console.error('Error uploading file', error);
+      }
+    );
+  }
   toggleSubPart(categoryID: number): void {
     this.toggledSubParts[categoryID] = !this.toggledSubParts[categoryID];
   }
@@ -146,6 +168,7 @@ export class QuestionnaireAnsweringComponent implements OnInit {
       questionID: this.selectedQuestion.questionID!,
       optionID: this.selectedOption ?? undefined,
       textBoxResponses: this.getTextBoxResponses(),
+      fileUploadResponses: this.getFileUploadResponses(),
     };
 
     this.responses[this.selectedQuestion.questionID!] = response;
@@ -211,11 +234,18 @@ export class QuestionnaireAnsweringComponent implements OnInit {
   // Reset the current response and remove it from storage
   resetCurrentResponse(): void {
     if (!this.selectedQuestion) return;
-
-    this.selectedOption = null;
-    this.textboxResponses = {};
-    delete this.responses[this.selectedQuestion.questionID!];
-    this.answeredQuestions.delete(this.selectedQuestion.questionID!);
+  
+    // Reset only the responses for the current question
+    if (this.selectedQuestion.questionID !== undefined) {
+      // Clear local state for the current question
+      this.selectedOption = null;
+      this.textboxResponses = {};
+      this.fileUploadresponses = {};
+  
+      // Remove the stored response for the current question
+      delete this.responses[this.selectedQuestion.questionID!];
+      this.answeredQuestions.delete(this.selectedQuestion.questionID!); // Mark question as unanswered
+    }
   }
 
   // Submit all responses to the backend service
@@ -266,7 +296,20 @@ export class QuestionnaireAnsweringComponent implements OnInit {
     return textBoxResponses;
   }
 
-  // Check if a specific question has already been answered
+  getFileUploadResponses(): FileUploadResponseDto[] {
+    const fileUploadResponses: FileUploadResponseDto[] = [];
+    for (const fileUploadID in this.fileUploadresponses) {
+      if (this.fileUploadresponses.hasOwnProperty(fileUploadID)) {
+        const response = this.fileUploadresponses[fileUploadID];
+        fileUploadResponses.push({
+          fileUploadID: Number(fileUploadID),
+          fileName: response.fileName,
+          filePath: response.filePath,
+        });
+      }
+    }
+    return fileUploadResponses;
+  }
   isQuestionAnswered(questionID: number): boolean {
     return this.answeredQuestions.has(questionID);
   }
