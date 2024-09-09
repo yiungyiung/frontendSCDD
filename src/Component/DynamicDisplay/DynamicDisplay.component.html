@@ -1,44 +1,75 @@
 <div class="response-table-container">
-    <table class="response-table">
-        <thead>
-            <tr class="table-row">
-                <th rowspan="2" class="table-header">Vendors</th>
-                <ng-container *ngFor="let question of responses[0]?.questions; let i = index">
-                    <th [attr.colspan]="
-              (question.optionResponses.length > 0 ? 1 : 0) +
-              (selectedQuestion[i].textboxes.length! > 0 ? selectedQuestion[i].textboxes.length : 0)
-            " matTooltip="{{ question.questionText }}">
-                        {{ question.questionText }}
-                    </th>
-                </ng-container>
-            </tr>
-            <tr>
-                <ng-container *ngFor="let question of responses[0]?.questions; let i = index">
-                    <th *ngIf="question.optionResponses.length > 0" matTooltip="Option Selection">
-                        Option Selection
-                    </th>
-                    <ng-container *ngIf="selectedQuestion[i].textboxes.length > 0">
-                        <th *ngFor="let textbox of selectedQuestion[i]?.textboxes" matTooltip="{{ textbox.label }}">
-                            {{ textbox.label }}
-                        </th>
-                    </ng-container>
-                </ng-container>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let response of responses">
-                <td>Vendor {{ response.vendorName }}</td>
-                <ng-container *ngFor="let question of response.questions; let i = index">
-                    <td *ngIf="question.optionResponses.length > 0" matTooltip="{{ question.optionResponses[0].optionText }}">
-                        {{ question.optionResponses[0].optionText || "" }}
-                    </td>
-                    <ng-container *ngIf="selectedQuestion[i].textboxes.length > 0">
-                        <td *ngFor="let textboxResponse of question.textBoxResponses" matTooltip="{{ textboxResponse.textValue }}">
-                            {{ textboxResponse.textValue || "" }}
-                        </td>
-                    </ng-container>
-                </ng-container>
-            </tr>
-        </tbody>
-    </table>
+  <table class="response-table">
+    <thead>
+      <tr class="table-row">
+        <th rowspan="2" class="table-header">Vendors</th>
+        <ng-container *ngFor="let question of selectedQuestion">
+          <th
+            [attr.colspan]="
+              (question.options?.length! > 0 ? 1 : 0) +
+              (question.textboxes?.length! > 0 ? question.textboxes.length : 0)
+            "
+            [matTooltip]="question.questionText"
+          >
+            {{ question.questionText }}
+          </th>
+        </ng-container>
+      </tr>
+      <tr>
+        <ng-container *ngFor="let question of selectedQuestion">
+          <th
+            *ngIf="question.options?.length! > 0"
+            matTooltip="Option Selection"
+          >
+            Option Selection
+          </th>
+          <ng-container
+            *ngIf="question.textboxes && question.textboxes.length > 0"
+          >
+            <th
+              *ngFor="let textbox of question.textboxes"
+              [matTooltip]="textbox.label"
+            >
+              {{ textbox.label }}
+            </th>
+          </ng-container>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let response of responses">
+        <td>{{ response.vendorName || "Unknown Vendor" }}</td>
+        <ng-container *ngFor="let question of selectedQuestion">
+          <td
+            *ngIf="question.options?.length! > 0"
+            [matTooltip]="getOptionResponse(response, question.questionID!)"
+          >
+            {{ getOptionResponse(response, question.questionID!) || "-" }}
+          </td>
+          <ng-container
+            *ngIf="question.textboxes && question.textboxes.length > 0"
+          >
+            <td
+              *ngFor="let textbox of question.textboxes"
+              [matTooltip]="
+                getTextboxResponse(
+                  response,
+                  question.questionID!,
+                  textbox.textBoxID!
+                )
+              "
+            >
+              {{
+                getTextboxResponse(
+                  response,
+                  question.questionID!,
+                  textbox.textBoxID!
+                ) || "-"
+              }}
+            </td>
+          </ng-container>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
 </div>

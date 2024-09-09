@@ -18,5 +18,45 @@ export class DynamicDisplayComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // Ensure that all questions have the textboxes property
+    this.selectedQuestion = this.selectedQuestion.map((question) => ({
+      ...question,
+      textboxes: question.textboxes || [],
+    }));
+  }
+
+  getOptionResponse(
+    response: ExtendedQuestionnaireAssignmentResponseDto,
+    questionId: number
+  ): string {
+    const question = response.questions.find(
+      (q) => q.questionID === questionId
+    );
+    if (
+      question &&
+      question.optionResponses &&
+      question.optionResponses.length > 0
+    ) {
+      return question.optionResponses.map((opt) => opt.optionText).join(', ');
+    }
+    return '-';
+  }
+
+  getTextboxResponse(
+    response: ExtendedQuestionnaireAssignmentResponseDto,
+    questionId: number,
+    textboxId: number
+  ): string {
+    const question = response.questions.find(
+      (q) => q.questionID === questionId
+    );
+    if (question && question.textBoxResponses) {
+      const textboxResponse = question.textBoxResponses.find(
+        (t) => t.textBoxID === textboxId
+      );
+      return textboxResponse ? textboxResponse.textValue : '';
+    }
+    return '-';
+  }
 }
