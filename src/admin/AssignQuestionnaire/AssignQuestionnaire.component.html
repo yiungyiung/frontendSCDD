@@ -1,13 +1,27 @@
 <div class="container-fluid">
   <div class="row">
-    <!-- Vendor Selection Section -->
-
+    <div class="col-md-12 mt-3">
+      <button class="btn btn-primary" (click)="onSubmit()">Assign Questionnaire</button>
+    </div>
     <div class="left-card">
       <div class="vendor-header-container">
-        <h5 class="card-header">Select Vendor</h5>
+        <h5 class="card-header">Select</h5>
       </div>
-
       <div class="mb-3">
+        <label for="calendar" class="form-label">Select Deadline</label>
+        <div class="input-container">
+          <input
+            type="date"
+            class="form-control"
+            id="calendar"
+            [(ngModel)]="deadline"
+          />
+          <mat-icon svgIcon="calendar"></mat-icon>
+        </div>
+      </div>
+      <div class="divider1"></div>
+        <div class="form-label">Select Vendors:</div>
+      <div class="mb-3 custcard">
         <div class="card-body">
           <div *ngFor="let category of categorizedVendors">
             <div class="d-flex mb-2">
@@ -24,11 +38,7 @@
 
               <div class="category-title">{{ category.categoryName }}</div>
               <mat-icon
-                svgIcon="{{
-                  isSubPartToggled(category.categoryID)
-                    ? 'upArrow'
-                    : 'downArrow'
-                }}"
+                [svgIcon]="isSubPartToggled(category.categoryID) ? 'upArrow' : 'downArrow'"
                 (click)="toggleSubPart(category.categoryID)"
               ></mat-icon>
             </div>
@@ -42,16 +52,10 @@
                     <div class="box-container">
                       <div
                         class="box"
-                        [ngClass]="{
-                          selected: isVendorSelected(vendor.vendorID)
-                        }"
-                        (click)="
-                          onVendorSelect(vendor.vendorID, category.categoryID)
-                        "
+                        [ngClass]="{ selected: isVendorSelected(vendor.vendorID) }"
+                        (click)="onVendorSelect(vendor.vendorID, category.categoryID)"
                         [class.disabled]="isVendorDisabled(vendor)"
-                        [style.pointer-events]="
-                          isVendorDisabled(vendor) ? 'none' : 'auto'
-                        "
+                        [style.pointer-events]="isVendorDisabled(vendor) ? 'none' : 'auto'"
                       ></div>
                     </div>
                   </div>
@@ -94,41 +98,45 @@
           <h4 class="card-header">Questionnaire</h4>
         </div>
         <div class="col-md-12" *ngFor="let questionnaire of questionnaires">
-          <div class="custcard mb-3">
+          <div class="custcard mb-3" [class.selected]="isQuestionnaireSelected(questionnaire.questionnaireID!)">
             <div class="card-body">
-              <div class="user-status">
-                <div class="question-category-container">
-                  <div *ngIf="questionnaire.questionnaireID !== undefined">
-                    <ul class="category-list">
-                      <li
-                        *ngFor="
-                          let categoryId of getObjectKeys(
-                            questionCountByCategory[
-                              questionnaire.questionnaireID
-                            ] || {}
-                          )
-                        "
-                      >
-                        <button
-                          class="category-button"
-                          [ngClass]="getCategoryClass(+categoryId)"
+              <div class="d-flex justify-content-between align-items-start">
+                <div class="user-status flex-grow-1">
+                  <div class="question-category-container">
+                    <div *ngIf="questionnaire.questionnaireID !== undefined">
+                      <ul class="category-list">
+                        <li
+                          *ngFor="let categoryId of getObjectKeys(questionCountByCategory[questionnaire.questionnaireID] || {})"
                         >
-                          <span class="category-name">{{
-                            getCategoryName(+categoryId)
-                          }}</span>
-                          <span class="category-count">{{
-                            getQuestionCountForCategory(
-                              questionnaire.questionnaireID,
-                              +categoryId
-                            )
-                          }}</span>
-                        </button>
-                      </li>
-                    </ul>
+                          <button
+                            class="category-button"
+                            [ngClass]="getCategoryClass(+categoryId)"
+                          >
+                            <span class="category-name">{{
+                              getCategoryName(+categoryId)
+                            }}</span>
+                            <span class="category-count">{{
+                              getQuestionCountForCategory(
+                                questionnaire.questionnaireID,
+                                +categoryId
+                              )
+                            }}</span>
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="user-details">
+                <div
+                  class="detail user-ids-bg"
+                >
+                  <small>Select</small>
+                  <div class="circle-container" (click)="selectQuestionnaire(questionnaire.questionnaireID!)">
+                    <div class="circle"></div>
+                  </div>
+                </div>
                 <div
                   class="detail user-id-bg"
                   matTooltip="{{ questionnaire.questionnaireID }}"
@@ -152,6 +160,7 @@
                   <small>Year</small>
                   <div class="truncate">{{ questionnaire.year }}</div>
                 </div>
+                
                 <div class="detail user-ids-bg">
                   <button
                     class="btn btn-link p-0"
@@ -195,23 +204,23 @@
                 <div
                   *ngFor="let question of questionsByDomain[+domainID]"
                   class="question-card"
-                ><div
-                class="question-status"
-                [ngClass]="{
-                  'tab-critical':
-                    getCategoryName(question.categoryID) === 'Critical',
-                  'tab-non-critical':
-                    getCategoryName(question.categoryID) === 'Non-Critical',
-                  'tab-others':
-                    getCategoryName(question.categoryID) === 'Others'
-                }"
-              >
-                {{ getCategoryName(question.categoryID) }}
-              </div>                  
+                >
+                  <div
+                    class="question-status"
+                    [ngClass]="{
+                      'tab-critical':
+                        getCategoryName(question.categoryID) === 'Critical',
+                      'tab-non-critical':
+                        getCategoryName(question.categoryID) === 'Non-Critical',
+                      'tab-others':
+                        getCategoryName(question.categoryID) === 'Others'
+                    }"
+                  >
+                    {{ getCategoryName(question.categoryID) }}
+                  </div>                  
                   <div class="question-card-content">
-                        <p>{{ question.questionText }}</p>
-                        <h4 class="question-card-title">Helper Text: <small>{{ question.description }}</small>                         
-                        </h4>
+                    <p>{{ question.questionText }}</p>
+                    <h4 class="question-card-title">Helper Text: <small>{{ question.description }}</small></h4>
                   </div>
                 </div>
               </div>

@@ -1,9 +1,9 @@
-
 $primary-color: #073c5a;
 $secondary-color: #ffb23b;
 $background-color: #fff;
 $border-color: #ddd;
 $shadow-color: rgba(7, 60, 90, 0.2);
+
 @mixin flex-center {
   display: flex;
   align-items: center;
@@ -15,9 +15,11 @@ $shadow-color: rgba(7, 60, 90, 0.2);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   background-color: $background-color;
 }
-mat-icon{
-height: auto;
+
+mat-icon {
+  height: auto;
 }
+
 .container-fluid {
   margin-top: 5.3vh;
 }
@@ -25,7 +27,7 @@ height: auto;
 .left-card {
   @include card-base;
   padding: 10px;
-  height: 70vh;
+  height: 68vh;
   overflow-y: scroll;
   scrollbar-width: none;
   width: 36vw;
@@ -47,7 +49,7 @@ height: auto;
 
 .category-title {
   color: $primary-color;
-  font-size: 2.25vh;
+  font-size: 2vh;
   font-weight: bold;
 }
 
@@ -78,7 +80,7 @@ input[type="checkbox"] {
     border-color: $secondary-color;
 
     &::after {
-      content: '\2714';
+      content: "\2714";
       color: white;
       font-size: 16px;
       position: absolute;
@@ -89,8 +91,13 @@ input[type="checkbox"] {
 }
 
 .divider {
-  border-top: 1px solid rgba(0, 0, 0, 0.25);
-  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.25);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.divider1 {
+  border-top: 1px solid rgba(0, 0, 0, 0.5);
   margin: 20px 0;
 }
 
@@ -119,12 +126,67 @@ input[type="checkbox"] {
   }
 }
 
+.custcard {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.circle-container {
+  display: flex;
+  width: auto;
+  height: auto;
+  cursor: pointer;
+}
+
+.circle {
+  margin-left: 1vw;
+  width: 2.5vh;
+  height: 2.5vh;
+  border-radius: 50%;
+  border: 2px solid $primary-color;
+  background-color: transparent;
+  position: relative;
+  transition: border-color 0.3s;
+
+  &::after {
+    content: "";
+    width: 1.2vh;
+    height: 1.2vh;
+    border-radius: 50%;
+    background-color: transparent;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: background-color 0.3s;
+  }
+}
+
+.custcard.selected .circle {
+  border-color: $secondary-color;
+
+  &::after {
+    background-color: $secondary-color;
+  }
+}
+
+.card-body {
+  .d-flex {
+    .user-status {
+      flex-grow: 1;
+    }
+    .circle-container {
+      flex-shrink: 0;
+    }
+  }
+}
+
 .back-card {
   @include card-base;
   margin-bottom: 2.5vh;
   overflow-y: scroll;
   scrollbar-width: none;
-  height: 70vh;
+  height: 68vh;
 }
 
 .d-flex {
@@ -209,13 +271,12 @@ input[type="checkbox"] {
 
 .user-details {
   display: grid;
-  grid-template-columns: repeat(4, 12vw 18vw 8vw 8vw);
+  grid-template-columns: 1fr 3fr 5fr 2fr 1fr;
   text-align: center;
 }
 
 .detail {
   margin-top: -20px;
-  text-align: center;
   font-size: 2vh;
 
   small {
@@ -261,9 +322,40 @@ input[type="checkbox"] {
   }
 }
 
-.btn-link {
-  color: #007bff;
-  height:auto;
+.btn-primary {
+  background-color: #12789e;
+  height: auto;
+  align-items: center;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 2.5vh;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-bottom: 2vh;
+  margin-top: -8vh;
+  display: block;
+  padding: 1vh;
+
+  &:hover {
+    background-color: #105a7e;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active {
+    background-color: #0d4a61;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.select-questionnaire {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.custcard {
+  position: relative;
 }
 
 .category-button {
@@ -296,12 +388,21 @@ input[type="checkbox"] {
     }
   }
 
-  &.category-1 { background-color: #DA3B00; }
-  &.category-2 { background-color: #fe9300; }
-  &.category-3 { background-color: #FEBB00; }
-  &.category-4 { background-color: #FFE400; }
+  &.category-1 {
+    background-color: #da3b00;
+  }
+  &.category-2 {
+    background-color: #fe9300;
+  }
+  &.category-3 {
+    background-color: #febb00;
+  }
+  &.category-4 {
+    background-color: #ffe400;
+  }
 
-  .category-name, .category-count {
+  .category-name,
+  .category-count {
     color: $background-color;
     position: absolute;
     white-space: nowrap;
@@ -394,4 +495,35 @@ input[type="checkbox"] {
   color: #666;
   margin-bottom: 5px;
   text-align: center;
+}
+
+.input-container {
+  position: relative;
+  display: inline-block;
+  width: 35vh;
+}
+
+.input-container mat-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.form-label {
+  font-size: 2vh;
+  font-weight: bold;
+  color: $primary-color;
+  margin-left: 1vw;
+}
+
+.form-control {
+  margin-left: 1vw;
+  margin-top: 1vh;
+  width: 90%;
+  padding: 1.5vh;
+  font-size: 2vh;
+  border: 1px solid $border-color;
+  border-radius: 4px;
 }
