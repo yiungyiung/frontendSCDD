@@ -69,7 +69,6 @@ export class AuthService {
 
   getCurrentUser(): User | null {
     const token = this.getToken();
-    console.log(token);
     if (token && !this.jwtHelper.isTokenExpired(token)) {
       const decodedToken = this.jwtHelper.decodeToken(token);
 

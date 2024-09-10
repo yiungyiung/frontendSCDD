@@ -162,7 +162,10 @@ export class QuestionnaireAnsweringComponent implements OnInit {
   // Save the current response to the question
   saveCurrentResponse(): void {
     if (!this.selectedQuestion) return;
-
+    if (!this.isResponseValid()) {
+      this.popupService.showPopup('Please fill out all required fields.', '#dc3545');
+      return;
+    }
     const response: ResponseDto = {
       assignmentID: this.assignmentID!,
       questionID: this.selectedQuestion.questionID!,
@@ -175,7 +178,35 @@ export class QuestionnaireAnsweringComponent implements OnInit {
     this.answeredQuestions.add(this.selectedQuestion.questionID!);
     this.moveToNextQuestion();
   }
-
+  isResponseValid(): boolean {
+    // Check if the question has options and ensure one is selected
+    if (this.selectedQuestion.options && this.selectedQuestion.options.length > 0) {
+      if (this.selectedOption === null) {
+        return false;  // No option selected
+      }
+    }
+  
+    // Check if the question has textboxes and ensure all are filled
+    if (this.selectedQuestion.textboxes && this.selectedQuestion.textboxes.length > 0) {
+      for (const textbox of this.selectedQuestion.textboxes) {
+        if (!this.textboxResponses[textbox.textBoxID!]?.trim()) {
+          return false;  // Empty textbox response
+        }
+      }
+    }
+  
+    // Check if the question has file uploads and ensure all are uploaded
+    if (this.selectedQuestion.fileUploads && this.selectedQuestion.fileUploads.length > 0) {
+      for (const fileUpload of this.selectedQuestion.fileUploads) {
+        if (!this.fileUploadresponses[fileUpload.fileUploadID!]) {
+          return false;  // No file uploaded
+        }
+      }
+    }
+  
+    // All fields are valid
+    return true;
+  }
   moveToNextQuestion(): void {
     if (!this.selectedQuestionnaire) return;
 
