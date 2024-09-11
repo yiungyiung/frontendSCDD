@@ -35,6 +35,7 @@ import { AssignmentCardComponent } from '../../Component/AssignmentCard/Assignme
 import { NotificationSidebarComponent } from '../../Component/Notification/notification.component';
 import { ProgressBarComponent } from '../../Component/ProgressBar/ProgressBar.component';
 import { FilterComponent } from '../../Component/filter/filter.component';
+import { ExistingQuestionnaireModalComponent } from '../../Component/ExistingQuestionnaireModal/ExistingQuestionnaireModal.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { FilterComponent } from '../../Component/filter/filter.component';
     NotificationSidebarComponent,
     ProgressBarComponent,
     FilterComponent,
+    ExistingQuestionnaireModalComponent,
   ],
   imports: [
     HighchartsChartModule,
@@ -115,6 +117,7 @@ import { FilterComponent } from '../../Component/filter/filter.component';
     NotificationSidebarComponent,
     ProgressBarComponent,
     FilterComponent,
+    ExistingQuestionnaireModalComponent,
   ],
 })
 export class SharedModule {}

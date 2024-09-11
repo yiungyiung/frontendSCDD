@@ -3,13 +3,12 @@ import { QuestionService } from '../../services/QuestionService/Question.service
 import { QuestionnaireService } from '../../services/QuestionnaireService/Questionnaire.service';
 import { ReportStateService } from '../../services/ReportState/ReportState.service';
 import { Question } from '../../model/question';
-import { questionnaire } from '../../model/questionnaire';
 import { AuthService } from '../../services/AuthService/auth.service';
 
 @Component({
   selector: 'app-DynamicResponseList',
   templateUrl: './DynamicResponseList.component.html',
-  styleUrls: ['./DynamicResponseList.component.scss']
+  styleUrls: ['./DynamicResponseList.component.scss'],
 })
 export class DynamicResponseListComponent implements OnInit {
   questions: Question[] = [];
@@ -23,12 +22,16 @@ export class DynamicResponseListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.reportStateService.selectedQuestionnaire$.subscribe((questionnaireId) => {
-      if (questionnaireId) {
-        this.loadQuestions(questionnaireId);
+    // Subscribe to selected questionnaire ID
+    this.reportStateService.selectedQuestionnaire$.subscribe(
+      (questionnaireId) => {
+        if (questionnaireId) {
+          this.loadQuestions(questionnaireId);
+        }
       }
-    });
+    );
 
+    // Subscribe to selected questions
     this.reportStateService.selectedQuestions$.subscribe((questionIds) => {
       this.selectedQuestions = questionIds;
     });
@@ -36,15 +39,28 @@ export class DynamicResponseListComponent implements OnInit {
 
   loadQuestions(questionnaireId: number) {
     const token = this.authService.getToken();
-    this.questionnaireService.getQuestionsByQuestionnaireId(questionnaireId, token).subscribe((questionnaire) => {
-      this.questions = []; // Reset questions array
+    this.questionnaireService
+      .getQuestionsByQuestionnaireId(questionnaireId, token)
+      .subscribe((questionnaire) => {
+        this.questions = []; // Reset questions array
 
-      for (const questionId of questionnaire.questionIDs) {
-        this.questionService.getQuestionById(questionId, token).subscribe((question) => {
-          this.questions.push(question);
-        });
-      }
-    });
+        // Loop through each question ID from the questionnaire
+        for (const questionId of questionnaire.questionIDs) {
+          this.questionService
+            .getQuestionById(questionId, token)
+            .subscribe((question) => {
+              this.questions.push(question);
+
+              // Select all questions by default
+              if (!this.selectedQuestions.includes(questionId)) {
+                this.selectedQuestions.push(questionId);
+              }
+            });
+        }
+
+        // Update the selected questions in the state after loading all questions
+        this.reportStateService.updateSelectedQuestions(this.selectedQuestions);
+      });
   }
 
   onQuestionSelect(questionId: number) {

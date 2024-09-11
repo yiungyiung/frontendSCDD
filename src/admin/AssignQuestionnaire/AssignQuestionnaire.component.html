@@ -1,7 +1,9 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12 mt-3">
-      <button class="btn btn-primary" (click)="onSubmit()">Assign Questionnaire</button>
+      <button class="btn btn-primary" (click)="onSubmit()">
+        Assign Questionnaire
+      </button>
     </div>
     <div class="left-card">
       <div class="vendor-header-container">
@@ -20,7 +22,7 @@
         </div>
       </div>
       <div class="divider1"></div>
-        <div class="form-label">Select Vendors:</div>
+      <div class="form-label">Select Vendors:</div>
       <div class="mb-3 custcard">
         <div class="card-body">
           <div *ngFor="let category of categorizedVendors">
@@ -38,7 +40,11 @@
 
               <div class="category-title">{{ category.categoryName }}</div>
               <mat-icon
-                [svgIcon]="isSubPartToggled(category.categoryID) ? 'upArrow' : 'downArrow'"
+                [svgIcon]="
+                  isSubPartToggled(category.categoryID)
+                    ? 'upArrow'
+                    : 'downArrow'
+                "
                 (click)="toggleSubPart(category.categoryID)"
               ></mat-icon>
             </div>
@@ -52,10 +58,16 @@
                     <div class="box-container">
                       <div
                         class="box"
-                        [ngClass]="{ selected: isVendorSelected(vendor.vendorID) }"
-                        (click)="onVendorSelect(vendor.vendorID, category.categoryID)"
+                        [ngClass]="{
+                          selected: isVendorSelected(vendor.vendorID)
+                        }"
+                        (click)="
+                          onVendorSelect(vendor.vendorID, category.categoryID)
+                        "
                         [class.disabled]="isVendorDisabled(vendor)"
-                        [style.pointer-events]="isVendorDisabled(vendor) ? 'none' : 'auto'"
+                        [style.pointer-events]="
+                          isVendorDisabled(vendor) ? 'none' : 'auto'
+                        "
                       ></div>
                     </div>
                   </div>
@@ -96,9 +108,31 @@
       <div class="row grid-container back-card">
         <div class="card-header-container">
           <h4 class="card-header">Questionnaire</h4>
+          <div class="icon-container ml-auto">
+            <mat-icon
+              [ngClass]="{ 'filter-applied': isFilterApplied() }"
+              svgIcon="filterIcon"
+              (click)="toggleFilterVisibility()"
+            ></mat-icon>
+          </div>
         </div>
-        <div class="col-md-12" *ngFor="let questionnaire of questionnaires">
-          <div class="custcard mb-3" [class.selected]="isQuestionnaireSelected(questionnaire.questionnaireID!)">
+        <div *ngIf="isFilterVisible">
+          <app-filter
+            [subParts]="filterSubParts"
+            (close)="closeFilter()"
+            (filterChange)="onFilterChange($event)"
+          ></app-filter>
+        </div>
+        <div
+          class="col-md-12"
+          *ngFor="let questionnaire of filteredquestionnaire"
+        >
+          <div
+            class="custcard mb-3"
+            [class.selected]="
+              isQuestionnaireSelected(questionnaire.questionnaireID!)
+            "
+          >
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-start">
                 <div class="user-status flex-grow-1">
@@ -106,7 +140,13 @@
                     <div *ngIf="questionnaire.questionnaireID !== undefined">
                       <ul class="category-list">
                         <li
-                          *ngFor="let categoryId of getObjectKeys(questionCountByCategory[questionnaire.questionnaireID] || {})"
+                          *ngFor="
+                            let categoryId of getObjectKeys(
+                              questionCountByCategory[
+                                questionnaire.questionnaireID
+                              ] || {}
+                            )
+                          "
                         >
                           <button
                             class="category-button"
@@ -129,11 +169,14 @@
                 </div>
               </div>
               <div class="user-details">
-                <div
-                  class="detail user-ids-bg"
-                >
+                <div class="detail user-ids-bg">
                   <small>Select</small>
-                  <div class="circle-container" (click)="selectQuestionnaire(questionnaire.questionnaireID!)">
+                  <div
+                    class="circle-container"
+                    (click)="
+                      selectQuestionnaire(questionnaire.questionnaireID!)
+                    "
+                  >
                     <div class="circle"></div>
                   </div>
                 </div>
@@ -160,7 +203,7 @@
                   <small>Year</small>
                   <div class="truncate">{{ questionnaire.year }}</div>
                 </div>
-                
+
                 <div class="detail user-ids-bg">
                   <button
                     class="btn btn-link p-0"
@@ -175,67 +218,11 @@
         </div>
       </div>
     </div>
-
-    <!-- Modal -->
-    <div
-      class="modal"
-      tabindex="-1"
-      [class.show]="isModalOpen"
-      [ngStyle]="{ display: isModalOpen ? 'block' : 'none' }"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">
-              Questions for {{ selectedQuestionnaire?.name }}
-            </h5>
-            <mat-icon
-              mat-icon-button
-              mat-dialog-close
-              aria-label="Close"
-              svgIcon="cancelButton"
-              (click)="closeModal()"
-            ></mat-icon>
-          </div>
-          <div class="modal-body">
-            <div *ngIf="questionsByDomain">
-              <div *ngFor="let domainID of getObjectKeys(questionsByDomain)">
-                <h6>{{ getDomainName(+domainID) }}</h6>
-                <div
-                  *ngFor="let question of questionsByDomain[+domainID]"
-                  class="question-card"
-                >
-                  <div
-                    class="question-status"
-                    [ngClass]="{
-                      'tab-critical':
-                        getCategoryName(question.categoryID) === 'Critical',
-                      'tab-non-critical':
-                        getCategoryName(question.categoryID) === 'Non-Critical',
-                      'tab-others':
-                        getCategoryName(question.categoryID) === 'Others'
-                    }"
-                  >
-                    {{ getCategoryName(question.categoryID) }}
-                  </div>                  
-                  <div class="question-card-content">
-                    <p>{{ question.questionText }}</p>
-                    <h4 class="question-card-title">Helper Text: <small>{{ question.description }}</small></h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              *ngIf="
-                !questionsByDomain ||
-                getObjectKeys(questionsByDomain).length === 0
-              "
-            >
-              <p>No questions available for this questionnaire.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <app-ExistingQuestionnaireModal
+      [isModalOpen]="isModalOpen"
+      [selectedQuestionnaire]="selectedQuestionnaire"
+      [domains]="domains"
+      (closeModalEvent)="closeModal()"
+    ></app-ExistingQuestionnaireModal>
   </div>
 </div>

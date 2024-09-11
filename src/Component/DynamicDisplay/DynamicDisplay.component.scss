@@ -10,7 +10,7 @@ $padding: 10px;
 $margin-bottom: 3vh;
 
 .response-table-container {
-  overflow-x: auto;
+  overflow-x: auto; /* Enable horizontal scroll */
   scrollbar-width: none;
   background-color: $color-background;
   border-radius: $border-radius;
@@ -23,11 +23,13 @@ $margin-bottom: 3vh;
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 1vh;
-  table-layout: fixed;
+  table-layout: auto;
+  min-width: max-content; 
 }
 
 .response-table th,
 .response-table td {
+  max-width: 20vw;
   border-right: 1px solid $color-primary;
   color: $color-secondary;
   font-size: $font-size;
@@ -37,6 +39,7 @@ $margin-bottom: 3vh;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 
 .response-table th {
   background-color: $color-header;

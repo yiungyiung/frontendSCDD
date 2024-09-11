@@ -174,7 +174,7 @@ export class VendorManagementComponent implements OnInit {
     console.log(
       'Vendor Data:',
       this.vendors.map((vendor) => ({
-        id: vendor.vendorID, // Or any other identifier
+        id: vendor.vendorID,
         isActive: vendor.user.isActive,
       }))
     );
@@ -207,7 +207,7 @@ export class VendorManagementComponent implements OnInit {
     const searchByColumnMap: { [key: string]: (vendor: Vendor) => any } = {
       'Vendor Id': (vendor) => vendor.vendorID,
       'Vendor Name': (vendor) => vendor.vendorName,
-      'Email Id': (vendor) => vendor.user?.email, // Handling nested property
+      'Email Id': (vendor) => vendor.user?.email,
       'User Id': (vendor) => vendor.userID,
     };
     if (
@@ -228,8 +228,8 @@ export class VendorManagementComponent implements OnInit {
     if (statusSubPart && statusSubPart.selectedOptions) {
       filters.push({
         partName: 'Vendor Status',
-        value: statusSubPart.selectedOptions, // Pass the array of selected status strings
-        column: (vendor) => (vendor.user?.isActive ? 'Active' : 'Inactive'), // Map boolean to string
+        value: statusSubPart.selectedOptions,
+        column: (vendor) => (vendor.user?.isActive ? 'Active' : 'Inactive'),
       });
     }
     if (
@@ -239,8 +239,8 @@ export class VendorManagementComponent implements OnInit {
     ) {
       filters.push({
         partName: 'Category',
-        value: categorySubPart.selectedOptions, // Join categories
-        column: (vendor) => vendor.category?.categoryName ?? '', // Get vendor category name
+        value: categorySubPart.selectedOptions,
+        column: (vendor) => vendor.category?.categoryName ?? '',
       });
     }
     return filters;
@@ -413,16 +413,19 @@ export class VendorManagementComponent implements OnInit {
     this.failedUsersUpload = [];
     let successCount = 0;
     let failureCount = 0;
-    parsedData.forEach((vendorData, index) => {
-      this.processVendorData(vendorData, token)
-        .then(() => successCount++)
-        .catch(() => failureCount++)
-        .finally(() => {
-          if (index === parsedData.length - 1) {
-            this.loadVendors();
-            this.showSummaryPopup(successCount, failureCount);
-          }
+    const processPromises = parsedData.map((vendorData) => {
+      return this.processVendorData(vendorData, token)
+        .then(() => {
+          successCount++;
+        })
+        .catch(() => {
+          failureCount++;
+          this.failedUsersUpload.push(vendorData['Name']);
         });
+    });
+    Promise.all(processPromises).then(() => {
+      this.loadVendors();
+      this.showSummaryPopup(successCount, failureCount);
     });
   }
   private async processVendorData(
@@ -435,7 +438,6 @@ export class VendorManagementComponent implements OnInit {
           vendorData
         );
       await this.vendorService.addVendor(token, newVendor).toPromise();
-      this.vendors.push(newVendor);
     } catch (error) {
       console.error('Error adding vendor from file:', error);
       this.failedUsersUpload.push(vendorData['Name']);

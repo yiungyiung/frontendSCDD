@@ -6,6 +6,7 @@ import { AuthService } from '../../services/AuthService/auth.service';
 import { QuestionService } from '../../services/QuestionService/Question.service';
 import { PopupService } from '../../services/PopupService/popup.service';
 import { Router } from '@angular/router';
+import { Category } from '../../model/category';
 
 enum QuestionType {
   SELECT_ONE = 'SELECT_ONE',
@@ -22,6 +23,7 @@ enum QuestionType {
 export class AddQuestionComponent implements OnInit {
   Framework: Framework[] = [];
   Domain: Domain[] = [];
+  Category: Category[] = [];
   isOpen = false;
   selectedTextFramework = 'Select Framework';
   selectedTextDomain = 'Select Domain';
@@ -30,7 +32,9 @@ export class AddQuestionComponent implements OnInit {
   questionText: string = '';
   helperText: string = '';
   selectedDomainID: number | null = null;
+  selectedCategoryID: number | null = null;
   questionTypes = QuestionType;
+  showFileUpload: boolean = false;
   selectedComponents: {
     type: QuestionType;
     id: number;
@@ -52,6 +56,63 @@ export class AddQuestionComponent implements OnInit {
   ngOnInit() {
     this.loadFrameworks();
     this.loadDomain();
+    this.loadCategory();
+  }
+  csvHeaders: string[] = [
+    'QuestionText',
+    'Description',
+    'Frameworks',
+    'Domain',
+    'Category',
+    'Options',
+    'TextBoxes',
+    'FileUploads',
+  ];
+
+  onFileParsed(parsedData: any[]): void {
+    this.showFileUpload = false;
+    const token = this.authService.getToken();
+    let successCount = 0;
+    let failureCount = 0;
+    const processPromises = parsedData.map((vendorData) => {
+      return this.processVendorData(vendorData, token)
+        .then(() => {
+          successCount++;
+        })
+        .catch(() => {
+          failureCount++;
+        });
+    });
+    Promise.all(processPromises).then(() => {
+      this.showSummaryPopup(successCount, failureCount);
+    });
+  }
+  private async processVendorData(
+    vendorData: any,
+    token: string
+  ): Promise<void> {
+    try {
+    } catch (error) {
+      console.error('Error adding vendor from file:', error);
+    }
+  }
+  private showSummaryPopup(successCount: number, failureCount: number): void {
+    const message = `${successCount} users added successfully, ${failureCount} could not be added.`;
+    this.popupService.showPopup(message, '#0F9D09');
+  }
+  onCancelFileUpload(): void {
+    this.showFileUpload = false;
+  }
+
+  loadCategory() {
+    const token = this.authService.getToken();
+    this.entityService.GetAllCategory(token).subscribe(
+      (Category) => {
+        this.Category = Category;
+        console.log('Loaded Category:', this.Category);
+      },
+      (error) => console.error('Error loading Category:', error)
+    );
   }
 
   loadDomain() {
@@ -85,6 +146,10 @@ export class AddQuestionComponent implements OnInit {
     this.selectedComponents = this.selectedComponents.filter(
       (component) => component.id !== id
     );
+  }
+
+  toggleFileUpload(): void {
+    this.showFileUpload = !this.showFileUpload;
   }
 
   toggleDropdown() {
@@ -122,14 +187,12 @@ export class AddQuestionComponent implements OnInit {
       description: this.helperText,
       orderIndex: 1,
       domainID: this.selectedDomainID ? this.selectedDomainID : 0,
-      categoryID: 3,
+      categoryID: this.selectedCategoryID ? this.selectedCategoryID : 0,
       options: this.collectOptions(),
       textboxes: this.collectTextboxes(),
       fileUploads: this.collectFileUploads(),
       frameworkIDs: this.selectedFrameworks,
     };
-
-    // Handle the submission, e.g., send to the server
     const token: string = this.authService.getToken();
 
     this.questionService.addQuestion(newQuestion, token).subscribe(

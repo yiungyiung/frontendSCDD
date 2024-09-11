@@ -6,6 +6,10 @@
       <div class="card mb-3">
         <div class="addusertitle">
           <h4 class="card-header">Add New Question</h4>
+          <mat-icon
+            svgIcon="uploadButton"
+            (click)="toggleFileUpload()"
+          ></mat-icon>
         </div>
 
         <div class="form-group">
@@ -74,6 +78,26 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <label for="domain">Category</label>
+          <div class="select-icon-container">
+            <select
+              id="category"
+              class="form-control"
+              [(ngModel)]="selectedCategoryID"
+            >
+              <option value="">Select Category</option>
+              <option
+                *ngFor="let category of Category"
+                [value]="category.categoryID"
+              >
+                {{ category.categoryName }}
+              </option>
+            </select>
+            <mat-icon class="select-icon" svgIcon="DropdownArrow"></mat-icon>
+          </div>
+        </div>
+
         <div class="button-group">
           <button (click)="addComponent(questionTypes.SELECT_ONE)">
             Select One
@@ -124,4 +148,11 @@
       </div>
     </div>
   </div>
+</div>
+<div *ngIf="showFileUpload" class="file-upload-wrapper">
+  <app-fileUpload
+    [TemplateHeader]="csvHeaders"
+    (fileParsed)="onFileParsed($event)"
+    (cancel)="onCancelFileUpload()"
+  ></app-fileUpload>
 </div>

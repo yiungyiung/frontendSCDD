@@ -15,6 +15,7 @@ export interface ExtendedQuestionnaireAssignmentResponseDto
 export class DynamicDisplayComponent implements OnInit {
   @Input() responses: ExtendedQuestionnaireAssignmentResponseDto[] = [];
   @Input() selectedQuestion: Question[] = [];
+  uniqueQuestions: Question[] = [];
 
   constructor() {}
 
@@ -24,6 +25,39 @@ export class DynamicDisplayComponent implements OnInit {
       ...question,
       textboxes: question.textboxes || [],
     }));
+
+    // Filter out duplicate questions
+    this.uniqueQuestions = this.getUniqueQuestions(this.selectedQuestion);
+  }
+
+  shouldDisplayQuestion(
+    selectedQuestions: any[],
+    questionID: number,
+    index: number
+  ): boolean {
+    // Return true if the question at the current index is the first occurrence of the questionID
+    return (
+      selectedQuestions.findIndex((q) => q.questionID === questionID) === index
+    );
+  }
+
+  // Function to filter out duplicate questions by questionID
+  getUniqueQuestions(questions: Question[]): Question[] {
+    const unique: Question[] = [];
+    const questionIds = new Set<number>();
+    questions.forEach((question) => {
+      if (!questionIds.has(question.questionID!)) {
+        unique.push(question);
+        questionIds.add(question.questionID!);
+      }
+    });
+    console.log('uquququ', this.uniqueQuestions);
+    return unique;
+  }
+
+  // Optional: trackBy function for performance improvement
+  trackByQuestionId(index: number, question: Question): number {
+    return question.questionID!;
   }
 
   getOptionResponse(
@@ -38,6 +72,8 @@ export class DynamicDisplayComponent implements OnInit {
       question.optionResponses &&
       question.optionResponses.length > 0
     ) {
+      console.log('sq', this.selectedQuestion);
+      console.log('r', this.responses);
       return question.optionResponses.map((opt) => opt.optionText).join(', ');
     }
     return '-';

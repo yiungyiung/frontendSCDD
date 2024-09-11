@@ -207,3 +207,15 @@ $select-icon-height: 6.2vh;
   width: auto;
   margin-top: -$select-icon-height;
 }
+
+.file-upload-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background: #ffffff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

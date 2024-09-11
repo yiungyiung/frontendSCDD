@@ -21,6 +21,7 @@ import { QuestionnaireAssignment } from '../../model/questionnaireAssignment';
 })
 export class AssignQuestionnaireComponent implements OnInit {
   questionnaires: questionnaire[] = [];
+  filteredquestionnaire: questionnaire[] = [];
   selectedQuestionnaire: questionnaire | null = null;
   questionsByDomain: { [domainID: number]: Question[] } = {};
   domains: Domain[] = [];
@@ -39,7 +40,7 @@ export class AssignQuestionnaireComponent implements OnInit {
     {
       name: 'Search By',
       type: 'MCQ',
-      options: ['User Id', 'Vendor Id', 'Vendor Name', 'Email Id'],
+      options: ['Questionnaire Id', 'Questionnaire Name', 'Year'],
     },
     {
       name: 'Search Keyword',
@@ -65,6 +66,7 @@ export class AssignQuestionnaireComponent implements OnInit {
     this.questionnaireService.getAllQuestionnaires(token).subscribe(
       (data: questionnaire[]) => {
         this.questionnaires = data;
+        this.filteredquestionnaire = this.questionnaires;
         this.fetchQuestionCountsForAllQuestionnaires();
       },
       (error) => {
@@ -91,16 +93,24 @@ export class AssignQuestionnaireComponent implements OnInit {
   }
   getCategoryClass(categoryId: number): string {
     switch (categoryId) {
-      case 1: return 'category-1';
-      case 2: return 'category-2';
-      case 3: return 'category-3';
-      case 4: return 'category-4';
-      default: return '';
+      case 1:
+        return 'category-1';
+      case 2:
+        return 'category-2';
+      case 3:
+        return 'category-3';
+      case 4:
+        return 'category-4';
+      default:
+        return '';
     }
   }
   categorizeVendors() {
     if (!this.vendors) return;
-    const categoriesMap = new Map<number, { categoryID: number; categoryName: string; vendors: Vendor[] }>();
+    const categoriesMap = new Map<
+      number,
+      { categoryID: number; categoryName: string; vendors: Vendor[] }
+    >();
     this.vendors.forEach((vendor: Vendor) => {
       if (vendor.categoryID !== undefined) {
         if (!categoriesMap.has(vendor.categoryID)) {
@@ -117,7 +127,9 @@ export class AssignQuestionnaireComponent implements OnInit {
   }
   selectQuestionnaire(questionnaireId: number) {
     this.selectedQuestionnaireId = questionnaireId;
-    this.selectedQuestionnaire = this.questionnaires.find(q => q.questionnaireID === questionnaireId) || null;
+    this.selectedQuestionnaire =
+      this.questionnaires.find((q) => q.questionnaireID === questionnaireId) ||
+      null;
   }
   isQuestionnaireSelected(questionnaireId: number): boolean {
     return this.selectedQuestionnaireId === questionnaireId;
@@ -126,7 +138,9 @@ export class AssignQuestionnaireComponent implements OnInit {
     const token = this.authService.getToken();
     this.vendorService.getCategories(token).subscribe(
       (categories: any[]) => {
-        categories.forEach((category) => this.allCategories.add(category.categoryID));
+        categories.forEach((category) =>
+          this.allCategories.add(category.categoryID)
+        );
       },
       (error) => {
         console.error('Error fetching categories', error);
@@ -136,16 +150,27 @@ export class AssignQuestionnaireComponent implements OnInit {
   fetchQuestionCountsForAllQuestionnaires() {
     const token = this.authService.getToken();
     this.questionnaires.forEach((questionnaire) => {
-      this.questionnaireService.getQuestionsByQuestionnaireId(questionnaire.questionnaireID!, token).subscribe(
-        (data: questionnaire) => {
-          const questionIds = data.questionIDs;
-          this.initializeQuestionCountsForQuestionnaire(questionnaire.questionnaireID!);
-          this.fetchQuestionCountsByCategory(questionnaire.questionnaireID!, questionIds, token);
-        },
-        (error) => {
-          console.error(`Error fetching questions for questionnaire ${questionnaire.questionnaireID}`, error);
-        }
-      );
+      this.questionnaireService
+        .getQuestionsByQuestionnaireId(questionnaire.questionnaireID!, token)
+        .subscribe(
+          (data: questionnaire) => {
+            const questionIds = data.questionIDs;
+            this.initializeQuestionCountsForQuestionnaire(
+              questionnaire.questionnaireID!
+            );
+            this.fetchQuestionCountsByCategory(
+              questionnaire.questionnaireID!,
+              questionIds,
+              token
+            );
+          },
+          (error) => {
+            console.error(
+              `Error fetching questions for questionnaire ${questionnaire.questionnaireID}`,
+              error
+            );
+          }
+        );
     });
   }
   initializeQuestionCountsForQuestionnaire(questionnaireId: number) {
@@ -154,12 +179,18 @@ export class AssignQuestionnaireComponent implements OnInit {
       this.questionCountByCategory[questionnaireId][categoryId] = 0;
     });
   }
-  fetchQuestionCountsByCategory(questionnaireId: number, questionIds: number[], token: string) {
+  fetchQuestionCountsByCategory(
+    questionnaireId: number,
+    questionIds: number[],
+    token: string
+  ) {
     questionIds.forEach((id) => {
       this.questionService.getQuestionById(id, token).subscribe(
         (question: Question) => {
           if (question.categoryID !== undefined) {
-            this.questionCountByCategory[questionnaireId][question.categoryID]++;
+            this.questionCountByCategory[questionnaireId][
+              question.categoryID
+            ]++;
           }
         },
         (error) => {
@@ -173,16 +204,18 @@ export class AssignQuestionnaireComponent implements OnInit {
     this.isModalOpen = true;
     const token = this.authService.getToken();
 
-    this.questionnaireService.getQuestionsByQuestionnaireId(questionnaire.questionnaireID!, token).subscribe(
-      (data: questionnaire) => {
-        const questionIds = data.questionIDs;
-        this.questionsByDomain = {};
-        this.fetchQuestionsByIds(questionIds, token);
-      },
-      (error) => {
-        console.error('Error fetching questionnaire details', error);
-      }
-    );
+    this.questionnaireService
+      .getQuestionsByQuestionnaireId(questionnaire.questionnaireID!, token)
+      .subscribe(
+        (data: questionnaire) => {
+          const questionIds = data.questionIDs;
+          this.questionsByDomain = {};
+          this.fetchQuestionsByIds(questionIds, token);
+        },
+        (error) => {
+          console.error('Error fetching questionnaire details', error);
+        }
+      );
   }
   fetchQuestionsByIds(questionIds: number[], token: string) {
     questionIds.forEach((id) => {
@@ -211,12 +244,16 @@ export class AssignQuestionnaireComponent implements OnInit {
     return Object.keys(obj);
   }
   toggleCollapse(index: number) {
-    this.categorizedVendors[index].collapsed = !this.categorizedVendors[index].collapsed;
+    this.categorizedVendors[index].collapsed =
+      !this.categorizedVendors[index].collapsed;
   }
   isCollapseExpanded(index: number): boolean {
     return this.categorizedVendors[index]?.collapsed || false;
   }
-  onVendorSelect(vendorID: number | undefined, categoryID: number | undefined): void {
+  onVendorSelect(
+    vendorID: number | undefined,
+    categoryID: number | undefined
+  ): void {
     if (vendorID === undefined || categoryID === undefined) return;
 
     if (this.selectedVendors.has(vendorID)) {
@@ -248,20 +285,30 @@ export class AssignQuestionnaireComponent implements OnInit {
     return vendorID !== undefined && this.selectedVendors.has(vendorID);
   }
   toggleSelectAll(categoryID: number): void {
-    const category = this.categorizedVendors.find((cat) => cat.categoryID === categoryID);
+    const category = this.categorizedVendors.find(
+      (cat) => cat.categoryID === categoryID
+    );
     if (category) {
-      const allSelected = category.vendors.every((vendor: Vendor) => this.isVendorSelected(vendor.vendorID));
+      const allSelected = category.vendors.every((vendor: Vendor) =>
+        this.isVendorSelected(vendor.vendorID)
+      );
       if (allSelected) {
-        category.vendors.forEach((vendor: Vendor) => this.selectedVendors.delete(vendor.vendorID!));
-        const selectedInCategory = Array.from(this.selectedVendors).some((id) => {
-          const vendor = this.vendors?.find((v) => v.vendorID === id);
-          return vendor?.categoryID === categoryID;
-        });
+        category.vendors.forEach((vendor: Vendor) =>
+          this.selectedVendors.delete(vendor.vendorID!)
+        );
+        const selectedInCategory = Array.from(this.selectedVendors).some(
+          (id) => {
+            const vendor = this.vendors?.find((v) => v.vendorID === id);
+            return vendor?.categoryID === categoryID;
+          }
+        );
         if (!selectedInCategory) {
           this.disabledCategories.clear();
         }
       } else {
-        category.vendors.forEach((vendor: Vendor) => this.selectedVendors.add(vendor.vendorID!));
+        category.vendors.forEach((vendor: Vendor) =>
+          this.selectedVendors.add(vendor.vendorID!)
+        );
         this.disabledCategories.clear();
         this.allCategories.forEach((catID) => {
           if (catID !== categoryID) {
@@ -272,22 +319,82 @@ export class AssignQuestionnaireComponent implements OnInit {
     }
   }
   isAllVendorsSelected(categoryID: number): boolean {
-    const category = this.categorizedVendors.find((cat) => cat.categoryID === categoryID);
-    return category ? category.vendors.every((vendor: Vendor) => this.isVendorSelected(vendor.vendorID)) : false;
+    const category = this.categorizedVendors.find(
+      (cat) => cat.categoryID === categoryID
+    );
+    return category
+      ? category.vendors.every((vendor: Vendor) =>
+          this.isVendorSelected(vendor.vendorID)
+        )
+      : false;
   }
   getCategoryName(categoryId: number): string {
-    const category = this.categorizedVendors.find((cat) => cat.categoryID === categoryId);
+    const category = this.categorizedVendors.find(
+      (cat) => cat.categoryID === categoryId
+    );
     return category ? category.categoryName : 'Unknown Category';
   }
-  getQuestionCountForCategory(questionnaireId: number, categoryId: number): number {
+  getQuestionCountForCategory(
+    questionnaireId: number,
+    categoryId: number
+  ): number {
     return this.questionCountByCategory[questionnaireId]?.[categoryId] || 0;
   }
   isFilterApplied(): boolean {
-    const searchBySubPart = this.filterSubParts.find((part) => part.name === 'Search By');
+    const searchBySubPart = this.filterSubParts.find(
+      (part) => part.name === 'Search By'
+    );
     return !!(searchBySubPart && searchBySubPart.selectedOption);
   }
   toggleFilterVisibility() {
     this.isFilterVisible = !this.isFilterVisible;
+  }
+  closeFilter(): void {
+    this.isFilterVisible = false;
+  }
+  onFilterChange(event: any) {
+    const filters = this.prepareFilters();
+    this.filteredquestionnaire = this.filterService.applyFilter(
+      this.questionnaires,
+      filters
+    );
+  }
+  prepareFilters() {
+    const filters: {
+      partName: string;
+      value: string | string[];
+      column: (questionnaire: questionnaire) => any;
+      exactMatch?: boolean;
+    }[] = [];
+    const searchBySubPart = this.filterSubParts.find(
+      (part) => part.name === 'Search By'
+    );
+    const searchKeywordSubPart = this.filterSubParts.find(
+      (part) => part.name === 'Search Keyword'
+    );
+    const searchByColumnMap: {
+      [key: string]: (questionnaire: questionnaire) => any;
+    } = {
+      'Questionnaire Id': (questionnaire) => questionnaire.questionnaireID,
+      'Questionnaire Name': (questionnaire) => questionnaire.name,
+      Year: (questionnaire) => questionnaire.year,
+    };
+    if (
+      searchBySubPart &&
+      searchKeywordSubPart &&
+      searchBySubPart.selectedOption
+    ) {
+      const columnFn = searchByColumnMap[searchBySubPart.selectedOption];
+      if (columnFn) {
+        filters.push({
+          partName: 'Search By',
+          value: searchKeywordSubPart.keyword || '',
+          column: columnFn,
+          exactMatch: false,
+        });
+      }
+    }
+    return filters;
   }
   isSubPartToggled(categoryID: number): boolean {
     return !!this.toggledSubParts[categoryID];
@@ -295,14 +402,17 @@ export class AssignQuestionnaireComponent implements OnInit {
   toggleSubPart(categoryID: number): void {
     this.toggledSubParts[categoryID] = !this.toggledSubParts[categoryID];
   }
-  onSubmit(): void { 
+  onSubmit(): void {
     const token = this.authService.getToken();
     if (!this.selectedQuestionnaire) {
       this.popupService.showPopup('Please select a questionnaire', '#FF0000');
       return;
     }
     if (this.selectedVendors.size === 0) {
-      this.popupService.showPopup('Please select at least one vendor', '#FF0000');
+      this.popupService.showPopup(
+        'Please select at least one vendor',
+        '#FF0000'
+      );
       return;
     }
     if (!this.deadline) {
@@ -318,16 +428,27 @@ export class AssignQuestionnaireComponent implements OnInit {
       dueDate: dueDateFormatted,
     };
     this.createQuestionnaireAssignment(newAssignment, token);
-    }
-  createQuestionnaireAssignment(assignment: QuestionnaireAssignment, token: string): void {
-    this.questionnaireAssignmentService.createQuestionnaireAssignment(assignment, token).subscribe({
-      next: (response) => {
-        this.popupService.showPopup('Questionnaire assigned successfully', '#0F9D09');
-        this.router.navigate(['/admin/dashboard']);
-      },
-      error: (error) => {
-        this.popupService.showPopup('Failed to assign questionnaire. Please try again.', '#FF0000');
-      },
-    });
+  }
+  createQuestionnaireAssignment(
+    assignment: QuestionnaireAssignment,
+    token: string
+  ): void {
+    this.questionnaireAssignmentService
+      .createQuestionnaireAssignment(assignment, token)
+      .subscribe({
+        next: (response) => {
+          this.popupService.showPopup(
+            'Questionnaire assigned successfully',
+            '#0F9D09'
+          );
+          this.router.navigate(['/admin/dashboard']);
+        },
+        error: (error) => {
+          this.popupService.showPopup(
+            'Failed to assign questionnaire. Please try again.',
+            '#FF0000'
+          );
+        },
+      });
   }
 }
