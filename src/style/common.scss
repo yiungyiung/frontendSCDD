@@ -33,8 +33,6 @@ $btn-danger-color: #dc3545;
   border-radius: $border-radius;
   box-shadow: $box-shadow;
   background-color: $background-color;
-  overflow-y: scroll;
-  scrollbar-width: none;
 }
 
 // Button styles
@@ -116,6 +114,26 @@ $btn-danger-color: #dc3545;
   @include btn-style($btn-danger-color);
 }
 
+
+@mixin user-status {
+  position: relative;
+  width: 6vw;
+  padding: 5px 10px;
+  border-radius: 4px;
+  text-align: center;
+  display: inline-block;
+  font-size: $font-size-small;
+  color: white;
+
+  &.active {
+    background-color: $background-color-success;
+  }
+
+  &.inactive {
+    background-color: $background-color-inactive;
+  }
+}
+
 .custcard {
   align-items: center;
   @include card-style;
@@ -128,7 +146,7 @@ $btn-danger-color: #dc3545;
   }
 }
 
-.detail {
+@mixin detail {
   text-align: center;
   font-size: $font-size-medium;
 

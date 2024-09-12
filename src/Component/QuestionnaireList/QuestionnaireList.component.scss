@@ -23,7 +23,7 @@ $shadow-color: rgba(0, 0, 0, 0.2);
 $small-box-shadow: 2px 2px 2px $shadow-color;
 
 .main-container {
-  height: 72vh;
+  height: 50vh;
   overflow-y: scroll;
   scrollbar-width: none;
   background-color: $background-color;
@@ -53,7 +53,7 @@ $small-box-shadow: 2px 2px 2px $shadow-color;
   .controls-section {
     display: flex;
     align-items: center;
-    gap: 2vw; // Space between pagination and export icon
+    gap: 1vw;
   }
 
   mat-icon {

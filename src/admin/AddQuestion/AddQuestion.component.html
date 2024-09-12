@@ -6,10 +6,6 @@
       <div class="card mb-3">
         <div class="addusertitle">
           <h4 class="card-header">Add New Question</h4>
-          <mat-icon
-            svgIcon="uploadButton"
-            (click)="toggleFileUpload()"
-          ></mat-icon>
         </div>
 
         <div class="form">
@@ -108,7 +104,6 @@
           <button (click)="addComponent(questionTypes.ATTACH_FILE)">
             Attach File
           </button>
-          
         </div>
       </div>
     </div>
@@ -137,8 +132,6 @@
               (fileUploadChange)="handleFileUploadChange($event, component.id)"
               (remove)="removeComponent(component.id)"
             ></app-QuestionType_AttachFile>
-
-            
           </ng-container>
         </ng-container>
       </div>

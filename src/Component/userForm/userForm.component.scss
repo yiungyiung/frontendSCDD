@@ -13,7 +13,7 @@ $font-size-large: 18px;
   scrollbar-width: none;
   width: 25vw;
   margin-left: -0.9vw;
-  height: 71vh;
+  height: 68vh;
 }
 
 .card-header-container {
@@ -51,7 +51,13 @@ $font-size-large: 18px;
 }
 
 .btn-primary {
-  margin-top: 6vh;
+  position: absolute;
+  bottom: 0;
+  background-color: $primary-color;
+  border-color: $primary-color;
+  color: white;
+  width: 100%;
+  margin-left: -2.1vh;
 }
 
 .select-icon-container {

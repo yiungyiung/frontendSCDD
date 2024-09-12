@@ -366,6 +366,7 @@ export class SelectQuestionsComponent implements OnInit {
             'Failed to create Questionnaire. Please try again.',
             '#0F9D09'
           );
+          this.router.navigate(['/admin/dashboard']);
         },
       });
   }

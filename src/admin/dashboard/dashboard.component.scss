@@ -76,6 +76,18 @@ $font-size-xlarge: 1.125rem; // 18px
   box-shadow: $modal-shadow;
 }
 
+.modal-card-vendor {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  height: 80vh;
+  z-index: 1050;
+  background: $modal-bg-color;
+  box-shadow: $modal-shadow;
+}
+
 .hidden {
   display: none;
 }

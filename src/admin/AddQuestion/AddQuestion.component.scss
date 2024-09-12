@@ -24,6 +24,8 @@ $select-icon-height: 6.2vh;
 .card,
 .back-card {
   @include card-style;
+  overflow-y: scroll;
+  scrollbar-width: none;
   margin-bottom: $card-margin-bottom;
   margin-top: $card-margin-top;
 }
@@ -157,6 +159,8 @@ $select-icon-height: 6.2vh;
 }
 .button{
   @include btn-primary;
+  border-radius: $border-radius;
+  height: 5vh;
 }
 
 .btn-primary {
