@@ -12,7 +12,7 @@
           ></mat-icon>
         </div>
 
-        <div class="form-group">
+        <div class="form">
           <label for="question">Enter Question</label>
           <input
             type="text"
@@ -24,7 +24,7 @@
           />
         </div>
 
-        <div class="form-group">
+        <div class="form">
           <label for="helper-text">Helper Text</label>
           <input
             type="text"
@@ -35,12 +35,12 @@
             [(ngModel)]="helperText"
           />
         </div>
-        <div class="form-group">
+        <div class="form">
           <label for="framework">Framework</label>
           <div class="custom-dropdown">
             <button
               type="button"
-              class="btn btn-primary dropdown-toggle"
+              class="button dropdown-toggle"
               (click)="toggleDropdown()"
             >
               {{ selectedTextFramework }}
@@ -61,7 +61,7 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form">
           <label for="domain">Domain</label>
           <div class="select-icon-container">
             <select
@@ -78,7 +78,7 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form">
           <label for="domain">Category</label>
           <div class="select-icon-container">
             <select

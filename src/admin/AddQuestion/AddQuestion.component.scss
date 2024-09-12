@@ -1,9 +1,8 @@
 // Common variables
-$card-border-color: #ddd;
+@import '../../style/common.scss';
 $card-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 $card-margin-bottom: 2.5vh;
 $card-margin-top: 2vh;
-$card-background-color: #ffffff;
 $card-width-large: 25vw;
 $card-width-small: 22vw;
 $card-width-back-large: 65vw;
@@ -13,14 +12,6 @@ $card-margin-left-small: 0.9vw;
 $card-margin-left-back: -19vw;
 $card-height: 68vh;
 $card-height-small: 64vh;
-$form-group-color: #073c5a;
-$input-border-color: #073c5a;
-$input-border-color-light: #073c5a84;
-$button-bg-color: #ffffff;
-$button-border-color: #12789e;
-$button-text-color: #12789e;
-$btn-primary-bg-color: #12789e;
-$btn-primary-text-color: #ffffff;
 $select-icon-height: 6.2vh;
 
 // Container styles
@@ -32,26 +23,22 @@ $select-icon-height: 6.2vh;
 // Card styles
 .card,
 .back-card {
-  border: 1px solid $card-border-color;
-  border-radius: 8px;
-  box-shadow: $card-box-shadow;
+  @include card-style;
   margin-bottom: $card-margin-bottom;
   margin-top: $card-margin-top;
-  overflow-y: scroll;
-  scrollbar-width: none;
 }
 
 .card {
   width: $card-width-large;
-  margin-left: $card-margin-left-large;
   height: $card-height;
 }
 
 .back-card {
-  background-color: $card-background-color;
+  background-color: $background-color;
   width: $card-width-back-large;
   margin-left: $card-margin-left-back;
   height: $card-height;
+  padding-left:1.2vw;
 }
 
 // Adjust card widths for smaller screens
@@ -63,7 +50,7 @@ $select-icon-height: 6.2vh;
   }
 
   .back-card {
-    background-color: $card-background-color;
+    background-color: $background-color;
     width: $card-width-back-small;
     margin-left: $card-margin-left-back;
     height: $card-height-small;
@@ -79,7 +66,7 @@ $select-icon-height: 6.2vh;
   }
 
   .back-card {
-    background-color: $card-background-color;
+    background-color: $background-color;
     width: $card-width-back-large;
     margin-left: $card-margin-left-back;
     height: $card-height;
@@ -105,20 +92,16 @@ $select-icon-height: 6.2vh;
 .card-header {
   font-size: 18px;
   font-weight: bold;
-  color: $form-group-color;
+  color: $primary-color;
   background-color: transparent;
   border: none;
 }
 
 // Form styles
-.form-group {
-  font-size: 2vh;
-  font-weight: 600;
-  color: $form-group-color;
-  margin-bottom: 2vh;
+.form {
+  @include form-group;
   display: flex;
   justify-content: center;
-  align-items: center;
   flex-direction: column;
 }
 
@@ -134,7 +117,7 @@ $select-icon-height: 6.2vh;
   width: 100%;
   padding: 0.5vh;
   font-size: 1vh;
-  border: 1px solid $input-border-color;
+  border: 1px solid $primary-color;
   border-radius: 4px;
 }
 
@@ -142,11 +125,10 @@ $select-icon-height: 6.2vh;
   width: 90%;
   padding: 1.5vh;
   font-size: 2vh;
-  border: 1px solid $input-border-color-light;
+  border: 1px solid $primary-color;
   border-radius: 4px;
 }
 
-// Input row
 .input-row {
   display: flex;
   gap: 10px;
@@ -165,25 +147,25 @@ $select-icon-height: 6.2vh;
 }
 
 .button-group button {
-  background-color: $button-bg-color;
-  border: 2px solid $button-border-color;
-  color: $button-border-color;
+  background-color: $background-color;
+  border: 2px solid $button-color;
+  color: $button-color;
   font-size: 16px;
   border-radius: 5px;
   margin-right: 0;
   text-align: center;
 }
+.button{
+  @include btn-primary;
+}
 
 .btn-primary {
-  background-color: $btn-primary-bg-color;
-  height: 4vh;
-  align-items: center;
-  color: $btn-primary-text-color;
-  border: none;
+  margin-left: auto;
+ @include btn-primary;
+
   cursor: pointer;
   font-size: 2.5vh;
   border-radius: 5px;
-  margin-left: auto;
   margin-bottom: 2vh;
   display: block;
 }
