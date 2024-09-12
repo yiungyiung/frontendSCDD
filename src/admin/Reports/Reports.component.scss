@@ -5,13 +5,79 @@ $icon-width: 2vw;
 // Header Styles
 .header {
   display: flex;
-  justify-content: flex-end; // Aligns everything to the right
-  margin-right: $spacing-small; // Adds space from the right side
+  justify-content: flex-end;
+  margin-right: $spacing-small;
   position: relative;
 }
 
 .header mat-icon {
   height: auto;
   width: $icon-width;
-  margin-left: auto; // Ensures mat-icon stays at the right
+  margin-left: auto;
+}
+
+.task-card {
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 20px auto;
+}
+
+.card-header {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.task-status {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.status-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  margin-right: 5px;
+}
+
+/* Colors for each statusId */
+.status-1 {
+  background-color: #4caf50; /* Green */
+}
+
+.status-2 {
+  background-color: #ffa726; /* Orange */
+}
+
+.status-3 {
+  background-color: #8BC34A; /* Light Green */
+}
+
+.status-4 {
+  background-color: #FF5722; /* Red */
+}
+
+.status-5 {
+  background-color: #E91E63; /* Pink */
+}
+
+.status-6 {
+  background-color: #795548; /* Brown */
+}
+
+.status-7 {
+  background-color: #03A9F4; /* Blue */
 }

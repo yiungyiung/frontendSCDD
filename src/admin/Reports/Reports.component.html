@@ -1,21 +1,41 @@
 <div class="header">
-    <mat-icon svgIcon="TableIcon" (click)="toggleView()"></mat-icon>
+  <mat-icon svgIcon="TableIcon" (click)="toggleView()"></mat-icon>
 </div>
 
-<!-- Displaying statistics -->
-<div class="statistics" *ngIf="statistics">
-    <p>Total Assignments: {{ statistics.totalAssignments }}</p>
-    <p>Assignments by Status:</p>
-    <ul>
-        <li *ngFor="let status of statistics.assignmentsByStatus">
-            {{ status.statusName }}: {{ status.count }}
-        </li>
-    </ul>
-    <p>Late Submissions: {{ statistics.lateSubmissions }}</p>
+<!-- Card to display assignment statistics -->
+<div class="task-card" *ngIf="statistics">
+  <div class="card-header">
+    <p>
+      No. of task: <strong>{{ statistics.totalAssignments }}</strong>
+    </p>
+  </div>
+  <div class="card-content">
+    <div
+      class="task-status"
+      *ngFor="let status of statistics.assignmentsByStatus"
+    >
+      <div
+        class="status-indicator"
+        [ngClass]="getStatusClass(status.statusID)"
+      ></div>
+      <span>{{ status.statusName }}: {{ status.count }} Task(s)</span>
+    </div>
+    <div class="task-status">
+      <div
+        class="status-indicator"
+        [ngStyle]="{ 'background-color': '#2196f3' }"
+      ></div>
+      <span>Late Submissions: {{ statistics.lateSubmissions }} Task(s)</span>
+    </div>
+  </div>
 </div>
 
 <!-- Show QuestionnaireList or QuestionnaireTable based on the value of isTableView -->
-<app-QuestionnaireList *ngIf="!isChildRouteActive && !isTableView"></app-QuestionnaireList>
-<app-QuestionnaireTable *ngIf="!isChildRouteActive && isTableView"></app-QuestionnaireTable>
+<app-QuestionnaireList
+  *ngIf="!isChildRouteActive && !isTableView"
+></app-QuestionnaireList>
+<app-QuestionnaireTable
+  *ngIf="!isChildRouteActive && isTableView"
+></app-QuestionnaireTable>
 
 <router-outlet></router-outlet>
