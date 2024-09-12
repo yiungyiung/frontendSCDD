@@ -1,20 +1,12 @@
-/* Common Variables */
-$primary-color: #12789e;
+@import '../../style/common.scss';
+
 $primary-dark: #0a4357;
 $secondary-color: #073c5a;
-$disabled-bg: #e9ecef;
-$error-color: #dc3545;
-$border-color: #073c5a84;
 
 /* Common Mixins */
-@mixin form-control-style {
+.form-control-style {
+  @include Form-control-style;
   width: 90%;
-  padding: 1.5vh;
-  font-size: 2vh;
-  border: 1px solid $border-color;
-  border-radius: 4px;
-  background-color: transparent;
-  color: $secondary-color;
 }
 
 /* Common Styles */
@@ -44,7 +36,8 @@ $border-color: #073c5a84;
 
 /* Input field styles */
 .form-control {
-  @include form-control-style;
+  @include Form-control-style;
+  width: 90%;
 }
 
 /* Invalid input border styles */
@@ -93,7 +86,7 @@ $border-color: #073c5a84;
 
 /* Disabled input styles */
 .disabled-input {
-  background-color: $disabled-bg;
+  background-color: $disabled-background-color;
   cursor: not-allowed;
 }
 
@@ -101,8 +94,8 @@ $border-color: #073c5a84;
 .search-container {
   display: flex;
   align-items: center;
-  border: 1px solid #004366; // Adjust border color if needed
-  border-radius: 4px; // Adjust border radius if needed
+  border: 1px solid #004366;
+  border-radius: $border-radius; 
   overflow: hidden;
 }
 
@@ -115,7 +108,7 @@ $border-color: #073c5a84;
 }
 
 .search-button {
-  background-color: #004366; // Adjust button background color
+  background-color: #004366;
   border: none;
   padding: 10px;
   display: flex;
@@ -152,7 +145,7 @@ $border-color: #073c5a84;
   margin-top: 1.5vh;
   max-height: 30vh;
   overflow-y: auto;
-  width: 90%; // Matches the input width
+  width: 90%; 
   margin: auto;
 }
 
@@ -161,7 +154,6 @@ $border-color: #073c5a84;
   margin-right: 10px;
 }
 
-/* Checkbox label styles */
 .form-check-label {
   font-size: 1.8vh;
   color: $secondary-color;
@@ -175,7 +167,8 @@ $border-color: #073c5a84;
 
 .select-icon-container select {
   width: 100%;
-  padding-right: 30px; // Adjust this if needed
+  padding-right: 30px; 
+  height: 6.1vh;
 }
 
 .select-icon {

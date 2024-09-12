@@ -65,8 +65,9 @@ export class AddQuestionComponent implements OnInit {
     'Domain',
     'Category',
     'Options',
-    'TextBoxes',
-    'FileUploads',
+    'Textboxes Label',
+    'UOMID',
+    'FileUpload Labels',
   ];
 
   onFileParsed(parsedData: any[]): void {
@@ -74,8 +75,9 @@ export class AddQuestionComponent implements OnInit {
     const token = this.authService.getToken();
     let successCount = 0;
     let failureCount = 0;
-    const processPromises = parsedData.map((vendorData) => {
-      return this.processVendorData(vendorData, token)
+
+    const processPromises = parsedData.map((questionData) => {
+      return this.processQuestionnaireData(questionData, token)
         .then(() => {
           successCount++;
         })
@@ -83,19 +85,45 @@ export class AddQuestionComponent implements OnInit {
           failureCount++;
         });
     });
+
     Promise.all(processPromises).then(() => {
       this.showSummaryPopup(successCount, failureCount);
     });
   }
-  private async processVendorData(
-    vendorData: any,
+
+  private async processQuestionnaireData(
+    questionData: any,
     token: string
   ): Promise<void> {
     try {
+      const newQuestion: Question = {
+        questionText: questionData.QuestionText,
+        description: questionData.Description,
+        orderIndex: questionData.OrderIndex,
+        domainID: questionData.DomainID,
+        categoryID: questionData.CategoryID,
+        options: questionData.Options.map((opt: any, index: number) => ({
+          optionText: opt.optionText,
+          orderIndex: index + 1,
+        })),
+        textboxes: questionData.Textboxes.map(
+          (textbox: any, index: number) => ({
+            label: textbox.Label,
+            orderIndex: index + 1,
+            uomid: textbox.UOMID,
+          })
+        ),
+        fileUploads: questionData.FileUploads || [],
+        frameworkIDs: questionData.FrameworkIDs || [],
+      };
+
+      await this.questionService.addQuestion(newQuestion, token).toPromise();
     } catch (error) {
-      console.error('Error adding vendor from file:', error);
+      console.error('Error adding question from file:', error);
+      throw error;
     }
   }
+
   private showSummaryPopup(successCount: number, failureCount: number): void {
     const message = `${successCount} users added successfully, ${failureCount} could not be added.`;
     this.popupService.showPopup(message, '#0F9D09');
@@ -224,7 +252,7 @@ export class AddQuestionComponent implements OnInit {
     if (component) {
       component.options = data.options.map((option, index) => ({
         optionText: option,
-        orderIndex: index, // You might need a different approach to set the order index
+        orderIndex: index,
       }));
     }
   }

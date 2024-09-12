@@ -1,32 +1,8 @@
-// Common Variables
-$border-color: #ddd;
-$border-radius: 8px;
-$box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-$background-color-primary: #e7f4f9;
-$text-color-primary: #073c5a;
-$btn-primary-color: #12789e;
+@import '../../style/common.scss';
+
 $btn-primary-hover-color: #0a4357;
 $font-size-small: 2vh;
 $font-size-large: 18px;
-
-// Common Mixins
-@mixin card-style {
-  border: 1px solid $border-color;
-  border-radius: $border-radius;
-  box-shadow: $box-shadow;
-}
-
-@mixin btn-primary-style {
-  background-color: $btn-primary-color;
-  border-color: $btn-primary-color;
-  color: white;
-  width: 100%;
-
-  &:hover {
-    background-color: $btn-primary-hover-color;
-    border-color: $btn-primary-hover-color;
-  }
-}
 
 // Styles
 .card {
@@ -41,12 +17,7 @@ $font-size-large: 18px;
 }
 
 .card-header-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: $background-color-primary;
-  border-bottom: 1px solid $border-color;
-  padding: 10px 15px;
+  @include card-header-container;
   height: 9vh;
 
   h4 {
@@ -54,9 +25,8 @@ $font-size-large: 18px;
   }
 
   mat-icon {
+    @include mat-icon;
     margin-right: 20px;
-    width: 30px;
-    height: auto;
   }
 }
 
@@ -77,11 +47,7 @@ $font-size-large: 18px;
 }
 
 .form-control {
-  width: 100%;
-  padding: 1.5vh;
-  font-size: $font-size-small;
-  border: 1px solid rgba($text-color-primary, 0.52);
-  border-radius: $border-radius;
+  @include Form-control-style;
 }
 
 .btn-primary {
@@ -90,14 +56,7 @@ $font-size-large: 18px;
 }
 
 .select-icon-container {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-
-  select {
-    width: 100%;
-    padding-right: 30px; // Adjust this if needed
-  }
+  @include select-icon-container;
 }
 
 .select-icon {

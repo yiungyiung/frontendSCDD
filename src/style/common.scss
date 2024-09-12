@@ -1,0 +1,142 @@
+// Variables
+$background-color: #FFFFFF;
+$primary-color: #12789E;
+$highlight-color: #F9A634;
+$secondary-color: #E7F4F9;
+$disabled-background-color: #A2A2A2;
+$error-color: #dc3545;
+$hover-color: #3F85A0;
+$border-color: #ddd;
+$border-color-hover: #f9a634;
+$border-color-light: #ddd;
+$border-radius: 8px;
+$box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+// Font
+$text-color-primary: #073c5a;
+$font-size-small: 1.7vh;
+$font-size-medium: 2vh;
+$font-size-large: 2.5vh;
+
+// Status Colors
+$background-color-success: #339a2d;
+$background-color-inactive: #dc3545;
+$btn-success-color: #28a745;
+$btn-danger-color: #dc3545;
+
+// Mixins
+
+// Card styles
+@mixin card-style {
+  border: 1px solid $border-color-light;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  background-color: $background-color;
+}
+
+// Button styles
+@mixin btn-style($color) {
+  background-color: $color;
+  border-color: $color;
+  color: white;
+  &:hover {
+    background-color: darken($color, 10%);
+    border-color: darken($color, 10%);
+  }
+}
+
+// Card header styles
+@mixin card-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $secondary-color;
+  border-bottom: 1px solid $border-color;
+  padding: 10px 15px;
+  font-weight: bold;
+  font-size: $font-size-large;
+  color: $primary-color;
+}
+
+// Form control styles
+@mixin Form-control-style {
+  width: 100%;
+  padding: 1.5vh;
+  font-size: $font-size-small;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  background-color: transparent;
+  color: $text-color-primary;
+}
+
+// Mat-icon styles
+@mixin mat-icon {
+  width: 30px;
+  height: auto;
+}
+
+// Select icon container
+@mixin select-icon-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  select {
+    width: 100%;
+    padding-right: 30px;
+  }
+}
+
+// Common Elements
+
+.form-group {
+  font-size: $font-size-small;
+  font-weight: 600;
+  color: $text-color-primary;
+  margin-bottom: 2vh;
+}
+
+.btn-primary {
+  @include btn-style($primary-color);
+  width: 100%;
+  margin-top: 4vh;
+}
+
+.btn-success {
+  @include btn-style($btn-success-color);
+}
+
+.btn-danger {
+  @include btn-style($btn-danger-color);
+}
+
+.custcard {
+  @include card-style;
+  margin-bottom: 6vh;
+  width: 60vw;
+  margin-top: 3vh;
+  margin-left: 0.6vw;
+  &:hover {
+    border: 1px solid $highlight-color;
+  }
+}
+
+.detail {
+  text-align: center;
+  font-size: $font-size-medium;
+
+  small {
+    font-size: $font-size-small;
+    color: gray;
+  }
+}
+
+ @mixin Truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  word-wrap: break-word;
+  word-break: break-all;
+  max-width: 200px;
+}
+

@@ -1,21 +1,21 @@
+// Import the common SCSS file
+@import '../../style/common.scss';
+
+
 .custcard {
-    border: 1px solid #ddd;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    @include card-style; // Use the common card-style mixin
     margin-bottom: 6vh;
     width: 60vw;
-    margin-top: 3vh;
     margin-left: 0.6vw;
+
+    &:hover {
+        border: 1px solid $highlight-color; // Use the common highlight color
+    }
 }
 
 .card-body {
     border: 1px solid transparent;
     padding-bottom: 15px;
-}
-
-.custcard:hover {
-    border: 1px solid #f9a634;
 }
 
 .vendor-details {
@@ -24,7 +24,8 @@
     gap: 1vw;
     text-align: center;
     width: 100%;
-    background-color: #ffffff;
+    background-color: $background-color; 
+    margin-top: -4vh;
 }
 
 .kaam {
@@ -41,34 +42,28 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #e7f4f9;
-    border-radius: 8px;
+    background-color: $secondary-color; // Use the common secondary color
+    border-radius: $border-radius; // Use the common border-radius
 }
 
 .detail {
     text-align: center;
-    font-size: 2vh;
+    font-size: $font-size-medium; // Use the common medium font size
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
 
-.detail small,
-.detail .truncate {
-    display: block;
-    font-size: 1.7vh;
-    text-align: center;
+    small,
+    .truncate {
+        display: block;
+        font-size: $font-size-small; // Use the common small font size
+        text-align: center;
+    }
 }
 
 .truncate {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: block;
-    word-wrap: break-word;
-    word-break: break-all;
-    max-width: 200px;
+    @include Truncate;
 }
 
 .truncate-container {
@@ -80,23 +75,23 @@
     position: relative;
     width: 6vw;
     height: auto;
-    top: -2vh;
+    top: -4vh;
     left: 10px;
     padding: 5px 10px;
     border-radius: 4px;
     text-align: center;
     display: inline-block;
-    font-size: 1.7vh;
+    font-size: $font-size-small; // Use the common small font size
     margin-left: 10px;
     color: #ffffff;
-}
 
-.user-status.active {
-    background-color: #339a2d;
-}
+    &.active {
+        background-color: $background-color-success; // Use the common success color
+    }
 
-.user-status.inactive {
-    background-color: #dc3545;
+    &.inactive {
+        background-color: $background-color-inactive; // Use the common inactive color
+    }
 }
 
 .user-actions {
@@ -113,9 +108,9 @@
 .action {
     text-align: center;
     margin: 0;
-    background-color: #fff;
+    background-color: $background-color; // Use the common background color
     padding: 10px;
-    border-radius: 4px;
+    border-radius: $border-radius; // Use the common border-radius
 }
 
 .action button {
@@ -129,7 +124,7 @@
 }
 
 .action button.btn-success {
-    background-color: #339a2d;
+    @include btn-style($background-color-success); // Use the common success button style
     height: 5vh;
 }
 
@@ -156,13 +151,13 @@
     position: relative;
     width: 8vw;
     height: auto;
-    top: -2vh;
+    top: -4vh;
     left: 10px;
     padding: 5px 10px;
     border-radius: 4px;
     text-align: center;
     display: inline-block;
-    font-size: 1.7vh;
+    font-size: $font-size-small; // Use the common small font size
     margin-left: 10px;
     color: #ffffff;
 }

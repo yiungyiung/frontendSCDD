@@ -1,29 +1,23 @@
+@import '../../style/common.scss';
+
 .organization-chart {
     text-align: center;
     position: relative;
-    font-family: Arial, sans-serif;
     padding: 10px;
-    /* Reduced padding for smaller aspect */
 }
 
 .company-button,
 .vendor-card {
-    background-color: #ffffff;
+    background-color: $background-color;
     color: #333;
     padding: 8px 15px;
-    /* Reduced padding */
     font-size: 12px;
-    /* Smaller font size */
     border-radius: 8px;
-    /* Slightly smaller border radius */
-    border: 1px solid #12789e;
-    /* Thinner border */
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    /* Reduced shadow */
+    border: 1px solid $primary-color;
+    box-shadow: $border-color;
     text-align: center;
     display: inline-block;
     min-width: 100px;
-    /* Reduced minimum width */
     position: relative;
     z-index: 2;
     transition: all 0.3s ease-in-out;
@@ -31,25 +25,21 @@
 }
 
 .company-button {
-    background-color: #4e79a7;
+    background-color: $primary-color;
     color: white;
     border: none;
     padding: 10px 20px;
-    /* Reduced padding */
     font-size: 0.9em;
-    /* Reduced font size */
 }
 
 .company-button:hover {
-    background-color: #3a5a80;
+    background-color: $hover-color;
     transform: translateY(-3px);
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
-    /* Reduced shadow */
+    box-shadow: $border-color;
 }
 
 .company-container {
     margin-bottom: 20px;
-    /* Reduced margin */
 }
 
 .tier {
@@ -57,18 +47,15 @@
     justify-content: center;
     flex-wrap: wrap;
     margin: 20px 0;
-    /* Reduced margin */
 }
 
 .vendor-wrapper {
     margin: 5px 10px;
-    /* Reduced margin */
 }
 
 .vendor-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
-    /* Reduced shadow */
+    box-shadow: $border-color
 }
 
 .vendor-card {
@@ -79,15 +66,12 @@
 .vendor-card .vendor-name {
     font-weight: bold;
     margin-bottom: 4px;
-    /* Reduced margin */
 }
 
 .vendor-card .tier-label {
     font-size: 10px;
-    /* Smaller font size */
     color: #666;
     margin-top: 2px;
-    /* Reduced margin */
 }
 
 .lines-container {

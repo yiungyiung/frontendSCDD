@@ -1,14 +1,8 @@
-// Define common variables
-$primary-color: #12789e;
+@import '../../style/common.scss';
+
 $secondary-color: #073c5a;
 $hover-color: #032b42;
-$background-color: #ffffff;
-$border-color: #ddd;
-$border-radius: 8px;
-$box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 $text-color: #333;
-$font-color: #12789e;
-$highlight-color: #f9a634;
 $button-padding: 1vh 2vh;
 $font-size-small: 1.8vh;
 $font-size-medium: 2vh;

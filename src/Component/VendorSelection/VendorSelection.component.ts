@@ -4,7 +4,7 @@ import { Vendor } from '../../model/vendor';
 @Component({
   selector: 'app-VendorSelection',
   templateUrl: './VendorSelection.component.html',
-  styleUrls: ['./VendorSelection.component.css'],
+  styleUrls: ['./VendorSelection.component.scss'],
 })
 export class VendorSelectionComponent {
   @Input() categorizedVendors: any[] = []; // Input for categorized vendors
