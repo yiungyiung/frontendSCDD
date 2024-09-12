@@ -161,7 +161,10 @@ $select-icon-height: 6.2vh;
 
 .btn-primary {
   margin-left: auto;
+  background-color: #12789e!important;
+  border: none !important;
  @include btn-primary;
+ 
 
   cursor: pointer;
   font-size: 2.5vh;

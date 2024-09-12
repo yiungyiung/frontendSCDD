@@ -14,7 +14,7 @@ export class QuestionType_SelectOneOptionComponent implements OnInit {
   }>();
 
   subQuestion: string = '';
-  options: string[] = ['Option 1'];
+  options: string[] = [];
   newOption: string = '';
 
   constructor() {}

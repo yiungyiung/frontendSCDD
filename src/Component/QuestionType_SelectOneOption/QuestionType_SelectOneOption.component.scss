@@ -76,7 +76,9 @@ $max-width-input: 400px;
 .title mat-icon {
   @include icon-style;
 }
-
+.mat-icon{
+  @include icon-style;
+}
 .delete-icon {
   @include icon-style;
 }
@@ -98,6 +100,19 @@ $max-width-input: 400px;
   @include input-style;
 }
 
+.option-list-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  justify-content: space-between;
+}
+
+.option-list-item input {
+  flex: 1;
+  margin-right: 10px;
+  @include input-style;
+}
+
 .delete-btn {
   @include button-style(none, $color-delete-btn, $font-size-delete-btn);
 }
@@ -107,12 +122,4 @@ $max-width-input: 400px;
   padding: 10px 20px;
   margin-left: 20px;
   margin-right: 20px;
-}
-
-.option-group input[type="radio"] {
-  margin-right: 10px;
-}
-
-.option-group mat-icon {
-  @include icon-style;
 }

@@ -108,7 +108,7 @@
           <button (click)="addComponent(questionTypes.ATTACH_FILE)">
             Attach File
           </button>
-          <button (click)="addComponent(questionTypes.DATE)">Date</button>
+          
         </div>
       </div>
     </div>
@@ -138,11 +138,7 @@
               (remove)="removeComponent(component.id)"
             ></app-QuestionType_AttachFile>
 
-            <app-QuestionType_Date
-              *ngSwitchCase="questionTypes.DATE"
-              [id]="component.id"
-              (remove)="removeComponent(component.id)"
-            ></app-QuestionType_Date>
+            
           </ng-container>
         </ng-container>
       </div>
