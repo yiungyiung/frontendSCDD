@@ -80,4 +80,15 @@ export class QuestionnaireAssignmentService {
       { headers }
     );
   }
+  getAssignmentStatistics(token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.get<any>(
+      `${this.apiUrl}/QuestionnaireAssignment/statistics`,
+      { headers }
+    );
+  }
 }

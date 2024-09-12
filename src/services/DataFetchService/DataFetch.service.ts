@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { catchError, firstValueFrom, map, Observable, of, throwError } from 'rxjs';
 import { AuthService } from '../AuthService/auth.service';
 import { VendorService } from '../VendorService/Vendor.service';
 import { AdminService } from '../AdminService/Admin.service';
@@ -95,23 +95,24 @@ export class DataFetchService {
   }
 
   getCategoryIdFromName(categoryName: string): Observable<number> {
-    return new Observable<number>((observer) => {
-      this.loadCategories().subscribe(
-        (categories) => {
-          const matchedCategory = categories.find(
-            (category) =>
-              category.categoryName.toLowerCase() === categoryName.toLowerCase()
-          );
-          if (matchedCategory) {
-            observer.next(matchedCategory.categoryID);
-          } else {
-            observer.error('Category not found');
-          }
-          observer.complete();
-        },
-        (error) => observer.error(error)
-      );
-    });
+    return this.loadCategories().pipe(
+      map((categories) => {
+        const matchedCategory = categories.find(
+          (category) =>
+            category.categoryName.toLowerCase() === categoryName.toLowerCase()
+        );
+        if (matchedCategory) {
+          return matchedCategory.categoryID;
+        } else {
+          // Throw an error if category is not found
+          throw new Error('Category not found');
+        }
+      }),
+      catchError((error) => {
+        console.error(error);
+        return throwError(() => new Error('Failed to get category ID')); // Rethrow the error
+      })
+    );
   }
 
   mapServerVendorToVendor(serverUser: any): Vendor {
@@ -136,15 +137,24 @@ export class DataFetchService {
 
   async mapServerVendorToVendorForFileUpload(userData: any): Promise<Vendor> {
     try {
-      await this.getCategoryIdFromName(userData['Category']);
-      await this.getTierIdFromName(userData['Tier']);
-      const tierID = this.selectedTierId;
-      const categoryID = this.selectedCategoryId;
+      const [categoryId, tierId] = await Promise.all([
+        firstValueFrom(this.getCategoryIdFromName(userData['Category'])),
+        firstValueFrom(this.getTierIdFromName(userData['Tier']))
+      ]);
+
+      if (categoryId === undefined) {
+        throw new Error('Failed to get category ID');
+      }
+
+      if (tierId === undefined) {
+        throw new Error('Failed to get tier ID');
+      }
+
       return {
         vendorName: userData['Vendor Name'],
         vendorAddress: userData['Vendor Address'],
-        tierID: tierID!,
-        categoryID: categoryID!,
+        tierID: tierId,
+        categoryID: categoryId,
         vendorRegistration: userData['Vendor Registration'],
         parentVendorIDs: this.newVendor.parentVendorIDs!.map(Number),
         user: {
@@ -160,7 +170,6 @@ export class DataFetchService {
       throw error;
     }
   }
-
   getRoleId(role: string): number {
     const normalizedRole = role.toLowerCase();
     switch (normalizedRole) {

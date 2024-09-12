@@ -1,13 +1,21 @@
 <div class="header">
-  <mat-icon svgIcon="TableIcon" (click)="toggleView()"></mat-icon>
+    <mat-icon svgIcon="TableIcon" (click)="toggleView()"></mat-icon>
+</div>
+
+<!-- Displaying statistics -->
+<div class="statistics" *ngIf="statistics">
+    <p>Total Assignments: {{ statistics.totalAssignments }}</p>
+    <p>Assignments by Status:</p>
+    <ul>
+        <li *ngFor="let status of statistics.assignmentsByStatus">
+            {{ status.statusName }}: {{ status.count }}
+        </li>
+    </ul>
+    <p>Late Submissions: {{ statistics.lateSubmissions }}</p>
 </div>
 
 <!-- Show QuestionnaireList or QuestionnaireTable based on the value of isTableView -->
-<app-QuestionnaireList
-  *ngIf="!isChildRouteActive && !isTableView"
-></app-QuestionnaireList>
-<app-QuestionnaireTable
-  *ngIf="!isChildRouteActive && isTableView"
-></app-QuestionnaireTable>
+<app-QuestionnaireList *ngIf="!isChildRouteActive && !isTableView"></app-QuestionnaireList>
+<app-QuestionnaireTable *ngIf="!isChildRouteActive && isTableView"></app-QuestionnaireTable>
 
 <router-outlet></router-outlet>

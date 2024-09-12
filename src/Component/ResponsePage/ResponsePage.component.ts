@@ -6,6 +6,7 @@ import {
   QuestionnaireAssignmentResponseDto,
   QuestionResponseDto,
 } from '../../model/QuestionOptionResponseDto';
+import { AuthService } from '../../services/AuthService/auth.service';
 import { Location } from '@angular/common';
 import { Domain } from '../../model/entity';
 
@@ -27,7 +28,8 @@ export class ResponsePageComponent implements OnInit {
     private router: Router,
     private responseService: ResponseService,
     private entityService: EntityService,
-    private location: Location
+    private location: Location,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -73,8 +75,7 @@ export class ResponsePageComponent implements OnInit {
   }
 
   fetchDomainNames(): void {
-    // Assuming you have a way to get the token, replace 'yourToken' with the actual token
-    const token = 'yourToken';
+    const token = this.authService.getToken();
 
     this.domains.forEach((domainID) => {
       this.entityService.GetDomainById(domainID, token).subscribe(

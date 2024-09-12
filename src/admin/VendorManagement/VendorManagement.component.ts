@@ -411,39 +411,42 @@ export class VendorManagementComponent implements OnInit {
     this.showFileUpload = false;
     const token = this.authService.getToken();
     this.failedUsersUpload = [];
-    let successCount = 0;
-    let failureCount = 0;
+
     const processPromises = parsedData.map((vendorData) => {
-      return this.processVendorData(vendorData, token)
-        .then(() => {
-          successCount++;
-        })
-        .catch(() => {
-          failureCount++;
-          this.failedUsersUpload.push(vendorData['Name']);
-        });
+      return this.processVendorData(vendorData, token);
     });
-    Promise.all(processPromises).then(() => {
+
+    Promise.all(processPromises).then((results) => {
+      let successCount = 0;
+      let failureCount = 0;
+      
+      results.forEach(result => {
+        if (result.success) {
+          successCount++;
+        } else {
+          failureCount++;
+          this.failedUsersUpload.push(result.name);  // Collect failed vendor names
+        }
+      });
+
       this.loadVendors();
       this.showSummaryPopup(successCount, failureCount);
     });
-  }
-  private async processVendorData(
-    vendorData: any,
-    token: string
-  ): Promise<void> {
+}
+
+private async processVendorData(vendorData: any, token: string): Promise<{ success: boolean, name: string }> {
     try {
-      const newVendor =
-        await this.dataFetchService.mapServerVendorToVendorForFileUpload(
-          vendorData
-        );
+      const newVendor = await this.dataFetchService.mapServerVendorToVendorForFileUpload(vendorData);
+      console.log(newVendor);
       await this.vendorService.addVendor(token, newVendor).toPromise();
+      return { success: true, name: vendorData['Name'] };
     } catch (error) {
       console.error('Error adding vendor from file:', error);
-      this.failedUsersUpload.push(vendorData['Name']);
+      return { success: false, name: vendorData['Name'] };
     }
-  }
+}
   private showSummaryPopup(successCount: number, failureCount: number): void {
+    console.log(successCount, failureCount);
     const message = `${successCount} users added successfully, ${failureCount} could not be added.`;
     this.popupService.showPopup(message, '#0F9D09');
   }

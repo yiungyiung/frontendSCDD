@@ -26,7 +26,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { StackedBarChartComponent } from '../../Component/stacked-bar-chart/stacked-bar-chart.component';
 import { PieChartComponent } from '../../Component/pie-chart/pie-chart.component';
 import { QuestionnaireListComponent } from '../../Component/QuestionnaireList/QuestionnaireList.component';
-import { BreadcrumbComponent } from '../../Component/breadcrumb/breadcrumb.component';
+import { BreadcrumbComponent } from '../../Component/Breadcrumb/breadcrumb.component';
 import { ResponsePageComponent } from '../../Component/ResponsePage/ResponsePage.component';
 import { QuestionnaireTableComponent } from '../../Component/QuestionnaireTable/QuestionnaireTable.component';
 import { ExportDialogBoxComponent } from '../../Component/exportDialogBox/exportDialogBox.component';
@@ -35,6 +35,7 @@ import { AssignmentCardComponent } from '../../Component/AssignmentCard/Assignme
 import { NotificationSidebarComponent } from '../../Component/Notification/notification.component';
 import { ProgressBarComponent } from '../../Component/ProgressBar/ProgressBar.component';
 import { FilterComponent } from '../../Component/filter/filter.component';
+import { UnsavedChangesGuard } from '../../guards/unsaved-changes.guard'; 
 import { ExistingQuestionnaireModalComponent } from '../../Component/ExistingQuestionnaireModal/ExistingQuestionnaireModal.component';
 
 @NgModule({

@@ -12,6 +12,7 @@ import { SelectQuestionsComponent } from './SelectQuestions/SelectQuestions.comp
 import { ReportsComponent } from './Reports/Reports.component';
 import { DynamicReportsComponent } from './DynamicReports/DynamicReports.component';
 import { ResponsePageComponent } from '../Component/ResponsePage/ResponsePage.component';
+import { UnsavedChangesGuard } from '../guards/unsaved-changes.guard';
 
 const routes: Routes = [
   {
@@ -43,6 +44,7 @@ const routes: Routes = [
             path: 'select-questions',
             component: SelectQuestionsComponent,
             data: { breadcrumb: 'Select Questions' },
+            canDeactivate: [UnsavedChangesGuard], 
           },
         ],
       },
@@ -65,6 +67,7 @@ const routes: Routes = [
             path: 'response-page',
             component: ResponsePageComponent,
             data: { breadcrumb: 'Response' },
+            canDeactivate: [UnsavedChangesGuard], 
           },
         ],
       },
