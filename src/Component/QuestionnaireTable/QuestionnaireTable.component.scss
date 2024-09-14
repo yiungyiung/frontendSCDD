@@ -13,6 +13,9 @@ $font-size-cell: 2vh;
 $padding: 10px;
 $spacing: 1vh;
 
+$color-secondary: #073c5a;
+$color-orange: #f9a634;
+
 // Main container
 .main-container {
   height: 50vh;
@@ -142,4 +145,25 @@ $spacing: 1vh;
       }
     }
   }
+}
+
+// Icon Container Styles
+.icon-container {
+  padding-right: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.icon-container mat-icon {
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 3vh;
+  height: auto;
+  color: $color-secondary;
+}
+
+.icon-container mat-icon.filter-applied {
+  color: $color-orange;
 }

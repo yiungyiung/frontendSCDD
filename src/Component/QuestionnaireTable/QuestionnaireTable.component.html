@@ -3,7 +3,13 @@
     <div class="reports-section">
       <h1 class="title-text">Reports</h1>
     </div>
-    <div class="controls-section">
+    <div class="icon-container">
+      <mat-icon svgIcon="ExportIcon" (click)="openExportModal()"></mat-icon>
+      <mat-icon
+        [ngClass]="{ 'filter-applied': isFilterApplied() }"
+        svgIcon="filterIcon"
+        (click)="toggleFilterVisibility()"
+      ></mat-icon>
       <app-pagination
         [currentPage]="currentPage"
         [totalPages]="totalPages"
@@ -12,12 +18,6 @@
         (pageChange)="onPageChange($event)"
         (itemsPerPageChange)="onItemsPerPageChange($event)"
       ></app-pagination>
-      <mat-icon svgIcon="ExportIcon" (click)="openExportModal()"></mat-icon>
-      <mat-icon
-        [ngClass]="{ 'filter-applied': isFilterApplied() }"
-        svgIcon="filterIcon"
-        (click)="toggleFilterVisibility()"
-      ></mat-icon>
     </div>
   </div>
 

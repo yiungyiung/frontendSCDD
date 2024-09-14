@@ -56,48 +56,58 @@
     <tbody>
       <tr *ngFor="let response of responses">
         <td>{{ response.vendorName || "Unknown Vendor" }}</td>
-        <ng-container *ngFor="let question of selectedQuestion; let i = index">
-          <td
-            *ngIf="
-              shouldDisplayQuestion(
-                selectedQuestion,
-                question.questionID!,
-                i
-              ) && question.options?.length! > 0
-            "
-            [matTooltip]="getOptionResponse(response, question.questionID!)"
-          >
-            {{ getOptionResponse(response, question.questionID!) || "-" }}
-          </td>
+
+        <!-- Only display answers if vendor name is valid -->
+        <ng-container
+          *ngIf="
+            response.vendorName && response.vendorName !== 'Unknown Vendor'
+          "
+        >
           <ng-container
-            *ngIf="
-              shouldDisplayQuestion(
-                selectedQuestion,
-                question.questionID!,
-                i
-              ) &&
-              question.textboxes &&
-              question.textboxes.length > 0
-            "
+            *ngFor="let question of selectedQuestion; let i = index"
           >
             <td
-              *ngFor="let textbox of question.textboxes"
-              [matTooltip]="
-                getTextboxResponse(
-                  response,
+              *ngIf="
+                shouldDisplayQuestion(
+                  selectedQuestion,
                   question.questionID!,
-                  textbox.textBoxID!
-                )
+                  i
+                ) && question.options?.length! > 0
+              "
+              [matTooltip]="getOptionResponse(response, question.questionID!)"
+            >
+              {{ getOptionResponse(response, question.questionID!) || "-" }}
+            </td>
+            <ng-container
+              *ngIf="
+                shouldDisplayQuestion(
+                  selectedQuestion,
+                  question.questionID!,
+                  i
+                ) &&
+                question.textboxes &&
+                question.textboxes.length > 0
               "
             >
-              {{
-                getTextboxResponse(
-                  response,
-                  question.questionID!,
-                  textbox.textBoxID!
-                ) || "-"
-              }}
-            </td>
+              <td
+                *ngFor="let textbox of question.textboxes"
+                [matTooltip]="
+                  getTextboxResponse(
+                    response,
+                    question.questionID!,
+                    textbox.textBoxID!
+                  )
+                "
+              >
+                {{
+                  getTextboxResponse(
+                    response,
+                    question.questionID!,
+                    textbox.textBoxID!
+                  ) || "-"
+                }}
+              </td>
+            </ng-container>
           </ng-container>
         </ng-container>
       </tr>

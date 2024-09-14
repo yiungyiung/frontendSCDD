@@ -138,15 +138,24 @@
                     "
                   />
                 </div>
-                <div class="detail user-id-bg">
+                <div
+                  class="detail user-id-bg"
+                  matTooltip="{{ question.questionID }}"
+                >
                   <small>Question ID</small>
                   <div class="truncate">{{ question.questionID }}</div>
                 </div>
-                <div class="detail user-ids-bg">
+                <div
+                  class="detail user-ids-bg"
+                  matTooltip="{{ question.questionText }}"
+                >
                   <small>Question</small>
                   <div class="truncate">{{ question.questionText }}</div>
                 </div>
-                <div class="detail user-ids-bg">
+                <div
+                  class="detail user-ids-bg"
+                  matTooltip="{{ question.description }}"
+                >
                   <mat-icon>info_outline</mat-icon>
                 </div>
               </div>

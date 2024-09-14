@@ -22,6 +22,9 @@ $gap: 5px;
 $shadow-color: rgba(0, 0, 0, 0.2);
 $small-box-shadow: 2px 2px 2px $shadow-color;
 
+$color-secondary: #073c5a;
+$color-orange: #f9a634;
+
 .main-container {
   height: 50vh;
   overflow-y: scroll;
@@ -171,4 +174,25 @@ $small-box-shadow: 2px 2px 2px $shadow-color;
 .task-id {
   height: auto;
   padding: 5px 0;
+}
+
+// Icon Container Styles
+.icon-container {
+  padding-right: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.icon-container mat-icon {
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 3vh;
+  height: auto;
+  color: $color-secondary;
+}
+
+.icon-container mat-icon.filter-applied {
+  color: $color-orange;
 }

@@ -1,6 +1,8 @@
 // Common Variables
 $spacing-small: 2vh;
 $icon-width: 2vw;
+$color-secondary: #073c5a;
+$color-orange: #f9a634;
 
 // Header Styles
 .header {
@@ -10,7 +12,9 @@ $icon-width: 2vw;
   position: relative;
 }
 
+
 .header mat-icon {
+  color: $color-secondary;
   height: auto;
   width: $icon-width;
   margin-left: auto;

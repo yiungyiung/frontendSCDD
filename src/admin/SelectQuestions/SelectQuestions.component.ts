@@ -13,7 +13,6 @@ import { PopupService } from '../../services/PopupService/popup.service';
 import { Router } from '@angular/router';
 import { SubPart } from '../../Component/filter/filter.component';
 import { FilterService } from '../../services/FilterService/Filter.service';
-import { CanComponentDeactivate } from '../../guards/unsaved-changes.guard';
 @Component({
   selector: 'app-SelectQuestions',
   templateUrl: './SelectQuestions.component.html',
@@ -39,14 +38,6 @@ export class SelectQuestionsComponent implements OnInit {
   isFilterVisible = false;
   questions: Question[] = [];
   questionnaireYear: number | undefined;
-  formIsDirty = false;
-  canDeactivate(): boolean {
-    if (this.formIsDirty) {
-      // Prompt the user with a confirmation dialog
-      return confirm('You have unsaved changes. Do you really want to leave?');
-    }
-    return true; // If no unsaved changes, allow navigation
-  }
   constructor(
     private questionService: QuestionService,
     private authService: AuthService,
@@ -319,7 +310,6 @@ export class SelectQuestionsComponent implements OnInit {
   }
 
   onQuestionSelectionChange(questionID: number, event: Event): void {
-    this.formIsDirty = true;
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.checked) {
       if (!this.selectedQuestions.includes(questionID)) {

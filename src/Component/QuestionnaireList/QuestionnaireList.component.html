@@ -1,15 +1,7 @@
 <div class="main-container">
   <div class="title-container">
     <h1 class="title-text">Reports</h1>
-    <div class="controls-section">
-      <app-pagination
-        [currentPage]="currentPage"
-        [totalPages]="totalPages"
-        [itemsPerPage]="itemsPerPage"
-        [totalItems]="totalItems"
-        (pageChange)="onPageChange($event)"
-        (itemsPerPageChange)="onItemsPerPageChange($event)"
-      ></app-pagination>
+    <div class="icon-container">
       <mat-icon svgIcon="ExportIcon" (click)="openExportModal()"></mat-icon>
       <app-exportDialogBox
         [selectedColumns]="selectedColumns"
@@ -20,6 +12,14 @@
         svgIcon="filterIcon"
         (click)="toggleFilterVisibility()"
       ></mat-icon>
+      <app-pagination
+        [currentPage]="currentPage"
+        [totalPages]="totalPages"
+        [itemsPerPage]="itemsPerPage"
+        [totalItems]="totalItems"
+        (pageChange)="onPageChange($event)"
+        (itemsPerPageChange)="onItemsPerPageChange($event)"
+      ></app-pagination>
     </div>
   </div>
   <div class="cards-container">
