@@ -49,4 +49,11 @@ export class ResponseService {
     formData.append('file', file, file.name);
     return this.http.post(`${this.apiUrl}/upload`, formData);
   }
+  downloadFile(filePath: string): Observable<Blob> {
+    const headers = this.getHeaders();
+    return this.http.get(`${this.apiUrl}/download?filePath=${encodeURIComponent(filePath)}`, {
+      headers,
+      responseType: 'blob' // Specify response type as blob for file download
+    });
+  }
 }

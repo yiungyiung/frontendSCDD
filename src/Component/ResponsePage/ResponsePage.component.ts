@@ -6,6 +6,7 @@ import {
   QuestionnaireAssignmentResponseDto,
   QuestionResponseDto,
 } from '../../model/QuestionOptionResponseDto';
+import { saveAs } from 'file-saver';
 import { AuthService } from '../../services/AuthService/auth.service';
 import { Location } from '@angular/common';
 import { Domain } from '../../model/entity';
@@ -99,5 +100,17 @@ export class ResponsePageComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  downloadFile(filePath: string, fileName: string): void {
+    this.responseService.downloadFile(filePath).subscribe(
+      (response: BlobPart) => {
+        const blob = new Blob([response], { type: 'application/octet-stream' });
+        saveAs(blob, fileName); // Use file-saver to download the file
+      },
+      (error: any) => {
+        console.error('File download failed:', error);
+      }
+    );
   }
 }
