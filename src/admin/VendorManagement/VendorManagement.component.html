@@ -1,107 +1,54 @@
 <!-- User Management Component -->
 <div class="container">
-  <div class="row">
-    <!-- User Form Section -->
+    <div class="row">
+        <!-- User Form Section -->
 
-    <div class="col-md-6">
-      <div class="card mb-3">
-        <div class="add-vendor-card">
-          <div class="card-header-container">
-            <h4 class="card-header">
-              {{
-                selectedVendor
-                  ? "Update Vendor Details"
-                  : "Add Supply Chain Partner"
-              }}
-            </h4>
-            <mat-icon
-              *ngIf="selectedVendor == null"
-              svgIcon="uploadButton"
-              (click)="toggleFileUpload()"
-            ></mat-icon>
-            <mat-icon
-              *ngIf="selectedVendor"
-              type="button"
-              (click)="resetSelectedVendor()"
-              svgIcon="reset"
-            ></mat-icon>
-          </div>
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="add-vendor-card">
+                    <div class="card-header-container">
+                        <h4 class="card-header">
+                            {{ selectedVendor ? "Update Vendor Details" : "Add Supply Chain Partner" }}
+                        </h4>
+                        <mat-icon *ngIf="selectedVendor == null" svgIcon="uploadButton" (click)="toggleFileUpload()"></mat-icon>
+                        <mat-icon *ngIf="selectedVendor" type="button" (click)="resetSelectedVendor()" svgIcon="reset"></mat-icon>
+                    </div>
 
-          <app-vendorForm
-            [categories]="categories"
-            [tiers]="tiers"
-            [selectedVendor]="selectedVendor"
-            (vendorAdded)="onVendorAdded($event)"
-            (vendorUpdated)="onVendorUpdated($event)"
-          ></app-vendorForm>
+                    <app-vendorForm [categories]="categories" [tiers]="tiers" [selectedVendor]="selectedVendor" (vendorAdded)="onVendorAdded($event)" (vendorUpdated)="onVendorUpdated($event)"></app-vendorForm>
 
-          <app-popup-box></app-popup-box>
+                    <app-popup-box></app-popup-box>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <!-- User List Section -->
+        <div class="col-md-6">
+            <div class="back-card mb-3">
+                <div class="card-header-container">
+                    <h4 class="card-header">Supply Chain Partners</h4>
+
+                    <div class="icon-container ml-auto">
+                        <mat-icon svgIcon="exportButton" (click)="openExportModal()"></mat-icon>
+                        <app-exportDialogBox [selectedColumns]="selectedColumns" [allColumns]="allColumns" [data]="vendorForExport"></app-exportDialogBox>
+                        <mat-icon [ngClass]="{ 'filter-applied': isFilterApplied() }" svgIcon="filterIcon" (click)="toggleFilterVisibility()"></mat-icon>
+                        <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" [itemsPerPage]="itemsPerPage" [totalItems]="totalItems" (pageChange)="onPageChange($event)" (itemsPerPageChange)="onItemsPerPageChange($event)"></app-pagination>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <app-vendorcard *ngFor="let vendor of pagedUsers" [vendor]="vendor" (click)="selectVendorForUpdate(vendor)" [toggleVendorStatus]="toggleVendorStatus.bind(this)" (vendorUpdated)="handleUpdatedVendor($event)">
+                        <span>Vendor ID: {{ vendor.vendorID }}</span>
+                        <span>User ID: {{ vendor.user.userId }}</span>
+                    </app-vendorcard>
+                </div>
+                <div *ngIf="isFilterVisible">
+                    <app-filter [subParts]="filterSubParts" (close)="closeFilter()" (filterChange)="onFilterChange()"></app-filter>
+                </div>
+                <div *ngIf="showFileUpload" class="file-upload-wrapper">
+                    <app-fileUpload [TemplateHeader]="csvHeaders" (fileParsed)="onFileParsed($event)" (cancel)="onCancelFileUpload()"></app-fileUpload>
+                </div>
+                <app-FileUploadStatus [failedUsers]="failedUsersUpload"></app-FileUploadStatus>
+            </div>
+        </div>
     </div>
-
-    <!-- User List Section -->
-    <div class="col-md-6">
-      <div class="back-card mb-3">
-        <div class="card-header-container">
-          <h4 class="card-header">Supply Chain Partners</h4>
-
-          <div class="icon-container ml-auto">
-            <mat-icon
-              svgIcon="exportButton"
-              (click)="openExportModal()"
-            ></mat-icon>
-            <app-exportDialogBox
-              [selectedColumns]="selectedColumns"
-              [allColumns]="allColumns"
-              [data]="vendorForExport"
-            ></app-exportDialogBox>
-            <mat-icon
-              [ngClass]="{ 'filter-applied': isFilterApplied() }"
-              svgIcon="filterIcon"
-              (click)="toggleFilterVisibility()"
-            ></mat-icon>
-            <app-pagination
-              [currentPage]="currentPage"
-              [totalPages]="totalPages"
-              [itemsPerPage]="itemsPerPage"
-              [totalItems]="totalItems"
-              (pageChange)="onPageChange($event)"
-              (itemsPerPageChange)="onItemsPerPageChange($event)"
-            ></app-pagination>
-          </div>
-        </div>
-
-        <div class="container">
-          <app-vendorcard
-            *ngFor="let vendor of pagedUsers"
-            [vendor]="vendor"
-            (click)="selectVendorForUpdate(vendor)"
-            [toggleVendorStatus]="toggleVendorStatus.bind(this)"
-            (vendorUpdated)="handleUpdatedVendor($event)"
-          >
-            <span>Vendor ID: {{ vendor.vendorID }}</span>
-            <span>User ID: {{ vendor.user.userId }}</span>
-          </app-vendorcard>
-        </div>
-        <div *ngIf="isFilterVisible">
-          <app-filter
-            [subParts]="filterSubParts"
-            (close)="closeFilter()"
-            (filterChange)="onFilterChange($event)"
-          ></app-filter>
-        </div>
-        <div *ngIf="showFileUpload" class="file-upload-wrapper">
-          <app-fileUpload
-            [TemplateHeader]="csvHeaders"
-            (fileParsed)="onFileParsed($event)"
-            (cancel)="onCancelFileUpload()"
-          ></app-fileUpload>
-        </div>
-        <app-FileUploadStatus
-          [failedUsers]="failedUsersUpload"
-        ></app-FileUploadStatus>
-      </div>
-    </div>
-  </div>
 </div>

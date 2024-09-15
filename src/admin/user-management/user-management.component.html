@@ -1,70 +1,31 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <app-userForm
-        [selectedUser]="selectedUser"
-        [roles]="roles"
-        (userAdded)="onUserAdded($event)"
-        (userUpdated)="onUserUpdated($event)"
-        (fileUploadTriggered)="onFileUploadTriggered()"
-      ></app-userForm>
-      <div *ngIf="!selectedUser"></div>
+    <div class="row">
+        <div class="col-md-6">
+            <app-userForm [selectedUser]="selectedUser" [roles]="roles" (userAdded)="onUserAdded($event)" (userUpdated)="onUserUpdated($event)" (fileUploadTriggered)="onFileUploadTriggered()"></app-userForm>
+            <div *ngIf="!selectedUser"></div>
+        </div>
+        <div class="col-md-6">
+            <div class="back-card mb-3">
+                <div class="card-header-container">
+                    <h4 class="card-header">Users</h4>
+                    <div class="icon-container">
+                        <mat-icon svgIcon="exportButton" (click)="openExportModal()"></mat-icon>
+                        <app-exportDialogBox [selectedColumns]="selectedColumns" [allColumns]="allColumns" [data]="users"></app-exportDialogBox>
+                        <mat-icon [ngClass]="{ 'filter-applied': isFilterApplied() }" svgIcon="filterIcon" (click)="toggleFilterVisibility()"></mat-icon>
+                        <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" [itemsPerPage]="itemsPerPage" [totalItems]="totalItems" (pageChange)="onPageChange($event)" (itemsPerPageChange)="onItemsPerPageChange($event)"></app-pagination>
+                    </div>
+                </div>
+                <div class="container">
+                    <app-usercard *ngFor="let user of pagedUsers" [user]="user" [toggleUserStatus]="toggleUserStatus.bind(this)" (click)="selectUserForUpdate(user)"></app-usercard>
+                </div>
+                <div *ngIf="isFilterVisible">
+                    <app-filter [subParts]="filterSubParts" (close)="closeFilter()" (filterChange)="onFilterChange()"></app-filter>
+                </div>
+                <div *ngIf="showFileUpload" class="file-upload-wrapper">
+                    <app-fileUpload [TemplateHeader]="csvHeaders" (fileParsed)="onFileParsed($event)" (cancel)="onCancelFileUpload()"></app-fileUpload>
+                </div>
+                <app-FileUploadStatus [failedUsers]="failedUsersUpload"></app-FileUploadStatus>
+            </div>
+        </div>
     </div>
-    <div class="col-md-6">
-      <div class="back-card mb-3">
-        <div class="card-header-container">
-          <h4 class="card-header">Users</h4>
-          <div class="icon-container">
-            <mat-icon
-              svgIcon="exportButton"
-              (click)="openExportModal()"
-            ></mat-icon>
-            <app-exportDialogBox
-              [selectedColumns]="selectedColumns"
-              [allColumns]="allColumns"
-              [data]="users"
-            ></app-exportDialogBox>
-            <mat-icon
-              [ngClass]="{ 'filter-applied': isFilterApplied() }"
-              svgIcon="filterIcon"
-              (click)="toggleFilterVisibility()"
-            ></mat-icon>
-            <app-pagination
-              [currentPage]="currentPage"
-              [totalPages]="totalPages"
-              [itemsPerPage]="itemsPerPage"
-              [totalItems]="totalItems"
-              (pageChange)="onPageChange($event)"
-              (itemsPerPageChange)="onItemsPerPageChange($event)"
-            ></app-pagination>
-          </div>
-        </div>
-        <div class="container">
-          <app-usercard
-            *ngFor="let user of pagedUsers"
-            [user]="user"
-            [toggleUserStatus]="toggleUserStatus.bind(this)"
-            (click)="selectUserForUpdate(user)"
-          ></app-usercard>
-        </div>
-        <div *ngIf="isFilterVisible">
-          <app-filter
-            [subParts]="filterSubParts"
-            (close)="closeFilter()"
-            (filterChange)="onFilterChange($event)"
-          ></app-filter>
-        </div>
-        <div *ngIf="showFileUpload" class="file-upload-wrapper">
-          <app-fileUpload
-            [TemplateHeader]="csvHeaders"
-            (fileParsed)="onFileParsed($event)"
-            (cancel)="onCancelFileUpload()"
-          ></app-fileUpload>
-        </div>
-        <app-FileUploadStatus
-          [failedUsers]="failedUsersUpload"
-        ></app-FileUploadStatus>
-      </div>
-    </div>
-  </div>
 </div>
