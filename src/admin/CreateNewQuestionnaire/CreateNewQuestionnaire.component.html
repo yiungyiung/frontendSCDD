@@ -61,19 +61,16 @@
           <div class="card-body">
             <div *ngFor="let category of categorizedVendors">
               <div class="d-flex mb-2">
-                <div class="box-container">
+                <div>
                   <input
                     type="checkbox"
                     id="category-{{ category.categoryID }}"
-                    class="custom-checkbox"
+                    
                     [checked]="isAllVendorsSelected(category.categoryID)"
                     (change)="toggleSelectAll(category.categoryID)"
                     [disabled]="disabledCategories.has(category.categoryID)"
                   />
-                  <label
-                    for="category-{{ category.categoryID }}"
-                    class="box"
-                  ></label>
+                  
                 </div>
 
                 <div class="mb-0">{{ category.categoryName }}</div>

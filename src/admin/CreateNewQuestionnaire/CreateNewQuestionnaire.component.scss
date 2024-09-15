@@ -1,90 +1,52 @@
-// Common Variables
-$primary-color: #073c5a;
-$secondary-color: #ffb23b;
-$background-color: #fff;
-$border-color: #ddd;
-$box-shadow: 0 0 4px rgba(7, 60, 90, 0.2);
-$modal-bg-color: #fff;
-$modal-shadow: 0px 0.125rem 0.375rem rgba(0, 0, 0, 0.2);
-$text-color: $primary-color;
-$font-size-base: 16px;
-$font-size-small: 1rem; // 16px
-$font-size-large: 1.25rem; // 20px
-$font-size-xlarge: 1.125rem; // 18px
-
-$color-secondary: #073c5a;
-$color-orange: #f9a634;
-
+@import '../../style/common.scss';
 // Common Styles
 .container {
   margin-top: auto;
   max-width: 100%;
 }
-
 .card-header-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #e7f4f9;
-  border-bottom: 1px solid $border-color;
-  padding: 10px 15px;
-  height: 8vh;
-
+  @include card-header-container;
   h4 {
     padding-left: 20px;
   }
-
   mat-icon {
-    width: 30px;
-    height: auto;
+    @include mat-icon;
   }
 }
-
 .card {
-  box-shadow: $box-shadow;
+  @include card-style;
   height: 67vh;
   overflow-y: scroll;
   scrollbar-width: none;
-  border-radius: 8px;
   max-width: 100%;
   margin: 0 auto;
 }
-
 .mb-2 {
   padding-top: 2vh;
 }
-
 .divider {
-  border-top: 1px solid rgba(0, 0, 0, 0.25);
-  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.25);
-  margin: 20px 0;
+  @include divider;
 }
-
 .mb-0 {
-  font-size: 2vh;
+  font-size: $font-size-medium;
   color: $primary-color;
   font-weight: bold;
   width: 60vw;
   position: right;
 }
-
 .title-cat {
-  font-size: 20px;
+  font-size:font-size-small ;
 }
-
 .card-header {
-  font-size: 2.5vh;
+  font-size: $font-size-large;
   font-weight: bold;
   color: $primary-color;
   background-color: transparent;
   border: none;
 }
-
-// Framework card styling
 .framework-card,
 .vendor-card {
-  border-radius: 4px;
-  box-shadow: $box-shadow;
+@include card-style;
   padding: 10px;
   margin-bottom: 2vh;
   cursor: pointer;
@@ -93,179 +55,87 @@ $color-orange: #f9a634;
   justify-content: space-between;
   transition: background-color 0.3s;
 }
-
 .framework-section,
 .vendor-section {
   margin-bottom: 10px;
   color: $primary-color;
-  font-size: 2.25vh;
+  font-size: $font-size-medium;
 }
-
 .label {
-  font-size: 1.5vh;
+  font-size: $font-size-small;
   color: #666;
   margin-bottom: 5px;
   text-align: center;
 }
-
 .circle-container {
-  width: 3.75vh;
-  height: 3.75vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.circle {
-  width: 2.5vh;
-  height: 2.5vh;
-  border-radius: 50%;
-  border: 2px solid $primary-color;
-  background-color: transparent;
-  position: relative;
-  transition: border-color 0.3s;
-}
-
-.framework-card.selected .circle {
-  border-color: $secondary-color; // Outer circle color when selected
-}
-
-.circle::after {
-  content: "";
-  width: 6px; // Size of the inner circle
-  height: 6px;
-  border-radius: 50%;
-  background-color: transparent;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transition: background-color 0.3s;
-}
-
-.framework-card.selected .circle::after {
-  background-color: $secondary-color; // Inner circle color when selected
-}
-
+  @include circle-container;
+ }
+ .circle {
+   margin-left: 1vw;
+   @include circle;
+   }
+ .framework-card.selected .circle {
+   border-color: $highlight-color;
+   &::after {
+     background-color: $highlight-color;
+   }
+ }
 .box-container {
   display: flex;
   align-items: center;
 }
-
+@include checkbox-style($primary-color, $highlight-color, $background-color);
 .box {
-  width: 20px;
-  height: 20px;
-  border: 1px solid $primary-color;
-  background-color: $background-color;
-  cursor: pointer;
-  position: relative;
-  margin-right: 5px; // Required for positioning of the ::after pseudo-element
-
-  &.selected {
-    border: 2px solid $secondary-color;
-    background-color: $secondary-color;
-
-    &::after {
-      content: "\2713"; // Unicode for tick mark
-      font-size: 16px; // Adjust size as needed
-      color: #fff; // Color of the tick mark
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%); // Center the tick mark
-    }
-  }
+  @include box;
 }
-
-// Vendor card styling (unchanged)
 .vendor-card {
-  border: 1px solid $border-color;
-  border-radius: 4px;
+  @include card-style;
   padding: 10px;
   margin-bottom: 10px;
   cursor: pointer;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  transition: background-color 0.3s;
 }
-
 .vendor-section {
-  display: flex;
+  @include flex-center;
   flex-direction: column;
-  align-items: center;
 }
-
 .vendor-card .circle-container {
   width: 30px;
   height: 30px;
 }
-
 .disabled {
   opacity: 0.5;
   pointer-events: none;
 }
-
 .btn-primary {
-  background-color: #12789e;
-  height: 4vh;
+@include btn-style($tertiary-color); 
   align-items: center;
-  color: #ffffff;
-  border: none;
   cursor: pointer;
-  font-size: 2.5vh;
-  border-radius: 5px;
+  font-size: $font-size-large;
   margin-left: auto;
   margin-bottom: 2vh;
   display: block;
-
-  &:hover {
-    background-color: #105a7e; // Darker shade for hover effect
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // Add shadow on hover
-  }
-
   &:active {
     background-color: #0d4a61; // Even darker shade for active effect
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); // Smaller shadow on click
   }
 }
-
-.custom-checkbox {
-  display: none;
-
-  &:checked + .box {
-    border: 2px solid $secondary-color;
-    background-color: $secondary-color;
-
-    &::after {
-      content: "\2713"; // Unicode for tick mark
-      font-size: 16px; // Adjust size as needed
-      color: #fff; // Color of the tick mark
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%); // Center the tick mark
-    }
-  }
-}
-
-// Icon Container Styles
 .icon-container {
   padding-right: 20px;
   padding-bottom: 20px;
   display: flex;
   align-items: center;
 }
-
 .icon-container mat-icon {
   margin-top: 20px;
   margin-left: 10px;
   margin-right: 10px;
   width: 3vh;
   height: auto;
-  color: $color-secondary;
+  color: $primary-color;
 }
-
 .icon-container mat-icon.filter-applied {
-  color: $color-orange;
+  color: $highlight-color;
 }
