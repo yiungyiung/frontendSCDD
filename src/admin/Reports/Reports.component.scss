@@ -3,33 +3,31 @@
 
 // Header Styles
 .header {
-  display: flex;
+  @include flex-center;
   justify-content: flex-end;
   margin-right: 2vh;
   position: relative;
+
+  mat-icon {
+    @include mat-icon;
+    color: $primary-color;
+    margin-left: auto;
+  }
 }
 
-.header mat-icon {
-  color: $primary-color;
-  height: auto;
-  width: 2vw;
-  margin-left: auto;
-}
-
+// Task Card Styles
 .task-card {
+  @include card-style;
   padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  background-color: #f9f9f9;
   display: flex;
   flex-direction: column;
   width: 100%;
   margin: 20px auto;
 }
 
+// Card Header & Content
 .card-header {
-  font-size: 16px;
-  font-weight: bold;
+  @include form-group;
   margin-bottom: 10px;
 }
 
@@ -39,45 +37,29 @@
   justify-content: space-between;
 }
 
+// Task Status
 .task-status {
-  display: flex;
-  align-items: center;
+  @include flex-center;
   margin-bottom: 10px;
-  font-size: 14px;
+  font-size: $font-size-small;
 }
 
+// Status Indicator
 .status-indicator {
-  width: 12px;
-  height: 12px;
-  border-radius: 2px;
+  @include circle;
+  border: none;
   margin-right: 5px;
 }
 
-/* Colors for each statusId */
-.status-1 {
-  background-color: #4caf50; /* Green */
+@mixin status-color($color) {
+  background-color: $color;
 }
 
-.status-2 {
-  background-color: #ffa726; /* Orange */
-}
-
-.status-3 {
-  background-color: #8BC34A; /* Light Green */
-}
-
-.status-4 {
-  background-color: #FF5722; /* Red */
-}
-
-.status-5 {
-  background-color: #E91E63; /* Pink */
-}
-
-.status-6 {
-  background-color: #795548; /* Brown */
-}
-
-.status-7 {
-  background-color: #03A9F4; /* Blue */
-}
+// Dynamic Status Colors
+.status-1 { @include status-color(#4caf50); }
+.status-2 { @include status-color(#ffa726); }
+.status-3 { @include status-color(#8BC34A); }
+.status-4 { @include status-color(#FF5722); }
+.status-5 { @include status-color(#E91E63); }
+.status-6 { @include status-color(#795548); }
+.status-7 { @include status-color(#03A9F4); }
