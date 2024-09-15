@@ -13,6 +13,7 @@ import { ReportsComponent } from './Reports/Reports.component';
 import { DynamicReportsComponent } from './DynamicReports/DynamicReports.component';
 import { ResponsePageComponent } from '../Component/ResponsePage/ResponsePage.component';
 import { UnsavedChangesGuard } from '../guards/unsaved-changes.guard';
+import { FrameworkDetailsComponent } from '../Component/FrameworkDetails/FrameworkDetails.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,11 @@ const routes: Routes = [
         path: 'user-management',
         component: UserManagementComponent,
         data: { breadcrumb: 'User Management' },
+      },
+      {
+        path: 'framework',
+        component: FrameworkDetailsComponent,
+        data: { breadcrumb: 'Framework' },
       },
       {
         path: 'vendor-management',

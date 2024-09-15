@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import {Domain, Framework, Status, Tier, UnitOfMeasurement } from '../../model/entity';
+import {Domain, Framework, FrameworkDetails, Status, Tier, UnitOfMeasurement } from '../../model/entity';
 import { Category } from '../../model/category';
 @Injectable({
   providedIn: 'root'
@@ -54,6 +54,11 @@ export class EntityService {
       'Authorization': `Bearer ${token}`
     });
     return this.http.get<Framework>(`${this.apiUrl}/entity/frameworks/${id}`,{headers});
+  }
+
+  getAllFrameworkDetails(token: string): Observable<FrameworkDetails[]> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<FrameworkDetails[]>(`${this.apiUrl}/entity/frameworkdetails`, { headers });
   }
 
   getAllUnitsOfMeasurement(token:string): Observable<UnitOfMeasurement[]> {

@@ -1,0 +1,13 @@
+<div *ngIf="frameworkDetails && frameworkDetails.length > 0; else noData">
+    <h2>Framework Details</h2>
+    <ul>
+        <li *ngFor="let detail of frameworkDetails">
+            <h3>{{ detail.frameworkID }}: {{ detail.details }}</h3>
+            <p>Link: <a [href]="detail.link" target="_blank">{{ detail.link }}</a></p>
+        </li>
+    </ul>
+</div>
+
+<ng-template #noData>
+    <p>No framework details available.</p>
+</ng-template>

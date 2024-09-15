@@ -37,6 +37,7 @@ import { ProgressBarComponent } from '../../Component/ProgressBar/ProgressBar.co
 import { FilterComponent } from '../../Component/filter/filter.component';
 import { UnsavedChangesGuard } from '../../guards/unsaved-changes.guard'; 
 import { ExistingQuestionnaireModalComponent } from '../../Component/ExistingQuestionnaireModal/ExistingQuestionnaireModal.component';
+import { FrameworkDetailsComponent } from '../../Component/FrameworkDetails/FrameworkDetails.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { ExistingQuestionnaireModalComponent } from '../../Component/ExistingQue
     ProgressBarComponent,
     FilterComponent,
     ExistingQuestionnaireModalComponent,
+    FrameworkDetailsComponent
   ],
   imports: [
     HighchartsChartModule,
@@ -119,6 +121,7 @@ import { ExistingQuestionnaireModalComponent } from '../../Component/ExistingQue
     ProgressBarComponent,
     FilterComponent,
     ExistingQuestionnaireModalComponent,
+    FrameworkDetailsComponent
   ],
 })
 export class SharedModule {}
