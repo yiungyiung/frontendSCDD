@@ -1,22 +1,18 @@
-// Common Variables
-$spacing-small: 2vh;
-$icon-width: 2vw;
-$color-secondary: #073c5a;
-$color-orange: #f9a634;
+// Import the common styles
+@import '../../style/common.scss';
 
 // Header Styles
 .header {
   display: flex;
   justify-content: flex-end;
-  margin-right: $spacing-small;
+  margin-right: 2vh;
   position: relative;
 }
 
-
 .header mat-icon {
-  color: $color-secondary;
+  color: $primary-color;
   height: auto;
-  width: $icon-width;
+  width: 2vw;
   margin-left: auto;
 }
 

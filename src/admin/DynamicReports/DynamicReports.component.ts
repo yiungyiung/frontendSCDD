@@ -7,12 +7,7 @@ import { ResponseService } from '../../services/ResponseService/Response.service
 import { ExtendedQuestionnaireAssignmentResponseDto } from '../../Component/DynamicDisplay/DynamicDisplay.component';
 import { Question } from '../../model/question';
 import { QuestionService } from '../../services/QuestionService/Question.service';
-import { Option } from '../../model/question';
-import {
-  QuestionnaireAssignmentResponseDto,
-  QuestionOptionResponseDto,
-  QuestionTextBoxResponseDto,
-} from '../../model/QuestionOptionResponseDto';
+import { QuestionnaireAssignmentResponseDto } from '../../model/QuestionOptionResponseDto';
 import { ExportModalServiceService } from '../../services/ExportModalService/ExportModalService.service';
 
 @Component({
@@ -200,7 +195,7 @@ export class DynamicReportsComponent implements OnInit {
 
           this.responses.push({ ...response, vendorName });
           responsesCount++;
-
+          console.log('resersese', this.responses);
           if (responsesCount === totalResponses) {
             this.selectedQuestion = [];
             for (let response of this.responses) {

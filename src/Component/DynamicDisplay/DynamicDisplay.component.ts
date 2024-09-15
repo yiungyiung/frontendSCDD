@@ -72,8 +72,6 @@ export class DynamicDisplayComponent implements OnInit {
       question.optionResponses &&
       question.optionResponses.length > 0
     ) {
-      console.log('sq', this.selectedQuestion);
-      console.log('r', this.responses);
       return question.optionResponses.map((opt) => opt.optionText).join(', ');
     }
     return '-';
@@ -92,6 +90,23 @@ export class DynamicDisplayComponent implements OnInit {
         (t) => t.textBoxID === textboxId
       );
       return textboxResponse ? textboxResponse.textValue : '';
+    }
+    return '-';
+  }
+
+  getFileUploadResponse(
+    response: ExtendedQuestionnaireAssignmentResponseDto,
+    questionId: number,
+    FileuploadId: number
+  ): string {
+    const question = response.questions.find(
+      (q) => q.questionID === questionId
+    );
+    if (question && question.fileUploadResponses) {
+      const textboxResponse = question.fileUploadResponses.find(
+        (t) => Number(t.fileUploadID) === FileuploadId
+      );
+      return textboxResponse ? textboxResponse.fileName : '';
     }
     return '-';
   }

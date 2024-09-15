@@ -1,11 +1,7 @@
+// Import the common styles
+@import '../../style/common.scss';
+
 // Common Variables
-$primary-color: #12789e;
-$secondary-color: #073c5a;
-$background-color: #fff;
-$border-color: #ddd;
-$box-shadow: 0 0 4px rgba(7, 60, 90, 0.2);
-$modal-bg-color: #fff;
-$modal-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 $text-color: #fff;
 $font-size-base: 16px;
 $font-size-small: 1rem; // 16px
@@ -20,43 +16,24 @@ $font-size-xlarge: 1.125rem; // 18px
 }
 
 .card-header-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: $primary-color;
-  border-bottom: 1px solid $border-color;
-  padding: 10px 15px;
-  height: 9vh;
-
-  mat-icon {
-    width: 30px;
-    height: auto;
-    margin-right: 20px;
-  }
-
-  h4 {
+  @include card-header-container;
+  background-color: $tertiary-color;
+  h5 {
     padding-left: 20px;
+  }
+  mat-icon{
+    width: 2vw;
+    height: auto
   }
 }
 
 .card {
-  box-shadow: $box-shadow;
+  @include card-style;
   height: 65vh;
-  border-radius: 8px;
-}
-
-.mb-0 {
-  font-size: 2vh;
-  color: $secondary-color;
-  font-weight: bold;
-}
-
-.title-cat {
-  font-size: $font-size-large;
 }
 
 .card-header {
-  font-size: 18px;
+  font-size: $font-size-xlarge;
   font-weight: bold;
   color: $text-color;
   background-color: transparent;
@@ -65,27 +42,15 @@ $font-size-xlarge: 1.125rem; // 18px
 
 // Modal Styles
 .modal-card {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  @include modal-style;
   width: 60vw;
   height: 60vh;
-  z-index: 1050;
-  background: $modal-bg-color;
-  box-shadow: $modal-shadow;
 }
 
 .modal-card-vendor {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  @include modal-style;
   width: 90vw;
   height: 80vh;
-  z-index: 1050;
-  background: $modal-bg-color;
-  box-shadow: $modal-shadow;
 }
 
 .hidden {
@@ -102,12 +67,14 @@ $font-size-xlarge: 1.125rem; // 18px
   z-index: 1040;
 }
 
+// Card Body Styles
 .card-body {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+// Column Styles
 .col-md-6,
 .col-md-12 {
   min-height: 65vh;

@@ -97,8 +97,8 @@ $btn-danger-color: #dc3545;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1050;
-  background: $modal-bg-color;
-  box-shadow: $modal-shadow;
+  background: $background-color;
+  box-shadow: $box-shadow;
   .modal-overlay {
     position: fixed;
     top: 0;

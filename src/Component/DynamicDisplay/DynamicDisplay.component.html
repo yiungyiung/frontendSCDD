@@ -32,6 +32,7 @@
           >
             Option Selection
           </th>
+
           <ng-container
             *ngIf="
               shouldDisplayQuestion(
@@ -45,6 +46,24 @@
           >
             <th
               *ngFor="let textbox of question.textboxes"
+              [matTooltip]="textbox.label"
+            >
+              {{ textbox.label }}
+            </th>
+          </ng-container>
+          <ng-container
+            *ngIf="
+              shouldDisplayQuestion(
+                selectedQuestion,
+                question.questionID!,
+                i
+              ) &&
+              question &&
+              question.fileUploads.length > 0
+            "
+          >
+            <th
+              *ngFor="let textbox of question.fileUploads"
               [matTooltip]="textbox.label"
             >
               {{ textbox.label }}
@@ -104,6 +123,36 @@
                     response,
                     question.questionID!,
                     textbox.textBoxID!
+                  ) || "-"
+                }}
+              </td>
+            </ng-container>
+            <ng-container
+              *ngIf="
+                shouldDisplayQuestion(
+                  selectedQuestion,
+                  question.questionID!,
+                  i
+                ) &&
+                question &&
+                question.fileUploads.length > 0
+              "
+            >
+              <td
+                *ngFor="let textbox of question.fileUploads"
+                [matTooltip]="
+                  getFileUploadResponse(
+                    response,
+                    question.questionID!,
+                    textbox.fileUploadID!
+                  )
+                "
+              >
+                {{
+                  getFileUploadResponse(
+                    response,
+                    question.questionID!,
+                    textbox.fileUploadID!
                   ) || "-"
                 }}
               </td>
