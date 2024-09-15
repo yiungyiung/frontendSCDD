@@ -1,20 +1,5 @@
-$primary-color: #073c5a;
-$secondary-color: #ffb23b;
-$background-color: #fff;
-$border-color: #ddd;
+@import '../../style/common.scss';
 $shadow-color: rgba(7, 60, 90, 0.2);
-
-@mixin flex-center {
-  display: flex;
-  align-items: center;
-}
-
-@mixin card-base {
-  border: 1px solid $border-color;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  background-color: $background-color;
-}
 
 mat-icon {
   height: auto;
@@ -25,7 +10,7 @@ mat-icon {
 }
 
 .left-card {
-  @include card-base;
+  @include card-style;
   padding: 10px;
   height: 68vh;
   overflow-y: scroll;
@@ -54,7 +39,7 @@ mat-icon {
 }
 
 .vendor-card {
-  @include card-base;
+  @include card-style;
   font-size: 2vh;
   padding: 10px;
   margin-bottom: 10px;
@@ -64,36 +49,11 @@ mat-icon {
   justify-content: space-between;
   transition: background-color 0.3s;
 }
+@include checkbox-style($primary-color, $highlight-color, $background-color);
 
-input[type="checkbox"] {
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border: 2px solid $primary-color;
-  border-radius: 3px;
-  background-color: $background-color;
-  cursor: pointer;
-  position: relative;
-
-  &:checked {
-    background-color: $secondary-color;
-    border-color: $secondary-color;
-
-    &::after {
-      content: "\2714";
-      color: white;
-      font-size: 16px;
-      position: absolute;
-      top: -2px;
-      left: 3px;
-    }
-  }
-}
 
 .divider {
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.1);
-  margin: 20px 0;
+  @include divider;
 }
 
 .divider1 {
@@ -111,8 +71,8 @@ input[type="checkbox"] {
   margin-right: 5px;
 
   &.selected {
-    border: 2px solid $secondary-color;
-    background-color: $secondary-color;
+    border: 2px solid $highlight-color;
+    background-color: $highlight-color;
 
     &::after {
       content: "\2713";
@@ -131,44 +91,26 @@ input[type="checkbox"] {
   transition: all 0.3s ease;
 }
 
+
+
 .circle-container {
-  display: flex;
-  width: auto;
-  height: auto;
-  cursor: pointer;
+ @include circle-container;
 }
 
 .circle {
   margin-left: 1vw;
-  width: 2.5vh;
-  height: 2.5vh;
-  border-radius: 50%;
-  border: 2px solid $primary-color;
-  background-color: transparent;
-  position: relative;
-  transition: border-color 0.3s;
-
-  &::after {
-    content: "";
-    width: 1.2vh;
-    height: 1.2vh;
-    border-radius: 50%;
-    background-color: transparent;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: background-color 0.3s;
+  @include circle;
   }
-}
+
 
 .custcard.selected .circle {
-  border-color: $secondary-color;
+  border-color: $highlight-color;
 
   &::after {
-    background-color: $secondary-color;
+    background-color: $highlight-color;
   }
 }
+
 
 .card-body {
   .d-flex {
@@ -182,7 +124,7 @@ input[type="checkbox"] {
 }
 
 .back-card {
-  @include card-base;
+  @include card-style;
   margin-bottom: 2.5vh;
   overflow-y: scroll;
   scrollbar-width: none;
@@ -219,7 +161,7 @@ input[type="checkbox"] {
 }
 
 .custcard {
-  @include card-base;
+  @include card-style;
   margin-bottom: 6vh;
   width: auto;
   margin-top: 2vh;
@@ -236,15 +178,8 @@ input[type="checkbox"] {
 }
 
 .user-status {
-  position: relative;
-  width: 6vw;
+  @include user-status;
   top: -4vh;
-  padding: 5px 10px;
-  border-radius: 4px;
-  color: white;
-  text-align: center;
-  display: inline-block;
-  font-size: 1.7vh;
 }
 
 .question-status {
@@ -255,21 +190,13 @@ input[type="checkbox"] {
 }
 
 .user-details {
-  display: grid;
+  @include grid;
   grid-template-columns: 1fr 3fr 5fr 2fr 1fr;
-  text-align: center;
 }
 
 .detail {
   margin-top: -20px;
-  font-size: 2vh;
-
-  small {
-    display: block;
-    font-size: 1.7vh;
-    color: gray;
-    text-align: center;
-  }
+  @include detail;
 }
 
 .user-id-bg {
@@ -285,11 +212,7 @@ input[type="checkbox"] {
 }
 
 .truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100%;
-  display: block;
+ @include Truncate;
 }
 
 .question-category-container {
@@ -308,10 +231,9 @@ input[type="checkbox"] {
 }
 
 .btn-primary {
-  background-color: #12789e;
+  @include btn-style($tertiary-color);
   height: auto;
   align-items: center;
-  color: #ffffff;
   border: none;
   cursor: pointer;
   font-size: 2.5vh;
@@ -321,12 +243,6 @@ input[type="checkbox"] {
   margin-top: -8vh;
   display: block;
   padding: 1vh;
-
-  &:hover {
-    background-color: #105a7e;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-
   &:active {
     background-color: #0d4a61;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -460,5 +376,5 @@ input[type="checkbox"] {
   }
   
   .icon-container mat-icon.filter-applied {
-    color: $secondary-color;
+    color: $highlight-color;
   }

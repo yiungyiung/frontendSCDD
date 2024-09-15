@@ -1,6 +1,7 @@
 // Variables
 $background-color: #FFFFFF;
 $primary-color: #073c5a;
+$tertiary-color: #12789e;
 $highlight-color: #F9A634;
 $secondary-color: #E7F4F9;
 $disabled-background-color: #A2A2A2;
@@ -34,6 +35,7 @@ $btn-danger-color: #dc3545;
   box-shadow: $box-shadow;
   background-color: $background-color;
 }
+
 
 // Button styles
 @mixin btn-style($color) {
@@ -88,6 +90,26 @@ $btn-danger-color: #dc3545;
   }
 }
 
+// Modal styles
+@mixin modal-style {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1050;
+  background: $modal-bg-color;
+  box-shadow: $modal-shadow;
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+  }
+}
+
 // Common Elements
 
 @mixin form-group {
@@ -98,12 +120,9 @@ $btn-danger-color: #dc3545;
   margin-bottom: 2vh;
 }
 
-@mixin btn-primary {
-  
+@mixin btn-primary { 
   @include btn-style($primary-color);
-
   margin-right:none;
-  
 }
 
 .btn-success {
@@ -151,8 +170,10 @@ $btn-danger-color: #dc3545;
   font-size: $font-size-medium;
 
   small {
+    display: block;
     font-size: $font-size-small;
     color: gray;
+    display: block;
   }
 }
 
@@ -165,4 +186,79 @@ $btn-danger-color: #dc3545;
   word-break: break-all;
   max-width: 200px;
 }
+//satviki
+@mixin grid{
+  display: grid;
+  text-align: center;
+}
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin circle-container {
+  display: flex;
+  width: auto;
+  height: auto;
+  cursor: pointer;
+}
+@mixin circle {
+ 
+  width: 2.5vh;
+  height: 2.5vh;
+  border-radius: 50%;
+  border: 2px solid $primary-color;
+  background-color: transparent;
+  position: relative;
+  transition: border-color 0.3s;
+
+  &::after {
+    content: "";
+    width: 1.2vh;
+    height: 1.2vh;
+    border-radius: 50%;
+    background-color: transparent;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: background-color 0.3s;
+  }
+}
+
+@mixin divider {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+@mixin checkbox-style($primary-color, $highlight-color, $background-color) {
+  input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid $primary-color;
+    border-radius: 3px;
+    background-color: $background-color;
+    cursor: pointer;
+    position: relative;
+
+    &:checked {
+      background-color: $highlight-color;
+      border-color: $highlight-color;
+
+      &::after {
+        content: "\2714";
+        color: white;
+        font-size: 16px;
+        position: absolute;
+        top: -2px;
+        left: 3px;
+      }
+    }
+  }
+}
+
+
+
 
