@@ -1,35 +1,16 @@
-// Common Variables
-$color-primary: #12789e;
-$color-secondary: #073c5a;
-$color-light: #e7f4f9;
-$color-white: #ffffff;
-$color-gray: #ddd;
-$color-orange: #f9a634;
-$color-green: #339a2d;
-$color-red: #dc3545;
-$color-text-gray: gray;
-$font-size-small: 1.7vh;
-$font-size-medium: 2vh;
-$font-size-large: 1.25vw;
-$border-radius: 8px;
-$box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+@import '../../style/common.scss';
 
-// Opacity Variants
-$color-secondary84: rgba($color-secondary, 0.84);
+$primary-color84: rgba($primary-color, 0.84);
 
-// Container Styles
 .container {
   max-width: 100%;
   margin: 0 auto;
   margin-top: 3.3vh;
 }
-
 // Card Styles
 .card,
 .back-card {
-  border: 1px solid $color-gray;
-  border-radius: $border-radius;
-  box-shadow: $box-shadow;
+  @include card-style;
   margin-bottom: 2.5vh;
   margin-top: 3vh;
   overflow-y: scroll;
@@ -43,7 +24,7 @@ $color-secondary84: rgba($color-secondary, 0.84);
 }
 
 .back-card {
-  background-color: $color-white;
+  background-color: $background-color;
   width: 63vw;
   margin-left: -19vw;
   height: 68vh;
@@ -51,12 +32,7 @@ $color-secondary84: rgba($color-secondary, 0.84);
 
 // Card Header Styles
 .card-header-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: $color-light;
-  border-bottom: 1px solid $color-gray;
-  padding: 10px 15px;
+  @include card-header-container ;
   height: 9vh;
 }
 
@@ -67,17 +43,14 @@ $color-secondary84: rgba($color-secondary, 0.84);
 .card-header {
   font-size: $font-size-large;
   font-weight: bold;
-  color: $color-secondary;
+  color: $primary-color;
   background-color: transparent;
   border: none;
 }
 
 // Form Styles
 .form-group {
-  font-size: $font-size-medium;
-  font-weight: 600;
-  color: $color-secondary;
-  margin-bottom: $font-size-medium;
+  @include form-group;
 }
 
 .form-control,
@@ -85,7 +58,7 @@ $color-secondary84: rgba($color-secondary, 0.84);
   width: 100%;
   padding: 1.5vh;
   font-size: $font-size-medium;
-  border: 1px solid $color-secondary84;
+  border: 1px solid $primary-color84;
   border-radius: 4px;
 }
 
@@ -104,100 +77,66 @@ $color-secondary84: rgba($color-secondary, 0.84);
   right: 5px;
   pointer-events: none;
   font-size: 18px;
-  color: $color-secondary;
+  color: $primary-color;
 }
 
 .btn-primary {
-  margin-top: 6vh;
-  background-color: $color-primary;
-  border-color: $color-primary;
-  color: white;
+  @include btn-style($tertiary-color);
   width: 100%;
 }
 
-.btn-primary:hover {
-  background-color: darken($color-primary, 10%);
-  border-color: darken($color-primary, 10%);
-}
-
-// Icon Container Styles
 .icon-container {
   padding-right: 20px;
   padding-bottom: 20px;
-  display: flex;
-  align-items: center;
+ @include flex-center;
 }
 
 .icon-container mat-icon {
   margin-top: 20px;
   margin-left: 10px;
   margin-right: 10px;
-  width: 3vh;
-  height: auto;
-  color: $color-secondary;
+  @include mat-icon;
+  color: $primary-color;
 }
 
 .icon-container mat-icon.filter-applied {
-  color: $color-orange;
+  color: $highlight-color;
 }
 
 // User Status Styles
 .user-status {
-  position: relative;
-  width: 6vw;
-  top: -4vh;
+@include user-status;
   left: 10px;
-  padding: 5px 10px;
-  border-radius: 4px;
-  color: white;
-  text-align: center;
-  display: inline-block;
-  font-size: $font-size-small;
-
+  top: -4vh;
   &.active {
-    background-color: $color-green;
+    background-color: $background-color-success;
   }
-
   &.inactive {
-    background-color: $color-red;
+    background-color: $btn-danger-color;
   }
 }
 
-// User Details Styles
 .user-details {
-  display: grid;
+  @include grid;
   grid-template-columns: repeat(auto-fill, minmax(7vw, 1fr));
   gap: 1vw;
-  text-align: center;
 }
 
 .detail {
   margin-top: -20px;
-  text-align: center;
-  font-size: $font-size-medium;
-
-  small {
-    display: block;
-    font-size: $font-size-small;
-    color: $color-text-gray;
-    text-align: center;
-  }
+@include detail;
 }
 
 // Other Styles
 .user-id-bg,
 .user-ids-bg {
-  background-color: $color-light;
+  background-color: $secondary-color;
   padding: 10px;
   border-radius: 4px;
 }
 
 .truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100%;
-  display: block;
+@include Truncate;
 }
 
 // File Upload Wrapper Styles
@@ -207,7 +146,7 @@ $color-secondary84: rgba($color-secondary, 0.84);
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1000; // Adjust as needed
-  background: $color-white; // Ensure the background is visible
+  background: $background-color; // Ensure the background is visible
   padding: 20px;
   border: 1px solid #ccc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
