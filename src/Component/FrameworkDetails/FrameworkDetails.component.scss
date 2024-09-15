@@ -1,0 +1,91 @@
+@import '../../style/common.scss';
+
+$font-size-xlarge: 1.125rem;
+$text-color: #fff;
+
+.framework-container {
+  @include card-style;
+  margin-top: 5vh;
+}
+
+.card-header-container {
+  @include card-header-container;
+  h5 {
+    padding-left: 20px;
+  }
+  mat-icon {
+    width: 2vw;
+    height: auto;
+  }
+}
+
+.card-header {
+  font-size: $font-size-large;
+  font-weight: bold;
+  color: $primary-color;
+  background-color: transparent;
+  border: none;
+}
+
+.framework-list {
+    list-style: none;
+    padding: 0;
+    width: 100%; // Ensure it takes full width of the container
+    display: flex;
+    flex-direction: column; // Display items in a vertical column
+    align-items: center; // Center the items horizontally
+  }
+
+.framework-item {
+    width: 95%;
+  border: 1px solid $border-color; // Add a border of primary color
+  border-radius: $border-radius;
+  margin-top: 1rem;
+  background-color: $background-color; // Set white background for the card
+  box-shadow: $box-shadow;
+}
+
+.framework-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  cursor: pointer;
+  background-color: $background-color;
+  border-radius: $border-radius-small; // Rounded corners for the top of the card
+
+  .h3{
+    font-size: $font-size-small;
+    margin: 0;
+  }
+}
+
+.framework-header-title{
+    font-size: $font-size-small;
+    margin: 0;
+}
+
+.framework-body {
+  padding: 1rem;
+  border-top: 1px solid #ccc;
+}
+
+.link {
+  color: #1976d2;
+}
+
+.arrow {
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  transform: rotate(45deg);
+}
+
+.arrow.up {
+  transform: rotate(-135deg);
+}
+
+.arrow.down {
+  transform: rotate(45deg);
+}

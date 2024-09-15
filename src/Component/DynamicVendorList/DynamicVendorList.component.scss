@@ -1,17 +1,14 @@
+@import '../../style/common.scss';
+
 // Common Variables
-$color-background: #fff;
-$color-border: #ddd;
-$color-accent: #f9a634;
-$color-checkmark: #fff;
-$color-border-checkbox: #0a4357;
-$border-radius: 8px;
+$border-color-checkbox: #0a4357;
 $checkbox-size: 20px;
 $checkbox-border-width: 2px;
 $font-size-checkmark: 14px;
 
 .list-container {
-  background-color: $color-background;
-  border: 1px solid $color-border;
+  background-color: $background-color;
+  border: 1px solid $border-color;
   border-radius: $border-radius;
   height: 55vh;
   overflow-y: scroll;
@@ -32,22 +29,22 @@ $font-size-checkmark: 14px;
 .checkbox-option input[type="checkbox"] {
   width: $checkbox-size;
   height: $checkbox-size;
-  border: $checkbox-border-width solid $color-border-checkbox;
-  accent-color: $color-accent;
+  border: $checkbox-border-width solid $border-color-checkbox;
+  accent-color: $highlight-color;
   appearance: none;
-  background-color: $color-background;
+  background-color: $background-color;
   cursor: pointer;
 }
 
 .checkbox-option input[type="checkbox"]:checked {
-  background-color: $color-accent;
-  border-color: $color-accent;
+  background-color: $highlight-color;
+  border-color: $highlight-color;
   position: relative;
 }
 
 .checkbox-option input[type="checkbox"]:checked::after {
   content: "✔";
-  color: $color-checkmark;
+  color: $background-color;
   position: absolute;
   font-size: $font-size-checkmark;
   top: 50%;

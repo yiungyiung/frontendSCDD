@@ -1,13 +1,29 @@
-<div *ngIf="frameworkDetails && frameworkDetails.length > 0; else noData">
-    <h2>Framework Details</h2>
-    <ul>
-        <li *ngFor="let detail of frameworkDetails">
-            <h3>{{ detail.frameworkID }}: {{ detail.details }}</h3>
-            <p>Link: <a [href]="detail.link" target="_blank">{{ detail.link }}</a></p>
-        </li>
-    </ul>
+<div
+  *ngIf="frameworkDetails && frameworkDetails.length > 0; else noData"
+  class="framework-container"
+>
+  <div class="card-header-container">
+    <h5 class="card-header">Framework</h5>
+  </div>
+  <ul class="framework-list">
+    <li *ngFor="let detail of frameworkDetails" class="framework-item">
+      <div class="framework-header" (click)="toggleFramework(detail)">
+        <h3 class="'framework-header-title">
+          {{ frameworkNames[detail.frameworkID] || "Loading..." }}
+        </h3>
+        <span
+          class="arrow"
+          [ngClass]="{ up: detail.expanded, down: !detail.expanded }"
+        ></span>
+      </div>
+      <div class="framework-body" *ngIf="detail.expanded">
+        <p>{{ detail.details }}</p>
+        <p class="link"><a [href]="detail.link" target="_blank">link</a></p>
+      </div>
+    </li>
+  </ul>
 </div>
 
 <ng-template #noData>
-    <p>No framework details available.</p>
+  <p>No framework details available.</p>
 </ng-template>

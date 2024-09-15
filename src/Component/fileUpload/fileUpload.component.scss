@@ -1,15 +1,8 @@
+@import '../../style/common.scss';
 // Common variables
 $background-color-light: #f9f9f9;
-$background-color-white: #ffffff;
 $border-color-light: #ccc;
 $border-color-primary: #0a4357;
-$border-color-secondary: #12789e;
-$border-color-accent: #f9a634;
-$border-radius: 8px;
-$box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-$font-size-large: 18px;
-$font-size-medium: 16px;
-$font-size-small: 14px;
 $padding-small: 10px;
 $padding-medium: 20px;
 
@@ -18,8 +11,8 @@ $padding-medium: 20px;
   display: block;
   position: relative;
   z-index: 1001;
-  background: $background-color-light;
-  padding: $padding-medium;
+  background: $background-color;
+  padding: $font-size-medium;
   border-radius: $border-radius;
   border: 1px solid $border-color-light;
   box-shadow: $box-shadow;
@@ -32,17 +25,17 @@ $padding-medium: 20px;
 h3 {
   margin-bottom: 20px;
   font-size: $font-size-large;
-  color: $border-color-primary;
+  color: $primary-color;
 }
 
 // File input
 input[type="file"] {
   margin-bottom: 20px;
-  padding: $padding-small;
+  padding: $font-size-small;
   border: 1px solid $border-color-light;
-  border-radius: 4px;
+  border-radius: $border-radius-small;
   width: 100%;
-  background-color: $background-color-white;
+  background-color: $background-color;
 }
 
 // Button group
@@ -53,44 +46,38 @@ input[type="file"] {
 
 // Buttons
 button {
-  padding: $padding-small $padding-medium;
+  padding: $font-size-small $font-size-medium;
   border: none;
-  border-radius: 4px;
+  border-radius: $border-radius-small;
   cursor: pointer;
   font-size: $font-size-medium;
 }
 
 // Cancel button
 .cancel-button {
-  background-color: $border-color-primary;
-  color: $background-color-white;
-  
+  @include btn-style($primary-color);
+
   &:hover {
-    background-color: $border-color-accent;
+    background-color: $highlight-color;
   }
 }
 
 // Submit button
 .submit-button {
-  background-color: $background-color-white;
-  color: $border-color-primary;
-  border: 3px solid $border-color-primary;
+  background-color: $background-color;
+  color: $primary-color;
+  border: 3px solid $primary-color;
   border-radius: $border-radius;
 
   &:hover {
-    background-color: $border-color-primary;
-    color: $background-color-white;
+    background-color: $primary-color;
+    color: $background-color;
   }
 }
 
 // Download button
 .download-button {
-  background-color: $border-color-primary;
-  color: $background-color-white;
+  @include btn-style($primary-color);
   margin-bottom: 20px;
   width: 100%;
-
-  &:hover {
-    background-color: $border-color-accent;
-  }
 }

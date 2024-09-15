@@ -12,10 +12,11 @@ export interface Domain {
   domainName: string;
 }
 export interface FrameworkDetails {
-  frameworkID: number;   // Primary key and foreign key to Framework
-  details: string;       // Large text for details
-  link: string;          // URL for link
+  frameworkID: number; // Primary key and foreign key to Framework
+  details: string; // Large text for details
+  link: string; // URL for link
   framework: Framework;
+  expanded: false;
 }
 export interface UnitOfMeasurement {
   uomid: number;

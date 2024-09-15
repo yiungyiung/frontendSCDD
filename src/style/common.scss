@@ -1,4 +1,4 @@
-// Variables
+// Variabless
 $background-color: #FFFFFF;
 $primary-color: #073c5a;
 $tertiary-color: #12789e;
@@ -11,8 +11,11 @@ $border-color: #ddd;
 $border-color-hover: #f9a634;
 $border-color-light: #ddd;
 $border-radius: 8px;
+$border-radius-small: 4px;
 $box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 $button-color:#12789e;
+$shadow-color: rgba(7, 60, 90, 0.2);
+
 
 // Font
 $text-color-primary: #073c5a;
@@ -36,6 +39,13 @@ $btn-danger-color: #dc3545;
   background-color: $background-color;
 }
 
+
+@mixin card-base {
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: $background-color;
+}
 
 // Button styles
 @mixin btn-style($color) {

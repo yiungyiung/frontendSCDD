@@ -6,7 +6,7 @@ import { questionnaire } from '../../model/questionnaire';
 @Component({
   selector: 'app-AssignmentCard',
   templateUrl: './AssignmentCard.component.html',
-  styleUrls: ['./AssignmentCard.component.css'],
+  styleUrls: ['./AssignmentCard.component.scss'],
 })
 export class AssignmentCardComponent {
   @Input() assignment!: QuestionnaireAssignment;

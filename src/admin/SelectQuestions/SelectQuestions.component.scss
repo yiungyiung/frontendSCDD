@@ -1,3 +1,4 @@
+
 // Common Variables
 $spacing-small: 2vh;
 $spacing-medium: 4vh;
@@ -35,7 +36,7 @@ $color-primary-border: rgba($color-primary, 0.5); // Adjust the opacity as neede
   background-color: $color-secondary;
   border-bottom: 1px solid $color-border;
   padding: 5px 10px;
-  height: 9vh;
+  height: 7vh;
   margin-top: -$spacing-medium;
 }
 
@@ -413,28 +414,24 @@ $color-primary-border: rgba($color-primary, 0.5); // Adjust the opacity as neede
 
 .btn-primary {
   background-color: #12789e;
-  height: 4vh;
-  align-items: center;
-  color: $color-background;
-  border: none;
-  cursor: pointer;
-  font-size: $font-size-large;
-  border-radius: 5px;
-  margin-left: auto;
-  margin-bottom: $spacing-small;
-  display: block;
-}
-
-.btn-primary:hover {
-  background-color: $color-hover-dark;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.btn-primary:active {
-  background-color: $color-active-dark;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
+  border-color: #12789e;
+  color: white;
+  height:auto;
+  &:hover {
+    background-color: darken(#12789e, 10%);
+    border-color: darken(#12789e, 10%);
+  }
+    align-items: center;
+    cursor: pointer;
+    font-size: $font-size-large;
+    margin-left: auto;
+    margin-bottom: 2vh;
+    display: block;
+    &:active {
+      background-color: #0d4a61; // Even darker shade for active effect
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); // Smaller shadow on click
+    }
+  }
 .input-container {
   position: relative;
   display: inline-block;

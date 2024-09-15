@@ -1,30 +1,12 @@
-$primary-color: #073c5a;
-$secondary-color: #ffb23b;
-$background-color: #fff;
-$border-color: #ddd;
-$shadow-color: rgba(7, 60, 90, 0.2);
-
-@mixin card-base {
-  border: 1px solid $border-color;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  background-color: $background-color;
-}
+@import '../../style/common.scss';
 
 mat-icon {
   height: auto;
 }
 
 .user-status {
-  position: relative;
-  width: 6vw;
+@include user-status;
   top: -4vh;
-  padding: 5px 10px;
-  border-radius: 4px;
-  color: white;
-  text-align: center;
-  display: inline-block;
-  font-size: 1.7vh;
 }
 
 .question-status {
