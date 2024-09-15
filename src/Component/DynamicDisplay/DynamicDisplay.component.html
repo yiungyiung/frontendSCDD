@@ -1,40 +1,32 @@
 <div class="response-table-container">
-  <table class="response-table">
-    <thead>
-      <tr class="table-row">
-        <th rowspan="2" class="table-header">Vendors</th>
-        <ng-container *ngFor="let question of selectedQuestion; let i = index">
-          <th
-            *ngIf="
+    <table class="response-table">
+        <thead>
+            <tr class="table-row">
+                <th rowspan="2" class="table-header">Vendors</th>
+                <ng-container *ngFor="let question of selectedQuestion; let i = index">
+                    <th *ngIf="
               shouldDisplayQuestion(selectedQuestion, question.questionID!, i)
-            "
-            [attr.colspan]="
+            " [attr.colspan]="
               (question.options!.length! > 0 ? 1 : 0) +
               (question.textboxes!.length! > 0 ? question.textboxes.length : 0)
-            "
-            [matTooltip]="question.questionText"
-          >
-            {{ question.questionText }}
-          </th>
-        </ng-container>
-      </tr>
-      <tr>
-        <ng-container *ngFor="let question of selectedQuestion; let i = index">
-          <th
-            *ngIf="
+            " [matTooltip]="question.questionText">
+                        {{ question.questionText }}
+                    </th>
+                </ng-container>
+            </tr>
+            <tr>
+                <ng-container *ngFor="let question of selectedQuestion; let i = index">
+                    <th *ngIf="
               shouldDisplayQuestion(
                 selectedQuestion,
                 question.questionID!,
                 i
               ) && question.options?.length! > 0
-            "
-            matTooltip="Option Selection"
-          >
-            Option Selection
-          </th>
+            " matTooltip="Option Selection">
+                        Option Selection
+                    </th>
 
-          <ng-container
-            *ngIf="
+                    <ng-container *ngIf="
               shouldDisplayQuestion(
                 selectedQuestion,
                 question.questionID!,
@@ -42,17 +34,12 @@
               ) &&
               question.textboxes &&
               question.textboxes.length > 0
-            "
-          >
-            <th
-              *ngFor="let textbox of question.textboxes"
-              [matTooltip]="textbox.label"
-            >
-              {{ textbox.label }}
-            </th>
-          </ng-container>
-          <ng-container
-            *ngIf="
+            ">
+                        <th *ngFor="let textbox of question.textboxes" [matTooltip]="textbox.label">
+                            {{ textbox.label }}
+                        </th>
+                    </ng-container>
+                    <ng-container *ngIf="
               shouldDisplayQuestion(
                 selectedQuestion,
                 question.questionID!,
@@ -60,45 +47,33 @@
               ) &&
               question &&
               question.fileUploads.length > 0
-            "
-          >
-            <th
-              *ngFor="let textbox of question.fileUploads"
-              [matTooltip]="textbox.label"
-            >
-              {{ textbox.label }}
-            </th>
-          </ng-container>
-        </ng-container>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let response of responses">
-        <td>{{ response.vendorName || "Unknown Vendor" }}</td>
+            ">
+                        <th *ngFor="let textbox of question.fileUploads" [matTooltip]="textbox.label">
+                            {{ textbox.label }}
+                        </th>
+                    </ng-container>
+                </ng-container>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let response of responses">
+                <td>{{ response.vendorName || "Unknown Vendor" }}</td>
 
-        <!-- Only display answers if vendor name is valid -->
-        <ng-container
-          *ngIf="
+                <!-- Only display answers if vendor name is valid -->
+                <ng-container *ngIf="
             response.vendorName && response.vendorName !== 'Unknown Vendor'
-          "
-        >
-          <ng-container
-            *ngFor="let question of selectedQuestion; let i = index"
-          >
-            <td
-              *ngIf="
+          ">
+                    <ng-container *ngFor="let question of selectedQuestion; let i = index">
+                        <td *ngIf="
                 shouldDisplayQuestion(
                   selectedQuestion,
                   question.questionID!,
                   i
                 ) && question.options?.length! > 0
-              "
-              [matTooltip]="getOptionResponse(response, question.questionID!)"
-            >
-              {{ getOptionResponse(response, question.questionID!) || "-" }}
-            </td>
-            <ng-container
-              *ngIf="
+              " [matTooltip]="getOptionResponse(response, question.questionID!)">
+                            {{ getOptionResponse(response, question.questionID!) || "-" }}
+                        </td>
+                        <ng-container *ngIf="
                 shouldDisplayQuestion(
                   selectedQuestion,
                   question.questionID!,
@@ -106,29 +81,18 @@
                 ) &&
                 question.textboxes &&
                 question.textboxes.length > 0
-              "
-            >
-              <td
-                *ngFor="let textbox of question.textboxes"
-                [matTooltip]="
+              ">
+                            <td *ngFor="let textbox of question.textboxes" [matTooltip]="
                   getTextboxResponse(
                     response,
                     question.questionID!,
                     textbox.textBoxID!
                   )
-                "
-              >
-                {{
-                  getTextboxResponse(
-                    response,
-                    question.questionID!,
-                    textbox.textBoxID!
-                  ) || "-"
-                }}
-              </td>
-            </ng-container>
-            <ng-container
-              *ngIf="
+                ">
+                                {{ getTextboxResponse( response, question.questionID!, textbox.textBoxID! ) || "-" }}
+                            </td>
+                        </ng-container>
+                        <ng-container *ngIf="
                 shouldDisplayQuestion(
                   selectedQuestion,
                   question.questionID!,
@@ -136,30 +100,26 @@
                 ) &&
                 question &&
                 question.fileUploads.length > 0
-              "
-            >
-              <td
-                *ngFor="let textbox of question.fileUploads"
-                [matTooltip]="
+              ">
+                            <td *ngFor="let textbox of question.fileUploads" [matTooltip]="
                   getFileUploadResponse(
                     response,
                     question.questionID!,
                     textbox.fileUploadID!
                   )
-                "
-              >
-                {{
+                " (click)="handleFileUploadResponse(
                   getFileUploadResponse(
                     response,
                     question.questionID!,
                     textbox.fileUploadID!
-                  ) || "-"
-                }}
-              </td>
-            </ng-container>
-          </ng-container>
-        </ng-container>
-      </tr>
-    </tbody>
-  </table>
+                  )
+                )">
+                                {{ getFileUploadResponse( response, question.questionID!, textbox.fileUploadID! ) || "-" }}
+                            </td>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+            </tr>
+        </tbody>
+    </table>
 </div>

@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { QuestionnaireAssignmentResponseDto } from '../../model/QuestionOptionResponseDto';
 import { Question } from '../../model/question';
+import { ResponseService } from '../../services/ResponseService/Response.service';
+import saveAs from 'file-saver';
 
 export interface ExtendedQuestionnaireAssignmentResponseDto
   extends QuestionnaireAssignmentResponseDto {
@@ -13,11 +15,12 @@ export interface ExtendedQuestionnaireAssignmentResponseDto
   styleUrls: ['./DynamicDisplay.component.scss'],
 })
 export class DynamicDisplayComponent implements OnInit {
+
   @Input() responses: ExtendedQuestionnaireAssignmentResponseDto[] = [];
   @Input() selectedQuestion: Question[] = [];
   uniqueQuestions: Question[] = [];
 
-  constructor() {}
+  constructor(private responseService: ResponseService) {}
 
   ngOnInit() {
     // Ensure that all questions have the textboxes property
@@ -110,4 +113,16 @@ export class DynamicDisplayComponent implements OnInit {
     }
     return '-';
   }
+
+  handleFileUploadResponse(arg0: string) {
+    this.responseService.downloadFile(arg0).subscribe(
+      (response: BlobPart) => {
+        const blob = new Blob([response], { type: 'application/octet-stream' });
+        saveAs(blob, arg0); // Use file-saver to download the file
+      },
+      (error: any) => {
+        console.error('File download failed:', error);
+      }
+    );
+}
 }
