@@ -1,7 +1,7 @@
 
 ---
 
-# **Vendor-Admin Portal**
+# **SCDD FRONTEND**
 
 ## **Overview**
 
