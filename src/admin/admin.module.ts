@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { AdminComponent } from './admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserManagementComponent } from './user-management/user-management.component';
@@ -23,7 +23,7 @@ import { CreateNewQuestionnaireComponent } from './CreateNewQuestionnaire/Create
 import { VendorSelectionComponent } from '../Component/VendorSelection/VendorSelection.component';
 import { FrameworkSelectionComponent } from '../Component/FrameworkSelection/FrameworkSelection.component';
 import { SelectQuestionsComponent } from './SelectQuestions/SelectQuestions.component';
-import { SharedModule } from '../app/Shared/Shared.module';
+import { SharedModule } from '../Shared/Shared.module';
 import { ReportsComponent } from './Reports/Reports.component';
 import { DynamicReportsComponent } from './DynamicReports/DynamicReports.component';
 import { DynamicQuestionnairelistComponent } from '../Component/DynamicQuestionnairelist/DynamicQuestionnairelist.component';
@@ -36,7 +36,7 @@ import { DynamicResponseListComponent } from '../Component/DynamicResponseList/D
 export class AppModule {}
 
 @NgModule({
-  imports: [SharedModule, AdminRoutingModule],
+  imports: [SharedModule, AdminRoutingModule,],
   declarations: [
     DynamicQuestionnairelistComponent,
     DynamicReportsComponent,
@@ -68,5 +68,6 @@ export class AppModule {}
     SelectQuestionsComponent,
     VendorFormComponent,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AdminModule {}

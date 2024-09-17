@@ -1,52 +1,42 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import * as Highcharts from 'highcharts';
+import { ChartType } from 'angular-google-charts';
 
 @Component({
   selector: 'app-stacked-bar-chart',
   templateUrl: './stacked-bar-chart.component.html',
-  styleUrls: ['./stacked-bar-chart.component.css'],
+  styleUrls: ['./stacked-bar-chart.component.scss'],
 })
 export class StackedBarChartComponent implements OnChanges {
-  Highcharts: typeof Highcharts = Highcharts;
-  @Input() chartData: Highcharts.SeriesOptionsType[] = [];
+  @Input() chartData: any[] = [];
   @Input() chartLabels: string[] = [];
-
-  chartOptions: Highcharts.Options = {
-    chart: {
-      type: 'column', // Changed from 'bar' to 'column' for vertical bars
-    },
-    title: {
-      text: 'SCDD Overall Status',
-    },
-    xAxis: {
-      categories: this.chartLabels,
-    },
-    yAxis: {
-      min: 0,
-      title: {
-        text: 'Total Vendors',
+  columnNames = [];
+  public barChartOptions: any = {
+    bars: 'vertical',
+    isStacked: true,
+    hAxis: {
+      gridlines: {
+        color: 'transparent'
       },
-      stackLabels: {
-        enabled: true,
-        style: {
-          fontWeight: 'bold',
-          color:
-            (Highcharts.defaultOptions.title?.style &&
-              Highcharts.defaultOptions.title.style.color) ||
-            'gray',
-        },
-      },
+      title: 'Year',
+      format: '0',
+      slantedText: true, // Enable text slanting for better visibility
+      slantedTextAngle: 45, // Adjust the angle as needed
+      textStyle: {
+        color: '#000000', // Set text color
+        fontSize: 12 // Adjust font size
+      }
     },
-    legend: {
-      reversed: true,
+    vAxis: {
+      title: 'Total Vendors',
+      textStyle: {
+        color: '#000000', // Set text color
+        fontSize: 12 // Adjust font size
+      }
     },
-    plotOptions: {
-      series: {
-        stacking: 'normal',
-      },
-    },
-    series: this.chartData,
+    legend: { position: 'bottom' },
   };
+  public chartType: ChartType = ChartType.ColumnChart;
+  public formattedChartData: any[] = [];
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['chartData'] || changes['chartLabels']) {
@@ -55,10 +45,26 @@ export class StackedBarChartComponent implements OnChanges {
   }
 
   private updateChart() {
-    this.chartOptions = {
-      ...this.chartOptions,
-      xAxis: { categories: this.chartLabels },
-      series: this.chartData,
-    };
+    console.log('Original Chart Data:', this.chartData);
+    
+    if (this.chartData && this.chartData.length > 1) {
+      // Preserve the header row (legend information)
+      const headerRow = this.chartData[0];
+      
+      // Process the data rows
+      const dataRows = this.chartData.slice(1).map(row => {
+        if (typeof row[0] === 'string') {
+          return [parseInt(row[0], 10), ...row.slice(1)];
+        }
+        return row;
+      });
+
+      // Combine the header row with the processed data rows
+      this.formattedChartData = [ ...dataRows];
+      this.columnNames=headerRow
+      console.log(this.columnNames);
+    }
+    
+    console.log('Formatted Chart Data:', this.formattedChartData);
   }
 }

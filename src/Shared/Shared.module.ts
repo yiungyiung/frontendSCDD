@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon'; // Example of Angular Material module
-import { NavItemComponent } from '../../Component/nav-item/nav-item.component';
-import { TopBarComponent } from '../../Component/TopBar/TopBar.component';
-import { DisclaimerFooterComponent } from '../../Component/disclaimerFooter/disclaimerFooter.component';
+import { NavItemComponent } from '../Component/nav-item/nav-item.component';
+import { TopBarComponent } from '../Component/TopBar/TopBar.component';
+import { DisclaimerFooterComponent } from '../Component/disclaimerFooter/disclaimerFooter.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { BurgerMenuComponent } from '../../Component/burgerMenu/burgerMenu.component';
-import { ChangePasswordModalComponent } from '../../Component/change-password-modal/change-password-modal.component';
+import { BurgerMenuComponent } from '../Component/burgerMenu/burgerMenu.component';
+import { ChangePasswordModalComponent } from '../Component/change-password-modal/change-password-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,24 +21,24 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxCsvParserModule } from 'ngx-csv-parser';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { PopupBoxModule } from '../../Component/popup-box/popup-box/popup-box.module';
+import { PopupBoxModule } from '../Component/popup-box/popup-box/popup-box.module';
 import { HighchartsChartModule } from 'highcharts-angular';
-import { StackedBarChartComponent } from '../../Component/stacked-bar-chart/stacked-bar-chart.component';
-import { PieChartComponent } from '../../Component/pie-chart/pie-chart.component';
-import { QuestionnaireListComponent } from '../../Component/QuestionnaireList/QuestionnaireList.component';
-import { BreadcrumbComponent } from '../../Component/Breadcrumb/breadcrumb.component';
-import { ResponsePageComponent } from '../../Component/ResponsePage/ResponsePage.component';
-import { QuestionnaireTableComponent } from '../../Component/QuestionnaireTable/QuestionnaireTable.component';
-import { ExportDialogBoxComponent } from '../../Component/exportDialogBox/exportDialogBox.component';
-import { PaginationComponent } from '../../Component/Pagination/pagination/pagination.component';
-import { AssignmentCardComponent } from '../../Component/AssignmentCard/AssignmentCard.component';
-import { NotificationSidebarComponent } from '../../Component/Notification/notification.component';
-import { ProgressBarComponent } from '../../Component/ProgressBar/ProgressBar.component';
-import { FilterComponent } from '../../Component/filter/filter.component';
-import { UnsavedChangesGuard } from '../../guards/unsaved-changes.guard'; 
-import { ExistingQuestionnaireModalComponent } from '../../Component/ExistingQuestionnaireModal/ExistingQuestionnaireModal.component';
-import { FrameworkDetailsComponent } from '../../Component/FrameworkDetails/FrameworkDetails.component';
-
+import { StackedBarChartComponent } from '../Component/stacked-bar-chart/stacked-bar-chart.component';
+import { PieChartComponent } from '../Component/pie-chart/pie-chart.component';
+import { QuestionnaireListComponent } from '../Component/QuestionnaireList/QuestionnaireList.component';
+import { BreadcrumbComponent } from '../Component/Breadcrumb/breadcrumb.component';
+import { ResponsePageComponent } from '../Component/ResponsePage/ResponsePage.component';
+import { QuestionnaireTableComponent } from '../Component/QuestionnaireTable/QuestionnaireTable.component';
+import { ExportDialogBoxComponent } from '../Component/exportDialogBox/exportDialogBox.component';
+import { PaginationComponent } from '../Component/Pagination/pagination/pagination.component';
+import { AssignmentCardComponent } from '../Component/AssignmentCard/AssignmentCard.component';
+import { NotificationSidebarComponent } from '../Component/Notification/notification.component';
+import { ProgressBarComponent } from '../Component/ProgressBar/ProgressBar.component';
+import { FilterComponent } from '../Component/filter/filter.component';
+import { UnsavedChangesGuard } from '../guards/unsaved-changes.guard'; 
+import { ExistingQuestionnaireModalComponent } from '../Component/ExistingQuestionnaireModal/ExistingQuestionnaireModal.component';
+import { FrameworkDetailsComponent } from '../Component/FrameworkDetails/FrameworkDetails.component';
+import { GoogleChartsModule } from 'angular-google-charts';
 @NgModule({
   declarations: [
     PaginationComponent,
@@ -82,6 +82,7 @@ import { FrameworkDetailsComponent } from '../../Component/FrameworkDetails/Fram
     MatDatepickerModule,
     MatNativeDateModule,
     MatSlideToggleModule,
+    GoogleChartsModule
   ],
   exports: [
     PaginationComponent,
@@ -121,7 +122,8 @@ import { FrameworkDetailsComponent } from '../../Component/FrameworkDetails/Fram
     ProgressBarComponent,
     FilterComponent,
     ExistingQuestionnaireModalComponent,
-    FrameworkDetailsComponent
+    FrameworkDetailsComponent,
+    GoogleChartsModule
   ],
 })
 export class SharedModule {}

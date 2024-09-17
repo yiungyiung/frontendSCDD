@@ -1,7 +1,4 @@
 <div>
-  <highcharts-chart
-    [Highcharts]="Highcharts"
-    [options]="chartOptions"
-    style="width: auto; height: 40vh; display: block"
-  ></highcharts-chart>
+    <google-chart *ngIf="formattedChartData.length > 0" [type]="chartType" [data]="formattedChartData" [options]="barChartOptions" [columns]="columnNames" [height] [width]>
+    </google-chart>
 </div>

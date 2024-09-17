@@ -3,12 +3,14 @@ import { VendorHierarchy } from '../../model/vendorHierarchy';
 import { VendorHierarchyService } from '../../services/VendorHierarchyService/vendorHierarchy.service';
 import { AuthService } from '../../services/AuthService/auth.service';
 import { DataFetchService } from '../../services/DataFetchService/DataFetch.service';
-import * as Highcharts from 'highcharts';
 import { QuestionnaireAssignment } from '../../model/questionnaireAssignment';
 import { VendorService } from '../../services/VendorService/Vendor.service';
 import { ComplianceService } from '../../services/ComplainceService/Complaince.service';
 import { EntityService } from '../../services/EntityService/Entity.service';
 import { Status } from '../../model/entity';
+
+type DataTable = (string | number | null)[][];
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -16,40 +18,34 @@ import { Status } from '../../model/entity';
 })
 export class DashboardComponent implements OnInit {
   vendorHierarchy: VendorHierarchy[] = [];
-  Highcharts: typeof Highcharts = Highcharts;
 
-  chartLabels: string[] = ['January', 'February', 'March', 'April', 'May'];
+  // Google Charts variables
+  columnChartOptions = {
+    chartType: 'ColumnChart',
+    dataTable: [] as DataTable,
+    options: {
+      title: 'SCDD Overall Status',
+      hAxis: { title: 'Year' },
+      vAxis: { title: 'Total Vendors' },
+      isStacked: true,
+    },
+  };
 
-  chartData: Highcharts.SeriesOptionsType[] = [
-    {
-      name: 'Series A',
-      data: [5, 3, 7, 2],
-      type: 'column',
+  pieChartOptions = {
+    chartType: 'PieChart',
+    dataTable: [] as DataTable, // Use DataTable type
+    options: {
+      title: 'Vendor Distribution',
+      pieHole: 0.4, // for a donut chart effect
     },
-    {
-      name: 'Series B',
-      data: [2, 2, 3, 2, 1],
-      type: 'column',
-    },
-  ];
+  };
 
   assignments: QuestionnaireAssignment[] = [];
-  piechartData: Highcharts.SeriesPieOptions[] = [
-    {
-      name: 'Sales',
-      type: 'pie',
-      data: [
-        { name: 'Product A', y: 30 },
-        { name: 'Product B', y: 20 },
-        { name: 'Product C', y: 25 },
-        { name: 'Product D', y: 15 },
-        { name: 'Product E', y: 10 },
-      ],
-    },
-  ];
-
   isModal: boolean = false;
   currentCard: number | null = null;
+
+  // New property for chart labels
+  chartLabels: string[] = [];
 
   constructor(
     private vendorHierarchyService: VendorHierarchyService,
@@ -82,45 +78,42 @@ export class DashboardComponent implements OnInit {
   loadVendorsGroupedByCategory(): void {
     const token = this.authService.getToken();
     this.vendorService.getVendorsGroupedByCategory(token).subscribe(
-      (data: any[]) => {
-        this.piechartData = [
-          {
-            name: 'Vendors',
-            type: 'pie',
-            data: data.map((item) => ({
-              name: item.categoryName,
-              y: item.vendorCount,
-            })),
-          },
+      (data: any[]) => {  
+        // Format the data for Google Charts as a DataTable (array of arrays)
+        this.pieChartOptions.dataTable = [
+          ['Category', 'Vendor Count'], // Define the headers
+          ...data.map((item) => [item.categoryName, item.vendorCount]) // Convert your data to an array of arrays
         ];
+        console.log(this.pieChartOptions.dataTable); // Check the data structure
       },
       (error) => {
         console.error('Error loading vendors by category:', error);
       }
     );
   }
-
   loadComplianceData(): void {
     const token = this.authService.getToken();
-
-    // Fetch all statuses first
+  
     this.entityService.getAllStatuses(token).subscribe(
       (statuses: Status[]) => {
-        // Now, fetch the compliance data
         this.complianceService.getComplianceData(token).subscribe(
           (data: any) => {
-            const years = Object.keys(data);
-            this.chartLabels = years;
-
-            // Dynamically create series based on fetched statuses
-            this.chartData = statuses.map((status) => ({
-              name: status.statusName,
-              data: years.map((year) => data[year][status.statusName]), // Fill in 0 if data is missing
-              type: 'column',
-            }));
-
-            console.log(this.chartData);
-            console.log(this.chartLabels);
+            const years = Object.keys(data).map(year => parseInt(year, 10));
+            var chartData: any[] = [
+              ["Year", ...statuses.map(status => status.statusName)]
+            ];
+            years.forEach((year) => {
+              const row = [year];
+              statuses.forEach((status) => {
+                row.push(data[year.toString()][status.statusName] || 0);
+              });
+              chartData.push(row);
+            });
+  
+            this.columnChartOptions.dataTable = chartData;
+            this.chartLabels = years.map(String);
+            
+            console.log('Chart Data:', chartData); // For debugging
           },
           (error) => {
             console.error('Error loading compliance data:', error);
@@ -132,7 +125,7 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
-
+  
   maximizeCard(event: MouseEvent, cardNumber: number): void {
     event.stopPropagation();
     this.isModal = true;
