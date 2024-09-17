@@ -5,79 +5,76 @@ $border-color-light: #ccc;
 $border-color-primary: #0a4357;
 $padding-small: 10px;
 $padding-medium: 20px;
-
 // Host
 :host {
-  display: block;
-  position: relative;
-  z-index: 1001;
-  background: $background-color;
-  padding: $font-size-medium;
-  border-radius: $border-radius;
-  border: 1px solid $border-color-light;
-  box-shadow: $box-shadow;
-  width: 400px;
-  margin: 0 auto;
-  text-align: center;
+    display: block;
+    position: relative;
+    z-index: 1003;
+    background: $background-color;
+    padding: $font-size-medium;
+    border-radius: $border-radius;
+    border: 1px solid $border-color-light;
+    box-shadow: $box-shadow;
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 // Title
 h3 {
-  margin-bottom: 20px;
-  font-size: $font-size-large;
-  color: $primary-color;
+    margin-bottom: 20px;
+    font-size: $font-size-large;
+    color: $primary-color;
 }
 
 // File input
 input[type="file"] {
-  margin-bottom: 20px;
-  padding: $font-size-small;
-  border: 1px solid $border-color-light;
-  border-radius: $border-radius-small;
-  width: 100%;
-  background-color: $background-color;
+    margin-bottom: 20px;
+    padding: $font-size-small;
+    border: 1px solid $border-color-light;
+    border-radius: $border-radius-small;
+    width: 100%;
+    background-color: $background-color;
 }
 
 // Button group
 .button-group {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 // Buttons
 button {
-  padding: $font-size-small $font-size-medium;
-  border: none;
-  border-radius: $border-radius-small;
-  cursor: pointer;
-  font-size: $font-size-medium;
+    padding: $font-size-small $font-size-medium;
+    border: none;
+    border-radius: $border-radius-small;
+    cursor: pointer;
+    font-size: $font-size-medium;
 }
 
 // Cancel button
 .cancel-button {
-  @include btn-style($primary-color);
-
-  &:hover {
-    background-color: $highlight-color;
-  }
+    @include btn-style($primary-color);
+    &:hover {
+        background-color: $highlight-color;
+    }
 }
 
 // Submit button
 .submit-button {
-  background-color: $background-color;
-  color: $primary-color;
-  border: 3px solid $primary-color;
-  border-radius: $border-radius;
-
-  &:hover {
-    background-color: $primary-color;
-    color: $background-color;
-  }
+    background-color: $background-color;
+    color: $primary-color;
+    border: 3px solid $primary-color;
+    border-radius: $border-radius;
+    &:hover {
+        background-color: $primary-color;
+        color: $background-color;
+    }
 }
 
 // Download button
 .download-button {
-  @include btn-style($primary-color);
-  margin-bottom: 20px;
-  width: 100%;
+    @include btn-style($primary-color);
+    margin-bottom: 20px;
+    width: 100%;
 }
