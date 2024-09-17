@@ -1,31 +1,6 @@
-// Common Variables
-$border-color-light: #ddd;
-$border-color-hover: #f9a634;
-$background-color-white: #ffffff;
-$background-color-success: #339a2d;
-$background-color-inactive: #dc3545;
-$background-color-primary: #e7f4f9;
-$background-color-secondary: #fff;
-$btn-success-color: #dc3545;
-$btn-danger-color: #28a745;
-$box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-$border-radius: 8px;
-$font-size-small: 1.7vh;
-$font-size-medium: 2vh;
+@import '../../style/common.scss';
 
 // Common Mixins
-@mixin card-style {
-  border: 1px solid $border-color-light;
-  background-color: $background-color-white;
-  border-radius: $border-radius;
-  box-shadow: $box-shadow;
-}
-
-@mixin btn-style($color) {
-  background-color: $color;
-  border-color: $color;
-  color: white;
-}
 
 // Styles
 .custcard {
@@ -41,30 +16,15 @@ $font-size-medium: 2vh;
   padding: 15px;
   
   &:hover {
-    border: 1px solid $border-color-hover;
+    border: 1px solid $highlight-color;
     border-radius: $border-radius;
   }
 }
 
 .user-status {
-  position: relative;
-  width: 6vw;
+@include user-status;
   top: -4vh;
   left: 10px;
-  padding: 5px 10px;
-  border-radius: 4px;
-  color: white;
-  text-align: center;
-  display: inline-block;
-  font-size: $font-size-small;
-  
-  &.active {
-    background-color: $background-color-success;
-  }
-
-  &.inactive {
-    background-color: $background-color-inactive;
-  }
 }
 
 .user-details {
@@ -76,26 +36,18 @@ $font-size-medium: 2vh;
 }
 
 .detail {
+  @include detail;
   margin-top: -20px;
-  text-align: center;
-  font-size: $font-size-medium;
-  
-  small {
-    display: block;
-    font-size: $font-size-small;
-    color: gray;
-    text-align: center;
-  }
 }
 
 .user-id-bg {
-  background-color: $background-color-primary;
+  background-color: $secondary-color;
   padding: 10px;
   border-radius: 4px;
 }
 
 .user-ids-bg {
-  background-color: $background-color-secondary;
+  background-color: $background-color;
   padding: 10px;
   border-radius: 4px;
   

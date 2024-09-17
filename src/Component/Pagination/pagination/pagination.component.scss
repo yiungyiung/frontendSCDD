@@ -1,9 +1,6 @@
+@import '../../../style/common.scss';
+
 // Common variables
-$color-primary: #073c5a;
-$color-disabled: #ccc;
-$color-background: #fff;
-$color-border: #ccc;
-$color-dropdown-icon: #073c5a;
 $font-size-base: 16px;
 $font-size-small: 14px;
 $border-radius: 4px;
@@ -24,7 +21,7 @@ $margin-base: 10px;
   display: flex;
   align-items: center;
   font-size: $font-size-small;
-  color: $color-primary;
+  color: $primary-color;
 }
 
 // Pagination buttons
@@ -32,11 +29,11 @@ $margin-base: 10px;
   background: none;
   border: none;
   font-size: $font-size-base;
-  color: $color-primary;
+  color: $primary-color;
   cursor: pointer;
 
   &:disabled {
-    color: $color-disabled;
+    color: $border-color-input;
     cursor: not-allowed;
   }
 }
@@ -56,9 +53,9 @@ $margin-base: 10px;
 .items-per-page-select {
   appearance: none;
   padding: $padding-select;
-  border: 1px solid $color-border;
+  border: 1px solid $border-color-input;
   border-radius: $border-radius;
-  background: $color-background;
+  background: $background-color;
   font-size: $font-size-base;
 
   // Hide default dropdown icon in IE
@@ -75,5 +72,5 @@ $margin-base: 10px;
   transform: translateY(-50%);
   pointer-events: none;
   font-size: $dropdown-icon-size;
-  color: $color-dropdown-icon;
+  color: $primary-color;
 }

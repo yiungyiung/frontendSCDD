@@ -1,16 +1,12 @@
+@import '../../style/common.scss';
+
 // Common variables
-$color-primary: #e7f4f9;
-$color-hover: #f9a634;
-$color-active-background: #12789e;
-$color-active-text: #f9a634;
 $color-sub-menu-background: #eaf4f8;
-$color-sub-menu-text: #e7f4f9;
 $color-sub-menu-hover: #000000;
 $font-size-base: 2.75vh;
 $font-size-small: 1rem;
 $padding-base: 0.5vh;
 $transition-time: 0.3s;
-$box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 $nav-icon-size: 2.75vh;
 $nav-icon-size-responsive: 3vw;
 $nav-icon-size-small: 2vw;
@@ -27,14 +23,14 @@ $gap: 35vh;
   justify-content: center;
   cursor: pointer;
   text-decoration: none;
-  color: $color-primary;
+  color: $secondary-color;
   transition: color $transition-time;
 }
 
 .nav-icon {
   width: $nav-icon-size;
   height: auto;
-  fill: $color-primary;
+  fill: $secondary-color;
   transition: fill $transition-time;
 }
 
@@ -45,28 +41,28 @@ $gap: 35vh;
 
 // Hover effects
 .nav-link:hover {
-  color: $color-hover;
+  color: $highlight-color;
 
   .nav-icon {
-    fill: $color-hover;
+    fill: $highlight-color;
   }
 
   .nav-label {
-    color: $color-hover;
+    color: $highlight-color;
   }
 }
 
 // Active nav item styles
 .nav-link.active {
-  background-color: $color-active-background;
-  color: $color-active-text;
+  background-color: $tertiary-color;
+  color: $highlight-color;
 
   .nav-icon {
-    fill: $color-active-text;
+    fill: $highlight-color;
   }
 
   .nav-label {
-    color: $color-active-text;
+    color: $highlight-color;
   }
 }
 
@@ -117,7 +113,7 @@ $gap: 35vh;
   justify-content: center;
   cursor: pointer;
   text-decoration: none;
-  color: $color-sub-menu-text;
+  color: $secondary-color;
   transition: color $transition-time;
 }
 

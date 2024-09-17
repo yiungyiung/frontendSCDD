@@ -6,6 +6,9 @@ $text-color: #fff;
 .framework-container {
   @include card-style;
   margin-top: 5vh;
+  height: 70vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 
 .card-header-container {
@@ -53,21 +56,20 @@ $text-color: #fff;
   cursor: pointer;
   background-color: $background-color;
   border-radius: $border-radius-small; // Rounded corners for the top of the card
-
-  .h3{
-    font-size: $font-size-small;
-    margin: 0;
-  }
 }
 
-.framework-header-title{
-    font-size: $font-size-small;
-    margin: 0;
+.framework-header-title {
+  font-size: $font-size-xlarge; // Set the desired font size (e.g., 2rem)
+  margin: 0;
+  color: $primary-color; // Set the desired color (e.g., green)
 }
+
 
 .framework-body {
   padding: 1rem;
   border-top: 1px solid #ccc;
+  color: $primary-color;
+  font-size: $font-size-medium;
 }
 
 .link {
@@ -77,8 +79,8 @@ $text-color: #fff;
 .arrow {
   width: 10px;
   height: 10px;
-  border-right: 2px solid black;
-  border-bottom: 2px solid black;
+  border-right: 2px solid $primary-color;
+  border-bottom: 2px solid $primary-color;
   transform: rotate(45deg);
 }
 

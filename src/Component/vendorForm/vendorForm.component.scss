@@ -1,7 +1,6 @@
 @import '../../style/common.scss';
 
 $primary-dark: #0a4357;
-$secondary-color: #073c5a;
 
 /* Common Mixins */
 .form-control-style {
@@ -13,7 +12,7 @@ $secondary-color: #073c5a;
 .form-group {
   font-size: 2vh;
   font-weight: 600;
-  color: $secondary-color;
+  color: $primary-color;
   margin-bottom: 2.5vh;
   display: flex;
   justify-content: center;
@@ -56,7 +55,7 @@ $secondary-color: #073c5a;
   right: 5px;
   pointer-events: none;
   font-size: 18px;
-  color: $secondary-color;
+  color: $primary-color;
 }
 
 /* Primary button styles */
@@ -137,7 +136,7 @@ $secondary-color: #073c5a;
 }
 
 .mat-form-field-label {
-  color: $secondary-color !important;
+  color: $primary-color !important;
 }
 
 /* Vendor list styles */
@@ -156,7 +155,7 @@ $secondary-color: #073c5a;
 
 .form-check-label {
   font-size: 1.8vh;
-  color: $secondary-color;
+  color: $primary-color;
 }
 
 .select-icon-container {

@@ -16,7 +16,6 @@ $box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 $button-color:#12789e;
 $shadow-color: rgba(7, 60, 90, 0.2);
 
-
 // Font
 $text-color-primary: #073c5a;
 $font-size-small: 1.7vh;
@@ -29,8 +28,30 @@ $background-color-inactive: #dc3545;
 $btn-success-color: #28a745;
 $btn-danger-color: #dc3545;
 
-// Mixins
+//add question
+$border-color-form: #e6e6e6;
+$border-color-input: #ccc;
+$margin-bottom-section: 6vh;
+$margin-top-section: 3vh;
+$margin-left-section: 0.6vw;
+$width-section: 60vw;
+$padding-form: 15px;
+$padding-input: 10px;
+$font-size-add-btn: 16px;
+$font-size-delete-btn: 18px;
+$border-radius-input: 5px;
+$max-width-input: 400px;
 
+
+// Mixins
+@mixin header-style {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $secondary-color;
+  padding: 2vh 0.5vw;
+  height: $header-height;
+}
 // Card styles
 @mixin card-style {
   border: 1px solid $border-color-light;
@@ -292,6 +313,41 @@ $btn-danger-color: #dc3545;
   }
 }
 
+//updated
+
+
+@mixin form-style {
+  padding: $padding-form;
+  border: 1px solid $border-color-form;
+  border-radius: $border-radius;
+  background-color: $background-color;
+  box-shadow: $box-shadow;
+  margin-bottom: $margin-bottom-section;
+  width: $width-section;
+  margin-top: $margin-top-section;
+  margin-left: $margin-left-section;
+}
+
+@mixin input-style {
+  width: 100%;
+  padding: $padding-input;
+  border: 1px solid $border-color-input;
+  border-radius: $border-radius-input;
+  margin-bottom: 10px;
+}
+
+@mixin button-style($background, $color, $font-size) {
+  background-color: $background;
+  color: $color;
+  border: none;
+  cursor: pointer;
+  font-size: $font-size;
+  border-radius: $border-radius-input;
+}
+
+@mixin icon-style {
+  height: auto;
+}
 
 
 

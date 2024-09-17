@@ -1,7 +1,6 @@
 @import '../../style/common.scss';
 
 $btn-primary-hover-color: #0a4357;
-$font-size-small: 2vh;
 $font-size-large: 18px;
 
 // Styles
@@ -40,7 +39,7 @@ $font-size-large: 18px;
 
 /* Form Styles */
 .form-group {
-  font-size: $font-size-small;
+  font-size: $font-size-medium;
   font-weight: 600;
   color: $text-color-primary;
   margin-bottom: 2vh;

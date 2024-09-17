@@ -1,16 +1,15 @@
-import { Component, OnInit, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-QuestionType_SelectMultipleOption',
   templateUrl: './QuestionType_SelectMultipleOption.component.html',
-  styleUrls: ['./QuestionType_SelectMultipleOption.component.css']
+  styleUrls: ['./QuestionType_SelectMultipleOption.component.scss'],
 })
 export class QuestionType_SelectMultipleOptionComponent implements OnInit {
   @Output() remove = new EventEmitter<void>();
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
   options: string[] = ['Option 1']; // Initial option
 
   addOption() {
@@ -24,5 +23,4 @@ export class QuestionType_SelectMultipleOptionComponent implements OnInit {
   removeComponent() {
     this.remove.emit();
   }
-
 }

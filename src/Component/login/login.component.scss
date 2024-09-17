@@ -1,7 +1,6 @@
+@import '../../style/common.scss';
+
 // Common variables
-$background-color: #e7f4f9;
-$card-background: #ffffff;
-$card-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 $button-background: #3f85a0;
 $button-hover: #165167;
 $icon-background: #e0e0e0;
@@ -12,7 +11,7 @@ $text-color: #165167;
 
 // Base styles
 .b {
-  background-color: $background-color;
+  background-color: $secondary-color;
   min-height: 100vh;
 }
 
@@ -40,9 +39,9 @@ $text-color: #165167;
 }
 
 .card {
-  background-color: $card-background;
+  background-color: $background-color;
   border-radius: 8px;
-  box-shadow: $card-shadow;
+  box-shadow: $box-shadow;
   padding: 20px;
   width: 300px;
   text-align: center;

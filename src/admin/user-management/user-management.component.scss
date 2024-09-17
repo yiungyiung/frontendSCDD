@@ -48,47 +48,11 @@ $primary-color84: rgba($primary-color, 0.84);
   border: none;
 }
 
-// Form Styles
-.form-group {
-  @include form-group;
-}
-
-.form-control,
-.custom-select {
-  width: 100%;
-  padding: 1.5vh;
-  font-size: $font-size-medium;
-  border: 1px solid $primary-color84;
-  border-radius: 4px;
-}
-
-.custom-select-wrapper {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-}
-
-.custom-select::-ms-expand {
-  display: none;
-}
-
-.dropdownIcon {
-  position: absolute;
-  right: 5px;
-  pointer-events: none;
-  font-size: 18px;
-  color: $primary-color;
-}
-
-.btn-primary {
-  @include btn-style($tertiary-color);
-  width: 100%;
-}
-
 .icon-container {
   padding-right: 20px;
   padding-bottom: 20px;
  @include flex-center;
+ font-weight: normal;
 }
 
 .icon-container mat-icon {
@@ -96,47 +60,12 @@ $primary-color84: rgba($primary-color, 0.84);
   margin-left: 10px;
   margin-right: 10px;
   @include mat-icon;
+  width: 3vh;
   color: $primary-color;
 }
 
 .icon-container mat-icon.filter-applied {
   color: $highlight-color;
-}
-
-// User Status Styles
-.user-status {
-@include user-status;
-  left: 10px;
-  top: -4vh;
-  &.active {
-    background-color: $background-color-success;
-  }
-  &.inactive {
-    background-color: $btn-danger-color;
-  }
-}
-
-.user-details {
-  @include grid;
-  grid-template-columns: repeat(auto-fill, minmax(7vw, 1fr));
-  gap: 1vw;
-}
-
-.detail {
-  margin-top: -20px;
-@include detail;
-}
-
-// Other Styles
-.user-id-bg,
-.user-ids-bg {
-  background-color: $secondary-color;
-  padding: 10px;
-  border-radius: 4px;
-}
-
-.truncate {
-@include Truncate;
 }
 
 // File Upload Wrapper Styles

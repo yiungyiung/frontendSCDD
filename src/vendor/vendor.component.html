@@ -1,15 +1,24 @@
 <div>
+  <div class="custom-padded-content">
+    <app-TopBar></app-TopBar>
+    <nav class="custom-navbar">
+      <app-nav-item
+        svgIcon="dashboard"
+        text="Dashboard"
+        href="/vendor/dashboard"
+      ></app-nav-item>
+      <app-nav-item
+        svgIcon="framework"
+        text="Framework"
+        href="/vendor/framework"
+      >
+      </app-nav-item>
+      <app-nav-item svgIcon="reports" text="Reports"></app-nav-item>
+    </nav>
     <div class="custom-padded-content">
-        <app-TopBar></app-TopBar>
-        <nav class="custom-navbar">
-            <app-nav-item svgIcon="dashboard" text="Dashboard" href="/vendor/dashboard"></app-nav-item>
-            <app-nav-item svgIcon="framework" text="Framework"></app-nav-item>
-            <app-nav-item svgIcon="reports" text="Reports"></app-nav-item>
-        </nav>
-        <div class="custom-padded-content">
-            <app-Breadcrumb></app-Breadcrumb>
-            <router-outlet></router-outlet>
-        </div>
+      <app-Breadcrumb></app-Breadcrumb>
+      <router-outlet></router-outlet>
     </div>
-    <app-disclaimerFooter></app-disclaimerFooter>
+  </div>
+  <app-disclaimerFooter></app-disclaimerFooter>
 </div>

@@ -1,56 +1,4 @@
-// Common Variables
-$background-color-form: #ffffff;
-$border-color-form: #e6e6e6;
-$border-color-input: #ccc;
-$border-radius: 10px;
-$box-shadow-form: 0 2px 5px rgba(0, 0, 0, 0.1);
-$margin-bottom-section: 6vh;
-$margin-top-section: 3vh;
-$margin-left-section: 0.6vw;
-$width-section: 60vw;
-$padding-form: 15px;
-$padding-input: 10px;
-$color-delete-btn: #ff5c5c;
-$background-color-add-btn: #12789e;
-$color-add-btn: #ffffff;
-$font-size-add-btn: 16px;
-$font-size-delete-btn: 18px;
-$border-radius-input: 5px;
-$max-width-input: 400px;
-
-// Common Mixins
-@mixin form-style {
-  padding: $padding-form;
-  border: 1px solid $border-color-form;
-  border-radius: $border-radius;
-  background-color: $background-color-form;
-  box-shadow: $box-shadow-form;
-  margin-bottom: $margin-bottom-section;
-  width: $width-section;
-  margin-top: $margin-top-section;
-  margin-left: $margin-left-section;
-}
-
-@mixin input-style {
-  width: 100%;
-  padding: $padding-input;
-  border: 1px solid $border-color-input;
-  border-radius: $border-radius-input;
-  margin-bottom: 10px;
-}
-
-@mixin button-style($background, $color, $font-size) {
-  background-color: $background;
-  color: $color;
-  border: none;
-  cursor: pointer;
-  font-size: $font-size;
-  border-radius: $border-radius-input;
-}
-
-@mixin icon-style {
-  height: auto;
-}
+@import '../../style/common.scss';
 
 // Styles
 .form-section {
@@ -114,11 +62,11 @@ $max-width-input: 400px;
 }
 
 .delete-btn {
-  @include button-style(none, $color-delete-btn, $font-size-delete-btn);
+  @include button-style(none, $btn-danger-color, $font-size-delete-btn);
 }
 
 .add-option-btn {
-  @include button-style($background-color-add-btn, $color-add-btn, $font-size-add-btn);
+  @include button-style($tertiary-color, $background-color, 16px);
   padding: 10px 20px;
   margin-left: 20px;
   margin-right: 20px;

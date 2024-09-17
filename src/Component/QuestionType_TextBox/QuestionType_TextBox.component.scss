@@ -1,66 +1,15 @@
-// Common Variables
-$background-color-form: #ffffff;
-$border-color-form: #e6e6e6;
-$border-color-input: #ccc;
-$border-radius: 10px;
-$box-shadow-form: 0 2px 5px rgba(0, 0, 0, 0.1);
-$margin-bottom-section: 6vh;
-$margin-top-section: 3vh;
-$margin-left-section: 0.6vw;
-$width-section: 60vw;
-$padding-form: 15px;
-$padding-input: 10px;
-$color-delete-btn: #ff5c5c;
-$color-add-btn: #ffffff;
-$background-color-add-btn: #12789e;
-$font-size-icon: 18px;
-$font-size-add-btn: 16px;
-$border-radius-input: 5px;
-
-// Common Mixins
-@mixin form-style {
-  padding: $padding-form;
-  border: 1px solid $border-color-form;
-  border-radius: $border-radius;
-  background-color: $background-color-form;
-  box-shadow: $box-shadow-form;
-  margin-bottom: $margin-bottom-section;
-  width: $width-section;
-  margin-top: $margin-top-section;
-  margin-left: $margin-left-section;
-}
-
-@mixin input-style {
-  width: 100%;
-  padding: $padding-input;
-  border: 1px solid $border-color-input;
-  border-radius: $border-radius-input;
-  margin-bottom: 10px;
-}
-
-@mixin button-style($background, $color, $font-size) {
-  background-color: $background;
-  color: $color;
-  border: none;
-  cursor: pointer;
-  font-size: $font-size;
-  border-radius: $border-radius-input;
-}
-
-@mixin icon-style($width) {
-  width: $width;
-  height: auto;
-}
+@import '../../style/common.scss';
 
 // Styles
 .form-section {
-  @include form-style;
+  @include form-style;  // Using form-style mixin from common SCSS
 }
 
+// Header and title section
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between; // This will push the icon to the right
+  justify-content: space-between;  // Aligns icon to the right
   margin-bottom: 10px;
 }
 
@@ -73,45 +22,41 @@ $border-radius-input: 5px;
   font-weight: bold;
 }
 
-.title mat-icon {
-  @include icon-style(18px);
+// Icon style using common icon-style mixin
+.title mat-icon, .delete-icon, .option-group mat-icon {
+  @include icon-style(); // Reuse common icon-style mixin
 }
 
-.delete-icon {
-  @include icon-style(3vh);
-}
-
-.form-group input[type="text"] {
-  @include input-style;
+// Input fields styling (reuses input-style mixin)
+.form-group input[type="text"],
+.option-group input[type="text"] {
+  @include input-style;  // Reuse input-style mixin for text inputs
 }
 
 .option-group {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+
+  input[type="text"] {
+    flex: 1;
+    margin-right: 10px;
+  }
 }
 
-.option-group input[type="text"] {
-  flex: 1;
-  margin-right: 10px;
-  @include input-style;
-}
-
+// Button styles (reuse common button-style mixin)
 .delete-btn {
-  @include button-style(none, $color-delete-btn, 18px);
+  @include button-style(none, $btn-danger-color, 18px);  // Reuse delete button style
 }
 
 .add-option-btn {
-  @include button-style($background-color-add-btn, $color-add-btn, $font-size-add-btn);
+  @include button-style($button-color, $background-color, $font-size-add-btn);  // Reuse button color and background
   padding: 10px 20px;
   margin-left: 20px;
   margin-right: 20px;
 }
 
+// Radio input styling
 .option-group input[type="radio"] {
   margin-right: 10px;
-}
-
-.option-group mat-icon {
-  @include icon-style(auto);
 }

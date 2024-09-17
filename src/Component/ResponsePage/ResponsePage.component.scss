@@ -1,9 +1,6 @@
-// Variables for repeated values
-$primary-color: #007bff;
-$secondary-color: #073c5a;
-$light-blue: #e7f4f9;
-$white-color: #fff;
-$red-color: #e74c3c;
+@import '../../style/common.scss';
+
+$p-color: #007bff;
 
 // Container for back button and title
 .header {
@@ -17,7 +14,7 @@ $red-color: #e74c3c;
 button.icon-button {
   background: none;
   border: none;
-  color: $primary-color;
+  color: $p-color;
   cursor: pointer;
   padding: 0; // Remove default button padding
 
@@ -37,10 +34,10 @@ button.icon-button {
 .response-page {
   padding: 1.3rem;
   margin-top: 2rem;
-  background-color: $white-color;
+  background-color: $background-color;
   height: 70vh;
-  color: $secondary-color;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: $primary-color;
+  box-shadow: $box-shadow;
   border-radius: 8px;
   overflow-y: scroll;
   scrollbar-width: none;
@@ -57,19 +54,19 @@ button.icon-button {
 
 // Domain Card
 .domain-card {
-  background-color: $light-blue; // Lighter shade of #e7f4f9
+  background-color: $secondary-color; // Lighter shade of #e7f4f9
   padding: 1rem;
   margin-bottom: 1rem;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: $box-shadow;
 
   // Domain Card Header
   .domain-card-header {
-    background-color: $light-blue; // Background color for domain name
+    background-color: $secondary-color; // Background color for domain name
     padding: 0.5rem 1rem;
     border-radius: 4px;
     font-weight: bold;
-    color: $secondary-color;
+    color: $primary-color;
     font-size: 1.25rem;
     margin-bottom: 1rem;
   }
@@ -77,17 +74,17 @@ button.icon-button {
 
 // Question Card
 .question-card {
-  background-color: $white-color;
+  background-color: $background-color;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
   border-radius: 8px;
-  border: 1px solid $light-blue;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid $secondary-color;
+  box-shadow: $box-shadow;
 
   // Question Card Title
   .question-card-title {
     font-size: 1rem; // Increased font size for better visibility
-    color: $secondary-color;
+    color: $primary-color;
     margin-bottom: 1rem;
   }
 }
@@ -102,14 +99,14 @@ button.icon-button {
 
 // Bubble
 .bubble {
-  background-color: $light-blue; // Light blue background
+  background-color: $secondary-color; // Light blue background
   border-radius: 12px; // Rounded corners
   padding: 0.5rem 1rem; // Padding inside bubbles
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Optional shadow for better appearance
+  box-shadow: $box-shadow; // Optional shadow for better appearance
   width: 17rem; // Fixed width for bubbles
   text-align: center; // Center text inside bubbles
 }
@@ -117,7 +114,7 @@ button.icon-button {
 // Divider
 .divider {
   margin: 1.5rem 0;
-  border: 1px solid #ddd;
+  border: 1px solid $border-color-light;
 }
 
 // Response Options and Textboxes
@@ -132,8 +129,8 @@ button.icon-button {
   text-align: right; // Align actions to the right
 
   .close-button {
-    background-color: $secondary-color;
-    color: $white-color;
+    background-color: $primary-color;
+    color: $background-color;
     font-weight: bold;
     border-radius: 4px;
     padding: 0.5rem 1rem;
@@ -141,14 +138,14 @@ button.icon-button {
     cursor: pointer;
 
     &:hover {
-      background-color: darken($secondary-color, 10%); // Darker shade on hover
+      background-color: darken($primary-color, 10%); // Darker shade on hover
     }
   }
 }
 
 // No Data Message
 .no-data {
-  color: $red-color; // Red color for emphasis
+  color: $error-color; // Red color for emphasis
   font-size: 1.2rem;
   text-align: center;
   margin-top: 2rem;

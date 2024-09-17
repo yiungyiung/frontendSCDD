@@ -4,6 +4,7 @@ import { VendorComponent } from './vendor.component';
 import { VendorDashboardComponent } from './VendorDashboard/VendorDashboard.component';
 import { QuestionnaireAnsweringComponent } from './QuestionnaireAnswering/QuestionnaireAnswering.component';
 import { ResponsePageComponent } from '../Component/ResponsePage/ResponsePage.component';
+import { FrameworkDetailsComponent } from '../Component/FrameworkDetails/FrameworkDetails.component';
 
 const routes: Routes = [
   {
@@ -11,20 +12,29 @@ const routes: Routes = [
     component: VendorComponent,
     data: { breadcrumb: 'vendor' },
     children: [
-      { path: 'dashboard', component: VendorDashboardComponent,data: { breadcrumb: 'Dashboard' },children: [
-        {
-          path: 'response-page',
-          component: ResponsePageComponent,
-          data: { breadcrumb: 'Response' },
-        }
-      ] },
+      {
+        path: 'dashboard',
+        component: VendorDashboardComponent,
+        data: { breadcrumb: 'Dashboard' },
+        children: [
+          {
+            path: 'response-page',
+            component: ResponsePageComponent,
+            data: { breadcrumb: 'Response' },
+          },
+        ],
+      },
       {
         path: 'answer-questionnaire',
         component: QuestionnaireAnsweringComponent,
         data: { breadcrumb: 'Answer Questionnaire' },
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-
+      {
+        path: 'framework',
+        component: FrameworkDetailsComponent,
+        data: { breadcrumb: 'Framework' },
+      },
       // Add other child routes as needed
     ],
   },

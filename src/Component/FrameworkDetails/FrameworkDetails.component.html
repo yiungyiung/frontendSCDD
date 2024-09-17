@@ -8,9 +8,9 @@
   <ul class="framework-list">
     <li *ngFor="let detail of frameworkDetails" class="framework-item">
       <div class="framework-header" (click)="toggleFramework(detail)">
-        <h3 class="'framework-header-title">
+        <p class="framework-header-title">
           {{ frameworkNames[detail.frameworkID] || "Loading..." }}
-        </h3>
+        </p>
         <span
           class="arrow"
           [ngClass]="{ up: detail.expanded, down: !detail.expanded }"

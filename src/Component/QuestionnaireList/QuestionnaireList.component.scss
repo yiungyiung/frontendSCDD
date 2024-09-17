@@ -1,9 +1,7 @@
+@import '../../style/common.scss';
+
 // Common variables
-$background-color: #fff;
-$highlight-color: #E7F4F9;
 $border-color: #063B58;
-$box-shadow-color: rgba(0, 0, 0, 0.2);
-$border-radius: 8px;
 $border-width: 0.5vh;
 $font-size-title: 3vh;
 $font-size-status-label: 1.7vh;
@@ -19,11 +17,7 @@ $padding: 12px;
 $padding-status-label: 5px 10px;
 $max-width-value: 150px;
 $gap: 5px;
-$shadow-color: rgba(0, 0, 0, 0.2);
 $small-box-shadow: 2px 2px 2px $shadow-color;
-
-$color-secondary: #073c5a;
-$color-orange: #f9a634;
 
 .main-container {
   height: 50vh;
@@ -38,7 +32,7 @@ $color-orange: #f9a634;
 // Title container
 // Title container
 .title-container {
-  background-color: $highlight-color;
+  background-color: $secondary-color;
   height: 9vh;
   width: 100%;
   display: flex;
@@ -190,9 +184,9 @@ $color-orange: #f9a634;
   margin-right: 10px;
   width: 3vh;
   height: auto;
-  color: $color-secondary;
+  color: $primary-color;
 }
 
 .icon-container mat-icon.filter-applied {
-  color: $color-orange;
+  color: $highlight-color;
 }

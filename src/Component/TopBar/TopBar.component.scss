@@ -1,8 +1,5 @@
+@import '../../style/common.scss';
 // Common Variables
-$background-color-header: #e7f4f9;
-$background-color-logo: #e9ecef;
-$icon-color: #073c5a;
-$icon-hover-color: #f9a634;
 $header-height: 8vh;
 $logo-height: 3.5vh;
 $sidenav-width: 20vw;
@@ -14,7 +11,7 @@ $z-index-sidenav: 1001;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: $background-color-header;
+  background-color: $secondary-color;
   padding: 2vh 0.5vw;
   height: $header-height;
 }
@@ -41,7 +38,7 @@ $z-index-sidenav: 1001;
 
 .logo {
   font-weight: bold;
-  background-color: $background-color-logo;
+  background-color: $border-color;
   padding: 0.5vh 0vw;
 }
 
@@ -53,7 +50,7 @@ $z-index-sidenav: 1001;
 
 .icon {
   margin-right: 1.5vw;
-  @include icon-style($icon-color, $icon-hover-color);
+  @include icon-style($primary-color, $highlight-color);
   height: auto;
 }
 
@@ -70,7 +67,7 @@ $z-index-sidenav: 1001;
 
 .sidenav {
   width: $sidenav-width;
-  background-color: $background-color-header;
+  background-color: $secondary-color;
   color: white;
   z-index: $z-index-sidenav;
   position: fixed;

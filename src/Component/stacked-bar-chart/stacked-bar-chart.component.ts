@@ -15,7 +15,7 @@ export class StackedBarChartComponent implements OnChanges {
     isStacked: true,
     hAxis: {
       gridlines: {
-        color: 'transparent'
+        color: 'transparent',
       },
       title: 'Year',
       format: '0',
@@ -23,15 +23,15 @@ export class StackedBarChartComponent implements OnChanges {
       slantedTextAngle: 45, // Adjust the angle as needed
       textStyle: {
         color: '#000000', // Set text color
-        fontSize: 12 // Adjust font size
-      }
+        fontSize: 12, // Adjust font size
+      },
     },
     vAxis: {
       title: 'Total Vendors',
       textStyle: {
         color: '#000000', // Set text color
-        fontSize: 12 // Adjust font size
-      }
+        fontSize: 12, // Adjust font size
+      },
     },
     legend: { position: 'bottom' },
   };
@@ -46,13 +46,13 @@ export class StackedBarChartComponent implements OnChanges {
 
   private updateChart() {
     console.log('Original Chart Data:', this.chartData);
-    
+
     if (this.chartData && this.chartData.length > 1) {
       // Preserve the header row (legend information)
       const headerRow = this.chartData[0];
-      
+
       // Process the data rows
-      const dataRows = this.chartData.slice(1).map(row => {
+      const dataRows = this.chartData.slice(1).map((row) => {
         if (typeof row[0] === 'string') {
           return [parseInt(row[0], 10), ...row.slice(1)];
         }
@@ -60,11 +60,11 @@ export class StackedBarChartComponent implements OnChanges {
       });
 
       // Combine the header row with the processed data rows
-      this.formattedChartData = [ ...dataRows];
-      this.columnNames=headerRow
+      this.formattedChartData = [...dataRows];
+      this.columnNames = headerRow;
       console.log(this.columnNames);
     }
-    
+
     console.log('Formatted Chart Data:', this.formattedChartData);
   }
 }

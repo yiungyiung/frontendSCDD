@@ -1,27 +1,19 @@
+@import '../../style/common.scss';
+
 // Common variables
-$border-color: #e6e6e6;
-$border-radius: 10px;
-$background-color: #ffffff;
-$box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-$padding: 10px;
-$text-border-color: #ccc;
-$delete-btn-color: #ff5c5c;
 $add-option-bg-color: #f0f7fb;
 $add-option-text-color: #333;
 $font-size-add-option-btn: 14px;
-$font-size-delete-btn: 18px;
 $margin-bottom-form: 6vh;
 $margin-top-form: 3vh;
 $margin-left-form: 0.6vw;
-$max-width-text: 400px;
 $option-padding: 10px;
-$option-border-radius: 5px;
 $icon-height: auto;
 
 // Form section
 .form-section {
   padding: 15px;
-  border: 1px solid $border-color;
+  border: 1px solid $border-color-form;
   border-radius: $border-radius;
   background-color: $background-color;
   box-shadow: $box-shadow;
@@ -62,9 +54,9 @@ $icon-height: auto;
 .form-group {
   input[type="text"] {
     width: 100%;
-    padding: $padding;
-    border: 1px solid $text-border-color;
-    border-radius: $option-border-radius;
+    padding: $padding-input;
+    border: 1px solid $border-color-input;
+    border-radius: $border-radius-input;
     margin-bottom: 10px;
   }
 }
@@ -77,11 +69,11 @@ $icon-height: auto;
   
   input[type="text"] {
     flex: 1;
-    max-width: $max-width-text;
+    max-width: $max-width-input;
     margin-right: 10px;
-    padding: $padding;
-    border: 1px solid $text-border-color;
-    border-radius: $option-border-radius;
+    padding: $padding-input;
+    border: 1px solid $border-color-input;
+    border-radius: $border-radius-input;
   }
   
   input[type="radio"] {
@@ -99,7 +91,7 @@ $icon-height: auto;
   border: none;
   font-size: $font-size-delete-btn;
   cursor: pointer;
-  color: $delete-btn-color;
+  color: $btn-danger-color;
 }
 
 // Add option button
@@ -107,8 +99,8 @@ $icon-height: auto;
   background-color: $add-option-bg-color;
   border: none;
   color: $add-option-text-color;
-  padding: $padding 15px;
-  border-radius: $option-border-radius;
+  padding: $padding-input 15px;
+  border-radius: $border-radius-input;
   cursor: pointer;
   font-size: $font-size-add-option-btn;
   display: inline-block;

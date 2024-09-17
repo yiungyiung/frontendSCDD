@@ -417,6 +417,7 @@ $color-primary-border: rgba($color-primary, 0.5); // Adjust the opacity as neede
   border-color: #12789e;
   color: white;
   height:auto;
+  border-radius: 4px;
   &:hover {
     background-color: darken(#12789e, 10%);
     border-color: darken(#12789e, 10%);
