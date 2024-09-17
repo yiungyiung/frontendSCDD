@@ -6,7 +6,7 @@ Here’s a detailed, well-organized, and professional README for your Angular pr
 
 ## **Overview**
 
-The Vendor-Admin Portal is an Angular-based web application designed for seamless interaction between vendors and administrators. It offers role-based access to various functionalities such as questionnaire management, reporting, dynamic responses, and more. Admins can manage users, vendors, and questionnaires, while vendors can answer questionnaires and manage their own data. The portal is built with lazy-loaded modules for optimized performance and utilizes Angular Material, Google Charts, Bootstrap, and various other libraries to enhance UI/UX.
+This project is a web-based platform for managing supply chain due diligence processes, developed with Angular. It provides administrators and vendors with tools to streamline questionnaire management, reporting, and overall compliance in supply chain operations.
 
 ---
 
