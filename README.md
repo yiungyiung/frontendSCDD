@@ -30,7 +30,6 @@ This project is a web-based platform for managing supply chain due diligence pro
 6. [Routing](#routing)
 7. [Services](#services)
 8. [Guards](#guards)
-9. [Dependencies](#dependencies)
 
 ---
 
