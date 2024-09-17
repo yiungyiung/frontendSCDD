@@ -1,4 +1,3 @@
-Here’s a detailed, well-organized, and professional README for your Angular project. It covers all the essential aspects like the project overview, setup instructions, directory structure, and more.
 
 ---
 
