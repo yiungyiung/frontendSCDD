@@ -12,4 +12,9 @@ export class AdminComponent implements OnInit {
   ){}
   ngOnInit(): void {
   }
+  hasRole(allowedRoles: Array<string>): boolean {
+    const token = this.authService.getToken();
+    const userRole = this.authService.getRoleFromToken(token);
+    return allowedRoles.includes(userRole);
+  }
 }

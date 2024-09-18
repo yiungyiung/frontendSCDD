@@ -1,51 +1,50 @@
-<!-- admin.component.html -->
 <div>
-  <div class="custom-padded-content">
-    <app-TopBar></app-TopBar>
-    <nav class="custom-navbar">
-      <app-nav-item
-        svgIcon="dashboard"
-        text="Dashboard"
-        href="/admin/dashboard"
-      >
-      </app-nav-item>
-      <app-nav-item
-        svgIcon="framework"
-        text="Framework"
-        href="/admin/framework"
-      >
-      </app-nav-item>
-      <app-nav-item
-        svgIcon="vendors"
-        text="Manage Vendors"
-        href="/admin/vendor-management"
-      >
-      </app-nav-item>
-      <app-nav-item svgIcon="ques" text="Questionnaire" [hasSubPanel]="true">
-        <a class="nav-text-container" href="/admin/AssignExistingQuestionnarie"
-          ><button class="nav-text">Assign Existing Questionnaire</button></a
-        >
+    <div class="custom-padded-content">
+        <app-TopBar></app-TopBar>
+        <nav class="custom-navbar">
 
-        <a class="nav-text-container" href="/admin/CreateNewQuestionnarie">
-          <button class="nav-text">Assign New Questionnaire</button>
-        </a>
-        <a class="nav-text-container" href="/admin/Add-question"
-          ><button class="nav-text">Add Question</button></a
-        >
-      </app-nav-item>
-      <app-nav-item svgIcon="users" text="Users" href="/admin/user-management">
-      </app-nav-item>
-      <app-nav-item svgIcon="reports" text="Reports" [hasSubPanel]="true">
-        <a class="nav-text-container" href="/admin/reports"
-          ><button class="nav-text">Reports</button></a
-        >
-        <a class="nav-text-container" href="/admin/dynamicReports"
-          ><button class="nav-text">Dynamic Reports</button></a
-        >
-      </app-nav-item>
-    </nav>
-    <app-Breadcrumb></app-Breadcrumb>
-    <router-outlet></router-outlet>
-  </div>
-  <app-disclaimerFooter></app-disclaimerFooter>
+            <!-- Dashboard: Visible to Admin, Manager, Analyst -->
+            <app-nav-item svgIcon="dashboard" text="Dashboard" href="/admin/dashboard" *ngIf="hasRole(['Admin', 'Manager', 'Analyst'])">
+            </app-nav-item>
+
+            <!-- Framework: Visible to Admin and Manager -->
+            <app-nav-item svgIcon="framework" text="Framework" href="/admin/framework" *ngIf="hasRole(['Admin', 'Manager'])">
+            </app-nav-item>
+
+            <!-- Manage Vendors: Visible to Admin and Manager -->
+            <app-nav-item svgIcon="vendors" text="Manage Vendors" href="/admin/vendor-management" *ngIf="hasRole(['Admin', 'Manager'])">
+            </app-nav-item>
+
+            <!-- Questionnaire: Visible to Admin and Manager -->
+            <app-nav-item svgIcon="ques" text="Questionnaire" [hasSubPanel]="true" *ngIf="hasRole(['Admin', 'Manager'])">
+                <a class="nav-text-container" href="/admin/AssignExistingQuestionnarie">
+                    <button class="nav-text">Assign Existing Questionnaire</button>
+                </a>
+                <a class="nav-text-container" href="/admin/CreateNewQuestionnarie">
+                    <button class="nav-text">Assign New Questionnaire</button>
+                </a>
+                <a class="nav-text-container" href="/admin/Add-question">
+                    <button class="nav-text">Add Question</button>
+                </a>
+            </app-nav-item>
+
+            <!-- Users: Visible only to Admin -->
+            <app-nav-item svgIcon="users" text="Users" href="/admin/user-management" *ngIf="hasRole(['Admin'])">
+            </app-nav-item>
+
+            <!-- Reports: Visible to Admin, Manager, Analyst -->
+            <app-nav-item svgIcon="reports" text="Reports" [hasSubPanel]="true" *ngIf="hasRole(['Admin', 'Manager', 'Analyst'])">
+                <a class="nav-text-container" href="/admin/reports">
+                    <button class="nav-text">Reports</button>
+                </a>
+                <a class="nav-text-container" href="/admin/dynamicReports">
+                    <button class="nav-text">Dynamic Reports</button>
+                </a>
+            </app-nav-item>
+
+        </nav>
+        <app-Breadcrumb></app-Breadcrumb>
+        <router-outlet></router-outlet>
+    </div>
+    <app-disclaimerFooter></app-disclaimerFooter>
 </div>
