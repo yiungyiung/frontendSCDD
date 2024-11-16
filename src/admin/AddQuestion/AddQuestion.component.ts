@@ -66,6 +66,7 @@ export class AddQuestionComponent implements OnInit {
     'Category',
     'Options',
     'Textboxes Label',
+    'FileUploads',
   ];
 
   onFileParsed(parsedData: any[]): void {
@@ -148,14 +149,14 @@ export class AddQuestionComponent implements OnInit {
             orderIndex: index + 1,
             uomid: 1,
           })),
-        /*
-        fileUploads: questionData.FileUploads
-          ? questionData.FileUploads.split(',').map((file: string) =>
-              file.trim()
-            )
+        fileUploads: questionData['FileUploads']
+          ? questionData['FileUploads'].split(',').map((label: string) => ({
+              label: label.trim(),
+              orderIndex: 0,
+            }))
           : [],
-*/
-        fileUploads: [],
+
+        //fileUploads: [],
         frameworkIDs: frameworkIDs,
       };
       console.log('Questionnn:', newQuestion);
