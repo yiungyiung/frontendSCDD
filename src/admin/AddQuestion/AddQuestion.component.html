@@ -1,11 +1,18 @@
 <div class="container">
   <button class="btn-primary" (click)="onSubmit()">Add Question</button>
+
   <div class="row">
     <div class="col-md-6">
       <div></div>
       <div class="card mb-3">
         <div class="addusertitle">
           <h4 class="card-header">Add New Question</h4>
+          <mat-icon
+            *ngIf="!showFileUpload"
+            svgIcon="uploadButton"
+            (click)="toggleFileUpload()"
+            type="button"
+          ></mat-icon>
         </div>
 
         <div class="form">

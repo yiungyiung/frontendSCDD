@@ -66,8 +66,6 @@ export class AddQuestionComponent implements OnInit {
     'Category',
     'Options',
     'Textboxes Label',
-    'UOMID',
-    'FileUpload Labels',
   ];
 
   onFileParsed(parsedData: any[]): void {
@@ -96,28 +94,89 @@ export class AddQuestionComponent implements OnInit {
     token: string
   ): Promise<void> {
     try {
+      const selectedDomain = this.Domain.find(
+        (domain) => domain.domainName === questionData.Domain
+      );
+      const domainID = selectedDomain ? selectedDomain.domainID : null;
+      if (!domainID) {
+        throw new Error(
+          `Domain not found for domain name: ${questionData.Domain}`
+        );
+      }
+      const selectedCategory = this.Category.find(
+        (category) => category.categoryName === questionData.Category
+      );
+      const categoryID = selectedCategory ? selectedCategory.categoryID : null;
+      if (!categoryID) {
+        throw new Error(
+          `Category not found for category name: ${questionData.CategoryName}`
+        );
+      }
+
+      const frameworkIDs = questionData.Frameworks
+        ? questionData.Frameworks.split(',').map((frameworkName: string) => {
+            const selectedFramework = this.Framework.find(
+              (framework) => framework.frameworkName === frameworkName.trim()
+            );
+            if (!selectedFramework) {
+              throw new Error(
+                `Framework not found for framework name: ${frameworkName}`
+              );
+            }
+            return selectedFramework.frameworkID;
+          })
+        : [];
+
       const newQuestion: Question = {
         questionText: questionData.QuestionText,
         description: questionData.Description,
-        orderIndex: questionData.OrderIndex,
-        domainID: questionData.DomainID,
-        categoryID: questionData.CategoryID,
-        options: questionData.Options.map((opt: any, index: number) => ({
-          optionText: opt.optionText,
-          orderIndex: index + 1,
-        })),
-        textboxes: questionData.Textboxes.map(
-          (textbox: any, index: number) => ({
-            label: textbox.Label,
+        orderIndex: 1,
+        domainID: domainID,
+        categoryID: categoryID,
+
+        options: questionData.Options.split(',').map(
+          (optionText: string, index: number) => ({
+            optionText: optionText.trim(),
             orderIndex: index + 1,
-            uomid: textbox.UOMID,
           })
         ),
-        fileUploads: questionData.FileUploads || [],
-        frameworkIDs: questionData.FrameworkIDs || [],
-      };
 
-      await this.questionService.addQuestion(newQuestion, token).toPromise();
+        textboxes: questionData['Textboxes Label']
+          .split(',')
+          .map((label: string, index: number) => ({
+            label: label.trim(),
+            orderIndex: index + 1,
+            uomid: 1,
+          })),
+        /*
+        fileUploads: questionData.FileUploads
+          ? questionData.FileUploads.split(',').map((file: string) =>
+              file.trim()
+            )
+          : [],
+*/
+        fileUploads: [],
+        frameworkIDs: frameworkIDs,
+      };
+      console.log('Questionnn:', newQuestion);
+
+      this.questionService.addQuestion(newQuestion, token).subscribe(
+        (response) => {
+          console.log('Response:', response);
+          this.popupService.showPopup(
+            'New Question added sucessfully',
+            '#339a2d'
+          );
+          this.router.navigate(['/admin/dashboard']);
+        },
+        (error) => {
+          console.error('Error:', error);
+          this.popupService.showPopup(
+            'There was an error while adding new question. Please try again',
+            '#dc3545'
+          );
+        }
+      );
     } catch (error) {
       console.error('Error adding question from file:', error);
       throw error;
