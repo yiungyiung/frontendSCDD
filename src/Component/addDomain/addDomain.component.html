@@ -1,0 +1,20 @@
+<!-- Export Modal -->
+<div class="domain-name-container">
+  <h3>Enter Domain Name</h3>
+
+  <!-- Domain Name Input -->
+  <input
+    type="text"
+    id="domainNameInput"
+    placeholder="Enter Domain Name"
+    [(ngModel)]="domainName"
+  />
+
+  <div class="button-group">
+    <!-- Cancel Button -->
+    <button class="cancel-button" (click)="onCancel()">Cancel</button>
+
+    <!-- Submit Button -->
+    <button class="submit-button" (click)="onSubmit()">Submit</button>
+  </div>
+</div>

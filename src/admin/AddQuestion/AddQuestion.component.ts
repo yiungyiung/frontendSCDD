@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Domain, Framework } from '../../model/entity';
+import { Domain, Framework, UnitOfMeasurement } from '../../model/entity';
 import { Question, Textbox, FileUpload, Option } from '../../model/question';
 import { EntityService } from '../../services/EntityService/Entity.service';
 import { AuthService } from '../../services/AuthService/auth.service';
@@ -7,6 +7,9 @@ import { QuestionService } from '../../services/QuestionService/Question.service
 import { PopupService } from '../../services/PopupService/popup.service';
 import { Router } from '@angular/router';
 import { Category } from '../../model/category';
+import { AddDomainComponent } from '../../Component/addDomain/addDomain.component';
+import { MatDialog } from '@angular/material/dialog';
+import { AddUomComponent } from '../../Component/addUom/addUom.component';
 
 enum QuestionType {
   SELECT_ONE = 'SELECT_ONE',
@@ -50,7 +53,8 @@ export class AddQuestionComponent implements OnInit {
     private entityService: EntityService,
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -66,8 +70,31 @@ export class AddQuestionComponent implements OnInit {
     'Category',
     'Options',
     'Textboxes Label',
+    'Uom',
     'FileUploads',
   ];
+
+  openAddDomainModal(): void {
+    const dialogRef = this.dialog.open(AddDomainComponent, {
+      width: '400px',
+      data: {},
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed', result);
+      this.loadDomain();
+    });
+  }
+  openAddUomModal(): void {
+    const dialogRef = this.dialog.open(AddUomComponent, {
+      width: '400px',
+      data: {},
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed', result);
+    });
+  }
 
   onFileParsed(parsedData: any[]): void {
     this.showFileUpload = false;
@@ -128,6 +155,32 @@ export class AddQuestionComponent implements OnInit {
           })
         : [];
 
+      let uomIDs: number[] = []; // Default UOM ID
+      const uomLabel = questionData['Uom']?.split(',')[0]?.trim();
+      if (uomLabel) {
+        console.log(uomLabel);
+        // Fetch the list of all Unit of Measurements
+        const unitOfMeasurements = await this.entityService
+          .getAllUnitsOfMeasurement(token)
+          .toPromise();
+        if (unitOfMeasurements) {
+          // Check if unitOfMeasurements is defined
+          const selectedUOM = unitOfMeasurements.find(
+            (uom: UnitOfMeasurement) => uom.uomType === uomLabel
+          );
+          if (selectedUOM) {
+            uomIDs.push(selectedUOM.uomid); // Add the UOM ID to the array
+          } else {
+            uomIDs.push(1); // Default UOM ID if no match found
+          }
+        } else {
+          console.warn('No units of measurement found.');
+          uomIDs.push(1); // Default UOM ID if no UOMs found
+        }
+      } else {
+        uomIDs.push(1); // Default UOM ID if no label is provided
+      }
+
       const newQuestion: Question = {
         questionText: questionData.QuestionText,
         description: questionData.Description,
@@ -147,7 +200,7 @@ export class AddQuestionComponent implements OnInit {
           .map((label: string, index: number) => ({
             label: label.trim(),
             orderIndex: index + 1,
-            uomid: 1,
+            uomid: uomIDs[index] !== undefined ? uomIDs[index] : 1,
           })),
         fileUploads: questionData['FileUploads']
           ? questionData['FileUploads'].split(',').map((label: string) => ({

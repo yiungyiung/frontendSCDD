@@ -1,0 +1,20 @@
+<!-- Export Modal -->
+<div class="domain-name-container">
+  <h3>Enter Uom Name</h3>
+
+  <!-- Domain Name Input -->
+  <input
+    type="text"
+    id="domainNameInput"
+    placeholder="Enter Unit of Measurement"
+    [(ngModel)]="uomName"
+  />
+
+  <div class="button-group">
+    <!-- Cancel Button -->
+    <button class="cancel-button" (click)="onCancel()">Cancel</button>
+
+    <!-- Submit Button -->
+    <button class="submit-button" (click)="onSubmit()">Submit</button>
+  </div>
+</div>

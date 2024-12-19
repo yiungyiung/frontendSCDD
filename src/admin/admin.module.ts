@@ -30,13 +30,15 @@ import { DynamicQuestionnairelistComponent } from '../Component/DynamicQuestionn
 import { DynamicDisplayComponent } from '../Component/DynamicDisplay/DynamicDisplay.component';
 import { DynamicVendorListComponent } from '../Component/DynamicVendorList/DynamicVendorList.component';
 import { DynamicResponseListComponent } from '../Component/DynamicResponseList/DynamicResponseList.component';
+import { AddDomainComponent } from '../Component/addDomain/addDomain.component';
+import { AddUomComponent } from '../Component/addUom/addUom.component';
 @NgModule({
   imports: [FormsModule],
 })
 export class AppModule {}
 
 @NgModule({
-  imports: [SharedModule, AdminRoutingModule,],
+  imports: [SharedModule, AdminRoutingModule],
   declarations: [
     DynamicQuestionnairelistComponent,
     DynamicReportsComponent,
@@ -67,6 +69,8 @@ export class AppModule {}
     UserFormComponent,
     SelectQuestionsComponent,
     VendorFormComponent,
+    AddDomainComponent,
+    AddUomComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

@@ -11,6 +11,7 @@
           required
           (change)="onSelectQuestionnaire($event)"
         >
+          <option value="" disabled selected>Select a Questionnaire</option>
           <option
             *ngFor="let questionnaire of questionnaires"
             [value]="questionnaire.questionnaireID"
